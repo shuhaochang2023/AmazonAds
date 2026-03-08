@@ -1,0 +1,7 @@
+/dbj/*.xlsx
+  Content-Disposition: attachment
+  Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+
+/daiken/*.xlsx
+  Content-Disposition: attachment
+  Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
