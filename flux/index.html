@@ -39,8 +39,10 @@
 <div class="mkt-bar">
   <div class="brand">⚡ Flux</div>
     <button class="mkt-btn active" onclick="switchMkt('us',this)">🇺🇸 US</button>
+    <button class="mkt-btn" onclick="switchMkt('ca',this)">🇨🇦 CA</button>
 </div>
   <iframe id="fr-us" src="./us.html" style="display:block" frameborder="0"></iframe>
+  <iframe id="fr-ca" src="./ca.html" style="display:none" frameborder="0"></iframe>
 
 <script>
 function switchMkt(mkt, btn) {
