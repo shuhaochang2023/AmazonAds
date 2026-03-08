@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flux — Multi-Market Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:#f1f5f9;}
+  .mkt-bar{
+    display:flex;align-items:center;gap:0;
+    background:#fff;border-bottom:2px solid #e2e8f0;
+    padding:0 24px;height:48px;position:sticky;top:0;z-index:200;
+    box-shadow:0 1px 4px rgba(0,0,0,.06);
+  }
+  .mkt-bar .brand{
+    font-size:15px;font-weight:800;color:#2563eb;letter-spacing:.04em;
+    margin-right:24px;white-space:nowrap;
+  }
+  .mkt-btn{
+    border:none;background:none;cursor:pointer;
+    font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
+    color:#64748b;padding:12px 18px;position:relative;
+    transition:color .15s;white-space:nowrap;
+  }
+  .mkt-btn:hover{color:#0f172a;}
+  .mkt-btn.active{color:#2563eb;}
+  .mkt-btn.active::after{
+    content:'';position:absolute;bottom:-2px;left:12px;right:12px;
+    height:3px;background:#2563eb;border-radius:3px 3px 0 0;
+  }
+  iframe{
+    width:100%;height:calc(100vh - 48px);border:none;
+  }
+</style>
+</head>
+<body>
+<div class="mkt-bar">
+  <div class="brand">⚡ Flux</div>
+    <button class="mkt-btn active" onclick="switchMkt('us',this)">🇺🇸 US</button>
+</div>
+  <iframe id="fr-us" src="./us.html" style="display:block" frameborder="0"></iframe>
+
+<script>
+function switchMkt(mkt, btn) {
+  document.querySelectorAll('.mkt-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('iframe').forEach(f => f.style.display = 'none');
+  document.getElementById('fr-' + mkt).style.display = 'block';
+}
+</script>
+</body>
+</html>
