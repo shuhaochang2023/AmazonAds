@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daiken Amazon 銷售分析報告</title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f0f2f5; color: #1a1a2e; line-height: 1.6; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+    h1 { font-size: 1.8rem; margin-bottom: 4px; }
+    .subtitle { color: #64748b; margin-bottom: 24px; font-size: 0.9rem; }
+
+    .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .summary-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    .summary-card .label { font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+    .summary-card .value { font-size: 1.5rem; font-weight: 700; margin-top: 4px; }
+
+    .ranking-container { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+    .ranking-section { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    .ranking-section h3 { margin-bottom: 12px; font-size: 1.1rem; }
+    .ranking-green h3 { color: #16a34a; }
+    .ranking-red h3 { color: #dc2626; }
+    .ranking-item { padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+    .ranking-item:last-child { border-bottom: none; }
+    .ranking-label { font-size: 0.8rem; color: #64748b; }
+    .ranking-asin { font-weight: 700; font-size: 1rem; font-family: monospace; }
+    .ranking-detail { font-size: 0.8rem; color: #475569; margin-top: 2px; }
+
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    th { background: #1e293b; color: #fff; padding: 12px 10px; font-size: 0.8rem; text-align: left; white-space: nowrap; }
+    td { padding: 10px; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+    tr:hover { background: #f8fafc; }
+    .asin { font-family: monospace; font-weight: 600; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .positive { color: #16a34a; }
+    .negative { color: #dc2626; }
+
+    .footer { text-align: center; color: #94a3b8; font-size: 0.75rem; margin-top: 32px; }
+
+    @media (max-width: 768px) {
+        .ranking-container { grid-template-columns: 1fr; }
+        table { font-size: 0.75rem; }
+        td, th { padding: 6px 4px; }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Daiken Amazon 銷售分析報告</h1>
+    <div class="subtitle">資料期間： ｜ 報告產生時間：2026-03-08 11:06</div>
+
+    <div class="summary-grid">
+        <div class="summary-card">
+            <div class="label">總銷售額</div>
+            <div class="value">£36,489.10</div>
+        </div>
+        <div class="summary-card">
+            <div class="label">總訂單數</div>
+            <div class="value">1,210</div>
+        </div>
+        <div class="summary-card">
+            <div class="label">總利潤</div>
+            <div class="value" style="color:#16a34a">£1,215.97</div>
+        </div>
+        <div class="summary-card">
+            <div class="label">整體利潤率</div>
+            <div class="value">3.33%</div>
+        </div>
+        <div class="summary-card">
+            <div class="label">PPC 總花費</div>
+            <div class="value">£21,158.78</div>
+        </div>
+        <div class="summary-card">
+            <div class="label">整體 ACOS</div>
+            <div class="value">178.60%</div>
+        </div>
+        <div class="summary-card">
+            <div class="label">整體 TACOS</div>
+            <div class="value">57.99%</div>
+        </div>
+        <div class="summary-card">
+            <div class="label">ASIN 數量</div>
+            <div class="value">13</div>
+        </div>
+    </div>
+
+    <div class="ranking-container">
+        
+        <div class="ranking-section ranking-green">
+            <h3>🏆 表現最佳</h3>
+            
+            <div class="ranking-item">
+                <div class="ranking-label">銷售額最高</div>
+                <div class="ranking-asin">B09Y8VBQTV</div>
+                <div class="ranking-detail">
+                    銷售額 £7,017.00 ｜ 利潤率 -5.64% ｜ ACOS 139.20%
+                </div>
+            </div>
+            <div class="ranking-item">
+                <div class="ranking-label">利潤率最高</div>
+                <div class="ranking-asin">B0DTYLYN6B</div>
+                <div class="ranking-detail">
+                    銷售額 £3,928.08 ｜ 利潤率 62.74% ｜ ACOS 36.89%
+                </div>
+            </div>
+            <div class="ranking-item">
+                <div class="ranking-label">ACOS 最低（最佳）</div>
+                <div class="ranking-asin">B0DTYLYN6B</div>
+                <div class="ranking-detail">
+                    銷售額 £3,928.08 ｜ 利潤率 62.74% ｜ ACOS 36.89%
+                </div>
+            </div>
+        </div>
+        
+        <div class="ranking-section ranking-red">
+            <h3>⚠️ 需要關注</h3>
+            
+            <div class="ranking-item">
+                <div class="ranking-label">銷售額最低</div>
+                <div class="ranking-asin">B0DTTVGD2F</div>
+                <div class="ranking-detail">
+                    銷售額 £69.95 ｜ 利潤率 -172.75% ｜ ACOS —
+                </div>
+            </div>
+            <div class="ranking-item">
+                <div class="ranking-label">利潤率最低</div>
+                <div class="ranking-asin">B0DTTVGD2F</div>
+                <div class="ranking-detail">
+                    銷售額 £69.95 ｜ 利潤率 -172.75% ｜ ACOS —
+                </div>
+            </div>
+            <div class="ranking-item">
+                <div class="ranking-label">ACOS 最高（最差）</div>
+                <div class="ranking-asin">B0G7K4CHWG</div>
+                <div class="ranking-detail">
+                    銷售額 £5,387.06 ｜ 利潤率 -108.46% ｜ ACOS 270.09%
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 style="margin-bottom: 12px;">各 ASIN 詳細數據</h2>
+    <div style="overflow-x: auto;">
+    <table>
+        <thead>
+            <tr>
+                <th>ASIN</th>
+                <th>訂單數</th>
+                <th>銷售件數</th>
+                <th>銷售額</th>
+                <th>利潤</th>
+                <th>利潤率</th>
+                <th>PPC 花費</th>
+                <th>ACOS</th>
+                <th>TACOS</th>
+                <th>退款件數</th>
+                <th>活躍天數</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr>
+            <td class="asin">B09Y8VBQTV</td>
+            <td class="num">286</td>
+            <td class="num">300</td>
+            <td class="num">£7,017.00</td>
+            <td class="num negative">£-395.54</td>
+            <td class="num negative">-5.64%</td>
+            <td class="num">£4,720.94</td>
+            <td class="num">139.20%</td>
+            <td class="num">67.28%</td>
+            <td class="num">2</td>
+            <td class="num">35</td>
+        </tr>
+        <tr>
+            <td class="asin">B0DTYCNVQV</td>
+            <td class="num">206</td>
+            <td class="num">222</td>
+            <td class="num">£6,209.58</td>
+            <td class="num positive">£3,282.01</td>
+            <td class="num positive">52.85%</td>
+            <td class="num">£666.76</td>
+            <td class="num">82.69%</td>
+            <td class="num">10.74%</td>
+            <td class="num">3</td>
+            <td class="num">35</td>
+        </tr>
+        <tr>
+            <td class="asin">B0G7K4CHWG</td>
+            <td class="num">290</td>
+            <td class="num">309</td>
+            <td class="num">£5,387.06</td>
+            <td class="num negative">£-5,843.02</td>
+            <td class="num negative">-108.46%</td>
+            <td class="num">£8,757.79</td>
+            <td class="num">270.09%</td>
+            <td class="num">162.57%</td>
+            <td class="num">8</td>
+            <td class="num">35</td>
+        </tr>
+        <tr>
+            <td class="asin">B0DTYLYN6B</td>
+            <td class="num">67</td>
+            <td class="num">74</td>
+            <td class="num">£3,928.08</td>
+            <td class="num positive">£2,464.58</td>
+            <td class="num positive">62.74%</td>
+            <td class="num">£227.19</td>
+            <td class="num">36.89%</td>
+            <td class="num">5.78%</td>
+            <td class="num">0</td>
+            <td class="num">35</td>
+        </tr>
+        <tr>
+            <td class="asin">B0DTT8T7X1</td>
+            <td class="num">49</td>
+            <td class="num">66</td>
+            <td class="num">£3,180.84</td>
+            <td class="num positive">£1,190.18</td>
+            <td class="num positive">37.42%</td>
+            <td class="num">£399.03</td>
+            <td class="num">127.11%</td>
+            <td class="num">12.54%</td>
+            <td class="num">0</td>
+            <td class="num">31</td>
+        </tr>
+        <tr>
+            <td class="asin">B0G7K1VC4G</td>
+            <td class="num">77</td>
+            <td class="num">87</td>
+            <td class="num">£2,876.13</td>
+            <td class="num positive">£1,386.49</td>
+            <td class="num positive">48.21%</td>
+            <td class="num">£432.02</td>
+            <td class="num">114.33%</td>
+            <td class="num">15.02%</td>
+            <td class="num">1</td>
+            <td class="num">35</td>
+        </tr>
+        <tr>
+            <td class="asin">B0DV3VX26C</td>
+            <td class="num">96</td>
+            <td class="num">103</td>
+            <td class="num">£2,831.47</td>
+            <td class="num negative">£-764.93</td>
+            <td class="num negative">-27.02%</td>
+            <td class="num">£2,612.30</td>
+            <td class="num">157.18%</td>
+            <td class="num">92.26%</td>
+            <td class="num">2</td>
+            <td class="num">35</td>
+        </tr>
+        <tr>
+            <td class="asin">B0DTTHJCRL</td>
+            <td class="num">72</td>
+            <td class="num">75</td>
+            <td class="num">£2,024.25</td>
+            <td class="num negative">£-626.95</td>
+            <td class="num negative">-30.97%</td>
+            <td class="num">£1,876.53</td>
+            <td class="num">230.19%</td>
+            <td class="num">92.70%</td>
+            <td class="num">1</td>
+            <td class="num">35</td>
+        </tr>
+        <tr>
+            <td class="asin">B0DV3SJ8LK</td>
+            <td class="num">24</td>
+            <td class="num">33</td>
+            <td class="num">£1,781.67</td>
+            <td class="num positive">£771.25</td>
+            <td class="num positive">43.29%</td>
+            <td class="num">£466.63</td>
+            <td class="num">156.88%</td>
+            <td class="num">26.19%</td>
+            <td class="num">0</td>
+            <td class="num">35</td>
+        </tr>
+        <tr>
+            <td class="asin">B0FH6BX4GQ</td>
+            <td class="num">19</td>
+            <td class="num">22</td>
+            <td class="num">£527.78</td>
+            <td class="num negative">£-464.50</td>
+            <td class="num negative">-88.01%</td>
+            <td class="num">£781.40</td>
+            <td class="num">241.03%</td>
+            <td class="num">148.05%</td>
+            <td class="num">0</td>
+            <td class="num">35</td>
+        </tr>
+        <tr>
+            <td class="asin">B0FH6DDW63</td>
+            <td class="num">8</td>
+            <td class="num">10</td>
+            <td class="num">£440.90</td>
+            <td class="num positive">£236.62</td>
+            <td class="num positive">53.67%</td>
+            <td class="num">£45.17</td>
+            <td class="num">—</td>
+            <td class="num">10.24%</td>
+            <td class="num">0</td>
+            <td class="num">29</td>
+        </tr>
+        <tr>
+            <td class="asin">B0DTTT9WTN</td>
+            <td class="num">11</td>
+            <td class="num">11</td>
+            <td class="num">£214.39</td>
+            <td class="num positive">£100.62</td>
+            <td class="num positive">46.93%</td>
+            <td class="num">£13.76</td>
+            <td class="num">—</td>
+            <td class="num">6.42%</td>
+            <td class="num">1</td>
+            <td class="num">21</td>
+        </tr>
+        <tr>
+            <td class="asin">B0DTTVGD2F</td>
+            <td class="num">5</td>
+            <td class="num">5</td>
+            <td class="num">£69.95</td>
+            <td class="num negative">£-120.84</td>
+            <td class="num negative">-172.75%</td>
+            <td class="num">£159.26</td>
+            <td class="num">—</td>
+            <td class="num">227.68%</td>
+            <td class="num">0</td>
+            <td class="num">28</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+
+    <div class="footer">Amazon Autopilot — 自動生成報告</div>
+</div>
+</body>
+</html>
