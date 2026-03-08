@@ -1,0 +1,13 @@
+# 內部檔案，不公開
+clients/
+core/
+output/
+scripts/
+reports/
+logs/
+CLAUDE.md
+.DS_Store
+.claude/
+*.py
+*.csv
+*.xlsx
