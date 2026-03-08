@@ -57,11 +57,37 @@ OUTPUT_HTML  = OUTPUT_DIR / "GF_US_Feb-Mar_2026.html"
 # ── Frozen weeks (none — all weeks computed fresh from CSV) ──────────────
 FROZEN_WEEKS = []
 
-# ── Parent visual config (GF US — populate from Products.csv) ────────────
-# TODO: Fill in GF parent ASINs and display names after first CSV import
-PARENT_COLORS: dict[str, str] = {}
-PARENT_SHORTS: dict[str, str] = {}
-# Traditional Chinese display names (optional — leave empty string to use English)
+# ── Parent visual config (GF US — Geometric Future PC Cases & Fans) ──────
+PARENT_COLORS: dict[str, str] = {
+    "B0DF7QSTG3": "#3b82f6",   # M5 Case
+    "B0DHX988D9": "#a855f7",   # Eskimo Pro AIO
+    "B0DGM9VDFZ": "#f59e0b",   # M5 Vent Case
+    "B0DGGX648W": "#22c55e",   # Squama 2503 140mm Fan
+    "B09X1KD6NH": "#ef4444",   # M8 Case
+    "B0DJ2X2SK8": "#06b6d4",   # Squama 2503 120mm Fan
+    "B0CKWQX52V": "#f97316",   # M4 King Arthur Case
+    "B0CRTD8V77": "#ec4899",   # Squama 2503R 120mm Fan
+    "B0DHZ1GPXB": "#8b5cf6",   # Squama 3805 Fan
+    "B09X697T7N": "#14b8a6",   # M6 Case
+    "B0B755PYH4": "#f43f5e",   # Squama 2505 Fan
+    "B0CKWT1SRR": "#84cc16",   # M2 ARK Case
+    "B0DKWFDQ7T": "#0ea5e9",   # Eskimo Junior AIO
+}
+PARENT_SHORTS: dict[str, str] = {
+    "B0DF7QSTG3": "M5 Case",
+    "B0DHX988D9": "Eskimo Pro 360",
+    "B0DGM9VDFZ": "M5 Vent Case",
+    "B0DGGX648W": "S2503 140mm Fan",
+    "B09X1KD6NH": "M8 Case",
+    "B0DJ2X2SK8": "S2503 120mm Fan",
+    "B0CKWQX52V": "M4 King Arthur",
+    "B0CRTD8V77": "S2503R 120mm Fan",
+    "B0DHZ1GPXB": "S3805 Fan",
+    "B09X697T7N": "M6 Case",
+    "B0B755PYH4": "S2505 Fan",
+    "B0CKWT1SRR": "M2 ARK Case",
+    "B0DKWFDQ7T": "Eskimo Jr 360",
+}
 ZH_PARENTS: dict[str, str] = {}
 ZH_CHILDREN: dict[str, str] = {}
 
