@@ -88,10 +88,14 @@ def load_products(path: Path) -> tuple[dict, dict]:
             asin_to_name[a]    = r["Title"].strip()
     return child_to_parent, asin_to_name
 
-def load_sales(path: Path) -> dict:
+def load_sales(path: Path) -> tuple[dict, dict]:
+    """Returns (weekly_per_asin, sb_spend_per_week).
+    sb_spend_per_week: total SB spend per week from "Sponsored Brands..." rows.
+    """
     weekly: dict = defaultdict(lambda: defaultdict(
         lambda: {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0,
                  "ppc": 0, "profits": 0.0}))
+    sb_spend: dict = defaultdict(float)  # week -> total SB spend
     with open(path, encoding="utf-8-sig") as f:
         for r in csv.DictReader(f):
             d  = _parse_date(r.get("Date", ""))
@@ -99,6 +103,10 @@ def load_sales(path: Path) -> dict:
             if not wk: continue
             a = r.get("ASIN", "").strip()
             if not a: continue
+            # SB spend rows: ASIN = "Sponsored Brands Product Collection/Brand Video"
+            if not a.startswith("B0"):
+                sb_spend[wk] += _pf(r.get("PPC Cost", 0))
+                continue
             wd = weekly[a][wk]
             wd["sales"]   += _pf(r.get("Sales",           0))
             wd["spend"]   += _pf(r.get("PPC Cost",         0))
@@ -106,7 +114,7 @@ def load_sales(path: Path) -> dict:
             wd["organic"] += int(_pf(r.get("Organic Units",0)))
             wd["ppc"]     += int(_pf(r.get("PPC Orders",   0)))
             wd["profits"] += _pf(r.get("Profits",          0))
-    return weekly
+    return weekly, dict(sb_spend)
 
 def load_sb(path: Path | None, child_to_parent: dict, parent_colors: dict) -> dict:
     sb: dict = defaultdict(lambda: defaultdict(lambda: {"sbsp": 0.0, "sb_attr": 0.0}))
@@ -150,8 +158,11 @@ def auto_detect_parents(child_to_parent: dict, asin_to_name: dict) -> tuple[dict
     return colors, shorts
 
 def build_data(weekly: dict, child_to_parent: dict, asin_to_name: dict,
-               sb_data: dict, parent_colors: dict, parent_shorts: dict) -> tuple[dict, list]:
+               sb_data: dict, parent_colors: dict, parent_shorts: dict,
+               sb_spend_weekly: dict | None = None) -> tuple[dict, list]:
     new_weeks = WEEKS  # all weeks are fresh (no frozen)
+    if sb_spend_weekly is None:
+        sb_spend_weekly = {}
 
     all_children: dict[str, str] = {}
     for asin in weekly:
@@ -188,6 +199,12 @@ def build_data(weekly: dict, child_to_parent: dict, asin_to_name: dict,
     for c in child_data:
         parent_children[c["parent"]].append(c["asin"])
 
+    # Pre-compute SB attributed sales per parent per week for proportional distribution
+    sb_attr_by_parent_week: dict = defaultdict(lambda: defaultdict(float))
+    for parent in parent_children:
+        for w in new_weeks:
+            sb_attr_by_parent_week[parent][w] = sb_data.get(parent, {}).get(w, {}).get("sb_attr", 0)
+
     parents: dict[str, dict] = {}
     for parent, children in parent_children.items():
         weeks_obj = {}
@@ -198,7 +215,13 @@ def build_data(weekly: dict, child_to_parent: dict, asin_to_name: dict,
             organic = sum(weekly.get(a,{}).get(w,{}).get("organic", 0) for a in children)
             ppc     = sum(weekly.get(a,{}).get(w,{}).get("ppc",     0) for a in children)
             profits = sum(weekly.get(a,{}).get(w,{}).get("profits", 0) for a in children)
-            sbsp    = sb_data.get(parent, {}).get(w, {}).get("sbsp", 0)
+            # Distribute total SB spend proportionally by SB attributed sales
+            total_sb_spend_wk = sb_spend_weekly.get(w, 0)
+            total_sb_attr_wk = sum(sb_attr_by_parent_week[p][w] for p in parent_children)
+            if total_sb_attr_wk > 0 and total_sb_spend_wk > 0:
+                sbsp = total_sb_spend_wk * (sb_attr_by_parent_week[parent][w] / total_sb_attr_wk)
+            else:
+                sbsp = 0.0
             spend   = round(spsd + sbsp, 2)
             tacos   = round(spend / sales * 100, 1) if sales > 0 else None
             weeks_obj[w] = {
@@ -602,7 +625,7 @@ if __name__ == "__main__":
 
         # 1. Load data
         child_to_parent, asin_to_name = load_products(products_csv)
-        weekly = load_sales(sales_csv)
+        weekly, sb_spend_weekly = load_sales(sales_csv)
 
         # 2. Auto-detect parents
         parent_colors, parent_shorts = auto_detect_parents(child_to_parent, asin_to_name)
@@ -611,11 +634,14 @@ if __name__ == "__main__":
         # 3. Load SB data
         sb_data = load_sb(sb_csv, child_to_parent, parent_colors)
 
-        # 4. Build data model
+        # 4. Build data model (with SB spend distribution)
         parents, child_data = build_data(
             weekly, child_to_parent, asin_to_name, sb_data,
-            parent_colors, parent_shorts
+            parent_colors, parent_shorts, sb_spend_weekly
         )
+        if sb_spend_weekly:
+            total_sb = sum(sb_spend_weekly.values())
+            print(f"  SB spend distributed: {cfg['currency']}{total_sb:.2f} across {len(sb_spend_weekly)} weeks")
 
         # Print summary
         currency = cfg["currency"]
