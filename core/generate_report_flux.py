@@ -148,13 +148,30 @@ def load_sb(path: Path | None, child_to_parent: dict, parent_colors: dict) -> di
 def auto_detect_parents(child_to_parent: dict, asin_to_name: dict) -> tuple[dict, dict]:
     """Auto-generate PARENT_COLORS and PARENT_SHORTS from Products.csv data."""
     unique_parents = sorted(set(child_to_parent.values()))
+    # Build parent → first child title fallback
+    parent_title_fallback: dict[str, str] = {}
+    for child, parent in child_to_parent.items():
+        if parent not in parent_title_fallback and child in asin_to_name:
+            parent_title_fallback[parent] = asin_to_name[child]
+
     colors = {}
     shorts = {}
     for i, p in enumerate(unique_parents):
         colors[p] = AUTO_COLORS[i % len(AUTO_COLORS)]
-        # Use first 30 chars of title as short name
-        raw = asin_to_name.get(p, p)
-        shorts[p] = raw[:30] if raw != p else p
+        # Use parent's own title, or first child's title as fallback
+        raw = asin_to_name.get(p) or parent_title_fallback.get(p, p)
+        # Create recognizable short name: strip common prefix words
+        short = raw
+        for prefix in ("ICECUBE ", "Icecube ", "FLUX ", "Flux ", "80Days "):
+            if short.startswith(prefix):
+                break
+        # Truncate at first " - " or ":" or "with" for readability
+        for sep in (" with ", " – ", " - ", ": ", ", "):
+            idx = short.find(sep)
+            if idx > 10:
+                short = short[:idx]
+                break
+        shorts[p] = short[:35]
     return colors, shorts
 
 def build_data(weekly: dict, child_to_parent: dict, asin_to_name: dict,
