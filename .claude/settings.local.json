@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l \"/Users/koda/amazon-autopilot/reports/input/daiken/HistoricalAsinDateSales \\(1\\).csv\")",
+      "Bash(python3 scripts/generate_report.py)",
+      "Bash(open /Users/koda/amazon-autopilot/output/daiken/daiken_report_20260308.html)"
+    ]
+  }
+}
