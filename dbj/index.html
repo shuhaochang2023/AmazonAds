@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DBJ · US Market — Feb–Mar 2026</title>
+<title>DAIKEN · US Market — Feb–Mar 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -112,7 +112,7 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <button class="tab-btn" onclick="showTab('t5',this)">✅ 行動方案</button>
   <button class="tab-btn" onclick="showTab('inventory',this)">📦 Inventory Age</button>
   </div>
-  <div class="meta">Feb 2026 <a href="./DBJ_US_Feb-Mar_2026.xlsx" download style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#16a34a;color:#fff;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;font-family:Inter,sans-serif">
+  <div class="meta">Feb 2026 <a href="./DBJ_US_Feb-Mar_2026.xlsx" onclick="event.preventDefault();fetch(this.href).then(r=>r.blob()).then(b=>{let a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='DBJ_US_Feb-Mar_2026.xlsx';a.click()})" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#16a34a;color:#fff;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;font-family:Inter,sans-serif">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
     Download Excel</a>
   · SP+SD+SB · TACOS ≤15% · VINE -$12,153 deducted</div>
