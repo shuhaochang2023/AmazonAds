@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flux · DE Market — Feb–Mar 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f1f5f9;--bg2:#ffffff;--bg3:#f8fafc;
+  --border:#e2e8f0;--border2:#cbd5e1;
+  --text:#0f172a;--text2:#475569;--text3:#94a3b8;
+  --accent:#2563eb;--green:#16a34a;--amber:#d97706;--red:#dc2626;
+  --mono:'JetBrains Mono',monospace;--display:'Inter',sans-serif;--body:'Outfit',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.6;min-height:100vh;}
+nav{background:var(--bg2);border-bottom:1px solid var(--border);height:54px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.nav-inner{max-width:1600px;margin:0 auto;display:flex;align-items:center;height:54px;padding:0 32px;gap:0;}
+.nav-brand{font-family:var(--display);font-size:15px;font-weight:800;color:var(--accent);letter-spacing:.04em;margin-right:24px;white-space:nowrap;display:flex;align-items:center;gap:8px;}
+.market-tag{font-size:9px;font-family:var(--mono);background:var(--accent);color:#fff;padding:2px 6px;border-radius:3px;font-weight:600;}
+.tabs{display:flex;gap:2px;flex:1;overflow-x:auto;}.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{padding:0 15px;height:54px;background:none;border:none;color:var(--text2);font-family:var(--body);font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;}
+.tab-btn:hover{color:var(--text);}.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.meta{font-family:var(--mono);font-size:10px;color:var(--text3);border:1px solid var(--border2);padding:3px 8px;border-radius:3px;margin-left:auto;white-space:nowrap;}
+.panel{display:none;padding:32px;min-height:calc(100vh - 54px);max-width:1600px;margin:0 auto;}.panel.active{display:block;}
+.kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 5px rgba(0,0,0,.06);}
+.kpi-card{background:var(--bg2);padding:18px 22px;}
+.kpi-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;font-family:var(--mono);}
+.kpi-value{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--text);}
+.kpi-sub{font-size:11px;color:var(--text2);margin-top:3px;}
+.kpi-green{color:var(--green);}.kpi-amber{color:var(--amber);}.kpi-red{color:var(--red);}
+.week-btn{padding:6px 16px;border-radius:4px;font-size:11.5px;cursor:pointer;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);font-family:var(--mono);font-weight:600;transition:all .12s;}
+.week-btn:hover{color:var(--text);border-color:var(--accent);}.week-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.chart-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px;box-shadow:0 1px 5px rgba(0,0,0,.06);}
+.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border);box-shadow:0 1px 5px rgba(0,0,0,.05);}
+table{width:100%;border-collapse:collapse;min-width:600px;}
+thead th{background:var(--bg3);color:var(--text3);font-size:9px;text-transform:uppercase;letter-spacing:.1em;padding:7px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--border);font-family:var(--mono);font-weight:600;}
+thead th:first-child{text-align:left;}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:rgba(15,23,42,.025);}
+tbody td{padding:6px 10px;text-align:right;font-family:var(--mono);font-size:11.5px;vertical-align:middle;}
+tbody td:first-child{text-align:left;font-family:var(--body);font-size:13px;}
+.asin-link{color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px;}
+.asin-link:hover{text-decoration:underline;}
+.week-group th{background:var(--bg2);color:var(--text2);font-size:9px;}
+.muted{color:var(--text3);}
+.sec-header{font-family:var(--display);font-size:13px;font-weight:700;color:var(--text2);letter-spacing:.04em;text-transform:uppercase;padding:16px 0 10px;border-bottom:1px solid var(--border);margin-bottom:12px;}
+.tacos-ok{color:var(--green);}.tacos-warn{color:var(--amber);}.tacos-bad{color:var(--red);}
+/* Parent row toggle */
+.parent-row{cursor:pointer;user-select:none;}
+.parent-row:hover td{background:rgba(15,23,42,.03);}
+.toggle-icon{display:inline-block;width:14px;transition:transform .15s;}
+.child-rows{}.child-rows.collapsed tr{display:none;}
+/* Action cards */
+.action-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.action-card-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.action-card-title{font-family:var(--display);font-size:16px;font-weight:700;}
+.action-card-badge{font-size:9px;font-family:var(--mono);padding:3px 8px;border-radius:3px;font-weight:600;}
+.badge-star{background:rgba(22,163,74,.12);color:var(--green);border:1px solid rgba(31,219,138,.3);}
+.badge-question{background:rgba(217,119,6,.1);color:var(--amber);border:1px solid rgba(245,166,35,.3);}
+.badge-cut{background:rgba(220,38,38,.1);color:var(--red);border:1px solid rgba(240,75,75,.3);}
+.badge-potential{background:rgba(37,99,235,.1);color:var(--accent);border:1px solid rgba(91,138,240,.3);}
+.badge-now{background:rgba(220,38,38,.1);color:var(--red);border:1px solid rgba(240,75,75,.3);}
+.badge-next{background:rgba(37,99,235,.1);color:var(--accent);border:1px solid rgba(91,138,240,.3);}
+.action-tasks{display:flex;flex-direction:column;gap:8px;}
+.action-task{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--bg3);border-radius:6px;border:1px solid var(--border);}
+.action-task input[type=checkbox]{margin-top:2px;accent-color:var(--accent);width:14px;height:14px;flex-shrink:0;}
+.action-task.done{opacity:.35;}
+.action-task.done .task-text{text-decoration:line-through;}
+.task-text{font-size:12.5px;color:var(--text2);line-height:1.5;}
+.task-type{font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:2px;background:var(--bg);color:var(--text3);border:1px solid var(--border2);flex-shrink:0;margin-top:2px;}
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;}
+.q-card-title{font-family:var(--display);font-size:13px;font-weight:700;margin-bottom:8px;}
+.q-card-body{font-size:11px;color:var(--text2);line-height:1.7;}
+.done-cb{cursor:pointer;accent-color:var(--accent);width:14px;height:14px;}
+tr.done-row td{opacity:.35;text-decoration:line-through;}
+
+/* ── childTable freeze pane ── */
+#childTable-wrap{max-height:calc(100vh - 160px);overflow:auto;border-radius:10px;border:1px solid var(--border);box-shadow:0 1px 5px rgba(0,0,0,.05);}
+#childTable thead tr:nth-child(1) th{position:sticky;top:0;z-index:4;background:var(--bg3);}
+#childTable thead tr:nth-child(2) th{position:sticky;z-index:3;background:var(--bg2);}
+#childTable thead tr:nth-child(1) th.col-freeze{z-index:6;}
+#childTable thead tr:nth-child(2) th.col-freeze{z-index:5;}
+#childTable th.col-freeze,#childTable td.col-freeze{position:sticky;left:0;z-index:2;box-shadow:2px 0 4px -1px rgba(0,0,0,.08);}
+#childTable tbody td.col-freeze{background:var(--bg2);}
+#childTable .parent-row td.col-freeze{background:inherit;}
+#childTable tfoot td.col-freeze{background:var(--bg3);}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+  <div class="nav-brand">Flux <span class="market-tag">DE</span></div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('t1',this)">📊 銷售 &amp; 廣告佔比</button>
+    <button class="tab-btn" onclick="showTab('t2',this)">📅 週對週數據</button>
+    <button class="tab-btn" onclick="showTab('t3',this)">📈 WoW 變化</button>
+    <button class="tab-btn" onclick="showTab('t4',this)">🎯 產品象限</button>
+    <button class="tab-btn" onclick="showTab('t5',this)">✅ 行動方案</button>
+  </div>
+  <div class="meta">Feb 2026 · SP+SD+SB · TACOS ≤30%</div>
+  </div>
+</nav>
+
+<!-- TAB 1 -->
+<div id="t1" class="panel active">
+  <div style="margin-bottom:16px">
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">全產品線佔比分析 · DE Market</div>
+    <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">Sales &amp; Ad Spend — Feb–Mar 2026</div>
+    <div style="font-size:11px;color:var(--text3)">數據來源：ScaleInsight · 目標 TACOS ≤ 70% · SP+SD+SB 合計</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    <button class="week-btn active" onclick="switchWeek('all',this)">5W 合計</button>
+    <button class="week-btn" onclick="switchWeek('W1',this)">W1 Feb 1/7</button>
+    <button class="week-btn" onclick="switchWeek('W2',this)">W2 Feb 8/14</button>
+    <button class="week-btn" onclick="switchWeek('W3',this)">W3 Feb 15/21</button>
+    <button class="week-btn" onclick="switchWeek('W4',this)">W4 Feb 22/28</button>
+    <button class="week-btn" onclick="switchWeek('W5',this)">W5 Mar 1/7</button>
+  </div>
+  <div class="kpi-strip" id="kpi-t1"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+    <div class="chart-card">
+      <div style="font-size:13px;font-weight:600;margin-bottom:4px">產品營業額佔比</div>
+      <div style="font-size:10px;color:var(--text3);margin-bottom:14px;font-family:var(--mono)">SALES DISTRIBUTION</div>
+      <div style="display:flex;gap:20px;align-items:flex-start">
+        <div style="flex-shrink:0;position:relative">
+          <canvas id="salesPie" width="160" height="160"></canvas>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none">
+            <div style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text)" id="salesTotalLbl"></div>
+            <div style="font-size:8px;color:var(--text3)">TOTAL</div>
+          </div>
+        </div>
+        <div id="salesList" style="flex:1;display:flex;flex-direction:column;gap:0;overflow-y:auto;max-height:220px"></div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div style="font-size:13px;font-weight:600;margin-bottom:4px">廣告花費佔比</div>
+      <div style="font-size:10px;color:var(--text3);margin-bottom:14px;font-family:var(--mono)">AD SPEND DISTRIBUTION</div>
+      <div style="display:flex;gap:20px;align-items:flex-start">
+        <div style="flex-shrink:0;position:relative">
+          <canvas id="adsPie" width="160" height="160"></canvas>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none">
+            <div style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text)" id="adsTotalLbl"></div>
+            <div style="font-size:8px;color:var(--text3)">AD SPEND</div>
+          </div>
+        </div>
+        <div id="adsList" style="flex:1;display:flex;flex-direction:column;gap:0;overflow-y:auto;max-height:220px"></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec-header">產品銷售明細 — 點擊產品名稱可展開 / 收合子變體</div>
+  <div id="childTable-wrap"><table id="childTable"></table></div>
+</div>
+
+<!-- TAB 2 -->
+<div id="t2" class="panel">
+  <div class="kpi-strip" id="kpi-t2"></div>
+  <div class="table-wrap"><table id="wowTable"></table></div>
+</div>
+
+<!-- TAB 3 -->
+<div id="t3" class="panel">
+  <div class="sec-header">Week-over-Week % 變化 — Sales · Spend · TACOS · Units</div>
+  <div class="table-wrap"><table id="heatTable"></table></div>
+</div>
+
+<!-- TAB 4 -->
+<div id="t4" class="panel">
+  <div class="kpi-strip" id="kpi-t4"></div>
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:16px;margin-bottom:20px;align-items:start">
+    <div class="chart-card" style="padding:16px">
+      <canvas id="quadCanvas" width="640" height="480"></canvas>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="qCards"></div>
+  </div>
+</div>
+
+<!-- TAB 5 — 行動方案 -->
+<div id="t5" class="panel">
+  <div style="margin-bottom:20px">
+    <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">行動方案 Action Plan</div>
+    <div style="font-size:11px;color:var(--text3)">依象限分類 · 勾選完成項目 · 對應 Bulk File 操作</div>
+  </div>
+  <div id="actionCards"></div>
+</div>
+
+<script>
+const PARENTS = {"B08DNN39Q8": {"name": "B08DNN39Q8", "short": "B08DNN39Q8", "color": "#22c55e", "children": ["B07G8WDT6H", "B07G8WNCK3", "B07G8SL62W", "B0C2P48NCR", "B07G8W7FR8", "B0C42LHKQ8"], "weeks": {"W1": {"sales": 755.65, "spsd": 365.44, "sbsp": 0.0, "spend": 365.44, "units": 19, "organic": 15, "ppc": 7, "profits": 34.48, "tacos": 48.4}, "W2": {"sales": 1563.66, "spsd": 371.44, "sbsp": 0.0, "spend": 371.44, "units": 39, "organic": 23, "ppc": 19, "profits": 665.31, "tacos": 23.8}, "W3": {"sales": 1120.99, "spsd": 380.06, "sbsp": 0.0, "spend": 380.06, "units": 28, "organic": 19, "ppc": 11, "profits": 173.23, "tacos": 33.9}, "W4": {"sales": 1798.64, "spsd": 406.62, "sbsp": 0.0, "spend": 406.62, "units": 45, "organic": 30, "ppc": 20, "profits": 800.03, "tacos": 22.6}, "W5": {"sales": 3756.92, "spsd": 741.75, "sbsp": 0.0, "spend": 741.75, "units": 94, "organic": 62, "ppc": 41, "profits": 1923.02, "tacos": 19.7}}, "total_sales": 8995.86, "total_spend": 2265.31, "total_spsd": 2265.31, "tacos_4w": 25.2, "sb_attr": 974.69}, "B0FJWTYJJ6": {"name": "B0FJWTYJJ6", "short": "B0FJWTYJJ6", "color": "#a855f7", "children": ["B0FD3PMPVC", "B0FD3LHYMN", "B0FCRLQG4B", "B0FD3PSJG3", "B0FCRCZ1HC", "B0FD3MZ97V", "B0FCRQRHJ8", "B0FCRK9JCK"], "weeks": {"W1": {"sales": 632.04, "spsd": 143.03, "sbsp": 0.0, "spend": 143.03, "units": 67, "organic": 38, "ppc": 33, "profits": 245.36, "tacos": 22.6}, "W2": {"sales": 624.43, "spsd": 136.52, "sbsp": 0.0, "spend": 136.52, "units": 65, "organic": 37, "ppc": 30, "profits": 245.02, "tacos": 21.9}, "W3": {"sales": 690.24, "spsd": 127.24, "sbsp": 0.0, "spend": 127.24, "units": 73, "organic": 46, "ppc": 38, "profits": 317.16, "tacos": 18.4}, "W4": {"sales": 672.2, "spsd": 113.36, "sbsp": 0.0, "spend": 113.36, "units": 70, "organic": 49, "ppc": 32, "profits": 323.84, "tacos": 16.9}, "W5": {"sales": 864.35, "spsd": 176.78, "sbsp": 0.0, "spend": 176.78, "units": 93, "organic": 48, "ppc": 51, "profits": 349.18, "tacos": 20.5}}, "total_sales": 3483.26, "total_spend": 696.93, "total_spsd": 696.93, "tacos_4w": 20.0, "sb_attr": 692.97}, "B07PFW9CLN": {"name": "ICECUBE Verano Polarisierte Sport-Sonnenbrille mit Anti-Rutsch-Funktion, verstellbarem Nasenpolster und leichtem Rahmen, für Männer und Frauen beim Fahren, Laufen, Baseball, Golf", "short": "ICECUBE Verano Polarisierte Sp", "color": "#a855f7", "children": ["B07CNKVWQP", "B07CNV788S", "B07CNSYJKD", "B07CNYLXCC", "B07CNV8S82", "B07CP3HSYD"], "weeks": {"W1": {"sales": 200.0, "spsd": 32.21, "sbsp": 0, "spend": 32.21, "units": 5, "organic": 5, "ppc": 4, "profits": 123.18, "tacos": 16.1}, "W2": {"sales": 40.0, "spsd": 25.62, "sbsp": 0, "spend": 25.62, "units": 1, "organic": 1, "ppc": 1, "profits": -52.37, "tacos": 64.1}, "W3": {"sales": 40.33, "spsd": 26.26, "sbsp": 0, "spend": 26.26, "units": 1, "organic": 1, "ppc": 0, "profits": -24.13, "tacos": 65.1}, "W4": {"sales": 120.33, "spsd": 25.25, "sbsp": 0, "spend": 25.25, "units": 3, "organic": 2, "ppc": 1, "profits": 67.91, "tacos": 21.0}, "W5": {"sales": 320.33, "spsd": 101.21, "sbsp": 0, "spend": 101.21, "units": 8, "organic": 5, "ppc": 10, "profits": 145.95, "tacos": 31.6}}, "total_sales": 720.99, "total_spend": 210.55, "total_spsd": 210.55, "tacos_4w": 29.2, "sb_attr": 0}, "B07PFWNKK1": {"name": "ICECUBE Sportech Sonnenbrille für Damen und Herren, polarisierter UV400-Schutz, leichter Rahmen, Sport-Sonnenbrille für Baseball, Golf, Laufen", "short": "ICECUBE Sportech Sonnenbrille ", "color": "#f59e0b", "children": ["B07CNT173P", "B07CNNMCBD", "B07CNN4FW7", "B07CNNHJV5"], "weeks": {"W1": {"sales": 80.0, "spsd": 9.63, "sbsp": 0, "spend": 9.63, "units": 2, "organic": 1, "ppc": 1, "profits": 23.04, "tacos": 12.0}, "W2": {"sales": 40.0, "spsd": 20.69, "sbsp": 0, "spend": 20.69, "units": 1, "organic": 1, "ppc": 0, "profits": -18.54, "tacos": 51.7}, "W3": {"sales": 80.0, "spsd": 13.8, "sbsp": 0, "spend": 13.8, "units": 2, "organic": 1, "ppc": 3, "profits": 47.77, "tacos": 17.2}, "W4": {"sales": 40.0, "spsd": 11.59, "sbsp": 0, "spend": 11.59, "units": 1, "organic": 0, "ppc": 1, "profits": 19.37, "tacos": 29.0}, "W5": {"sales": 360.66, "spsd": 88.26, "sbsp": 0.0, "spend": 88.26, "units": 9, "organic": 4, "ppc": 6, "profits": 177.38, "tacos": 24.5}}, "total_sales": 600.66, "total_spend": 143.97, "total_spsd": 143.97, "tacos_4w": 24.0, "sb_attr": 33.61}, "B0F323TP22": {"name": "80Days Pilotenbrille – Klassischer Doppelsteg, Dezentes Metalldetail, UV400 Schutz", "short": "80Days Pilotenbrille – Klassis", "color": "#84cc16", "children": ["B0F1CZQRYS", "B0F1CWQCYB", "B0F1D2QG1X"], "weeks": {"W1": {"sales": 75.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 3, "organic": 3, "ppc": 0, "profits": 53.43, "tacos": 0.0}, "W2": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 25.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 1, "organic": 1, "ppc": 0, "profits": 18.21, "tacos": 0.0}, "W5": {"sales": 175.0, "spsd": 17.87, "sbsp": 0, "spend": 17.87, "units": 7, "organic": 6, "ppc": 2, "profits": 65.56, "tacos": 10.2}}, "total_sales": 275.0, "total_spend": 17.87, "total_spsd": 17.87, "tacos_4w": 6.5, "sb_attr": 0}, "B0CVWSWZ98": {"name": "ICECUBE VENTURA Hochleistungs-Sonnenbrille: Anti-Beschlag-PC-Gläser, belüfteter TR90-Rahmen, 100% UV-Schutz, ideal für Sport und Radfahren", "short": "ICECUBE VENTURA Hochleistungs-", "color": "#ec4899", "children": ["B0CSYD66YR", "B0CSY8MBW8", "B0CSYT7G9V", "B0CSYD3DWY", "B0CSYHJ7MJ", "B0CSYPVL3D"], "weeks": {"W1": {"sales": 0.0, "spsd": 1.65, "sbsp": 0, "spend": 1.65, "units": 0, "organic": 0, "ppc": 0, "profits": -1.65, "tacos": null}, "W2": {"sales": 60.0, "spsd": 1.65, "sbsp": 0, "spend": 1.65, "units": 1, "organic": 1, "ppc": 1, "profits": 45.96, "tacos": 2.8}, "W3": {"sales": 0.0, "spsd": 2.66, "sbsp": 0, "spend": 2.66, "units": 0, "organic": 0, "ppc": 0, "profits": -2.66, "tacos": null}, "W4": {"sales": 0.0, "spsd": 2.2, "sbsp": 0, "spend": 2.2, "units": 0, "organic": 0, "ppc": 0, "profits": -2.2, "tacos": null}, "W5": {"sales": 0.0, "spsd": 15.83, "sbsp": 0, "spend": 15.83, "units": 0, "organic": 0, "ppc": 2, "profits": -15.83, "tacos": null}}, "total_sales": 60.0, "total_spend": 23.99, "total_spsd": 23.99, "tacos_4w": 40.0, "sb_attr": 0}, "B0DYVVK1BG": {"name": "B0DYVVK1BG", "short": "B0DYVVK1BG", "color": "#14b8a6", "children": ["B07VMRK3KV", "B08X9L1KRH", "B0DXPTBYZD"], "weeks": {"W1": {"sales": 50.0, "spsd": 2.2, "sbsp": 0, "spend": 2.2, "units": 1, "organic": 1, "ppc": 0, "profits": 0.54, "tacos": 4.4}, "W2": {"sales": 0.0, "spsd": 0.99, "sbsp": 0, "spend": 0.99, "units": 0, "organic": 0, "ppc": 0, "profits": -0.99, "tacos": null}, "W3": {"sales": 50.0, "spsd": 2.2, "sbsp": 0, "spend": 2.2, "units": 1, "organic": 1, "ppc": 0, "profits": 37.17, "tacos": 4.4}, "W4": {"sales": 50.0, "spsd": 1.65, "sbsp": 0, "spend": 1.65, "units": 1, "organic": 0, "ppc": 2, "profits": 37.46, "tacos": 3.3}, "W5": {"sales": 0.0, "spsd": 13.25, "sbsp": 0, "spend": 13.25, "units": 0, "organic": 0, "ppc": 1, "profits": -13.25, "tacos": null}}, "total_sales": 150.0, "total_spend": 20.29, "total_spsd": 20.29, "tacos_4w": 13.5, "sb_attr": 0}, "B07PDXC3C2": {"name": "B07PDXC3C2", "short": "B07PDXC3C2", "color": "#3b82f6", "children": ["B07CP46YKD", "B07CNSD47H", "B0C77BTWV9", "B07CNNXJ4Y"], "weeks": {"W1": {"sales": 0.0, "spsd": 4.31, "sbsp": 0, "spend": 4.31, "units": 0, "organic": 0, "ppc": 0, "profits": -4.31, "tacos": null}, "W2": {"sales": 40.0, "spsd": 5.06, "sbsp": 0.0, "spend": 5.06, "units": 1, "organic": 1, "ppc": 0, "profits": -5.68, "tacos": 12.7}, "W3": {"sales": 0.0, "spsd": 3.07, "sbsp": 0, "spend": 3.07, "units": 0, "organic": 0, "ppc": 0, "profits": -3.07, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.88, "sbsp": 0, "spend": 0.88, "units": 0, "organic": 0, "ppc": 0, "profits": -0.88, "tacos": null}, "W5": {"sales": 40.0, "spsd": 35.05, "sbsp": 0, "spend": 35.05, "units": 1, "organic": 1, "ppc": 0, "profits": -4.44, "tacos": 87.6}}, "total_sales": 80.0, "total_spend": 48.37, "total_spsd": 48.37, "tacos_4w": 60.5, "sb_attr": 33.61}, "B0G65M6NT5": {"name": "80Days Verstellbares Brillenband – Brillenhalter mit Silikon-Enden, sicherer Halt für Brillen & Sonnenbrillen, ideal beim Sport, Lesen & im Alltag", "short": "80Days Verstellbares Brillenba", "color": "#f59e0b", "children": ["B0G64L8VGX", "B0G64Q4YRJ", "B0G64TMSXH", "B0G653WYKH"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W3": {"sales": 9.99, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 1, "organic": 1, "ppc": 0, "profits": -2.17, "tacos": 0.0}, "W4": {"sales": 9.99, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 1, "organic": 1, "ppc": 0, "profits": 6.88, "tacos": 0.0}, "W5": {"sales": 19.98, "spsd": 2.74, "sbsp": 0, "spend": 2.74, "units": 2, "organic": 1, "ppc": 2, "profits": -9.48, "tacos": 13.7}}, "total_sales": 39.96, "total_spend": 2.74, "total_spsd": 2.74, "tacos_4w": 6.9, "sb_attr": 0}, "B0F32LLNXK": {"name": "80Days Damen Oval Sonnenbrille – Auffälliges Design, Vintage Chic, UV400 Schutz", "short": "80Days Damen Oval Sonnenbrille", "color": "#facc15", "children": ["B0F1D2NSWN", "B0F1D3JGDH"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": -16.77, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W5": {"sales": 25.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 1, "organic": 1, "ppc": 0, "profits": 20.2, "tacos": 0.0}}, "total_sales": 25.0, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": 0.0, "sb_attr": 0}, "B0F32JYZH3": {"name": "80Days Damen Sonnenbrille mit Geometrischem Design – Elegante Silhouette, Zeitloser Glamour, UV400 Schutz", "short": "80Days Damen Sonnenbrille mit ", "color": "#d946ef", "children": ["B0F1D4F97T", "B0F1D2HHD4", "B0F1D1CFHP"], "weeks": {"W1": {"sales": 0.0, "spsd": 1.1, "sbsp": 0, "spend": 1.1, "units": 0, "organic": 0, "ppc": 0, "profits": -1.1, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.55, "sbsp": 0, "spend": 0.55, "units": 0, "organic": 0, "ppc": 0, "profits": -0.55, "tacos": null}, "W3": {"sales": 0.0, "spsd": 1.05, "sbsp": 0, "spend": 1.05, "units": 0, "organic": 0, "ppc": 0, "profits": -1.05, "tacos": null}, "W4": {"sales": 0.0, "spsd": 1.08, "sbsp": 0, "spend": 1.08, "units": 0, "organic": 0, "ppc": 0, "profits": -1.08, "tacos": null}, "W5": {"sales": 0.0, "spsd": 2.1, "sbsp": 0, "spend": 2.1, "units": 0, "organic": 0, "ppc": 0, "profits": -2.1, "tacos": null}}, "total_sales": 0.0, "total_spend": 5.88, "total_spsd": 5.88, "tacos_4w": null, "sb_attr": 0}, "B0DY11BQT9": {"name": "ICECUBE Laso-17 Polarisierte Sonnenbrille – Leichte, eckige Fassung mit rutschfesten Nasenpads und sportlichen Bügelenden", "short": "ICECUBE Laso-17 Polarisierte S", "color": "#8b5cf6", "children": ["B0DWMF64DJ", "B0DWMFL3JX", "B0DWMG7Q7D", "B0DWMGBB96"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.61, "sbsp": 0, "spend": 0.61, "units": 0, "organic": 0, "ppc": 0, "profits": -0.61, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 1.65, "sbsp": 0, "spend": 1.65, "units": 0, "organic": 0, "ppc": 0, "profits": -1.65, "tacos": null}}, "total_sales": 0.0, "total_spend": 2.26, "total_spsd": 2.26, "tacos_4w": null, "sb_attr": 0}, "B0F5VK5JH8": {"name": "B0F5VK5JH8", "short": "B0F5VK5JH8", "color": "#3b82f6", "children": ["B09V2GNC1H", "B09V2JRH2L"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0.0, "spsd": 0.55, "sbsp": 0, "spend": 0.55, "units": 0, "organic": 0, "ppc": 0, "profits": -0.55, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 1.65, "sbsp": 0, "spend": 1.65, "units": 0, "organic": 0, "ppc": 0, "profits": -1.65, "tacos": null}}, "total_sales": 0.0, "total_spend": 2.2, "total_spsd": 2.2, "tacos_4w": null, "sb_attr": 0}, "B0F2MZ9XNM": {"name": "80Days Runde Sonnenbrille – Vintage-Look, Klassischer Stil, UV400 Schutz", "short": "80Days Runde Sonnenbrille – Vi", "color": "#f43f5e", "children": ["B0F1CZK6SN"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 0.0, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": null, "sb_attr": 0}, "B0F32858MJ": {"name": "80Days Eckige Sonnenbrille – Schlanker Rahmen, Stilvoll & Zeitlos, UV400 Schutz", "short": "80Days Eckige Sonnenbrille – S", "color": "#0ea5e9", "children": ["B0F1D3VGX6", "B0F1D2B3FG"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 0.0, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": null, "sb_attr": 0}};
+const CHILD_DATA = [{"asin": "B07G8WDT6H", "parent": "B08DNN39Q8", "parent_short": "B08DNN39Q8", "color": "#22c55e", "name": "ICECUBE AVENTO Polarisierte Sport-Sonnenbrille UV400 Schutz mit Anti-Rutsch-Funktion und leichtem Rahmen - für Männer und Frauen beim Fahren, Laufen (Black/Grey Mirror)", "weeks": {"W1": {"sales": 479.32, "spend": 240.79, "units": 12, "organic": 9}, "W2": {"sales": 642.33, "spend": 237.04, "units": 16, "organic": 8}, "W3": {"sales": 720.66, "spend": 222.03, "units": 18, "organic": 10}, "W4": {"sales": 960.99, "spend": 250.04, "units": 24, "organic": 18}, "W5": {"sales": 1761.33, "spend": 398.49, "units": 44, "organic": 26}}, "total_sales": 4564.63}, {"asin": "B0FD3PMPVC", "parent": "B0FJWTYJJ6", "parent_short": "B0FJWTYJJ6", "color": "#a855f7", "name": "80Days Verstellbares Brillenband aus Nylon – Brillenhalter mit Silikon-Enden, sicherer Halt für Brillen & Sonnenbrillen, ideal beim Sport, Lesen & im Alltag, Schwarz", "weeks": {"W1": {"sales": 350.13, "spend": 106.74, "units": 35, "organic": 11}, "W2": {"sales": 340.72, "spend": 100.13, "units": 34, "organic": 12}, "W3": {"sales": 280.53, "spend": 83.18, "units": 28, "organic": 6}, "W4": {"sales": 377.92, "spend": 70.43, "units": 38, "organic": 22}, "W5": {"sales": 468.15, "spend": 141.61, "units": 47, "organic": 13}}, "total_sales": 1817.45}, {"asin": "B07G8WNCK3", "parent": "B08DNN39Q8", "parent_short": "B08DNN39Q8", "color": "#22c55e", "name": "ICECUBE AVENTO Polarisierte Sport-Sonnenbrille UV400 Schutz mit Anti-Rutsch-Funktion und leichtem Rahmen - für Männer und Frauen beim Fahren, Laufen (Blue/Grey Mirror)", "weeks": {"W1": {"sales": 80.0, "spend": 78.08, "units": 2, "organic": 1}, "W2": {"sales": 280.0, "spend": 93.05, "units": 7, "organic": 3}, "W3": {"sales": 200.33, "spend": 103.74, "units": 5, "organic": 4}, "W4": {"sales": 240.66, "spend": 95.5, "units": 6, "organic": 2}, "W5": {"sales": 354.27, "spend": 114.28, "units": 9, "organic": 6}}, "total_sales": 1155.26}, {"asin": "B07G8SL62W", "parent": "B08DNN39Q8", "parent_short": "B08DNN39Q8", "color": "#22c55e", "name": "ICECUBE AVENTO Polarisierte Sport-Sonnenbrille UV400 Schutz mit Anti-Rutsch-Funktion und leichtem Rahmen - für Männer und Frauen beim Fahren, Laufen (Red)", "weeks": {"W1": {"sales": 80.0, "spend": 24.15, "units": 2, "organic": 2}, "W2": {"sales": 281.0, "spend": 22.03, "units": 7, "organic": 4}, "W3": {"sales": 80.0, "spend": 28.18, "units": 2, "organic": 2}, "W4": {"sales": 200.33, "spend": 33.53, "units": 5, "organic": 3}, "W5": {"sales": 440.0, "spend": 135.18, "units": 11, "organic": 6}}, "total_sales": 1081.33}, {"asin": "B0C2P48NCR", "parent": "B08DNN39Q8", "parent_short": "B08DNN39Q8", "color": "#22c55e", "name": "ICECUBE AVENTO Polarisierte Sport-Sonnenbrille UV400 Schutz mit Anti-Rutsch-Funktion und leichtem Rahmen - für Männer und Frauen beim Fahren, Laufen (Black/Blue Mirror)", "weeks": {"W1": {"sales": 76.33, "spend": 8.1, "units": 2, "organic": 2}, "W2": {"sales": 200.0, "spend": 3.68, "units": 5, "organic": 5}, "W3": {"sales": 40.0, "spend": 8.62, "units": 1, "organic": 1}, "W4": {"sales": 116.33, "spend": 12.2, "units": 3, "organic": 2}, "W5": {"sales": 320.33, "spend": 27.01, "units": 8, "organic": 7}}, "total_sales": 752.99}, {"asin": "B07G8W7FR8", "parent": "B08DNN39Q8", "parent_short": "B08DNN39Q8", "color": "#22c55e", "name": "ICECUBE AVENTO Polarisierte Sport-Sonnenbrille UV400 Schutz mit Anti-Rutsch-Funktion und leichtem Rahmen - für Männer und Frauen beim Fahren, Laufen, Baseball, Golf, Freizeitsport und Aktivitäten", "weeks": {"W1": {"sales": 40.0, "spend": 8.48, "units": 1, "organic": 1}, "W2": {"sales": 120.33, "spend": 11.61, "units": 3, "organic": 2}, "W3": {"sales": 40.0, "spend": 13.35, "units": 1, "organic": 1}, "W4": {"sales": 120.0, "spend": 13.5, "units": 3, "organic": 2}, "W5": {"sales": 400.66, "spend": 40.14, "units": 10, "organic": 8}}, "total_sales": 720.99}, {"asin": "B0C42LHKQ8", "parent": "B08DNN39Q8", "parent_short": "B08DNN39Q8", "color": "#22c55e", "name": "ICECUBE AVENTO Polarisierte Sport-Sonnenbrille UV400 Schutz mit Anti-Rutsch-Funktion und leichtem Rahmen - für Männer und Frauen beim Fahren, Laufen (Black/Red Mirror)", "weeks": {"W1": {"sales": 0.0, "spend": 5.84, "units": 0, "organic": 0}, "W2": {"sales": 40.0, "spend": 4.03, "units": 1, "organic": 1}, "W3": {"sales": 40.0, "spend": 4.14, "units": 1, "organic": 1}, "W4": {"sales": 160.33, "spend": 1.85, "units": 4, "organic": 3}, "W5": {"sales": 480.33, "spend": 26.65, "units": 12, "organic": 9}}, "total_sales": 720.66}, {"asin": "B0FD3LHYMN", "parent": "B0FJWTYJJ6", "parent_short": "B0FJWTYJJ6", "color": "#a855f7", "name": "80Days Verstellbares Brillenband aus Nylon – Brillenhalter mit Silikon-Enden, sicherer Halt für Brillen & Sonnenbrillen, ideal beim Sport, Lesen & im Alltag, Grau", "weeks": {"W1": {"sales": 69.92, "spend": 2.47, "units": 7, "organic": 6}, "W2": {"sales": 98.97, "spend": 4.72, "units": 10, "organic": 9}, "W3": {"sales": 120.12, "spend": 4.5, "units": 12, "organic": 11}, "W4": {"sales": 80.16, "spend": 1.92, "units": 8, "organic": 8}, "W5": {"sales": 50.11, "spend": 2.58, "units": 5, "organic": 5}}, "total_sales": 419.28}, {"asin": "B0FCRLQG4B", "parent": "B0FJWTYJJ6", "parent_short": "B0FJWTYJJ6", "color": "#a855f7", "name": "80Days Verstellbares Brillenband aus Nylon – Brillenhalter mit Silikon-Enden, sicherer Halt für Brillen & Sonnenbrillen, ideal beim Sport, Lesen & im Alltag, Schwarz", "weeks": {"W1": {"sales": 96.06, "spend": 0.88, "units": 12, "organic": 12}, "W2": {"sales": 31.96, "spend": 1.09, "units": 4, "organic": 4}, "W3": {"sales": 87.75, "spend": 0.96, "units": 11, "organic": 11}, "W4": {"sales": 55.93, "spend": 1.84, "units": 7, "organic": 7}, "W5": {"sales": 110.3, "spend": 1.62, "units": 14, "organic": 13}}, "total_sales": 382.0}, {"asin": "B0FD3PSJG3", "parent": "B0FJWTYJJ6", "parent_short": "B0FJWTYJJ6", "color": "#a855f7", "name": "80Days Verstellbares Brillenband aus Nylon – Brillenhalter mit Silikon-Enden, sicherer Halt für Brillen & Sonnenbrillen, ideal beim Sport, Lesen & im Alltag, Orange", "weeks": {"W1": {"sales": 29.97, "spend": 2.18, "units": 3, "organic": 3}, "W2": {"sales": 68.33, "spend": 2.33, "units": 7, "organic": 6}, "W3": {"sales": 109.89, "spend": 3.08, "units": 11, "organic": 10}, "W4": {"sales": 80.23, "spend": 6.47, "units": 8, "organic": 7}, "W5": {"sales": 59.94, "spend": 8.9, "units": 6, "organic": 3}}, "total_sales": 348.36}, {"asin": "B07CNKVWQP", "parent": "B07PFW9CLN", "parent_short": "ICECUBE Verano Polarisierte Sp", "color": "#a855f7", "name": "ICECUBE Verano Polarisierte Sport-Sonnenbrille mit Anti-Rutsch-Funktion, verstellbarem Nasenpolster und leichtem Rahmen, für Männer und Frauen beim Fahren, Laufen, Baseball, Golf", "weeks": {"W1": {"sales": 80.0, "spend": 6.45, "units": 2, "organic": 2}, "W2": {"sales": 0.0, "spend": 8.58, "units": 0, "organic": 0}, "W3": {"sales": 40.33, "spend": 14.8, "units": 1, "organic": 1}, "W4": {"sales": 40.33, "spend": 10.31, "units": 1, "organic": 0}, "W5": {"sales": 160.33, "spend": 52.87, "units": 4, "organic": 1}}, "total_sales": 320.99}, {"asin": "B07CNT173P", "parent": "B07PFWNKK1", "parent_short": "ICECUBE Sportech Sonnenbrille ", "color": "#f59e0b", "name": "ICECUBE Sportech Sonnenbrille für Damen und Herren, polarisierter UV400-Schutz, leichter Rahmen, Sport-Sonnenbrille für Baseball, Golf, Laufen (S.BLK/Blue)", "weeks": {"W1": {"sales": 40.0, "spend": 0.0, "units": 1, "organic": 1}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 40.0, "spend": 0.99, "units": 1, "organic": 1}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 160.0, "spend": 3.29, "units": 4, "organic": 2}}, "total_sales": 240.0}, {"asin": "B0FCRCZ1HC", "parent": "B0FJWTYJJ6", "parent_short": "B0FJWTYJJ6", "color": "#a855f7", "name": "80Days Verstellbares Brillenband aus Nylon – Brillenhalter mit Silikon-Enden, sicherer Halt für Brillen & Sonnenbrillen, ideal beim Sport, Lesen & im Alltag, Grau", "weeks": {"W1": {"sales": 48.0, "spend": 27.41, "units": 6, "organic": 2}, "W2": {"sales": 31.95, "spend": 19.64, "units": 4, "organic": 2}, "W3": {"sales": 32.02, "spend": 30.31, "units": 4, "organic": 1}, "W4": {"sales": 23.96, "spend": 22.6, "units": 3, "organic": 0}, "W5": {"sales": 95.88, "spend": 17.95, "units": 12, "organic": 6}}, "total_sales": 231.81}, {"asin": "B0F1CZQRYS", "parent": "B0F323TP22", "parent_short": "80Days Pilotenbrille – Klassis", "color": "#84cc16", "name": "80Days Pilotenbrille – Klassischer Doppelsteg, Dezentes Metalldetail, UV400 Schutz (Champagne)", "weeks": {"W1": {"sales": 75.0, "spend": 0.0, "units": 3, "organic": 3}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 100.0, "spend": 5.36, "units": 4, "organic": 4}}, "total_sales": 175.0}, {"asin": "B07CNV788S", "parent": "B07PFW9CLN", "parent_short": "ICECUBE Verano Polarisierte Sp", "color": "#a855f7", "name": "ICECUBE Verano Polarisierte Sport-Sonnenbrille mit Anti-Rutsch-Funktion, verstellbarem Nasenpolster und leichtem Rahmen, für Männer und Frauen beim Fahren, Laufen, Baseball, Golf", "weeks": {"W1": {"sales": 40.0, "spend": 0.0, "units": 1, "organic": 1}, "W2": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 40.0, "spend": 0.0, "units": 1, "organic": 1}, "W5": {"sales": 80.0, "spend": 0.93, "units": 2, "organic": 2}}, "total_sales": 160.0}, {"asin": "B07CNNMCBD", "parent": "B07PFWNKK1", "parent_short": "ICECUBE Sportech Sonnenbrille ", "color": "#f59e0b", "name": "ICECUBE Sportech Sonnenbrille für Damen und Herren, polarisierter UV400-Schutz, leichter Rahmen, Sport-Sonnenbrille für Baseball, Golf, Jagd (Mat.BLK/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 1.88, "units": 0, "organic": 0}, "W2": {"sales": 40.0, "spend": 11.74, "units": 1, "organic": 1}, "W3": {"sales": 40.0, "spend": 8.24, "units": 1, "organic": 0}, "W4": {"sales": 40.0, "spend": 8.44, "units": 1, "organic": 0}, "W5": {"sales": 40.0, "spend": 27.28, "units": 1, "organic": 0}}, "total_sales": 160.0}, {"asin": "B0FD3MZ97V", "parent": "B0FJWTYJJ6", "parent_short": "B0FJWTYJJ6", "color": "#a855f7", "name": "80Days Verstellbares Brillenband aus Nylon – Brillenhalter mit Silikon-Enden, sicherer Halt für Brillen & Sonnenbrillen, ideal beim Sport, Lesen & im Alltag, Grün", "weeks": {"W1": {"sales": 29.97, "spend": 1.43, "units": 3, "organic": 3}, "W2": {"sales": 28.53, "spend": 1.92, "units": 3, "organic": 2}, "W3": {"sales": 19.98, "spend": 0.0, "units": 2, "organic": 2}, "W4": {"sales": 29.97, "spend": 1.54, "units": 3, "organic": 3}, "W5": {"sales": 39.96, "spend": 1.62, "units": 4, "organic": 4}}, "total_sales": 148.41}, {"asin": "B07CNN4FW7", "parent": "B07PFWNKK1", "parent_short": "ICECUBE Sportech Sonnenbrille ", "color": "#f59e0b", "name": "ICECUBE Sportech Sonnenbrille für Damen und Herren, polarisierter UV400-Schutz, leichter Rahmen, Sport-Sonnenbrille für Baseball, Golf, Laufen (S.BLK/Grey)", "weeks": {"W1": {"sales": 40.0, "spend": 4.73, "units": 1, "organic": 0}, "W2": {"sales": 0.0, "spend": 5.54, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 3.36, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 1.18, "units": 0, "organic": 0}, "W5": {"sales": 80.33, "spend": 35.35, "units": 2, "organic": 1}}, "total_sales": 120.33}, {"asin": "B07CNSYJKD", "parent": "B07PFW9CLN", "parent_short": "ICECUBE Verano Polarisierte Sp", "color": "#a855f7", "name": "ICECUBE Verano Polarisierte Sport-Sonnenbrille mit Anti-Rutsch-Funktion, verstellbarem Nasenpolster und leichtem Rahmen, für Männer und Frauen beim Fahren, Laufen, Baseball, Golf", "weeks": {"W1": {"sales": 40.0, "spend": 0.0, "units": 1, "organic": 1}, "W2": {"sales": 40.0, "spend": 0.0, "units": 1, "organic": 1}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 40.0, "spend": 0.0, "units": 1, "organic": 1}, "W5": {"sales": 0.0, "spend": 0.85, "units": 0, "organic": 0}}, "total_sales": 120.0}, {"asin": "B0FCRQRHJ8", "parent": "B0FJWTYJJ6", "parent_short": "B0FJWTYJJ6", "color": "#a855f7", "name": "80Days Verstellbares Brillenband aus Nylon – Brillenhalter mit Silikon-Enden, sicherer Halt für Brillen & Sonnenbrillen, ideal beim Sport, Lesen & im Alltag, Grün", "weeks": {"W1": {"sales": 7.99, "spend": 0.96, "units": 1, "organic": 1}, "W2": {"sales": 23.97, "spend": 5.73, "units": 3, "organic": 2}, "W3": {"sales": 31.96, "spend": 2.74, "units": 4, "organic": 4}, "W4": {"sales": 7.99, "spend": 3.32, "units": 1, "organic": 0}, "W5": {"sales": 24.03, "spend": 1.95, "units": 3, "organic": 2}}, "total_sales": 95.94}, {"asin": "B07CNNHJV5", "parent": "B07PFWNKK1", "parent_short": "ICECUBE Sportech Sonnenbrille ", "color": "#f59e0b", "name": "ICECUBE Sportech Sonnenbrille für Damen und Herren, polarisierter UV400-Schutz, leichter Rahmen, Sport-Sonnenbrille für Baseball, Golf, Laufen (S.BLK/Red)", "weeks": {"W1": {"sales": 0.0, "spend": 3.02, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 3.41, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 1.21, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 1.97, "units": 0, "organic": 0}, "W5": {"sales": 80.33, "spend": 22.34, "units": 2, "organic": 1}}, "total_sales": 80.33}, {"asin": "B0F1CWQCYB", "parent": "B0F323TP22", "parent_short": "80Days Pilotenbrille – Klassis", "color": "#84cc16", "name": "80Days Pilotenbrille – Klassischer Doppelsteg, Dezentes Metalldetail, UV400 Schutz (BLK/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 25.0, "spend": 0.0, "units": 1, "organic": 1}, "W5": {"sales": 50.0, "spend": 1.87, "units": 2, "organic": 2}}, "total_sales": 75.0}, {"asin": "B0CSYD66YR", "parent": "B0CVWSWZ98", "parent_short": "ICECUBE VENTURA Hochleistungs-", "color": "#ec4899", "name": "ICECUBE VENTURA Hochleistungs-Sonnenbrille: Anti-Beschlag-PC-Gläser, belüfteter TR90-Rahmen, 100% UV-Schutz, ideal für Sport und Radfahren (BLK-Y/Blue)", "weeks": {"W1": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W2": {"sales": 60.0, "spend": 0.0, "units": 1, "organic": 1}, "W3": {"sales": 0.0, "spend": 1.06, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 3.51, "units": 0, "organic": 0}}, "total_sales": 60.0}, {"asin": "B07VMRK3KV", "parent": "B0DYVVK1BG", "parent_short": "B0DYVVK1BG", "color": "#14b8a6", "name": "Icecube JET II Neo Sport-Sonnenbrille mit 100% UV-Schutz, super leicht, geeignet für Fahren, Angeln, Radfahren und andere Outdoor-Aktivitäten, verstellbares Nasenpolster und Schläfe Gr. L, matte black", "weeks": {"W1": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.44, "units": 0, "organic": 0}, "W3": {"sales": 50.0, "spend": 1.65, "units": 1, "organic": 1}, "W4": {"sales": 0.0, "spend": 1.1, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 7.55, "units": 0, "organic": 0}}, "total_sales": 50.0}, {"asin": "B08X9L1KRH", "parent": "B0DYVVK1BG", "parent_short": "B0DYVVK1BG", "color": "#14b8a6", "name": "ICECUBE JET II NEO PC Polarisierte Sport-Sonnenbrille mit 100% UV-Schutz – Super leicht geeignet für Fahren, Radfahren und andere Outdoor-Aktivitäten – Verstellbares Nasenpolster & Bügel, Schwarz", "weeks": {"W1": {"sales": 0.0, "spend": 1.1, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W4": {"sales": 50.0, "spend": 0.55, "units": 1, "organic": 0}, "W5": {"sales": 0.0, "spend": 3.76, "units": 0, "organic": 0}}, "total_sales": 50.0}, {"asin": "B0DXPTBYZD", "parent": "B0DYVVK1BG", "parent_short": "B0DYVVK1BG", "color": "#14b8a6", "name": "ICECUBE Jet II Neo PC polarisierte Sport-Sonnenbrille mit 100% UV-Schutz – super leicht, geeignet zum Fahren, Angeln, Radfahren und andere Outdoor-Aktivitäten – verstellbares Nasenpolster und Bügel,", "weeks": {"W1": {"sales": 50.0, "spend": 0.55, "units": 1, "organic": 1}, "W2": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 1.94, "units": 0, "organic": 0}}, "total_sales": 50.0}, {"asin": "B0FCRK9JCK", "parent": "B0FJWTYJJ6", "parent_short": "B0FJWTYJJ6", "color": "#a855f7", "name": "80Days Verstellbares Brillenband aus Nylon – Brillenhalter mit Silikon-Enden, sicherer Halt für Brillen & Sonnenbrillen, ideal beim Sport, Lesen & im Alltag, Orange", "weeks": {"W1": {"sales": 0.0, "spend": 0.96, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.96, "units": 0, "organic": 0}, "W3": {"sales": 7.99, "spend": 2.47, "units": 1, "organic": 1}, "W4": {"sales": 16.04, "spend": 5.24, "units": 2, "organic": 2}, "W5": {"sales": 15.98, "spend": 0.55, "units": 2, "organic": 2}}, "total_sales": 40.01}, {"asin": "B07CNYLXCC", "parent": "B07PFW9CLN", "parent_short": "ICECUBE Verano Polarisierte Sp", "color": "#a855f7", "name": "ICECUBE Verano Polarisierte Sport-Sonnenbrille mit Anti-Rutsch-Funktion, verstellbarem Nasenpolster und leichtem Rahmen, für Männer und Frauen beim Fahren, Laufen, Baseball, Golf", "weeks": {"W1": {"sales": 40.0, "spend": 25.76, "units": 1, "organic": 1}, "W2": {"sales": 0.0, "spend": 16.49, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 11.46, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 14.94, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 46.56, "units": 0, "organic": 0}}, "total_sales": 40.0}, {"asin": "B07CP46YKD", "parent": "B07PDXC3C2", "parent_short": "B07PDXC3C2", "color": "#3b82f6", "name": "ICECUBE DYNAMIC Sonnenbrille – Polarisiert & UV400 Schutz – Anti-Rutsch & Leichtgewicht – Ideal für Freizeit- & Sportaktivitäten wie Laufen, Fahren & Golf – Für Männer & Frauen", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 40.0, "spend": 0.31, "units": 1, "organic": 1}}, "total_sales": 40.0}, {"asin": "B07CNV8S82", "parent": "B07PFW9CLN", "parent_short": "ICECUBE Verano Polarisierte Sp", "color": "#a855f7", "name": "ICECUBE Verano Polarisierte Sport-Sonnenbrille mit Anti-Rutsch-Funktion, verstellbarem Nasenpolster und leichtem Rahmen, für Männer und Frauen beim Fahren, Laufen, Baseball, Golf", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 40.0, "spend": 0.0, "units": 1, "organic": 1}}, "total_sales": 40.0}, {"asin": "B07CP3HSYD", "parent": "B07PFW9CLN", "parent_short": "ICECUBE Verano Polarisierte Sp", "color": "#a855f7", "name": "Ice Cube Herren Sonnenbrille L Gr. L, Crystal Grey", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 40.0, "spend": 0.0, "units": 1, "organic": 1}}, "total_sales": 40.0}, {"asin": "B07CNSD47H", "parent": "B07PDXC3C2", "parent_short": "B07PDXC3C2", "color": "#3b82f6", "name": "ICECUBE DYNAMIC Polarisierte Sport-Sonnenbrille UV400 Schutz mit Anti-Rutsch-Funktion und leichtem Rahmen - für Männer und Frauen beim Fahren, Laufen, Baseball, Golf, Freizeitsport und Aktivitäten", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 40.0, "spend": 1.52, "units": 1, "organic": 1}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 40.0}, {"asin": "B0G64L8VGX", "parent": "B0G65M6NT5", "parent_short": "80Days Verstellbares Brillenba", "color": "#f59e0b", "name": "80Days Verstellbares Brillenband – Brillenhalter mit Silikon-Enden, sicherer Halt für Brillen & Sonnenbrillen, ideal beim Sport, Lesen & im Alltag", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 9.99, "spend": 0.0, "units": 1, "organic": 1}, "W4": {"sales": 9.99, "spend": 0.0, "units": 1, "organic": 1}, "W5": {"sales": 19.98, "spend": 2.41, "units": 2, "organic": 1}}, "total_sales": 39.96}, {"asin": "B0F1D2QG1X", "parent": "B0F323TP22", "parent_short": "80Days Pilotenbrille – Klassis", "color": "#84cc16", "name": "80Days Pilotenbrille – Klassischer Doppelsteg, Dezentes Metalldetail, UV400 Schutz (BLK/Orange)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 25.0, "spend": 10.64, "units": 1, "organic": 0}}, "total_sales": 25.0}, {"asin": "B0F1D2NSWN", "parent": "B0F32LLNXK", "parent_short": "80Days Damen Oval Sonnenbrille", "color": "#facc15", "name": "80Days Damen Oval Sonnenbrille – Auffälliges Design, Vintage Chic, UV400 Schutz (BLK)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 25.0, "spend": 0.0, "units": 1, "organic": 1}}, "total_sales": 25.0}, {"asin": "B0C77BTWV9", "parent": "B07PDXC3C2", "parent_short": "B07PDXC3C2", "color": "#3b82f6", "name": "ICECUBE Dynamic Unisex Polarisierte Sport-Sonnenbrille, UV401-Schutz, ergonomisches Design, bequem für Outdoor-Aktivitäten", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 4.97, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CSY8MBW8", "parent": "B0CVWSWZ98", "parent_short": "ICECUBE VENTURA Hochleistungs-", "color": "#ec4899", "name": "ICECUBE VENTURA Hochleistungs-Sonnenbrille: Anti-Beschlag-PC-Gläser, belüfteter TR90-Rahmen, 100% UV-Schutz, ideal für Sport und Radfahren (BLK-Y/Red)", "weeks": {"W1": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 1.1, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 1.05, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 1.1, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 6.38, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CSYT7G9V", "parent": "B0CVWSWZ98", "parent_short": "ICECUBE VENTURA Hochleistungs-", "color": "#ec4899", "name": "ICECUBE VENTURA Hochleistungs-Sonnenbrille: Anti-Beschlag-PC-Gläser, belüfteter TR90-Rahmen, 100% UV-Schutz, ideal für Sport und Radfahren (BLK-R/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 5.94, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B07CNNXJ4Y", "parent": "B07PDXC3C2", "parent_short": "B07PDXC3C2", "color": "#3b82f6", "name": "ICECUBE Herren Sonnenbrille L Gr. L, Shiny Crystal Grey", "weeks": {"W1": {"sales": 0.0, "spend": 4.31, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 3.54, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 2.52, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.88, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 29.77, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D4F97T", "parent": "B0F32JYZH3", "parent_short": "80Days Damen Sonnenbrille mit ", "color": "#d946ef", "name": "80Days Damen Sonnenbrille mit Geometrischem Design – Elegante Silhouette, Zeitloser Glamour, UV400 Schutz (BLK)", "weeks": {"W1": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 2.1, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0G64Q4YRJ", "parent": "B0G65M6NT5", "parent_short": "80Days Verstellbares Brillenba", "color": "#f59e0b", "name": "80Days Verstellbares Brillenband – Brillenhalter mit Silikon-Enden, sicherer Halt für Brillen & Sonnenbrillen, ideal beim Sport, Lesen & im Alltag", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.33, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CSYD3DWY", "parent": "B0CVWSWZ98", "parent_short": "ICECUBE VENTURA Hochleistungs-", "color": "#ec4899", "name": "ICECUBE VENTURA Hochleistungs-Sonnenbrille: Anti-Beschlag-PC-Gläser, belüfteter TR90-R-R-Rahmen, 100% UV-Schutz, ideal für Sport und Radfahren (BLK-R/Red)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CSYHJ7MJ", "parent": "B0CVWSWZ98", "parent_short": "ICECUBE VENTURA Hochleistungs-", "color": "#ec4899", "name": "ICECUBE VENTURA Hochleistungs-Sonnenbrille: Anti-Beschlag-PC-Gläser, belüfteter TR90-Rahmen, 100% UV-Schutz, ideal für Sport und Radfahren (White-BL/Blue)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DWMF64DJ", "parent": "B0DY11BQT9", "parent_short": "ICECUBE Laso-17 Polarisierte S", "color": "#8b5cf6", "name": "ICECUBE Laso-17 Polarisierte Sonnenbrille – Leichte, eckige Fassung mit rutschfesten Nasenpads und sportlichen Bügelenden (BLK-Red)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 1.1, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DWMFL3JX", "parent": "B0DY11BQT9", "parent_short": "ICECUBE Laso-17 Polarisierte S", "color": "#8b5cf6", "name": "ICECUBE Laso-17 Polarisierte Sonnenbrille – Leichte, eckige Fassung mit rutschfesten Nasenpads und sportlichen Bügelenden (BLK-Brown)", "weeks": {"W1": {"sales": 0.0, "spend": 0.61, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DWMG7Q7D", "parent": "B0DY11BQT9", "parent_short": "ICECUBE Laso-17 Polarisierte S", "color": "#8b5cf6", "name": "ICECUBE Laso-17 Polarisierte Sonnenbrille – Leichte, eckige Fassung mit rutschfesten Nasenpads und sportlichen Bügelenden (BLK-Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D2HHD4", "parent": "B0F32JYZH3", "parent_short": "80Days Damen Sonnenbrille mit ", "color": "#d946ef", "name": "80Days Damen Sonnenbrille mit Geometrischem Design – Elegante Silhouette, Zeitloser Glamour, UV400 Schutz (Demi)", "weeks": {"W1": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.5, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 1.08, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B09V2GNC1H", "parent": "B0F5VK5JH8", "parent_short": "B0F5VK5JH8", "color": "#3b82f6", "name": "Icebube Sprint Polarisierte Sonnenbrille für Herren und Damen, UV400-Schutz, rutschfest, leicht, White", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 1.65, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1CZK6SN", "parent": "B0F2MZ9XNM", "parent_short": "80Days Runde Sonnenbrille – Vi", "color": "#f43f5e", "name": "80Days Runde Sonnenbrille – Vintage-Look, Klassischer Stil, UV400 Schutz (Tortoise/Brown)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D3VGX6", "parent": "B0F32858MJ", "parent_short": "80Days Eckige Sonnenbrille – S", "color": "#0ea5e9", "name": "80Days Eckige Sonnenbrille – Schlanker Rahmen, Stilvoll & Zeitlos, UV400 Schutz (Tortoise)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D2B3FG", "parent": "B0F32858MJ", "parent_short": "80Days Eckige Sonnenbrille – S", "color": "#0ea5e9", "name": "80Days Eckige Sonnenbrille – Schlanker Rahmen, Stilvoll & Zeitlos, UV400 Schutz (BLK)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DWMGBB96", "parent": "B0DY11BQT9", "parent_short": "ICECUBE Laso-17 Polarisierte S", "color": "#8b5cf6", "name": "ICECUBE Laso-17 Polarisierte Sonnenbrille – Leichte, eckige Fassung mit rutschfesten Nasenpads und sportlichen Bügelenden (BLK-Blue)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CSYPVL3D", "parent": "B0CVWSWZ98", "parent_short": "ICECUBE VENTURA Hochleistungs-", "color": "#ec4899", "name": "ICECUBE VENTURA Hochleistungs-Sonnenbrille: Anti-Beschlag-PC-Gläser, belüfteter TR90-Rahmen, 100% UV-Schutz, ideal für Sport und Radfahren (White-BL/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0G64TMSXH", "parent": "B0G65M6NT5", "parent_short": "80Days Verstellbares Brillenba", "color": "#f59e0b", "name": "80Days Verstellbares Brillenband – Brillenhalter mit Silikon-Enden, sicherer Halt für Brillen & Sonnenbrillen, ideal beim Sport, Lesen & im Alltag", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D3JGDH", "parent": "B0F32LLNXK", "parent_short": "80Days Damen Oval Sonnenbrille", "color": "#facc15", "name": "80Days Damen Oval Sonnenbrille – Auffälliges Design, Vintage Chic, UV400 Schutz (Xtal.Pink)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0G653WYKH", "parent": "B0G65M6NT5", "parent_short": "80Days Verstellbares Brillenba", "color": "#f59e0b", "name": "80Days Verstellbares Brillenband – Brillenhalter mit Silikon-Enden, sicherer Halt für Brillen & Sonnenbrillen, ideal beim Sport, Lesen & im Alltag", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B09V2JRH2L", "parent": "B0F5VK5JH8", "parent_short": "B0F5VK5JH8", "color": "#3b82f6", "name": "Icebube Sprint Polarisierte Sonnenbrille für Herren und Damen, UV400-Schutz, rutschfest, leicht, BLK", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D1CFHP", "parent": "B0F32JYZH3", "parent_short": "80Days Damen Sonnenbrille mit ", "color": "#d946ef", "name": "80Days Damen Sonnenbrille mit Geometrischem Design – Elegante Silhouette, Zeitloser Glamour, UV400 Schutz (Taupe)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}];
+
+const ZH = {};
+const CHILD_ZH = {};
+
+const TACOS_TARGET = 30;
+const WEEKS = ["W1", "W2", "W3", "W4", "W5"];
+const W_LABELS = {"W1": "Feb 1\u20137", "W2": "Feb 8\u201314", "W3": "Feb 15\u201321", "W4": "Feb 22\u201328", "W5": "Mar 1\u20137"};
+
+const $ = id => document.getElementById(id);
+const fmt = (v,d=0) => v==null?'—':'€'+v.toLocaleString('de-DE',{minimumFractionDigits:d,maximumFractionDigits:d});
+const pct = v => v==null?'—':v.toFixed(1)+'%';
+const tacosClass = v => v==null?'muted':v<=TACOS_TARGET?'tacos-ok':v<=TACOS_TARGET*1.2?'tacos-warn':'tacos-bad';
+const zhName = pid => (ZH[pid]||'') + ' ' + (PARENTS[pid]?PARENTS[pid].short:'');
+const zhShort = pid => ZH[pid] || (PARENTS[pid]?PARENTS[pid].short:'');
+
+function showTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  $(id).classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+
+function sortedParents() {
+  return Object.entries(PARENTS).sort((a,b)=>b[1].total_sales-a[1].total_sales);
+}
+
+function drawDonut(canvasId, data) {
+  const canvas=$(canvasId); if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2,r=W/2-8,ir=r*0.58;
+  const sum=data.reduce((s,d)=>s+d.value,0); if(sum===0) return;
+  let angle=-Math.PI/2;
+  data.forEach(d=>{
+    const sweep=(d.value/sum)*Math.PI*2;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,angle,angle+sweep);ctx.closePath();
+    ctx.fillStyle=d.color;ctx.fill();angle+=sweep;
+  });
+  ctx.beginPath();ctx.arc(cx,cy,ir,0,Math.PI*2);ctx.fillStyle='#ffffff';ctx.fill();
+}
+
+// ═══ TAB 1 ═══
+function buildT1() {
+  window._t1={};
+  ['all',...WEEKS].forEach(mode=>{
+    const sp=sortedParents();
+    const weeks=mode==='all'?WEEKS:[mode];
+    const byAsin=sp.map(([pid,p])=>{
+      const sales=weeks.reduce((a,w)=>a+p.weeks[w].sales,0);
+      const spend=weeks.reduce((a,w)=>a+p.weeks[w].spend,0);
+      const spsd =weeks.reduce((a,w)=>a+p.weeks[w].spsd,0);
+      const units=weeks.reduce((a,w)=>a+p.weeks[w].units,0);
+      const tacos=sales>0?spend/sales*100:null;
+      return {pid,name:p.name,short:zhShort(pid),color:p.color,sales,spend,spsd,units,tacos,children:p.children};
+    }).sort((a,b)=>b.sales-a.sales);
+    window._t1[mode]={
+      byAsin,
+      totSales: byAsin.reduce((s,p)=>s+p.sales,0),
+      totSpend: byAsin.reduce((s,p)=>s+p.spend,0),
+      totUnits: byAsin.reduce((s,p)=>s+p.units,0),
+      totProfit:sp.reduce((s,[,p])=>s+weeks.reduce((a,w)=>a+p.weeks[w].profits,0),0),
+    };
+  });
+  switchWeek('all', document.querySelector('.week-btn'));
+}
+
+function switchWeek(mode, btn) {
+  document.querySelectorAll('.week-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const d=window._t1[mode]; if(!d) return;
+
+  const tClass=v=>v==null?'':v<=TACOS_TARGET?'kpi-green':v<=TACOS_TARGET*1.2?'kpi-amber':'kpi-red';
+  const acctTacos=d.totSales>0?d.totSpend/d.totSales*100:0;
+  const top=d.byAsin[0];
+  const topSpend=[...d.byAsin].filter(p=>p.spend>0).sort((a,b)=>b.spend-a.spend)[0];
+  $('kpi-t1').innerHTML=`
+    <div class="kpi-card"><div class="kpi-label">Total Sales</div><div class="kpi-value">${fmt(d.totSales,0)}</div><div class="kpi-sub">${d.totUnits} units</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total Ad Spend</div><div class="kpi-value kpi-amber">${fmt(d.totSpend,0)}</div><div class="kpi-sub">SP+SD+SB</div></div>
+    <div class="kpi-card"><div class="kpi-label">Account TACOS</div><div class="kpi-value ${tClass(acctTacos)}">${pct(acctTacos)}</div><div class="kpi-sub">${acctTacos<=TACOS_TARGET?'✓ On Target':'⚠ Above 30%'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total Profit</div><div class="kpi-value ${d.totProfit>=0?'kpi-green':'kpi-red'}">${fmt(d.totProfit,0)}</div><div class="kpi-sub">${d.totProfit>=0?'▲ 盈利':'▼ 虧損'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">銷售最大</div><div class="kpi-value" style="font-size:14px">${top?top.short:'—'}</div><div class="kpi-sub" style="color:var(--green)">${top?fmt(top.sales,0):''}</div></div>
+    <div class="kpi-card"><div class="kpi-label">廣告最燒</div><div class="kpi-value" style="font-size:14px">${topSpend?topSpend.short:'—'}</div><div class="kpi-sub" style="color:var(--amber)">${topSpend?fmt(topSpend.spend,0)+' · '+pct(topSpend.tacos):''}</div></div>`;
+
+  const salesData=d.byAsin.filter(p=>p.sales>0).map(p=>({value:p.sales,color:p.color}));
+  drawDonut('salesPie',salesData);
+  $('salesTotalLbl').textContent=fmt(d.totSales,0);
+  $('salesList').innerHTML=d.byAsin.filter(p=>p.sales>0).map(p=>{
+    const p2=d.totSales>0?(p.sales/d.totSales*100).toFixed(1):'0.0';
+    return `<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid var(--border)">
+      <span style="width:8px;height:8px;border-radius:50%;background:${p.color};flex-shrink:0"></span>
+      <span style="flex:1;font-size:12px;color:var(--text2)">${p.short}</span>
+      <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text)">${p2}%</span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--text3);min-width:54px;text-align:right">${fmt(p.sales,0)}</span>
+    </div>`;
+  }).join('');
+
+  const spendData=d.byAsin.filter(p=>p.spend>0).sort((a,b)=>b.spend-a.spend).map(p=>({value:p.spend,color:p.color}));
+  drawDonut('adsPie',spendData);
+  $('adsTotalLbl').textContent=fmt(d.totSpend,0);
+  $('adsList').innerHTML=d.byAsin.filter(p=>p.spend>0).sort((a,b)=>b.spend-a.spend).map(p=>{
+    const p2=d.totSpend>0?(p.spend/d.totSpend*100).toFixed(1):'0.0';
+    const over=p.sales>0&&parseFloat(p2)>(d.totSales>0?p.sales/d.totSales*100:0)*1.5&&parseFloat(p2)>3;
+    return `<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid var(--border)${over?';background:rgba(220,38,38,.04)':''}">
+      <span style="width:8px;height:8px;border-radius:50%;background:${p.color};flex-shrink:0"></span>
+      <span style="flex:1;font-size:12px;color:var(--text2)">${p.short}${over?' <span style="color:var(--red);font-size:9px">⚠廣告過重</span>':''}</span>
+      <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:${over?'var(--red)':'var(--text)'}">${p2}%</span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--text3);min-width:54px;text-align:right">${fmt(p.spend,0)}</span>
+    </div>`;
+  }).join('');
+
+  renderChildTable(mode);
+}
+
+function renderChildTable(mode) {
+  const tbl=$('childTable'); if(!tbl) return;
+  const weeks=mode==='all'?WEEKS:[mode];
+  const modeAdj=CHILD_DATA.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
+
+  const wH=weeks.map(w=>`<th colspan="3" style="text-align:center;border-left:1px solid var(--border2)">${w} <span style="color:var(--text3);font-size:8px">${W_LABELS[w]}</span></th>`).join('');
+  const sH=weeks.map(()=>`<th style="border-left:1px solid var(--border2)">Sales</th><th>Spend</th><th>TACOS</th>`).join('');
+
+  // Group by parent
+  const parentIds=[...new Set(CHILD_DATA.map(r=>r.parent))];
+  // Sort parents by total sales desc
+  const parentOrder=sortedParents().map(([pid])=>pid).filter(pid=>parentIds.includes(pid));
+
+  let bodyHtml='';
+  let pIdx=0;
+  parentOrder.forEach(pid=>{
+    const children=CHILD_DATA.filter(r=>r.parent===pid&&(weeks.reduce((a,w)=>a+r.weeks[w].sales,0)>0||weeks.reduce((a,w)=>a+r.weeks[w].spend,0)>0));
+    if(!children.length) return;
+    const p=PARENTS[pid];
+    const pSales=children.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
+    const pSpend=children.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].spend,0),0);
+    const pTacos=pSales>0?pSpend/pSales*100:null;
+    const pPct=modeAdj>0?(pSales/modeAdj*100).toFixed(1):'0.0';
+    const gid=`pg${pIdx++}`;
+
+    const pWcells=weeks.map(w=>{
+      const wS=children.reduce((s,r)=>s+r.weeks[w].sales,0);
+      const wE=children.reduce((s,r)=>s+r.weeks[w].spend,0);
+      const tc=wS>0?wE/wS*100:null;
+      return `<td style="border-left:1px solid var(--border2);font-weight:600">${wS>0?fmt(wS,0):'—'}</td>
+              <td style="font-weight:600">${wE>0?fmt(wE,0):'—'}</td>
+              <td class="${tacosClass(tc)}" style="font-weight:600">${tc!=null?pct(tc):'—'}</td>`;
+    }).join('');
+
+    // Parent row
+    bodyHtml+=`<tr class="parent-row" onclick="toggleGroup('${gid}')" style="background:${p.color}0d;border-top:2px solid ${p.color}33">
+      <td>
+        <span class="toggle-icon" id="ti_${gid}">▼</span>
+        <span style="color:${p.color};font-weight:700;font-family:var(--display);font-size:13px;margin-left:4px">${zhShort(pid)}</span>
+        <span style="color:var(--text3);font-size:10px;margin-left:8px;font-family:var(--mono)">${children.length} 個變體</span>
+      </td>
+      <td style="font-family:var(--mono);font-size:12px;color:var(--green);font-weight:700">${pPct}%</td>
+      ${pWcells}
+    </tr>`;
+
+    // Child rows
+    bodyHtml+=`<tbody id="${gid}" class="child-rows">`;
+    children.sort((a,b)=>b.total_sales-a.total_sales).forEach(r=>{
+      const cSales=weeks.reduce((a,w)=>a+r.weeks[w].sales,0);
+      const cSpend=weeks.reduce((a,w)=>a+r.weeks[w].spend,0);
+      const cPct=modeAdj>0?(cSales/modeAdj*100).toFixed(1):'0.0';
+      const cName=CHILD_ZH[r.asin]||r.name.replace(/^DAIKEN\s*/,'').substring(0,50);
+      const wCells=weeks.map(w=>{
+        const wd=r.weeks[w];
+        const tc=wd.sales>0?wd.spend/wd.sales*100:null;
+        return `<td style="border-left:1px solid var(--border2)">${wd.sales>0?fmt(wd.sales,0):'—'}</td>
+                <td>${wd.spend>0?fmt(wd.spend,0):'—'}</td>
+                <td class="${tacosClass(tc)}">${tc!=null?pct(tc):'—'}</td>`;
+      }).join('');
+      bodyHtml+=`<tr style="background:var(--bg)">
+        <td style="padding-left:32px">
+          <a class="asin-link" href="https://www.amazon.com/dp/${r.asin}" target="_blank">${r.asin}</a>
+          <span style="color:var(--text2);font-size:11.5px;margin-left:8px">${cName}</span>
+        </td>
+        <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">${cPct}%</td>
+        ${wCells}
+      </tr>`;
+    });
+    bodyHtml+='</tbody>';
+  });
+
+  const totalCells=weeks.map(w=>{
+    const wS=CHILD_DATA.reduce((s,r)=>s+r.weeks[w].sales,0);
+    const wE=CHILD_DATA.reduce((s,r)=>s+r.weeks[w].spend,0);
+    const wT=wS>0?wE/wS*100:null;
+    return `<td style="border-left:1px solid var(--border2);font-weight:700">${fmt(wS,0)}</td>
+            <td style="font-weight:700">${fmt(wE,0)}</td>
+            <td class="${tacosClass(wT)}">${wT!=null?pct(wT):'—'}</td>`;
+  }).join('');
+
+  // Fixed column widths via colgroup
+  const nWeeks=weeks.length;
+  const colDefs=[220,58,...Array(nWeeks*3).fill(0).flatMap((_,i)=>i%3===0?[82]:i%3===1?[72]:[60])];
+  const cg='<colgroup>'+colDefs.map(w=>`<col style="width:${w}px">`).join('')+'</colgroup>';
+  tbl.innerHTML=`${cg}<thead>
+    <tr><th style="min-width:300px">產品 / 變體</th><th>Sales %</th>${wH}</tr>
+    <tr class="week-group"><th></th><th></th>${sH}</tr>
+  </thead>
+  <tbody>${bodyHtml}</tbody>
+  <tfoot><tr style="background:var(--bg3);font-weight:700;border-top:2px solid var(--border2)">
+    <td>TOTAL</td><td>100%</td>${totalCells}
+  </tr></tfoot>`;
+  tbl.style.tableLayout='fixed';
+  tbl.style.width='auto';
+  requestAnimationFrame(()=>{
+    const rows=tbl.querySelectorAll('thead tr');
+    if(rows[0]&&rows[1]){
+      const h=rows[0].getBoundingClientRect().height;
+      rows[1].querySelectorAll('th').forEach(th=>th.style.top=h+'px');
+    }
+  });
+}
+
+function toggleGroup(gid) {
+  const el=document.getElementById(gid);
+  const icon=document.getElementById('ti_'+gid);
+  if(!el) return;
+  el.classList.toggle('collapsed');
+  if(icon) icon.textContent=el.classList.contains('collapsed')?'▶':'▼';
+}
+
+// ═══ TAB 2 ═══
+function buildWowTab() {
+  const sp=sortedParents();
+  const totals={};
+  WEEKS.forEach(w=>totals[w]={sales:0,spend:0,units:0,organic:0,ppc:0});
+  sp.forEach(([,p])=>WEEKS.forEach(w=>{
+    totals[w].sales+=p.weeks[w].sales;totals[w].spend+=p.weeks[w].spend;
+    totals[w].units+=p.weeks[w].units;totals[w].organic+=p.weeks[w].organic;
+  }));
+  $('kpi-t2').innerHTML=WEEKS.map(w=>{
+    const tc=totals[w].sales>0?totals[w].spend/totals[w].sales*100:0;
+    return `<div class="kpi-card"><div class="kpi-label">${w} · ${W_LABELS[w]}</div>
+      <div class="kpi-value" style="font-size:18px">${fmt(totals[w].sales,0)}</div>
+      <div class="kpi-sub">Spend ${fmt(totals[w].spend,0)} · TACOS <span class="${tacosClass(tc)}">${pct(tc)}</span></div>
+    </div>`;
+  }).join('');
+  $('wowTable').innerHTML=`<thead><tr><th rowspan="2">產品</th>
+    ${WEEKS.map(w=>`<th colspan="5" style="text-align:center;background:var(--bg3)">${w} ${W_LABELS[w]}</th>`).join('')}</tr>
+    <tr class="week-group">${WEEKS.map(()=>'<th>Sales</th><th>Spend</th><th>TACOS</th><th>Units</th><th>Organic</th>').join('')}</tr>
+  </thead><tbody>${sp.map(([pid,p])=>`<tr>
+    <td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>
+    <strong style="color:${p.color}">${zhShort(pid)}</strong><br>
+    <span class="muted" style="font-size:10px">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span></td>
+    ${WEEKS.map(w=>{const wd=p.weeks[w],tc=wd.tacos;
+      return `<td>${fmt(wd.sales,0)}</td><td>${fmt(wd.spend,0)}</td><td class="${tacosClass(tc)}">${pct(tc)}</td><td>${wd.units||'—'}</td><td>${wd.organic||'—'}</td>`;
+    }).join('')}
+  </tr>`).join('')}
+  <tr style="background:var(--bg3);font-weight:700"><td>TOTAL</td>
+    ${WEEKS.map(w=>{const tc=totals[w].sales>0?totals[w].spend/totals[w].sales*100:0;
+      return `<td>${fmt(totals[w].sales,0)}</td><td>${fmt(totals[w].spend,0)}</td><td class="${tacosClass(tc)}">${pct(tc)}</td><td>${totals[w].units}</td><td>${totals[w].organic}</td>`;
+    }).join('')}
+  </tr></tbody>`;
+}
+
+// ═══ TAB 3 ═══
+function buildHeatTab() {
+  const sp=sortedParents();
+  const periods=[['W1','W2'],['W2','W3'],['W3','W4']];
+  const metrics=[{key:'sales',label:'Sales',up:true},{key:'spend',label:'Spend',up:false},{key:'tacos',label:'TACOS',up:false},{key:'units',label:'Units',up:true}];
+  const chg=(a,b)=>(!a||a===0)?null:(b-a)/a*100;
+  const fmtC=(v,up)=>{if(v==null)return'<span class="muted">—</span>';const g=(up?v>0:v<0);return`<span style="color:${g?'var(--green)':'var(--red)'}">${v>0?'+':''}${v.toFixed(1)}%</span>`;};
+  const wH=periods.map(([a,b])=>metrics.map(m=>`<th>${a}→${b}<br><span style="color:var(--text2);font-weight:400">${m.label}</span></th>`).join('')).join('');
+  $('heatTable').innerHTML=`<thead><tr><th>產品</th>${wH}</tr></thead><tbody>${
+    sp.map(([pid,p])=>`<tr><td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>${zhShort(pid)}</td>
+      ${periods.map(([a,b])=>metrics.map(m=>`<td>${fmtC(chg(p.weeks[a][m.key],p.weeks[b][m.key]),m.up)}</td>`).join('')).join('')}
+    </tr>`).join('')
+  }</tbody>`;
+}
+
+// ═══ TAB 4 — QUADRANT ═══
+function getQuadrant(p, med) {
+  if(p.total_sales>=med && p.tacos_4w<=TACOS_TARGET) return 'star';
+  if(p.total_sales>=med && p.tacos_4w>TACOS_TARGET)  return 'question';
+  if(p.total_sales<med  && p.tacos_4w<=TACOS_TARGET)  return 'potential';
+  return 'cut';
+}
+
+function buildQuadTab() {
+  const sp=sortedParents().filter(([,p])=>p.total_sales>0);
+  const salesArr=sp.map(([,p])=>p.total_sales).sort((a,b)=>a-b);
+  const med=salesArr.length%2===0?(salesArr[salesArr.length/2-1]+salesArr[salesArr.length/2])/2:salesArr[Math.floor(salesArr.length/2)];
+  const totS=sp.reduce((s,[,p])=>s+p.total_sales,0);
+  const totE=sp.reduce((s,[,p])=>s+p.total_spend,0);
+  const acct=totS>0?totE/totS*100:0;
+  const qStar=sp.filter(([,p])=>getQuadrant(p,med)==='star');
+  const qQuestion=sp.filter(([,p])=>getQuadrant(p,med)==='question');
+  const qPotential=sp.filter(([,p])=>getQuadrant(p,med)==='potential');
+  const qCut=sp.filter(([,p])=>getQuadrant(p,med)==='cut');
+
+  $('kpi-t4').innerHTML=`
+    <div class="kpi-card"><div class="kpi-label">TACOS Target</div><div class="kpi-value kpi-green">30%</div><div class="kpi-sub">Y-axis threshold</div></div>
+    <div class="kpi-card"><div class="kpi-label">Account TACOS</div><div class="kpi-value ${acct<=30?'kpi-green':acct<=36?'kpi-amber':'kpi-red'}">${pct(acct)}</div><div class="kpi-sub">SP+SD+SB total</div></div>
+    <div class="kpi-card"><div class="kpi-label">Sales Median</div><div class="kpi-value">${fmt(med,0)}</div><div class="kpi-sub">X-axis threshold</div></div>
+    <div class="kpi-card"><div class="kpi-label">⭐ Star</div><div class="kpi-value kpi-green">${qStar.length}</div></div>
+    <div class="kpi-card"><div class="kpi-label">⚠️ Question</div><div class="kpi-value kpi-amber">${qQuestion.length}</div></div>
+    <div class="kpi-card"><div class="kpi-label">💤 Potential</div><div class="kpi-value" style="color:var(--accent)">${qPotential.length}</div></div>
+    <div class="kpi-card"><div class="kpi-label">🔴 Cut</div><div class="kpi-value kpi-red">${qCut.length}</div></div>`;
+
+const qDefs=[
+    {title:'cut',color:'#dc2626',items:qCut,action:'調降售價 $0.50\n建立 Coupon 折扣\n設定 Prime 限時特賣'},
+    {title:'Question',color:'#d97706',items:qQuestion,action:'降低 CPC 出價\n暫停 TACOS ≥85% 關鍵字'},
+    {title:'potential',color:'#2563eb',items:qPotential,action:'增加 SP / SB / SD 廣告\n使用低 CPC 出價\n建立 Lookalike 受眾活動\n相似 KW 根詞 · 競品 ASIN · AMC 受眾'},
+    {title:'star',color:'#16a34a',items:qStar,action:'複製現有 SP 活動\n提高預算 30%'},
+  ];
+  $('qCards').innerHTML=qDefs.map(q=>`<div class="q-card" style="border-color:${q.color}33"><div class="q-card-title" style="color:${q.color}">${q.title}</div><div class="q-card-body">${q.action.split('\\n').join('<br>')}
+    <br><br>${q.items.map(([pid,p])=>`<span style="display:inline-block;margin:2px 3px;padding:2px 8px;background:${p.color}22;border:1px solid ${p.color}44;border-radius:3px;font-size:10px;color:${p.color};font-family:var(--mono)">${zhShort(pid)}</span>`).join('')}
+    ${q.items.length===0?'<span class="muted">None</span>':''}</div>
+  </div>`).join('');
+
+  // Canvas
+  const canvas=$('quadCanvas');
+  const ctx=canvas.getContext('2d');
+  const CW=canvas.width,CH=canvas.height;
+  ctx.clearRect(0,0,CW,CH);
+  const MX=CW/2,MY=CH/2;
+  function drawBox(x,y,w,h,bg,title,subtitle,items,tc){
+    ctx.fillStyle=bg;ctx.fillRect(x+1,y+1,w-2,h-2);
+    ctx.fillStyle=tc;ctx.font='bold 20px Inter,sans-serif';ctx.textAlign='left';
+    ctx.fillText(title,x+18,y+34);
+    ctx.fillStyle='#64748b';ctx.font='10px Outfit,sans-serif';
+    const lines=subtitle.split('\\n');
+    lines.forEach((l,i)=>ctx.fillText(l,x+18,y+54+i*15));
+    let cx2=x+18,cy2=y+54+lines.length*15+18;
+    ctx.font='bold 10px JetBrains Mono,monospace';
+    items.forEach(([pid,p])=>{
+      const lbl=zhShort(pid);
+      const tw=ctx.measureText(lbl).width+14;
+      if(cx2+tw>x+w-10){cx2=x+18;cy2+=20;}
+      ctx.fillStyle=p.color+'2a';
+      ctx.beginPath();ctx.roundRect(cx2,cy2-13,tw,18,3);ctx.fill();
+      ctx.fillStyle=p.color;ctx.fillText(lbl,cx2+7,cy2);
+      cx2+=tw+5;
+    });
+  }
+  drawBox(0,0,MX,MY,'rgba(220,38,38,.05)','cut','調降售價 $0.50\n建立 Coupon\n設定 Prime 特賣',qCut,'#dc2626');
+  drawBox(MX,0,MX,MY,'rgba(217,119,6,.05)','Question','降低 CPC\n暫停 ≥85% TACOS KW',qQuestion,'#d97706');
+  drawBox(0,MY,MX,MY,'rgba(37,99,235,.05)','potential','增加 SP/SB/SD · 低 CPC\nLookalike 受眾 · 競品 ASIN\nAMC 相似受眾',qPotential,'#2563eb');
+  drawBox(MX,MY,MX,MY,'rgba(22,163,74,.05)','star','複製 SP 活動\n預算 +30%',qStar,'#16a34a');
+  ctx.strokeStyle='#2563eb';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(MX,0);ctx.lineTo(MX,CH);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(0,MY);ctx.lineTo(CW,MY);ctx.stroke();
+  ctx.fillStyle='#2563eb';ctx.font='bold 13px Inter,sans-serif';ctx.textAlign='center';
+  ctx.fillText('Flux DE · Feb–Mar 2026',CW/2,18);
+  ctx.fillStyle='#94a3b8';ctx.font='11px JetBrains Mono,monospace';ctx.textAlign='left';
+  ctx.fillText('TACOS ↑',6,MY-8);
+  ctx.fillStyle='#2563eb';ctx.font='bold 20px JetBrains Mono,monospace';ctx.textAlign='right';
+  ctx.fillText('70',MX-8,MY-6);
+  ctx.fillStyle='#64748b';ctx.font='12px JetBrains Mono,monospace';
+  ctx.fillText('0',MX-8,CH-8);
+  ctx.textAlign='right';ctx.fillText('Sales →',CW-6,CH-8);
+  ctx.textAlign='left';ctx.fillStyle='#64748b';ctx.font='10px Outfit,sans-serif';
+  ctx.fillText('Bid $2–$2.5',8,CH-8);
+
+  window._quad_med = med;
+}
+
+// ═══ TAB 5 — 行動方案 ═══
+function buildActionTab() {
+  const sp=sortedParents().filter(([,p])=>p.total_sales>0);
+  const salesArr=sp.map(([,p])=>p.total_sales).sort((a,b)=>a-b);
+  const med=salesArr.length%2===0?(salesArr[salesArr.length/2-1]+salesArr[salesArr.length/2])/2:salesArr[Math.floor(salesArr.length/2)];
+
+  const QUAD_CONFIG = {
+    star:     {label:'⭐ Star',badgeCls:'badge-star',   pri:'badge-now', priLabel:'本週執行',
+      tasks:[
+        {type:'SP Bulk',text:'下載現有 SP 活動 Bulk File → 複製所有 Enabled campaigns → 新命名加 _COPY 後綴'},
+        {type:'Budget',text:'全部 SP 活動預算 × 1.3（+30%）→ 上傳 Bulk File'},
+        {type:'SB',text:'檢查是否有 SB Banner 廣告，若無則新建 SB Campaign 指向此產品'},
+        {type:'SD',text:'建立 SD Retargeting 活動 targeting 已瀏覽 ASIN 的受眾'},
+      ]},
+    question: {label:'⚠️ Question',badgeCls:'badge-question',pri:'badge-now', priLabel:'本週執行',
+      tasks:[
+        {type:'CPC',text:'下載 SP 活動 Bulk File → 找出 ACOS ≥85% 的關鍵字 → Bid × 0.8（降20%）'},
+        {type:'Pause KW',text:'TACOS ≥85% 且過去 14 天無轉換的關鍵字 → 狀態改為 Paused'},
+        {type:'Budget',text:'SP 活動預算維持不變，待 TACOS 下降再考慮增加'},
+        {type:'Review',text:'檢查競品 listing 定價，評估是否需要調整售價提高轉換率'},
+      ]},
+    cut:      {label:'🔴 Cut',badgeCls:'badge-cut',    pri:'badge-now', priLabel:'本週執行',
+      tasks:[
+        {type:'Price',text:'在 Seller Central 將售價下調 $0.50，觀察轉換率變化'},
+        {type:'Coupon',text:'建立 Coupon 折扣（建議 5–10%）→ 提升搜尋結果曝光'},
+        {type:'Deal',text:'申請 Prime Exclusive Discount 或 Lightning Deal（需提前 2 週申請）'},
+        {type:'SP Bid',text:'下載 SP Bulk File → 全部 Keyword Bid 降至 $2.00 上限'},
+      ]},
+    potential:{label:'💤 Potential',badgeCls:'badge-potential',pri:'badge-next',priLabel:'下週執行',
+      tasks:[
+        {type:'SP',text:'新建 SP Auto campaign，日預算 $10，CPC 出價 $2.00，30天跑數據'},
+        {type:'SB',text:'新建 SB Banner campaign，指向此產品 store page，CPC $2.00'},
+        {type:'SD',text:'新建 SD Audience campaign，目標 Competitor ASIN 的瀏覽受眾'},
+        {type:'AMC',text:'建立 AMC Lookalike 受眾 → 相似購買行為受眾 → 套用至 SD campaign'},
+        {type:'KW',text:'用現有暢銷產品的高轉換 KW 根詞，建立 SP Exact Match campaign'},
+      ]},
+  };
+
+  const html=sp.map(([pid,p])=>{
+    const q=getQuadrant(p, med);
+    const cfg=QUAD_CONFIG[q];
+    const taskHtml=cfg.tasks.map((t,i)=>`
+      <div class="action-task" id="task_${pid}_${i}">
+        <input type="checkbox" onchange="toggleTask('${pid}',${i},this)">
+        <span class="task-type">${t.type}</span>
+        <span class="task-text">${t.text}</span>
+      </div>`).join('');
+    return `<div class="action-card">
+      <div class="action-card-header">
+        <span style="width:12px;height:12px;border-radius:3px;background:${p.color};display:inline-block;flex-shrink:0"></span>
+        <div class="action-card-title" style="color:${p.color}">${zhShort(pid)}</div>
+        <span class="action-card-badge ${cfg.badgeCls}">${cfg.label}</span>
+        <span class="action-card-badge ${cfg.pri}">${cfg.priLabel}</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:auto">5W Sales ${fmt(p.total_sales,0)} · TACOS <span class="${tacosClass(p.tacos_4w)}">${pct(p.tacos_4w)}</span></span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span>
+      </div>
+      <div class="action-tasks">${taskHtml}</div>
+    </div>`;
+  }).join('');
+
+  $('actionCards').innerHTML=html;
+}
+
+function toggleTask(pid, idx, cb) {
+  const el=document.getElementById(`task_${pid}_${idx}`);
+  if(el) el.classList.toggle('done', cb.checked);
+}
+
+// ═══ INIT ═══
+buildT1();
+buildWowTab();
+buildHeatTab();
+buildQuadTab();
+buildActionTab();
+</script>
+</body>
+</html>
