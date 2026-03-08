@@ -2,36 +2,639 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DBJ · US Market — Coming Soon</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAIKEN · US Market — Feb–Mar 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+:root{
+  --bg:#f1f5f9;--bg2:#ffffff;--bg3:#f8fafc;
+  --border:#e2e8f0;--border2:#cbd5e1;
+  --text:#0f172a;--text2:#475569;--text3:#94a3b8;
+  --accent:#2563eb;--green:#16a34a;--amber:#d97706;--red:#dc2626;
+  --mono:'JetBrains Mono',monospace;--display:'Inter',sans-serif;--body:'Outfit',sans-serif;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Inter',sans-serif;background:#f1f5f9;min-height:100vh;display:flex;align-items:center;justify-content:center;}
-.wrap{text-align:center;padding:48px 24px;}
-.badge{display:inline-block;background:#d97706;color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:4px;margin-bottom:24px;}
-h1{font-size:36px;font-weight:800;color:#0f172a;margin-bottom:8px;}
-.market{font-size:14px;color:#64748b;margin-bottom:40px;}
-.status{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:32px 48px;display:inline-block;box-shadow:0 1px 4px rgba(0,0,0,.06);}
-.status-icon{font-size:40px;margin-bottom:12px;}
-.status-text{font-size:15px;font-weight:600;color:#475569;}
-.status-sub{font-size:12px;color:#94a3b8;margin-top:6px;}
-.back{margin-top:32px;}
-.back a{font-size:13px;color:#2563eb;text-decoration:none;font-weight:600;}
-.back a:hover{text-decoration:underline;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.6;min-height:100vh;}
+nav{background:var(--bg2);border-bottom:1px solid var(--border);height:54px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.nav-inner{max-width:1600px;margin:0 auto;display:flex;align-items:center;height:54px;padding:0 32px;gap:0;}
+.nav-brand{font-family:var(--display);font-size:15px;font-weight:800;color:var(--accent);letter-spacing:.04em;margin-right:24px;white-space:nowrap;display:flex;align-items:center;gap:8px;}
+.market-tag{font-size:9px;font-family:var(--mono);background:var(--accent);color:#fff;padding:2px 6px;border-radius:3px;font-weight:600;}
+.tabs{display:flex;gap:2px;flex:1;overflow-x:auto;}.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{padding:0 15px;height:54px;background:none;border:none;color:var(--text2);font-family:var(--body);font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;}
+.tab-btn:hover{color:var(--text);}.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.meta{font-family:var(--mono);font-size:10px;color:var(--text3);border:1px solid var(--border2);padding:3px 8px;border-radius:3px;margin-left:auto;white-space:nowrap;}
+.panel{display:none;padding:32px;min-height:calc(100vh - 54px);max-width:1600px;margin:0 auto;}.panel.active{display:block;}
+.kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 5px rgba(0,0,0,.06);}
+.kpi-card{background:var(--bg2);padding:18px 22px;}
+.kpi-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;font-family:var(--mono);}
+.kpi-value{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--text);}
+.kpi-sub{font-size:11px;color:var(--text2);margin-top:3px;}
+.kpi-green{color:var(--green);}.kpi-amber{color:var(--amber);}.kpi-red{color:var(--red);}
+.week-btn{padding:6px 16px;border-radius:4px;font-size:11.5px;cursor:pointer;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);font-family:var(--mono);font-weight:600;transition:all .12s;}
+.week-btn:hover{color:var(--text);border-color:var(--accent);}.week-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.chart-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px;box-shadow:0 1px 5px rgba(0,0,0,.06);}
+.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border);box-shadow:0 1px 5px rgba(0,0,0,.05);}
+table{width:100%;border-collapse:collapse;min-width:600px;}
+thead th{background:var(--bg3);color:var(--text3);font-size:9px;text-transform:uppercase;letter-spacing:.1em;padding:7px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--border);font-family:var(--mono);font-weight:600;}
+thead th:first-child{text-align:left;}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:rgba(15,23,42,.025);}
+tbody td{padding:6px 10px;text-align:right;font-family:var(--mono);font-size:11.5px;vertical-align:middle;}
+tbody td:first-child{text-align:left;font-family:var(--body);font-size:13px;}
+.asin-link{color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px;}
+.asin-link:hover{text-decoration:underline;}
+.week-group th{background:var(--bg2);color:var(--text2);font-size:9px;}
+.muted{color:var(--text3);}
+.sec-header{font-family:var(--display);font-size:13px;font-weight:700;color:var(--text2);letter-spacing:.04em;text-transform:uppercase;padding:16px 0 10px;border-bottom:1px solid var(--border);margin-bottom:12px;}
+.tacos-ok{color:var(--green);}.tacos-warn{color:var(--amber);}.tacos-bad{color:var(--red);}
+/* Parent row toggle */
+.parent-row{cursor:pointer;user-select:none;}
+.parent-row:hover td{background:rgba(15,23,42,.03);}
+.toggle-icon{display:inline-block;width:14px;transition:transform .15s;}
+.child-rows{}.child-rows.collapsed tr{display:none;}
+/* Action cards */
+.action-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.action-card-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.action-card-title{font-family:var(--display);font-size:16px;font-weight:700;}
+.action-card-badge{font-size:9px;font-family:var(--mono);padding:3px 8px;border-radius:3px;font-weight:600;}
+.badge-star{background:rgba(22,163,74,.12);color:var(--green);border:1px solid rgba(31,219,138,.3);}
+.badge-question{background:rgba(217,119,6,.1);color:var(--amber);border:1px solid rgba(245,166,35,.3);}
+.badge-cut{background:rgba(220,38,38,.1);color:var(--red);border:1px solid rgba(240,75,75,.3);}
+.badge-potential{background:rgba(37,99,235,.1);color:var(--accent);border:1px solid rgba(91,138,240,.3);}
+.badge-now{background:rgba(220,38,38,.1);color:var(--red);border:1px solid rgba(240,75,75,.3);}
+.badge-next{background:rgba(37,99,235,.1);color:var(--accent);border:1px solid rgba(91,138,240,.3);}
+.action-tasks{display:flex;flex-direction:column;gap:8px;}
+.action-task{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--bg3);border-radius:6px;border:1px solid var(--border);}
+.action-task input[type=checkbox]{margin-top:2px;accent-color:var(--accent);width:14px;height:14px;flex-shrink:0;}
+.action-task.done{opacity:.35;}
+.action-task.done .task-text{text-decoration:line-through;}
+.task-text{font-size:12.5px;color:var(--text2);line-height:1.5;}
+.task-type{font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:2px;background:var(--bg);color:var(--text3);border:1px solid var(--border2);flex-shrink:0;margin-top:2px;}
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;}
+.q-card-title{font-family:var(--display);font-size:13px;font-weight:700;margin-bottom:8px;}
+.q-card-body{font-size:11px;color:var(--text2);line-height:1.7;}
+.done-cb{cursor:pointer;accent-color:var(--accent);width:14px;height:14px;}
+tr.done-row td{opacity:.35;text-decoration:line-through;}
+
+/* ── childTable freeze pane ── */
+#childTable-wrap{max-height:calc(100vh - 160px);overflow:auto;border-radius:10px;border:1px solid var(--border);box-shadow:0 1px 5px rgba(0,0,0,.05);}
+#childTable thead tr:nth-child(1) th{position:sticky;top:0;z-index:4;background:var(--bg3);}
+#childTable thead tr:nth-child(2) th{position:sticky;z-index:3;background:var(--bg2);}
+#childTable thead tr:nth-child(1) th.col-freeze{z-index:6;}
+#childTable thead tr:nth-child(2) th.col-freeze{z-index:5;}
+#childTable th.col-freeze,#childTable td.col-freeze{position:sticky;left:0;z-index:2;box-shadow:2px 0 4px -1px rgba(0,0,0,.08);}
+#childTable tbody td.col-freeze{background:var(--bg2);}
+#childTable .parent-row td.col-freeze{background:inherit;}
+#childTable tfoot td.col-freeze{background:var(--bg3);}
+
+/* ── childTable freeze pane ── */
+#childTable-wrap{max-height:calc(100vh - 160px);overflow:auto;border-radius:10px;border:1px solid var(--border);box-shadow:0 1px 5px rgba(0,0,0,.05);}
+#childTable thead tr:nth-child(1) th{position:sticky;top:0;z-index:4;background:var(--bg3);}
+#childTable thead tr:nth-child(2) th{position:sticky;z-index:3;background:var(--bg2);}
+#childTable thead tr:nth-child(1) th.col-freeze{z-index:6;}
+#childTable thead tr:nth-child(2) th.col-freeze{z-index:5;}
+#childTable th.col-freeze,#childTable td.col-freeze{position:sticky;left:0;z-index:2;box-shadow:2px 0 4px -1px rgba(0,0,0,.08);}
+#childTable tbody td.col-freeze{background:var(--bg2);}
+#childTable .parent-row td.col-freeze{background:inherit;}
+#childTable tfoot td.col-freeze{background:var(--bg3);}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="badge">US Market</div>
-  <h1>DBJ</h1>
-  <p class="market">廣告績效週報 · 即將上線</p>
-  <div class="status">
-    <div class="status-icon">🔧</div>
-    <div class="status-text">報告建置中</div>
-    <div class="status-sub">資料準備完成後將自動更新</div>
+<nav>
+  <div class="nav-inner">
+  <div class="nav-brand">DBJ <span class="market-tag">US</span></div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('t1',this)">📊 銷售 &amp; 廣告佔比</button>
+    <button class="tab-btn" onclick="showTab('t2',this)">📅 週對週數據</button>
+    <button class="tab-btn" onclick="showTab('t3',this)">📈 WoW 變化</button>
+    <button class="tab-btn" onclick="showTab('t4',this)">🎯 產品象限</button>
+    <button class="tab-btn" onclick="showTab('t5',this)">✅ 行動方案</button>
   </div>
-  <div class="back"><a href="/">← 返回總覽</a></div>
+  <div class="meta">Feb 2026 · SP+SD+SB · TACOS ≤70%</div>
+  </div>
+</nav>
+
+<!-- TAB 1 -->
+<div id="t1" class="panel active">
+  <div style="margin-bottom:16px">
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">全產品線佔比分析 · US Market</div>
+    <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">Sales &amp; Ad Spend — Feb–Mar 2026</div>
+    <div style="font-size:11px;color:var(--text3)">數據來源：ScaleInsight · 目標 TACOS ≤ 70% · SP+SD+SB 合計</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    <button class="week-btn active" onclick="switchWeek('all',this)">5W 合計</button>
+    <button class="week-btn" onclick="switchWeek('W1',this)">W1 Feb 1/7</button>
+    <button class="week-btn" onclick="switchWeek('W2',this)">W2 Feb 8/14</button>
+    <button class="week-btn" onclick="switchWeek('W3',this)">W3 Feb 15/21</button>
+    <button class="week-btn" onclick="switchWeek('W4',this)">W4 Feb 22/28</button>
+    <button class="week-btn" onclick="switchWeek('W5',this)">W5 Mar 1/7</button>
+  </div>
+  <div class="kpi-strip" id="kpi-t1"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+    <div class="chart-card">
+      <div style="font-size:13px;font-weight:600;margin-bottom:4px">產品營業額佔比</div>
+      <div style="font-size:10px;color:var(--text3);margin-bottom:14px;font-family:var(--mono)">SALES DISTRIBUTION</div>
+      <div style="display:flex;gap:20px;align-items:flex-start">
+        <div style="flex-shrink:0;position:relative">
+          <canvas id="salesPie" width="160" height="160"></canvas>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none">
+            <div style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text)" id="salesTotalLbl"></div>
+            <div style="font-size:8px;color:var(--text3)">TOTAL</div>
+          </div>
+        </div>
+        <div id="salesList" style="flex:1;display:flex;flex-direction:column;gap:0;overflow-y:auto;max-height:220px"></div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div style="font-size:13px;font-weight:600;margin-bottom:4px">廣告花費佔比</div>
+      <div style="font-size:10px;color:var(--text3);margin-bottom:14px;font-family:var(--mono)">AD SPEND DISTRIBUTION</div>
+      <div style="display:flex;gap:20px;align-items:flex-start">
+        <div style="flex-shrink:0;position:relative">
+          <canvas id="adsPie" width="160" height="160"></canvas>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none">
+            <div style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text)" id="adsTotalLbl"></div>
+            <div style="font-size:8px;color:var(--text3)">AD SPEND</div>
+          </div>
+        </div>
+        <div id="adsList" style="flex:1;display:flex;flex-direction:column;gap:0;overflow-y:auto;max-height:220px"></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec-header">產品銷售明細 — 點擊產品名稱可展開 / 收合子變體</div>
+  <div id="childTable-wrap"><table id="childTable"></table></div>
 </div>
+
+<!-- TAB 2 -->
+<div id="t2" class="panel">
+  <div class="kpi-strip" id="kpi-t2"></div>
+  <div class="table-wrap"><table id="wowTable"></table></div>
+</div>
+
+<!-- TAB 3 -->
+<div id="t3" class="panel">
+  <div class="sec-header">Week-over-Week % 變化 — Sales · Spend · TACOS · Units</div>
+  <div class="table-wrap"><table id="heatTable"></table></div>
+</div>
+
+<!-- TAB 4 -->
+<div id="t4" class="panel">
+  <div class="kpi-strip" id="kpi-t4"></div>
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:16px;margin-bottom:20px;align-items:start">
+    <div class="chart-card" style="padding:16px">
+      <canvas id="quadCanvas" width="640" height="480"></canvas>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="qCards"></div>
+  </div>
+</div>
+
+<!-- TAB 5 — 行動方案 -->
+<div id="t5" class="panel">
+  <div style="margin-bottom:20px">
+    <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">行動方案 Action Plan</div>
+    <div style="font-size:11px;color:var(--text3)">依象限分類 · 勾選完成項目 · 對應 Bulk File 操作</div>
+  </div>
+  <div id="actionCards"></div>
+</div>
+
+<script>
+const PARENTS = {"B0FVFCYKGB": {"name": "Storage Cart 10D", "short": "Storage Cart 10D", "color": "#16a34a", "children": ["B0FVFBZKSQ", "B0FVFGJT63", "B0FVF9GS2S"], "weeks": {"W1": {"sales": 1549.77, "spsd": 63.13, "sbsp": 0.0, "spend": 63.13, "units": 23, "organic": 22, "ppc": 1, "profits": 726.73, "tacos": 4.1}, "W2": {"sales": 1632.76, "spsd": 50.44, "sbsp": 0.0, "spend": 50.44, "units": 24, "organic": 20, "ppc": 4, "profits": 824.13, "tacos": 3.1}, "W3": {"sales": 2019.78, "spsd": 67.46, "sbsp": 0.0, "spend": 67.46, "units": 28, "organic": 21, "ppc": 7, "profits": 1078.07, "tacos": 3.3}, "W4": {"sales": 1889.73, "spsd": 53.25, "sbsp": 0.0, "spend": 53.25, "units": 27, "organic": 26, "ppc": 1, "profits": 989.81, "tacos": 2.8}, "W5": {"sales": 1889.73, "spsd": 34.49, "sbsp": 0.0, "spend": 34.49, "units": 27, "organic": 24, "ppc": 4, "profits": 1024.81, "tacos": 1.8}}, "total_sales": 8981.77, "total_spend": 268.77, "total_spsd": 268.77, "tacos_4w": 3.0, "sb_attr": 4771.31}, "B09XGY3FQ1": {"name": "Wire Shelving", "short": "Wire Shelving", "color": "#2563eb", "children": ["B094X854R4", "B08ZXJR1DP", "B094XBLMGH", "B091X2PXZP", "B09Z58XKBP", "B08M5G2LLT"], "weeks": {"W1": {"sales": 2469.18, "spsd": 169.3, "sbsp": 0.0, "spend": 169.3, "units": 28, "organic": 22, "ppc": 6, "profits": 1455.25, "tacos": 6.9}, "W2": {"sales": 2002.18, "spsd": 149.91, "sbsp": 0.0, "spend": 149.91, "units": 22, "organic": 22, "ppc": 1, "profits": 1013.5, "tacos": 7.5}, "W3": {"sales": 2872.28, "spsd": 209.43, "sbsp": 0.0, "spend": 209.43, "units": 30, "organic": 24, "ppc": 10, "profits": 1597.04, "tacos": 7.3}, "W4": {"sales": 2724.18, "spsd": 185.53, "sbsp": 0.0, "spend": 185.53, "units": 29, "organic": 27, "ppc": 5, "profits": 1699.66, "tacos": 6.8}, "W5": {"sales": 2031.98, "spsd": 92.97, "sbsp": 0.0, "spend": 92.97, "units": 19, "organic": 18, "ppc": 1, "profits": 981.46, "tacos": 4.6}}, "total_sales": 12099.8, "total_spend": 807.14, "total_spsd": 807.14, "tacos_4w": 6.7, "sb_attr": 3607.68}, "B0FVD69MYD": {"name": "Displays By Jack Adjustable Height Rolling Laptop Desk with Tilting Top & Side Shelf – Mobile Sit Stand Computer Table on Wheels for Home Office, Classroom, Study Room", "short": "Laptop Stand A", "color": "#7c3aed", "children": ["B0FVD69MYD"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 2669.7, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 30, "organic": 30, "ppc": 0, "profits": -417.9, "tacos": 0.0}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 88.99, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 1, "organic": 1, "ppc": 0, "profits": 58.23, "tacos": 0.0}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 2758.69, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": 0.0, "sb_attr": 0}, "B0FVD1Z92C": {"name": "Displays By Jack Adjustable Height Rolling Laptop Desk, Portable Sit Stand Computer Table on Wheels – 24 x 16 in Mobile Workstation for Home Office, Classroom, Study Room", "short": "Laptop Stand B", "color": "#ea580c", "children": ["B0FVD1Z92C"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 2157.74, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 26, "organic": 26, "ppc": 0, "profits": -393.64, "tacos": 0.0}, "W3": {"sales": 248.97, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 3, "organic": 3, "ppc": 0, "profits": -45.42, "tacos": 0.0}, "W4": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 2406.71, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": 0.0, "sb_attr": 0}, "B0FVFCJXWB": {"name": "Display by Jack Over-The-Toilet Bathroom Storage Rack, 3-Tier Space-Saving Organizer – Metal Shelf Unit for Towels, Toiletries, and Bathroom Essentials", "short": "Bathroom Storage", "color": "#0891b2", "children": ["B0FVFCJXWB"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0, "spend": 0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 1319.76, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 24, "organic": 24, "ppc": 0, "profits": -283.44, "tacos": 0.0}, "W3": {"sales": 329.94, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 6, "organic": 6, "ppc": 0, "profits": -22.17, "tacos": 0.0}, "W4": {"sales": 54.99, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 1, "organic": 1, "ppc": 0, "profits": -15.25, "tacos": 0.0}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 1704.69, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": 0.0, "sb_attr": 0}, "B097V3JSWH": {"name": "Displays By Jack Portable Collapsible Clothing Dryer Rack, Foldable Drying Rack for Clothes, Lingerie, Towels, Linens, Laundry Home Apartment Must Haves, Metal Chrome Finish", "short": "Dryer Rack", "color": "#ca8a04", "children": ["B097V3JSWH"], "weeks": {"W1": {"sales": 527.92, "spsd": 31.45, "sbsp": 0.0, "spend": 31.45, "units": 8, "organic": 4, "ppc": 4, "profits": 302.15, "tacos": 6.0}, "W2": {"sales": 329.95, "spsd": 33.05, "sbsp": 0, "spend": 33.05, "units": 5, "organic": 1, "ppc": 4, "profits": 175.45, "tacos": 10.0}, "W3": {"sales": 197.97, "spsd": 38.22, "sbsp": 0, "spend": 38.22, "units": 3, "organic": 1, "ppc": 2, "profits": 86.88, "tacos": 19.3}, "W4": {"sales": 197.97, "spsd": 44.07, "sbsp": 0, "spend": 44.07, "units": 3, "organic": 1, "ppc": 3, "profits": 81.03, "tacos": 22.3}, "W5": {"sales": 326.98, "spsd": 37.11, "sbsp": 0.0, "spend": 37.11, "units": 5, "organic": 4, "ppc": 1, "profits": 168.87, "tacos": 11.3}}, "total_sales": 1580.79, "total_spend": 183.9, "total_spsd": 183.9, "tacos_4w": 11.6, "sb_attr": 130.99}, "B0CTK9VRFR": {"name": "Displays By Jack No Shoulder Bumps Sweater Coat Cloth Hangers Padded Bendable Hanger for Bump Free Clothing Adjustable, Extended Width 21\"\"(Black, 10)", "short": "Sweater Hangers", "color": "#be185d", "children": ["B0CTK9VRFR"], "weeks": {"W1": {"sales": 319.76, "spsd": 10.72, "sbsp": 0, "spend": 10.72, "units": 8, "organic": 6, "ppc": 1, "profits": 176.04, "tacos": 3.4}, "W2": {"sales": 276.64, "spsd": 6.12, "sbsp": 0.0, "spend": 6.12, "units": 7, "organic": 6, "ppc": 1, "profits": 20.44, "tacos": 2.2}, "W3": {"sales": 439.67, "spsd": 10.68, "sbsp": 0.0, "spend": 10.68, "units": 11, "organic": 8, "ppc": 4, "profits": 247.39, "tacos": 2.4}, "W4": {"sales": 156.73, "spsd": 12.54, "sbsp": 0, "spend": 12.54, "units": 4, "organic": 1, "ppc": 5, "profits": 39.73, "tacos": 8.0}, "W5": {"sales": 199.85, "spsd": 11.84, "sbsp": 0, "spend": 11.84, "units": 5, "organic": 2, "ppc": 3, "profits": 103.61, "tacos": 5.9}}, "total_sales": 1392.65, "total_spend": 51.9, "total_spsd": 51.9, "tacos_4w": 3.7, "sb_attr": 159.88}, "B0FV8XGQV4": {"name": "Displays By Jack Double Rail Clothes Rack, Adjustable Rolling Garment Rack on Wheels – Extendable Hanging Rods & Bottom Shelf for Bedroom, Laundry Room, Dorm, Retail", "short": "Double Rail Rack", "color": "#dc2626", "children": ["B0FV8XGQV4"], "weeks": {"W1": {"sales": 1103.76, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 24, "organic": 24, "ppc": 0, "profits": -335.76, "tacos": 0.0}, "W2": {"sales": 229.95, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 5, "organic": 5, "ppc": 0, "profits": -69.95, "tacos": 0.0}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 45.99, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 1, "organic": 1, "ppc": 0, "profits": -13.99, "tacos": 0.0}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 1379.7, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": 0.0, "sb_attr": 0}, "B0FVF8DRZQ": {"name": "Displays By Jack Adjustable Height Rolling Laptop Desk, Silver Mobile Sit Stand Computer Table on Wheels – 24 x 15 in Portable Workstation for Home Office, Study Room, Classroom", "short": "Laptop Stand C", "color": "#059669", "children": ["B0FVF8DRZQ"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W2": {"sales": 1313.82, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 18, "organic": 18, "ppc": 0, "profits": -304.38, "tacos": 0.0}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 1313.82, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": 0.0, "sb_attr": 0}, "B0FVFG8W4X": {"name": "Shoe Rack", "short": "Shoe Rack", "color": "#6366f1", "children": ["B0FV8XKYPM", "B0FV8YQTLZ"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W2": {"sales": 1207.74, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 26, "organic": 26, "ppc": 0, "profits": -254.25, "tacos": 0.0}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 1207.74, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": 0.0, "sb_attr": 0}, "B0FV8YD8DP": {"name": "Displays By Jack 3-Tier Rolling Storage Cart, Metal Utility Organizer on Wheels – Deep Mesh Baskets for Kitchen, Pantry, Laundry, Bathroom, Home", "short": "3-Tier Cart", "color": "#f59e0b", "children": ["B0FV8YD8DP"], "weeks": {"W1": {"sales": 1019.7, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 30, "organic": 30, "ppc": 0, "profits": -408.6, "tacos": 0.0}, "W2": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 33.99, "spsd": 3.45, "sbsp": 0.0, "spend": 3.45, "units": 1, "organic": 1, "ppc": 0, "profits": 10.68, "tacos": 10.2}, "W5": {"sales": 33.99, "spsd": 22.48, "sbsp": 0, "spend": 22.48, "units": 1, "organic": 1, "ppc": 0, "profits": -6.91, "tacos": 66.1}}, "total_sales": 1087.68, "total_spend": 25.93, "total_spsd": 25.93, "tacos_4w": 2.4, "sb_attr": 33.99}, "B09R3BLFDT": {"name": "Padded Hangers", "short": "Padded Hangers", "color": "#84cc16", "children": ["B09QVW7J24", "B09QW5PD83", "B09QW4578P", "B09QW6FSCF"], "weeks": {"W1": {"sales": 410.12, "spsd": 14.45, "sbsp": 0, "spend": 14.45, "units": 24, "organic": 20, "ppc": 3, "profits": 176.85, "tacos": 3.5}, "W2": {"sales": 183.82, "spsd": 9.28, "sbsp": 0, "spend": 9.28, "units": 11, "organic": 10, "ppc": 3, "profits": 65.88, "tacos": 5.0}, "W3": {"sales": 115.34, "spsd": 8.01, "sbsp": 0, "spend": 8.01, "units": 7, "organic": 2, "ppc": 6, "profits": 11.28, "tacos": 6.9}, "W4": {"sales": 131.36, "spsd": 12.25, "sbsp": 0, "spend": 12.25, "units": 8, "organic": 6, "ppc": 2, "profits": 20.41, "tacos": 9.3}, "W5": {"sales": 131.36, "spsd": 11.16, "sbsp": 0, "spend": 11.16, "units": 8, "organic": 4, "ppc": 4, "profits": 21.38, "tacos": 8.5}}, "total_sales": 972.0, "total_spend": 55.15, "total_spsd": 55.15, "tacos_4w": 5.7, "sb_attr": 0}, "B09JBVTY9T": {"name": "Displays By Jack wall mounted Broom and mop Holder, Black Utility Tool Organizer for Home, 1-Pack", "short": "Broom Holder", "color": "#14b8a6", "children": ["B09JBVTY9T"], "weeks": {"W1": {"sales": 43.38, "spsd": 24.06, "sbsp": 0.0, "spend": 24.06, "units": 3, "organic": 3, "ppc": 0, "profits": -2.31, "tacos": 55.5}, "W2": {"sales": 72.3, "spsd": 12.28, "sbsp": 0, "spend": 12.28, "units": 5, "organic": 4, "ppc": 1, "profits": 23.97, "tacos": 17.0}, "W3": {"sales": 72.3, "spsd": 11.46, "sbsp": 0, "spend": 11.46, "units": 5, "organic": 5, "ppc": 0, "profits": 24.79, "tacos": 15.9}, "W4": {"sales": 57.84, "spsd": 11.28, "sbsp": 0, "spend": 11.28, "units": 4, "organic": 2, "ppc": 2, "profits": 17.11, "tacos": 19.5}, "W5": {"sales": 57.84, "spsd": 14.13, "sbsp": 0, "spend": 14.13, "units": 4, "organic": 3, "ppc": 2, "profits": 14.87, "tacos": 24.4}}, "total_sales": 303.66, "total_spend": 73.21, "total_spsd": 73.21, "tacos_4w": 24.1, "sb_attr": 14.46}, "B09MRGLH3L": {"name": "Displays By Jack Shower Caddy Organizer Apartment Essentials, Home Bathroom with Hooks for Hanging Razor and Soap, Shampoo Conditioner Holder, Adhesive Mounted No Drilling Bathroom Rack, Rustproof", "short": "Shower Caddy", "color": "#a78bfa", "children": ["B09MRGLH3L"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W5": {"sales": 38.72, "spsd": 0.0, "sbsp": 0, "spend": 0.0, "units": 2, "organic": 2, "ppc": 0, "profits": 19.58, "tacos": 0.0}}, "total_sales": 38.72, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": 0.0, "sb_attr": 0}};
+const CHILD_DATA = [{"asin": "B0FVFBZKSQ", "parent": "B0FVFCYKGB", "parent_short": "Storage Cart 10D", "color": "#16a34a", "name": "Display By Jack 10-Drawer Rainbow Storage Cart with Top Shelf, Color-Coded Organizer on Locking Wheels, Slim 36\" Chrome Frame for Classroom, Art Studio, Home, or Office", "weeks": {"W1": {"sales": 808.38, "spend": 31.16, "units": 12, "organic": 11}, "W2": {"sales": 543.92, "spend": 27.08, "units": 8, "organic": 7}, "W3": {"sales": 559.92, "spend": 25.45, "units": 8, "organic": 3}, "W4": {"sales": 909.87, "spend": 19.01, "units": 13, "organic": 13}, "W5": {"sales": 1119.84, "spend": 20.88, "units": 16, "organic": 13}}, "total_sales": 3941.93}, {"asin": "B094X854R4", "parent": "B09XGY3FQ1", "parent_short": "Wire Shelving", "color": "#2563eb", "name": "3 Tier Wire Shelving Unit Storage Rack, Metal Heavy Duty Utility Organizers, Organization Units for Metal Shelves, Pantry, Garage, Laundry Racks Durable Shelf Stand, 14\"W x 24\"L x 30\"H, Chrome", "weeks": {"W1": {"sales": 1114.9, "spend": 82.85, "units": 15, "organic": 9}, "W2": {"sales": 156.6, "spend": 82.1, "units": 2, "organic": 2}, "W3": {"sales": 781.7, "spend": 106.58, "units": 10, "organic": 10}, "W4": {"sales": 621.7, "spend": 93.14, "units": 8, "organic": 7}, "W5": {"sales": 160.0, "spend": 39.13, "units": 2, "organic": 2}}, "total_sales": 2834.9}, {"asin": "B0FVD69MYD", "parent": "B0FVD69MYD", "parent_short": "Laptop Stand A", "color": "#7c3aed", "name": "Displays By Jack Adjustable Height Rolling Laptop Desk with Tilting Top & Side Shelf – Mobile Sit Stand Computer Table on Wheels for Home Office, Classroom, Study Room", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 2669.7, "spend": 0.0, "units": 30, "organic": 30}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 88.99, "spend": 0.0, "units": 1, "organic": 1}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 2758.69}, {"asin": "B0FVFGJT63", "parent": "B0FVFCYKGB", "parent_short": "Storage Cart 10D", "color": "#16a34a", "name": "Display By Jack Rolling Storage Cart 10 Drawer Organizer with Black Drawers, Slim 36\" Chrome Frame, Locking Wheels, and Top Shelf for Office, Classroom, Bathroom, or Craft Storage", "weeks": {"W1": {"sales": 336.95, "spend": 16.98, "units": 5, "organic": 5}, "W2": {"sales": 747.89, "spend": 4.54, "units": 11, "organic": 11}, "W3": {"sales": 549.99, "spend": 8.5, "units": 7, "organic": 6}, "W4": {"sales": 349.95, "spend": 11.07, "units": 5, "organic": 4}, "W5": {"sales": 629.91, "spend": 5.6, "units": 9, "organic": 9}}, "total_sales": 2614.69}, {"asin": "B0FVF9GS2S", "parent": "B0FVFCYKGB", "parent_short": "Storage Cart 10D", "color": "#16a34a", "name": "Display By Jack Rolling Storage Cart 10 Drawer Organizer with White Drawers, Slim 36\" Chrome Frame, Locking Wheels, and Top Shelf for Office, Classroom, Bathroom, or Craft Storage", "weeks": {"W1": {"sales": 404.44, "spend": 14.99, "units": 6, "organic": 6}, "W2": {"sales": 340.95, "spend": 18.82, "units": 5, "organic": 2}, "W3": {"sales": 909.87, "spend": 33.51, "units": 13, "organic": 12}, "W4": {"sales": 629.91, "spend": 23.17, "units": 9, "organic": 9}, "W5": {"sales": 139.98, "spend": 8.01, "units": 2, "organic": 2}}, "total_sales": 2425.15}, {"asin": "B0FVD1Z92C", "parent": "B0FVD1Z92C", "parent_short": "Laptop Stand B", "color": "#ea580c", "name": "Displays By Jack Adjustable Height Rolling Laptop Desk, Portable Sit Stand Computer Table on Wheels – 24 x 16 in Mobile Workstation for Home Office, Classroom, Study Room", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 2157.74, "spend": 0.0, "units": 26, "organic": 26}, "W3": {"sales": 248.97, "spend": 0.0, "units": 3, "organic": 3}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 2406.71}, {"asin": "B08ZXJR1DP", "parent": "B09XGY3FQ1", "parent_short": "Wire Shelving", "color": "#2563eb", "name": "Heavy Duty 4 Tier Wire Shelving Unit Storage Rack, Metal Shelves Utility Organizers, Organization Units for Products, Plant, Pantry, Garage, Laundry Durable Shelf Stand, Chrome, 14\"W x 30\"L X 48\"H", "weeks": {"W1": {"sales": 325.2, "spend": 36.15, "units": 3, "organic": 3}, "W2": {"sales": 325.19, "spend": 32.14, "units": 3, "organic": 3}, "W3": {"sales": 650.39, "spend": 46.86, "units": 6, "organic": 2}, "W4": {"sales": 758.8, "spend": 42.91, "units": 7, "organic": 6}, "W5": {"sales": 108.39, "spend": 24.86, "units": 1, "organic": 1}}, "total_sales": 2167.97}, {"asin": "B094XBLMGH", "parent": "B09XGY3FQ1", "parent_short": "Wire Shelving", "color": "#2563eb", "name": "3 Tier Wire Shelving Unit Storage Rack, Metal Heavy Duty Utility Organizers, Organization Units for Metal Shelves, Pantry, Garage, Laundry Racks Durable Shelf Stand, 14\"W x 24\"L x 30\"H, Black", "weeks": {"W1": {"sales": 240.0, "spend": 18.69, "units": 3, "organic": 3}, "W2": {"sales": 958.3, "spend": 14.02, "units": 12, "organic": 12}, "W3": {"sales": 318.3, "spend": 30.62, "units": 4, "organic": 4}, "W4": {"sales": 478.3, "spend": 28.23, "units": 6, "organic": 6}, "W5": {"sales": 160.0, "spend": 11.33, "units": 2, "organic": 2}}, "total_sales": 2154.9}, {"asin": "B091X2PXZP", "parent": "B09XGY3FQ1", "parent_short": "Wire Shelving", "color": "#2563eb", "name": "5 Tier Wire Shelving Unit Storage Rack, Metal Heavy Duty Utility Organizers, Organization Units for Products Plant Pantry, Garage, Laundry Racks Durable Shelf Stand,14\"W x 30\"L x 60\"H, Black", "weeks": {"W1": {"sales": 231.99, "spend": 15.69, "units": 2, "organic": 2}, "W2": {"sales": 232.0, "spend": 11.8, "units": 2, "organic": 2}, "W3": {"sales": 116.0, "spend": 11.09, "units": 1, "organic": 1}, "W4": {"sales": 116.0, "spend": 9.15, "units": 1, "organic": 1}, "W5": {"sales": 1160.0, "spend": 5.21, "units": 10, "organic": 10}}, "total_sales": 1855.99}, {"asin": "B09Z58XKBP", "parent": "B09XGY3FQ1", "parent_short": "Wire Shelving", "color": "#2563eb", "name": "Displays By Jack 4 Tier Wire Shelving Unit Storage Rack, Metal Heavy Duty Utility Organization Units for Products Plant Standing Shelf, Pantry, Garage, Shelf Stand, Black, 14\" W x 30\" L X 48\" H", "weeks": {"W1": {"sales": 216.6, "spend": 2.44, "units": 2, "organic": 2}, "W2": {"sales": 216.6, "spend": 1.66, "units": 2, "organic": 2}, "W3": {"sales": 324.89, "spend": 2.78, "units": 3, "organic": 3}, "W4": {"sales": 749.38, "spend": 4.63, "units": 7, "organic": 7}, "W5": {"sales": 216.59, "spend": 4.86, "units": 2, "organic": 1}}, "total_sales": 1724.06}, {"asin": "B0FVFCJXWB", "parent": "B0FVFCJXWB", "parent_short": "Bathroom Storage", "color": "#0891b2", "name": "Display by Jack Over-The-Toilet Bathroom Storage Rack, 3-Tier Space-Saving Organizer – Metal Shelf Unit for Towels, Toiletries, and Bathroom Essentials", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 1319.76, "spend": 0.0, "units": 24, "organic": 24}, "W3": {"sales": 329.94, "spend": 0.0, "units": 6, "organic": 6}, "W4": {"sales": 54.99, "spend": 0.0, "units": 1, "organic": 1}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 1704.69}, {"asin": "B097V3JSWH", "parent": "B097V3JSWH", "parent_short": "Dryer Rack", "color": "#ca8a04", "name": "Displays By Jack Portable Collapsible Clothing Dryer Rack, Foldable Drying Rack for Clothes, Lingerie, Towels, Linens, Laundry Home Apartment Must Haves, Metal Chrome Finish", "weeks": {"W1": {"sales": 527.92, "spend": 31.45, "units": 8, "organic": 4}, "W2": {"sales": 329.95, "spend": 33.05, "units": 5, "organic": 1}, "W3": {"sales": 197.97, "spend": 38.22, "units": 3, "organic": 1}, "W4": {"sales": 197.97, "spend": 44.07, "units": 3, "organic": 1}, "W5": {"sales": 326.98, "spend": 37.11, "units": 5, "organic": 4}}, "total_sales": 1580.79}, {"asin": "B0CTK9VRFR", "parent": "B0CTK9VRFR", "parent_short": "Sweater Hangers", "color": "#be185d", "name": "Displays By Jack No Shoulder Bumps Sweater Coat Cloth Hangers Padded Bendable Hanger for Bump Free Clothing Adjustable, Extended Width 21\"\"(Black, 10)", "weeks": {"W1": {"sales": 319.76, "spend": 10.72, "units": 8, "organic": 6}, "W2": {"sales": 276.64, "spend": 6.12, "units": 7, "organic": 6}, "W3": {"sales": 439.67, "spend": 10.68, "units": 11, "organic": 8}, "W4": {"sales": 156.73, "spend": 12.54, "units": 4, "organic": 1}, "W5": {"sales": 199.85, "spend": 11.84, "units": 5, "organic": 2}}, "total_sales": 1392.65}, {"asin": "B0FV8XGQV4", "parent": "B0FV8XGQV4", "parent_short": "Double Rail Rack", "color": "#dc2626", "name": "Displays By Jack Double Rail Clothes Rack, Adjustable Rolling Garment Rack on Wheels – Extendable Hanging Rods & Bottom Shelf for Bedroom, Laundry Room, Dorm, Retail", "weeks": {"W1": {"sales": 1103.76, "spend": 0.0, "units": 24, "organic": 24}, "W2": {"sales": 229.95, "spend": 0.0, "units": 5, "organic": 5}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 45.99, "spend": 0.0, "units": 1, "organic": 1}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 1379.7}, {"asin": "B08M5G2LLT", "parent": "B09XGY3FQ1", "parent_short": "Wire Shelving", "color": "#2563eb", "name": "Displays By Jack 5 Tier Heavy Duty Wire Shelving Unit Storage Rack for Products Plant Pantry, Garage, Laundry Racks Durable Shelf Organizer Shelves Stand 14\" W x 30\" L x 60\" H, Chrome", "weeks": {"W1": {"sales": 340.49, "spend": 13.48, "units": 3, "organic": 3}, "W2": {"sales": 113.49, "spend": 8.19, "units": 1, "organic": 1}, "W3": {"sales": 681.0, "spend": 11.5, "units": 6, "organic": 4}, "W4": {"sales": 0.0, "spend": 7.47, "units": 0, "organic": 0}, "W5": {"sales": 227.0, "spend": 7.58, "units": 2, "organic": 2}}, "total_sales": 1361.98}, {"asin": "B0FVF8DRZQ", "parent": "B0FVF8DRZQ", "parent_short": "Laptop Stand C", "color": "#059669", "name": "Displays By Jack Adjustable Height Rolling Laptop Desk, Silver Mobile Sit Stand Computer Table on Wheels – 24 x 15 in Portable Workstation for Home Office, Study Room, Classroom", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 1313.82, "spend": 0.0, "units": 18, "organic": 18}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 1313.82}, {"asin": "B0FV8XKYPM", "parent": "B0FVFG8W4X", "parent_short": "Shoe Rack", "color": "#6366f1", "name": "Displays By Jack 4-Tier Stackable Shoe Rack, Set of 2 Extendable Metal Organizers – Adjustable 24.4–45.5 in Width for Entryway, Closet, Bedroom", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 1174.75, "spend": 0.0, "units": 25, "organic": 25}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 1174.75}, {"asin": "B0FV8YD8DP", "parent": "B0FV8YD8DP", "parent_short": "3-Tier Cart", "color": "#f59e0b", "name": "Displays By Jack 3-Tier Rolling Storage Cart, Metal Utility Organizer on Wheels – Deep Mesh Baskets for Kitchen, Pantry, Laundry, Bathroom, Home", "weeks": {"W1": {"sales": 1019.7, "spend": 0.0, "units": 30, "organic": 30}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 33.99, "spend": 3.45, "units": 1, "organic": 1}, "W5": {"sales": 33.99, "spend": 22.48, "units": 1, "organic": 1}}, "total_sales": 1087.68}, {"asin": "B09QVW7J24", "parent": "B09R3BLFDT", "parent_short": "Padded Hangers", "color": "#84cc16", "name": "Displays By Jack No Shoulder Bumps Sweater Coat Hangers Padded No Slip Clothes Hanger Flexible Bendable for Bump Free Clothing Adjustable Versatile, Width 18\" (Blue, 4)", "weeks": {"W1": {"sales": 336.4, "spend": 12.86, "units": 20, "organic": 16}, "W2": {"sales": 134.56, "spend": 9.28, "units": 8, "organic": 7}, "W3": {"sales": 16.82, "spend": 1.1, "units": 1, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 487.78}, {"asin": "B09QW5PD83", "parent": "B09R3BLFDT", "parent_short": "Padded Hangers", "color": "#84cc16", "name": "Displays By Jack No Shoulder Bumps Sweater Coat Hangers Padded No Slip Clothes Hanger Flexible Bendable for Bump Free Clothing Adjustable Versatile, Width 18\" (Multi-Color, 4)", "weeks": {"W1": {"sales": 16.42, "spend": 0.49, "units": 1, "organic": 1}, "W2": {"sales": 49.26, "spend": 0.0, "units": 3, "organic": 3}, "W3": {"sales": 98.52, "spend": 6.91, "units": 6, "organic": 2}, "W4": {"sales": 131.36, "spend": 12.25, "units": 8, "organic": 6}, "W5": {"sales": 131.36, "spend": 11.16, "units": 8, "organic": 4}}, "total_sales": 426.92}, {"asin": "B09JBVTY9T", "parent": "B09JBVTY9T", "parent_short": "Broom Holder", "color": "#14b8a6", "name": "Displays By Jack wall mounted Broom and mop Holder, Black Utility Tool Organizer for Home, 1-Pack", "weeks": {"W1": {"sales": 43.38, "spend": 24.06, "units": 3, "organic": 3}, "W2": {"sales": 72.3, "spend": 12.28, "units": 5, "organic": 4}, "W3": {"sales": 72.3, "spend": 11.46, "units": 5, "organic": 5}, "W4": {"sales": 57.84, "spend": 11.28, "units": 4, "organic": 2}, "W5": {"sales": 57.84, "spend": 14.13, "units": 4, "organic": 3}}, "total_sales": 303.66}, {"asin": "B09QW4578P", "parent": "B09R3BLFDT", "parent_short": "Padded Hangers", "color": "#84cc16", "name": "Displays By Jack No Shoulder Bumps Sweater Coat Hangers Padded No Slip Clothes Hanger Flexible Bendable for Bump Free Clothing Adjustable Versatile, Extended Width 21\" (Black, 4)", "weeks": {"W1": {"sales": 57.3, "spend": 1.1, "units": 3, "organic": 3}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 57.3}, {"asin": "B09MRGLH3L", "parent": "B09MRGLH3L", "parent_short": "Shower Caddy", "color": "#a78bfa", "name": "Displays By Jack Shower Caddy Organizer Apartment Essentials, Home Bathroom with Hooks for Hanging Razor and Soap, Shampoo Conditioner Holder, Adhesive Mounted No Drilling Bathroom Rack, Rustproof", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 38.72, "spend": 0.0, "units": 2, "organic": 2}}, "total_sales": 38.72}, {"asin": "B0FV8YQTLZ", "parent": "B0FVFG8W4X", "parent_short": "Shoe Rack", "color": "#6366f1", "name": "Displays By Jack Extendable 2-Tier Shoe Rack, Stackable Metal Shoe Organizer – Adjustable 24.4–45.5 in Width for Entryway, Closet, Bedroom", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 32.99, "spend": 0.0, "units": 1, "organic": 1}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 32.99}, {"asin": "B09QW6FSCF", "parent": "B09R3BLFDT", "parent_short": "Padded Hangers", "color": "#84cc16", "name": "Displays By Jack No Shoulder Bumps Sweater Coat Hangers Padded No Slip Clothes Hanger Flexible Bendable for Bump Free Clothing Adjustable Versatile, Width 18\" (Blue, 10)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}];
+
+const ZH = {"B09XGY3FQ1": "Wire Shelving", "B0FVFCYKGB": "Storage Cart 10D", "B0FVD69MYD": "Laptop Stand A", "B0FVD1Z92C": "Laptop Stand B", "B0FVFCJXWB": "Bathroom Storage", "B097V3JSWH": "Dryer Rack", "B0CTK9VRFR": "Sweater Hangers", "B0FV8XGQV4": "Double Rail Rack", "B0FVF8DRZQ": "Laptop Stand C", "B0FVFG8W4X": "Shoe Rack", "B0FV8YD8DP": "3-Tier Cart", "B09R3BLFDT": "Padded Hangers", "B09JBVTY9T": "Broom Holder", "B09MRGLH3L": "Shower Caddy"};
+const CHILD_ZH = {};
+
+const TACOS_TARGET = 15;
+const WEEKS = ["W1", "W2", "W3", "W4", "W5"];
+const W_LABELS = {"W1": "Feb 1\u20137", "W2": "Feb 8\u201314", "W3": "Feb 15\u201321", "W4": "Feb 22\u201328", "W5": "Mar 1\u20137"};
+
+const $ = id => document.getElementById(id);
+const fmt = (v,d=0) => v==null?'—':'$'+v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const pct = v => v==null?'—':v.toFixed(1)+'%';
+const tacosClass = v => v==null?'muted':v<=TACOS_TARGET?'tacos-ok':v<=TACOS_TARGET*1.2?'tacos-warn':'tacos-bad';
+const zhName = pid => (ZH[pid]||'') + ' ' + (PARENTS[pid]?PARENTS[pid].short:'');
+const zhShort = pid => ZH[pid] || (PARENTS[pid]?PARENTS[pid].short:'');
+
+function showTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  $(id).classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+
+function sortedParents() {
+  return Object.entries(PARENTS).sort((a,b)=>b[1].total_sales-a[1].total_sales);
+}
+
+function drawDonut(canvasId, data) {
+  const canvas=$(canvasId); if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2,r=W/2-8,ir=r*0.58;
+  const sum=data.reduce((s,d)=>s+d.value,0); if(sum===0) return;
+  let angle=-Math.PI/2;
+  data.forEach(d=>{
+    const sweep=(d.value/sum)*Math.PI*2;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,angle,angle+sweep);ctx.closePath();
+    ctx.fillStyle=d.color;ctx.fill();angle+=sweep;
+  });
+  ctx.beginPath();ctx.arc(cx,cy,ir,0,Math.PI*2);ctx.fillStyle='#ffffff';ctx.fill();
+}
+
+// ═══ TAB 1 ═══
+function buildT1() {
+  window._t1={};
+  ['all',...WEEKS].forEach(mode=>{
+    const sp=sortedParents();
+    const weeks=mode==='all'?WEEKS:[mode];
+    const byAsin=sp.map(([pid,p])=>{
+      const sales=weeks.reduce((a,w)=>a+p.weeks[w].sales,0);
+      const spend=weeks.reduce((a,w)=>a+p.weeks[w].spend,0);
+      const spsd =weeks.reduce((a,w)=>a+p.weeks[w].spsd,0);
+      const units=weeks.reduce((a,w)=>a+p.weeks[w].units,0);
+      const tacos=sales>0?spend/sales*100:null;
+      return {pid,name:p.name,short:zhShort(pid),color:p.color,sales,spend,spsd,units,tacos,children:p.children};
+    }).sort((a,b)=>b.sales-a.sales);
+    window._t1[mode]={
+      byAsin,
+      totSales: byAsin.reduce((s,p)=>s+p.sales,0),
+      totSpend: byAsin.reduce((s,p)=>s+p.spend,0),
+      totUnits: byAsin.reduce((s,p)=>s+p.units,0),
+      totProfit:sp.reduce((s,[,p])=>s+weeks.reduce((a,w)=>a+p.weeks[w].profits,0),0),
+    };
+  });
+  switchWeek('all', document.querySelector('.week-btn'));
+}
+
+function switchWeek(mode, btn) {
+  document.querySelectorAll('.week-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const d=window._t1[mode]; if(!d) return;
+
+  const tClass=v=>v==null?'':v<=TACOS_TARGET?'kpi-green':v<=TACOS_TARGET*1.2?'kpi-amber':'kpi-red';
+  const acctTacos=d.totSales>0?d.totSpend/d.totSales*100:0;
+  const top=d.byAsin[0];
+  const topSpend=[...d.byAsin].filter(p=>p.spend>0).sort((a,b)=>b.spend-a.spend)[0];
+  $('kpi-t1').innerHTML=`
+    <div class="kpi-card"><div class="kpi-label">Total Sales</div><div class="kpi-value">${fmt(d.totSales,0)}</div><div class="kpi-sub">${d.totUnits} units</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total Ad Spend</div><div class="kpi-value kpi-amber">${fmt(d.totSpend,0)}</div><div class="kpi-sub">SP+SD+SB</div></div>
+    <div class="kpi-card"><div class="kpi-label">Account TACOS</div><div class="kpi-value ${tClass(acctTacos)}">${pct(acctTacos)}</div><div class="kpi-sub">${acctTacos<=TACOS_TARGET?'✓ On Target':'⚠ Above 15%'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total Profit</div><div class="kpi-value ${d.totProfit>=0?'kpi-green':'kpi-red'}">${fmt(d.totProfit,0)}</div><div class="kpi-sub">${d.totProfit>=0?'▲ 盈利':'▼ 虧損'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">銷售最大</div><div class="kpi-value" style="font-size:14px">${top?top.short:'—'}</div><div class="kpi-sub" style="color:var(--green)">${top?fmt(top.sales,0):''}</div></div>
+    <div class="kpi-card"><div class="kpi-label">廣告最燒</div><div class="kpi-value" style="font-size:14px">${topSpend?topSpend.short:'—'}</div><div class="kpi-sub" style="color:var(--amber)">${topSpend?fmt(topSpend.spend,0)+' · '+pct(topSpend.tacos):''}</div></div>`;
+
+  const salesData=d.byAsin.filter(p=>p.sales>0).map(p=>({value:p.sales,color:p.color}));
+  drawDonut('salesPie',salesData);
+  $('salesTotalLbl').textContent=fmt(d.totSales,0);
+  $('salesList').innerHTML=d.byAsin.filter(p=>p.sales>0).map(p=>{
+    const p2=d.totSales>0?(p.sales/d.totSales*100).toFixed(1):'0.0';
+    return `<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid var(--border)">
+      <span style="width:8px;height:8px;border-radius:50%;background:${p.color};flex-shrink:0"></span>
+      <span style="flex:1;font-size:12px;color:var(--text2)">${p.short}</span>
+      <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text)">${p2}%</span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--text3);min-width:54px;text-align:right">${fmt(p.sales,0)}</span>
+    </div>`;
+  }).join('');
+
+  const spendData=d.byAsin.filter(p=>p.spend>0).sort((a,b)=>b.spend-a.spend).map(p=>({value:p.spend,color:p.color}));
+  drawDonut('adsPie',spendData);
+  $('adsTotalLbl').textContent=fmt(d.totSpend,0);
+  $('adsList').innerHTML=d.byAsin.filter(p=>p.spend>0).sort((a,b)=>b.spend-a.spend).map(p=>{
+    const p2=d.totSpend>0?(p.spend/d.totSpend*100).toFixed(1):'0.0';
+    const over=p.sales>0&&parseFloat(p2)>(d.totSales>0?p.sales/d.totSales*100:0)*1.5&&parseFloat(p2)>3;
+    return `<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid var(--border)${over?';background:rgba(220,38,38,.04)':''}">
+      <span style="width:8px;height:8px;border-radius:50%;background:${p.color};flex-shrink:0"></span>
+      <span style="flex:1;font-size:12px;color:var(--text2)">${p.short}${over?' <span style="color:var(--red);font-size:9px">⚠廣告過重</span>':''}</span>
+      <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:${over?'var(--red)':'var(--text)'}">${p2}%</span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--text3);min-width:54px;text-align:right">${fmt(p.spend,0)}</span>
+    </div>`;
+  }).join('');
+
+  renderChildTable(mode);
+}
+
+function renderChildTable(mode) {
+  const tbl=$('childTable'); if(!tbl) return;
+  const weeks=mode==='all'?WEEKS:[mode];
+  const modeAdj=CHILD_DATA.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
+
+  const wH=weeks.map(w=>`<th colspan="3" style="text-align:center;border-left:1px solid var(--border2)">${w} <span style="color:var(--text3);font-size:8px">${W_LABELS[w]}</span></th>`).join('');
+  const sH=weeks.map(()=>`<th style="border-left:1px solid var(--border2)">Sales</th><th>Spend</th><th>TACOS</th>`).join('');
+
+  // Group by parent
+  const parentIds=[...new Set(CHILD_DATA.map(r=>r.parent))];
+  // Sort parents by total sales desc
+  const parentOrder=sortedParents().map(([pid])=>pid).filter(pid=>parentIds.includes(pid));
+
+  let bodyHtml='';
+  let pIdx=0;
+  parentOrder.forEach(pid=>{
+    const children=CHILD_DATA.filter(r=>r.parent===pid&&(weeks.reduce((a,w)=>a+r.weeks[w].sales,0)>0||weeks.reduce((a,w)=>a+r.weeks[w].spend,0)>0));
+    if(!children.length) return;
+    const p=PARENTS[pid];
+    const pSales=children.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
+    const pSpend=children.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].spend,0),0);
+    const pTacos=pSales>0?pSpend/pSales*100:null;
+    const pPct=modeAdj>0?(pSales/modeAdj*100).toFixed(1):'0.0';
+    const gid=`pg${pIdx++}`;
+
+    const pWcells=weeks.map(w=>{
+      const wS=children.reduce((s,r)=>s+r.weeks[w].sales,0);
+      const wE=children.reduce((s,r)=>s+r.weeks[w].spend,0);
+      const tc=wS>0?wE/wS*100:null;
+      return `<td style="border-left:1px solid var(--border2);font-weight:600">${wS>0?fmt(wS,0):'—'}</td>
+              <td style="font-weight:600">${wE>0?fmt(wE,0):'—'}</td>
+              <td class="${tacosClass(tc)}" style="font-weight:600">${tc!=null?pct(tc):'—'}</td>`;
+    }).join('');
+
+    // Parent row
+    bodyHtml+=`<tr class="parent-row" onclick="toggleGroup('${gid}')" style="background:${p.color}0d;border-top:2px solid ${p.color}33">
+      <td>
+        <span class="toggle-icon" id="ti_${gid}">▼</span>
+        <span style="color:${p.color};font-weight:700;font-family:var(--display);font-size:13px;margin-left:4px">${zhShort(pid)}</span>
+        <span style="color:var(--text3);font-size:10px;margin-left:8px;font-family:var(--mono)">${children.length} 個變體</span>
+      </td>
+      <td style="font-family:var(--mono);font-size:12px;color:var(--green);font-weight:700">${pPct}%</td>
+      ${pWcells}
+    </tr>`;
+
+    // Child rows
+    bodyHtml+=`<tbody id="${gid}" class="child-rows">`;
+    children.sort((a,b)=>b.total_sales-a.total_sales).forEach(r=>{
+      const cSales=weeks.reduce((a,w)=>a+r.weeks[w].sales,0);
+      const cSpend=weeks.reduce((a,w)=>a+r.weeks[w].spend,0);
+      const cPct=modeAdj>0?(cSales/modeAdj*100).toFixed(1):'0.0';
+      const cName=CHILD_ZH[r.asin]||r.name.replace(/^DAIKEN\s*/,'').substring(0,50);
+      const wCells=weeks.map(w=>{
+        const wd=r.weeks[w];
+        const tc=wd.sales>0?wd.spend/wd.sales*100:null;
+        return `<td style="border-left:1px solid var(--border2)">${wd.sales>0?fmt(wd.sales,0):'—'}</td>
+                <td>${wd.spend>0?fmt(wd.spend,0):'—'}</td>
+                <td class="${tacosClass(tc)}">${tc!=null?pct(tc):'—'}</td>`;
+      }).join('');
+      bodyHtml+=`<tr style="background:var(--bg)">
+        <td style="padding-left:32px">
+          <a class="asin-link" href="https://www.amazon.com/dp/${r.asin}" target="_blank">${r.asin}</a>
+          <span style="color:var(--text2);font-size:11.5px;margin-left:8px">${cName}</span>
+        </td>
+        <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">${cPct}%</td>
+        ${wCells}
+      </tr>`;
+    });
+    bodyHtml+='</tbody>';
+  });
+
+  const totalCells=weeks.map(w=>{
+    const wS=CHILD_DATA.reduce((s,r)=>s+r.weeks[w].sales,0);
+    const wE=CHILD_DATA.reduce((s,r)=>s+r.weeks[w].spend,0);
+    const wT=wS>0?wE/wS*100:null;
+    return `<td style="border-left:1px solid var(--border2);font-weight:700">${fmt(wS,0)}</td>
+            <td style="font-weight:700">${fmt(wE,0)}</td>
+            <td class="${tacosClass(wT)}">${wT!=null?pct(wT):'—'}</td>`;
+  }).join('');
+
+  // Fixed column widths via colgroup — eliminates blank space
+  const nWeeks=weeks.length;
+  const colDefs=[220,58,...Array(nWeeks*3).fill(0).flatMap((_,i)=>i%3===0?[82]:i%3===1?[72]:[60])];
+  const cg='<colgroup>'+colDefs.map(w=>`<col style="width:${w}px">`).join('')+'</colgroup>';
+  tbl.innerHTML=`${cg}<thead>
+    <tr><th style="min-width:300px">產品 / 變體</th><th>Sales %</th>${wH}</tr>
+    <tr class="week-group"><th></th><th></th>${sH}</tr>
+  </thead>
+  <tbody>${bodyHtml}</tbody>
+  <tfoot><tr style="background:var(--bg3);font-weight:700;border-top:2px solid var(--border2)">
+    <td>TOTAL</td><td>100%</td>${totalCells}
+  </tr></tfoot>`;
+  tbl.style.tableLayout='fixed';
+  tbl.style.width='auto';
+  requestAnimationFrame(()=>{
+    const rows=tbl.querySelectorAll('thead tr');
+    if(rows[0]&&rows[1]){
+      const h=rows[0].getBoundingClientRect().height;
+      rows[1].querySelectorAll('th').forEach(th=>th.style.top=h+'px');
+    }
+  });
+}
+
+function toggleGroup(gid) {
+  const el=document.getElementById(gid);
+  const icon=document.getElementById('ti_'+gid);
+  if(!el) return;
+  el.classList.toggle('collapsed');
+  if(icon) icon.textContent=el.classList.contains('collapsed')?'▶':'▼';
+}
+
+// ═══ TAB 2 ═══
+function buildWowTab() {
+  const sp=sortedParents();
+  const totals={};
+  WEEKS.forEach(w=>totals[w]={sales:0,spend:0,units:0,organic:0,ppc:0});
+  sp.forEach(([,p])=>WEEKS.forEach(w=>{
+    totals[w].sales+=p.weeks[w].sales;totals[w].spend+=p.weeks[w].spend;
+    totals[w].units+=p.weeks[w].units;totals[w].organic+=p.weeks[w].organic;
+  }));
+  $('kpi-t2').innerHTML=WEEKS.map(w=>{
+    const tc=totals[w].sales>0?totals[w].spend/totals[w].sales*100:0;
+    return `<div class="kpi-card"><div class="kpi-label">${w} · ${W_LABELS[w]}</div>
+      <div class="kpi-value" style="font-size:18px">${fmt(totals[w].sales,0)}</div>
+      <div class="kpi-sub">Spend ${fmt(totals[w].spend,0)} · TACOS <span class="${tacosClass(tc)}">${pct(tc)}</span></div>
+    </div>`;
+  }).join('');
+  $('wowTable').innerHTML=`<thead><tr><th rowspan="2">產品</th>
+    ${WEEKS.map(w=>`<th colspan="5" style="text-align:center;background:var(--bg3)">${w} ${W_LABELS[w]}</th>`).join('')}</tr>
+    <tr class="week-group">${WEEKS.map(()=>'<th>Sales</th><th>Spend</th><th>TACOS</th><th>Units</th><th>Organic</th>').join('')}</tr>
+  </thead><tbody>${sp.map(([pid,p])=>`<tr>
+    <td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>
+    <strong style="color:${p.color}">${zhShort(pid)}</strong><br>
+    <span class="muted" style="font-size:10px">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span></td>
+    ${WEEKS.map(w=>{const wd=p.weeks[w],tc=wd.tacos;
+      return `<td>${fmt(wd.sales,0)}</td><td>${fmt(wd.spend,0)}</td><td class="${tacosClass(tc)}">${pct(tc)}</td><td>${wd.units||'—'}</td><td>${wd.organic||'—'}</td>`;
+    }).join('')}
+  </tr>`).join('')}
+  <tr style="background:var(--bg3);font-weight:700"><td>TOTAL</td>
+    ${WEEKS.map(w=>{const tc=totals[w].sales>0?totals[w].spend/totals[w].sales*100:0;
+      return `<td>${fmt(totals[w].sales,0)}</td><td>${fmt(totals[w].spend,0)}</td><td class="${tacosClass(tc)}">${pct(tc)}</td><td>${totals[w].units}</td><td>${totals[w].organic}</td>`;
+    }).join('')}
+  </tr></tbody>`;
+}
+
+// ═══ TAB 3 ═══
+function buildHeatTab() {
+  const sp=sortedParents();
+  const periods=[['W1','W2'],['W2','W3'],['W3','W4']];
+  const metrics=[{key:'sales',label:'Sales',up:true},{key:'spend',label:'Spend',up:false},{key:'tacos',label:'TACOS',up:false},{key:'units',label:'Units',up:true}];
+  const chg=(a,b)=>(!a||a===0)?null:(b-a)/a*100;
+  const fmtC=(v,up)=>{if(v==null)return'<span class="muted">—</span>';const g=(up?v>0:v<0);return`<span style="color:${g?'var(--green)':'var(--red)'}">${v>0?'+':''}${v.toFixed(1)}%</span>`;};
+  const wH=periods.map(([a,b])=>metrics.map(m=>`<th>${a}→${b}<br><span style="color:var(--text2);font-weight:400">${m.label}</span></th>`).join('')).join('');
+  $('heatTable').innerHTML=`<thead><tr><th>產品</th>${wH}</tr></thead><tbody>${
+    sp.map(([pid,p])=>`<tr><td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>${zhShort(pid)}</td>
+      ${periods.map(([a,b])=>metrics.map(m=>`<td>${fmtC(chg(p.weeks[a][m.key],p.weeks[b][m.key]),m.up)}</td>`).join('')).join('')}
+    </tr>`).join('')
+  }</tbody>`;
+}
+
+// ═══ TAB 4 — QUADRANT ═══
+function getQuadrant(p, med) {
+  if(p.total_sales>=med && p.tacos_4w<=TACOS_TARGET) return 'star';
+  if(p.total_sales>=med && p.tacos_4w>TACOS_TARGET)  return 'question';
+  if(p.total_sales<med  && p.tacos_4w<=TACOS_TARGET)  return 'potential';
+  return 'cut';
+}
+
+function buildQuadTab() {
+  const sp=sortedParents().filter(([,p])=>p.total_sales>0);
+  const salesArr=sp.map(([,p])=>p.total_sales).sort((a,b)=>a-b);
+  const med=salesArr.length%2===0?(salesArr[salesArr.length/2-1]+salesArr[salesArr.length/2])/2:salesArr[Math.floor(salesArr.length/2)];
+  const totS=sp.reduce((s,[,p])=>s+p.total_sales,0);
+  const totE=sp.reduce((s,[,p])=>s+p.total_spend,0);
+  const acct=totS>0?totE/totS*100:0;
+  const qStar=sp.filter(([,p])=>getQuadrant(p,med)==='star');
+  const qQuestion=sp.filter(([,p])=>getQuadrant(p,med)==='question');
+  const qPotential=sp.filter(([,p])=>getQuadrant(p,med)==='potential');
+  const qCut=sp.filter(([,p])=>getQuadrant(p,med)==='cut');
+
+  $('kpi-t4').innerHTML=`
+    <div class="kpi-card"><div class="kpi-label">TACOS Target</div><div class="kpi-value kpi-green">15%</div><div class="kpi-sub">Y-axis threshold</div></div>
+    <div class="kpi-card"><div class="kpi-label">Account TACOS</div><div class="kpi-value ${acct<=15?'kpi-green':acct<=18?'kpi-amber':'kpi-red'}">${pct(acct)}</div><div class="kpi-sub">SP+SD+SB total</div></div>
+    <div class="kpi-card"><div class="kpi-label">Sales Median</div><div class="kpi-value">${fmt(med,0)}</div><div class="kpi-sub">X-axis threshold</div></div>
+    <div class="kpi-card"><div class="kpi-label">⭐ Star</div><div class="kpi-value kpi-green">${qStar.length}</div></div>
+    <div class="kpi-card"><div class="kpi-label">⚠️ Question</div><div class="kpi-value kpi-amber">${qQuestion.length}</div></div>
+    <div class="kpi-card"><div class="kpi-label">💤 Potential</div><div class="kpi-value" style="color:var(--accent)">${qPotential.length}</div></div>
+    <div class="kpi-card"><div class="kpi-label">🔴 Cut</div><div class="kpi-value kpi-red">${qCut.length}</div></div>`;
+
+const qDefs=[
+    {title:'cut',color:'#dc2626',items:qCut,action:'調降售價 $0.50\n建立 Coupon 折扣\n設定 Prime 限時特賣'},
+    {title:'Question',color:'#d97706',items:qQuestion,action:'降低 CPC 出價\n暫停 TACOS ≥85% 關鍵字'},
+    {title:'potential',color:'#2563eb',items:qPotential,action:'增加 SP / SB / SD 廣告\n使用低 CPC 出價\n建立 Lookalike 受眾活動\n相似 KW 根詞 · 競品 ASIN · AMC 受眾'},
+    {title:'star',color:'#16a34a',items:qStar,action:'複製現有 SP 活動\n提高預算 30%'},
+  ];
+  $('qCards').innerHTML=qDefs.map(q=>`<div class="q-card" style="border-color:${q.color}33"><div class="q-card-title" style="color:${q.color}">${q.title}</div><div class="q-card-body">${q.action.split('\\n').join('<br>')}
+    <br><br>${q.items.map(([pid,p])=>`<span style="display:inline-block;margin:2px 3px;padding:2px 8px;background:${p.color}22;border:1px solid ${p.color}44;border-radius:3px;font-size:10px;color:${p.color};font-family:var(--mono)">${zhShort(pid)}</span>`).join('')}
+    ${q.items.length===0?'<span class="muted">None</span>':''}</div>
+  </div>`).join('');
+
+  // Canvas
+  const canvas=$('quadCanvas');
+  const ctx=canvas.getContext('2d');
+  const CW=canvas.width,CH=canvas.height;
+  ctx.clearRect(0,0,CW,CH);
+  const MX=CW/2,MY=CH/2;
+  function drawBox(x,y,w,h,bg,title,subtitle,items,tc){
+    ctx.fillStyle=bg;ctx.fillRect(x+1,y+1,w-2,h-2);
+    ctx.fillStyle=tc;ctx.font='bold 20px Inter,sans-serif';ctx.textAlign='left';
+    ctx.fillText(title,x+18,y+34);
+    ctx.fillStyle='#64748b';ctx.font='10px Outfit,sans-serif';
+    const lines=subtitle.split('\\n');
+    lines.forEach((l,i)=>ctx.fillText(l,x+18,y+54+i*15));
+    let cx2=x+18,cy2=y+54+lines.length*15+18;
+    ctx.font='bold 10px JetBrains Mono,monospace';
+    items.forEach(([pid,p])=>{
+      const lbl=zhShort(pid);
+      const tw=ctx.measureText(lbl).width+14;
+      if(cx2+tw>x+w-10){cx2=x+18;cy2+=20;}
+      ctx.fillStyle=p.color+'2a';
+      ctx.beginPath();ctx.roundRect(cx2,cy2-13,tw,18,3);ctx.fill();
+      ctx.fillStyle=p.color;ctx.fillText(lbl,cx2+7,cy2);
+      cx2+=tw+5;
+    });
+  }
+  drawBox(0,0,MX,MY,'rgba(220,38,38,.05)','cut','調降售價 $0.50\n建立 Coupon\n設定 Prime 特賣',qCut,'#dc2626');
+  drawBox(MX,0,MX,MY,'rgba(217,119,6,.05)','Question','降低 CPC\n暫停 ≥85% TACOS KW',qQuestion,'#d97706');
+  drawBox(0,MY,MX,MY,'rgba(37,99,235,.05)','potential','增加 SP/SB/SD · 低 CPC\nLookalike 受眾 · 競品 ASIN\nAMC 相似受眾',qPotential,'#2563eb');
+  drawBox(MX,MY,MX,MY,'rgba(22,163,74,.05)','star','複製 SP 活動\n預算 +30%',qStar,'#16a34a');
+  ctx.strokeStyle='#2563eb';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(MX,0);ctx.lineTo(MX,CH);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(0,MY);ctx.lineTo(CW,MY);ctx.stroke();
+  ctx.fillStyle='#2563eb';ctx.font='bold 13px Inter,sans-serif';ctx.textAlign='center';
+  ctx.fillText('DAIKEN US · Feb–Mar 2026',CW/2,18);
+  ctx.fillStyle='#94a3b8';ctx.font='11px JetBrains Mono,monospace';ctx.textAlign='left';
+  ctx.fillText('TACOS ↑',6,MY-8);
+  ctx.fillStyle='#2563eb';ctx.font='bold 20px JetBrains Mono,monospace';ctx.textAlign='right';
+  ctx.fillText('70',MX-8,MY-6);
+  ctx.fillStyle='#64748b';ctx.font='12px JetBrains Mono,monospace';
+  ctx.fillText('0',MX-8,CH-8);
+  ctx.textAlign='right';ctx.fillText('Sales →',CW-6,CH-8);
+  ctx.textAlign='left';ctx.fillStyle='#64748b';ctx.font='10px Outfit,sans-serif';
+  ctx.fillText('Bid $2–$2.5',8,CH-8);
+
+  window._quad_med = med;
+}
+
+// ═══ TAB 5 — 行動方案 ═══
+function buildActionTab() {
+  const sp=sortedParents().filter(([,p])=>p.total_sales>0);
+  const salesArr=sp.map(([,p])=>p.total_sales).sort((a,b)=>a-b);
+  const med=salesArr.length%2===0?(salesArr[salesArr.length/2-1]+salesArr[salesArr.length/2])/2:salesArr[Math.floor(salesArr.length/2)];
+
+  const QUAD_CONFIG = {
+    star:     {label:'⭐ Star',badgeCls:'badge-star',   pri:'badge-now', priLabel:'本週執行',
+      tasks:[
+        {type:'SP Bulk',text:'下載現有 SP 活動 Bulk File → 複製所有 Enabled campaigns → 新命名加 _COPY 後綴'},
+        {type:'Budget',text:'全部 SP 活動預算 × 1.3（+30%）→ 上傳 Bulk File'},
+        {type:'SB',text:'檢查是否有 SB Banner 廣告，若無則新建 SB Campaign 指向此產品'},
+        {type:'SD',text:'建立 SD Retargeting 活動 targeting 已瀏覽 ASIN 的受眾'},
+      ]},
+    question: {label:'⚠️ Question',badgeCls:'badge-question',pri:'badge-now', priLabel:'本週執行',
+      tasks:[
+        {type:'CPC',text:'下載 SP 活動 Bulk File → 找出 ACOS ≥85% 的關鍵字 → Bid × 0.8（降20%）'},
+        {type:'Pause KW',text:'TACOS ≥85% 且過去 14 天無轉換的關鍵字 → 狀態改為 Paused'},
+        {type:'Budget',text:'SP 活動預算維持不變，待 TACOS 下降再考慮增加'},
+        {type:'Review',text:'檢查競品 listing 定價，評估是否需要調整售價提高轉換率'},
+      ]},
+    cut:      {label:'🔴 Cut',badgeCls:'badge-cut',    pri:'badge-now', priLabel:'本週執行',
+      tasks:[
+        {type:'Price',text:'在 Seller Central 將售價下調 $0.50，觀察轉換率變化'},
+        {type:'Coupon',text:'建立 Coupon 折扣（建議 5–10%）→ 提升搜尋結果曝光'},
+        {type:'Deal',text:'申請 Prime Exclusive Discount 或 Lightning Deal（需提前 2 週申請）'},
+        {type:'SP Bid',text:'下載 SP Bulk File → 全部 Keyword Bid 降至 $2.00 上限'},
+      ]},
+    potential:{label:'💤 Potential',badgeCls:'badge-potential',pri:'badge-next',priLabel:'下週執行',
+      tasks:[
+        {type:'SP',text:'新建 SP Auto campaign，日預算 $10，CPC 出價 $2.00，30天跑數據'},
+        {type:'SB',text:'新建 SB Banner campaign，指向此產品 store page，CPC $2.00'},
+        {type:'SD',text:'新建 SD Audience campaign，目標 Competitor ASIN 的瀏覽受眾'},
+        {type:'AMC',text:'建立 AMC Lookalike 受眾 → 相似購買行為受眾 → 套用至 SD campaign'},
+        {type:'KW',text:'用現有暢銷產品的高轉換 KW 根詞，建立 SP Exact Match campaign'},
+      ]},
+  };
+
+  const html=sp.map(([pid,p])=>{
+    const q=getQuadrant(p, med);
+    const cfg=QUAD_CONFIG[q];
+    const taskHtml=cfg.tasks.map((t,i)=>`
+      <div class="action-task" id="task_${pid}_${i}">
+        <input type="checkbox" onchange="toggleTask('${pid}',${i},this)">
+        <span class="task-type">${t.type}</span>
+        <span class="task-text">${t.text}</span>
+      </div>`).join('');
+    return `<div class="action-card">
+      <div class="action-card-header">
+        <span style="width:12px;height:12px;border-radius:3px;background:${p.color};display:inline-block;flex-shrink:0"></span>
+        <div class="action-card-title" style="color:${p.color}">${zhShort(pid)}</div>
+        <span class="action-card-badge ${cfg.badgeCls}">${cfg.label}</span>
+        <span class="action-card-badge ${cfg.pri}">${cfg.priLabel}</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:auto">5W Sales ${fmt(p.total_sales,0)} · TACOS <span class="${tacosClass(p.tacos_4w)}">${pct(p.tacos_4w)}</span></span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span>
+      </div>
+      <div class="action-tasks">${taskHtml}</div>
+    </div>`;
+  }).join('');
+
+  $('actionCards').innerHTML=html;
+}
+
+function toggleTask(pid, idx, cb) {
+  const el=document.getElementById(`task_${pid}_${idx}`);
+  if(el) el.classList.toggle('done', cb.checked);
+}
+
+// ═══ INIT ═══
+buildT1();
+buildWowTab();
+buildHeatTab();
+buildQuadTab();
+buildActionTab();
+</script>
 </body>
 </html>
