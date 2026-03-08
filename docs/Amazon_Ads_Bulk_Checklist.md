@@ -274,7 +274,7 @@ Campaign fail → Ad Group fail → Product Ad fail → Targeting fail
 - TACOS 目標：15%
 - Bid 範圍：$0.16–$0.21
 - 暫停線：25% TACOS
-- Input：`clients/gf/input/`
+- Input：`clients/geo/input/`
 
 ### Flux（5 Marketplaces）
 - TACOS 目標：30%

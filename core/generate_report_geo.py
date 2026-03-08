@@ -25,7 +25,7 @@ from pathlib import Path
 # ── CLIENT CONFIG  (edit this block for each client / period) ──────────────
 # ═══════════════════════════════════════════════════════════════════════════
 
-CLIENT_NAME   = "GF"
+CLIENT_NAME   = "GEO"
 MARKET        = "US"
 CURRENCY      = "$"           # "$" | "£" | "€" | "A$"
 LOCALE        = "en-US"       # "en-US" | "en-GB" | "de-DE"
@@ -46,18 +46,18 @@ W_LABELS: dict[str, str] = {
 }
 
 # ── File paths ────────────────────────────────────────────────────────────
-INPUT_DIR    = Path("/Users/koda/amazon-autopilot/clients/gf/input")
-SOURCE_HTML  = INPUT_DIR / "GF_Dashboard_Feb2026.html"  # dark-theme base
+INPUT_DIR    = Path("/Users/koda/amazon-autopilot/clients/geo/input")
+SOURCE_HTML  = INPUT_DIR / "GEO_Dashboard_Feb2026.html"  # dark-theme base
 PRODUCTS_CSV = INPUT_DIR / "Products.csv"
 SALES_CSV    = INPUT_DIR / "HistoricalAsinDateSales.csv"
 SB_CSV       = INPUT_DIR / "SB_report.csv"
-OUTPUT_DIR   = Path("/Users/koda/amazon-autopilot/output/gf")
-OUTPUT_HTML  = OUTPUT_DIR / "GF_US_Feb-Mar_2026.html"
+OUTPUT_DIR   = Path("/Users/koda/amazon-autopilot/output/geo")
+OUTPUT_HTML  = OUTPUT_DIR / "GEO_US_Feb-Mar_2026.html"
 
 # ── Frozen weeks (none — all weeks computed fresh from CSV) ──────────────
 FROZEN_WEEKS = []
 
-# ── Parent visual config (GF US — Geometric Future PC Cases & Fans) ──────
+# ── Parent visual config (GEO US — Geometric Future PC Cases & Fans) ──────
 PARENT_COLORS: dict[str, str] = {
     "B0DF7QSTG3": "#3b82f6",   # M5 Case
     "B0DHX988D9": "#a855f7",   # Eskimo Pro AIO

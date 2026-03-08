@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-GF US — Weekly Performance Excel Report Builder
+GEO US — Weekly Performance Excel Report Builder
 Full transparency: all raw data that powers the HTML dashboard
 """
 import json, re
@@ -10,8 +10,8 @@ from openpyxl.styles import (Font, PatternFill, Alignment, Border, Side,
 from openpyxl.utils import get_column_letter
 
 # ── Load data from generated HTML ─────────────────────────────────────────
-HTML_PATH = "/Users/koda/amazon-autopilot/output/gf/GF_US_Feb-Mar_2026.html"
-OUTPUT_PATH = "/Users/koda/amazon-autopilot/output/gf/20260308_GF_US_Feb-Mar_2026.xlsx"
+HTML_PATH = "/Users/koda/amazon-autopilot/output/geo/GEO_US_Feb-Mar_2026.html"
+OUTPUT_PATH = "/Users/koda/amazon-autopilot/output/geo/20260308_GEO_US_Feb-Mar_2026.xlsx"
 
 with open(HTML_PATH, encoding="utf-8") as f:
     html = f.read()
@@ -118,7 +118,7 @@ ws1.sheet_view.showGridLines = False
 # Title row
 ws1.merge_cells("A1:Q1")
 c = ws1["A1"]
-c.value = f"GF US · Weekly Performance Report  |  Feb–Mar 2026  |  W1–W{NW}  |  TACOS Target ≤{tacos_target}%"
+c.value = f"GEO US · Weekly Performance Report  |  Feb–Mar 2026  |  W1–W{NW}  |  TACOS Target ≤{tacos_target}%"
 c.font = Font(name="Arial", bold=True, size=12, color="0f172a")
 c.fill = hex_fill("#f1f5f9")
 c.alignment = LEFT
@@ -534,7 +534,7 @@ import csv as _csv, re as re2
 from datetime import datetime, date
 from collections import defaultdict as _dd
 
-SB_CSV = "/Users/koda/amazon-autopilot/clients/gf/input/SB_report.csv"
+SB_CSV = "/Users/koda/amazon-autopilot/clients/geo/input/SB_report.csv"
 
 def _parse_money(v):
     return float(re2.sub(r"[^\d.]", "", str(v).strip())) if v and str(v).strip() else 0.0
@@ -562,7 +562,7 @@ def _get_week(d):
 # Load Products for ASIN → parent mapping
 child_to_parent_map = {}
 asin_to_name_map = {}
-with open("/Users/koda/amazon-autopilot/clients/gf/input/Products.csv", encoding="utf-8-sig") as f:
+with open("/Users/koda/amazon-autopilot/clients/geo/input/Products.csv", encoding="utf-8-sig") as f:
     for r_row in _csv.DictReader(f):
         child_to_parent_map[r_row["ASIN"].strip()] = r_row["Parent ASIN"].strip()
         asin_to_name_map[r_row["ASIN"].strip()] = r_row["Title"].strip()[:50]
@@ -851,7 +851,7 @@ FULL_TASKS = {
 # Title
 ws7.merge_cells("A1:H1")
 c = ws7["A1"]
-c.value = f"行動方案清單  |  GF US  |  W{NW} {w_labels[weeks[-1]]}  |  共 {sum(len(v) for v in quad_counts.values())} 個產品"
+c.value = f"行動方案清單  |  GEO US  |  W{NW} {w_labels[weeks[-1]]}  |  共 {sum(len(v) for v in quad_counts.values())} 個產品"
 c.font = Font(name="Arial", bold=True, size=12, color="0f172a")
 c.fill = hex_fill("#f1f5f9"); c.alignment = LEFT
 ws7.row_dimensions[1].height = 26
