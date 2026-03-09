@@ -111,8 +111,9 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;positio
       <button class="tab-btn" onclick="showTab('t2',this)">🚀 商業機會 Opportunities</button>
       <button class="tab-btn" onclick="showTab('t3',this)">⚔️ 競品比較 Competitors</button>
       <button class="tab-btn" onclick="showTab('t4',this)">⚠️ 痛點 Pain Points</button>
-      <button class="tab-btn" onclick="showTab('t5',this)">🎬 行動方案 Actions</button>
-      <button class="tab-btn" onclick="showTab('t6',this)">💬 全部留言 All</button>
+      <button class="tab-btn" onclick="showTab('t5',this)">🛒 購買意圖 Purchase</button>
+      <button class="tab-btn" onclick="showTab('t6',this)">🎬 行動方案 Actions</button>
+      <button class="tab-btn" onclick="showTab('t7',this)">💬 全部留言 All</button>
     </div>
     <div class="meta">更新 Updated Mar 9, 2026</div>
   </div>
@@ -203,8 +204,27 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;positio
   <div class="comment-list" id="painList"></div>
 </div>
 
-<!-- T5: ACTIONS -->
+<!-- T5: PURCHASE INTENT -->
 <div id="t5" class="panel">
+  <div style="margin-bottom:20px">
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">購買意圖 PURCHASE INTENT</div>
+    <div style="font-size:24px;font-weight:800;color:var(--blue);margin-bottom:4px">準備購買的留言 Ready-to-Buy Comments</div>
+    <div style="font-size:12px;color:var(--text3)">所有表達購買意圖、詢問價格、詢問購買管道的留言｜All comments showing purchase intent, pricing questions, availability inquiries</div>
+  </div>
+  <div class="kpi-strip" id="kpi-purchase"></div>
+  <div class="sec-header" style="margin-bottom:12px">APAL 購買連結 Where to Buy</div>
+  <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+    <a href="https://www.apaltec.com/hestia/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--accent);color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none">🌐 APAL 官網 Official Site</a>
+    <a href="https://www.amazon.com/s?k=APAL+Hestia" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#ff9900;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none">🇺🇸 Amazon US</a>
+    <a href="https://www.amazon.co.uk/s?k=APAL+Hestia" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#ff9900;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none">🇬🇧 Amazon UK</a>
+    <a href="https://www.amazon.ae/s?k=APAL+Hestia" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#ff9900;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none">🇦🇪 Amazon UAE</a>
+  </div>
+  <div class="sec-header">所有購買意圖留言 All Purchase Intent Comments</div>
+  <div class="comment-list" id="purchaseList"></div>
+</div>
+
+<!-- T6: ACTIONS -->
+<div id="t6" class="panel">
   <div style="margin-bottom:20px">
     <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">建議行動方案 RECOMMENDED ACTIONS</div>
     <div style="font-size:24px;font-weight:800;color:var(--accent);margin-bottom:4px">下一步行動 What To Do Next</div>
@@ -213,8 +233,8 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;positio
   <div id="actionCards"></div>
 </div>
 
-<!-- T6: ALL COMMENTS -->
-<div id="t6" class="panel">
+<!-- T7: ALL COMMENTS -->
+<div id="t7" class="panel">
   <div style="margin-bottom:20px">
     <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">全部留言 ALL COMMENTS</div>
     <div style="font-size:24px;font-weight:800;color:var(--text);margin-bottom:4px">完整留言串 Full Comment Stream</div>
@@ -306,7 +326,7 @@ function buildOverview() {
     <div class="kpi-card"><div class="kpi-label">有效留言 Meaningful</div><div class="kpi-value kpi-green">${meaningful}</div><div class="kpi-sub">${meaningfulPct}% 可行動 actionable</div></div>
     <div class="kpi-card"><div class="kpi-label">總按讚 Total Likes</div><div class="kpi-value kpi-amber">${s.total_likes}</div><div class="kpi-sub">互動訊號 engagement</div></div>
     <div class="kpi-card"><div class="kpi-label">日期範圍 Date Range</div><div class="kpi-value" style="font-size:14px">${s.date_start.slice(5)}</div><div class="kpi-sub">至 to ${s.date_end.slice(5)}</div></div>
-    <div class="kpi-card"><div class="kpi-label">購買意圖 Purchase Intent</div><div class="kpi-value kpi-blue">${(DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Purchase')||c.intent.includes('sales lead')).length}</div><div class="kpi-sub">準備購買 ready to buy</div></div>
+    <div class="kpi-card"><div class="kpi-label">購買意圖 Purchase Intent</div><div class="kpi-value kpi-blue">${(DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Purchase')||c.intent.includes('sales lead')||c.intent.includes('availability')).length}</div><div class="kpi-sub">準備購買 ready to buy</div></div>
     <div class="kpi-card"><div class="kpi-label">應用場景 Use Cases</div><div class="kpi-value kpi-blue">${(DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Use case')||c.intent.includes('Industrial')||c.intent.includes('Marine')||c.intent.includes('Remote')).length}</div><div class="kpi-sub">社群建議 community</div></div>`;
 
   // Donut chart
@@ -381,17 +401,30 @@ function buildCategoryTab(cat, kpiId, listId, extraContent) {
   $(listId).innerHTML = items.sort((a,b) => b.likes - a.likes).map(c => commentHtml(c, null)).join('');
 }
 
+// ═══ BUILD PURCHASE INTENT TAB ═══
+function buildPurchaseIntent() {
+  const items = (DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Purchase')||c.intent.includes('sales lead')||c.intent.includes('availability'));
+  const totalLikes = items.reduce((s,c) => s+c.likes, 0);
+  const topLevel = items.filter(c => !c.is_reply).length;
+  $('kpi-purchase').innerHTML = `
+    <div class="kpi-card"><div class="kpi-label">購買意圖留言 Purchase Intent</div><div class="kpi-value kpi-blue">${items.length}</div><div class="kpi-sub">${topLevel} 主留言 top-level</div></div>
+    <div class="kpi-card"><div class="kpi-label">佔比 % of Total</div><div class="kpi-value">${(items.length/DATA.stats.total*100).toFixed(0)}%</div><div class="kpi-sub">共 ${DATA.stats.total} 則留言</div></div>
+    <div class="kpi-card"><div class="kpi-label">總按讚 Total Likes</div><div class="kpi-value kpi-amber">${totalLikes}</div><div class="kpi-sub">互動 engagement</div></div>`;
+  $('purchaseList').innerHTML = items.sort((a,b) => b.likes - a.likes).map(c => commentHtml(c, 'Business Opportunities')).join('');
+}
+
 // ═══ BUILD ACTIONS TAB ═══
 function buildActions() {
   const actions = [
     {icon:'🔴',color:'var(--red)',pri:'緊急 URGENT',title:'修正銷售漏斗 Fix Sales Funnel',
      body:`<strong>問題 Problem:</strong> 多位高意圖買家詢問「哪裡買？」/「多少錢？」/「私訊我」— 但無明確答案。<br>Multiple high-intent buyers asking "Where can I buy?" / "How much?" / "DM me" — no clear answer.<br>
 <strong>行動 Action:</strong><br>
-• 建立專屬產品著陸頁含「立即購買」按鈕 Create dedicated landing page with Buy Now<br>
-• 在 YouTube 影片說明加入購買連結 Add purchase link in video description<br>
-• 置頂留言附上定價 + 購買連結 Pin comment with pricing + purchase link<br>
-• 建立 Amazon 上架或 DTC 商店 Set up Amazon listing or DTC store<br>
-<strong>證據 Evidence:</strong> ${(DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Purchase')||c.intent.includes('sales lead')||c.intent.includes('availability')).length} 則直接購買意圖留言`},
+• 在 YouTube 影片說明加入 APAL 官網連結：<a href="https://www.apaltec.com/hestia/" target="_blank" style="color:var(--blue)">apaltec.com/hestia</a><br>Add APAL official site link in video description<br>
+• 在影片說明加入 Amazon 購買連結：<a href="https://www.amazon.com/s?k=APAL+Hestia" target="_blank" style="color:var(--blue)">Amazon US</a> · <a href="https://www.amazon.co.uk/s?k=APAL+Hestia" target="_blank" style="color:var(--blue)">Amazon UK</a> · <a href="https://www.amazon.ae/s?k=APAL+Hestia" target="_blank" style="color:var(--blue)">Amazon UAE</a><br>
+• 置頂留言附上定價 + 官網 + Amazon 購買連結 Pin comment with pricing + purchase links<br>
+• 在官網 apaltec.com/hestia 加入明確的「立即購買 Buy Now」按鈕導向 Amazon<br>
+<strong>證據 Evidence:</strong> ${(DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Purchase')||c.intent.includes('sales lead')||c.intent.includes('availability')).length} 則直接購買意圖留言`,
+     links:[{label:'🌐 APAL 官網',url:'https://www.apaltec.com/hestia/'},{label:'🇺🇸 Amazon US',url:'https://www.amazon.com/s?k=APAL+Hestia'},{label:'🇬🇧 Amazon UK',url:'https://www.amazon.co.uk/s?k=APAL+Hestia'},{label:'🇦🇪 Amazon UAE',url:'https://www.amazon.ae/s?k=APAL+Hestia'}]},
 
     {icon:'🟢',color:'var(--green)',pri:'高 HIGH',title:'建立應用場景行銷內容 Use-Case Marketing',
      body:`<strong>問題 Problem:</strong> 社群自發發現你尚未行銷的應用場景。Community discovering use cases you haven't marketed.<br>
@@ -442,6 +475,7 @@ function buildActions() {
     `<div class="action-card" style="border-left:4px solid ${a.color}">
       <div class="action-title"><span>${a.icon}</span> <span style="color:${a.color}">[${a.pri}]</span> ${a.title}</div>
       <div class="action-body">${a.body}</div>
+      ${a.links ? '<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">' + a.links.map(l => '<a href="'+l.url+'" target="_blank" style="display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:var(--accent);color:#fff;border-radius:5px;font-size:12px;font-weight:600;text-decoration:none">'+l.label+'</a>').join('') + '</div>' : ''}
     </div>`
   ).join('');
 }
@@ -480,6 +514,7 @@ buildCategoryTab('Core Strengths', 'kpi-strengths', 'strengthsList', null);
 buildCategoryTab('Business Opportunities', 'kpi-opportunities', 'opportunitiesList', 'oppIntentBars');
 buildCategoryTab('Competitor Comparisons', 'kpi-competitors', 'competitorsList', null);
 buildCategoryTab('Pain Points', 'kpi-pain', 'painList', null);
+buildPurchaseIntent();
 buildActions();
 buildAllComments();
 </script>
