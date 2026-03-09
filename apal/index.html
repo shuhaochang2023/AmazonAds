@@ -104,17 +104,17 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;positio
 <body>
 <nav>
   <div class="nav-inner">
-    <div class="nav-brand">APAL · Social Listening</div>
+    <div class="nav-brand">APAL · Social Listening 社群聆聽</div>
     <div class="tabs">
-      <button class="tab-btn active" onclick="showTab('t0',this)">📋 Overview</button>
-      <button class="tab-btn" onclick="showTab('t1',this)">💚 Core Strengths</button>
-      <button class="tab-btn" onclick="showTab('t2',this)">🚀 Opportunities</button>
-      <button class="tab-btn" onclick="showTab('t3',this)">⚔️ Competitors</button>
-      <button class="tab-btn" onclick="showTab('t4',this)">⚠️ Pain Points</button>
-      <button class="tab-btn" onclick="showTab('t5',this)">🎬 Actions</button>
-      <button class="tab-btn" onclick="showTab('t6',this)">💬 All Comments</button>
+      <button class="tab-btn active" onclick="showTab('t0',this)">📋 總覽 Overview</button>
+      <button class="tab-btn" onclick="showTab('t1',this)">💚 核心優勢 Strengths</button>
+      <button class="tab-btn" onclick="showTab('t2',this)">🚀 商業機會 Opportunities</button>
+      <button class="tab-btn" onclick="showTab('t3',this)">⚔️ 競品比較 Competitors</button>
+      <button class="tab-btn" onclick="showTab('t4',this)">⚠️ 痛點 Pain Points</button>
+      <button class="tab-btn" onclick="showTab('t5',this)">🎬 行動方案 Actions</button>
+      <button class="tab-btn" onclick="showTab('t6',this)">💬 全部留言 All</button>
     </div>
-    <div class="meta">Updated Mar 9, 2026</div>
+    <div class="meta">更新 Updated Mar 9, 2026</div>
   </div>
 </nav>
 
@@ -123,92 +123,92 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;positio
 <!-- T0: OVERVIEW -->
 <div id="t0" class="panel active">
   <div style="margin-bottom:20px">
-    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">SOCIAL LISTENING · YOUTUBE COMMENT ANALYSIS</div>
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:4px"><div style="font-size:28px;font-weight:800;color:var(--accent)">APAL Hestia A2 Gateway · Comment Insights</div><a href="./APAL_Comment_Insights.xlsx" download="APAL_Comment_Insights.xlsx" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:#16a34a;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;font-family:Inter,sans-serif">⬇ Download Excel</a></div>
-    <div style="font-size:12px;color:var(--text3)">Video: "Hacking A Mysterious Satellite Gadget" by @saveitforparts · Feb 26 – Mar 8, 2026</div>
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">社群聆聽 SOCIAL LISTENING · YOUTUBE 留言分析</div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:4px"><div style="font-size:28px;font-weight:800;color:var(--accent)">APAL Hestia A2 Gateway · 留言洞察 Comment Insights</div><a href="./APAL_Comment_Insights.xlsx" download="APAL_Comment_Insights.xlsx" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:#16a34a;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;font-family:Inter,sans-serif">⬇ 下載 Excel</a></div>
+    <div style="font-size:12px;color:var(--text3)">影片 Video: "Hacking A Mysterious Satellite Gadget" by @saveitforparts · Feb 26 – Mar 8, 2026</div>
   </div>
 
   <div class="kpi-strip" id="kpi-overview"></div>
 
   <div class="card-grid">
     <div class="chart-card">
-      <div style="font-size:13px;font-weight:700;margin-bottom:4px">Comment Category Distribution</div>
-      <div style="font-size:10px;color:var(--text3);margin-bottom:14px;font-family:var(--mono)">MEANINGFUL COMMENTS BREAKDOWN</div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:4px">留言分類分佈 Category Distribution</div>
+      <div style="font-size:10px;color:var(--text3);margin-bottom:14px;font-family:var(--mono)">有效留言分類 MEANINGFUL COMMENTS</div>
       <div class="donut-wrap">
         <canvas id="catDonut" width="160" height="160"></canvas>
         <div class="donut-legend" id="catLegend"></div>
       </div>
     </div>
     <div class="chart-card">
-      <div style="font-size:13px;font-weight:700;margin-bottom:4px">Intent Themes</div>
-      <div style="font-size:10px;color:var(--text3);margin-bottom:14px;font-family:var(--mono)">TOP COMMENTER INTENTS</div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:4px">留言意圖主題 Intent Themes</div>
+      <div style="font-size:10px;color:var(--text3);margin-bottom:14px;font-family:var(--mono)">主要留言意圖 TOP INTENTS</div>
       <div id="intentBars"></div>
     </div>
   </div>
 
-  <div class="sec-header">Category Summary</div>
+  <div class="sec-header">分類摘要 Category Summary</div>
   <div class="card-grid" id="catSummaryCards"></div>
 
-  <div class="sec-header">Top Engaged Comments</div>
+  <div class="sec-header">高互動留言 Top Engaged Comments</div>
   <div class="comment-list" id="topComments"></div>
 </div>
 
 <!-- T1: CORE STRENGTHS -->
 <div id="t1" class="panel">
   <div style="margin-bottom:20px">
-    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">CORE STRENGTHS · 核心優勢</div>
-    <div style="font-size:24px;font-weight:800;color:var(--green);margin-bottom:4px">What Customers Love</div>
-    <div style="font-size:12px;color:var(--text3)">These are your strongest selling points — double down on these in marketing</div>
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">核心優勢 CORE STRENGTHS</div>
+    <div style="font-size:24px;font-weight:800;color:var(--green);margin-bottom:4px">客戶最愛 What Customers Love</div>
+    <div style="font-size:12px;color:var(--text3)">最強賣點 — 行銷素材應加倍強調｜Strongest selling points — double down in marketing</div>
   </div>
   <div class="kpi-strip" id="kpi-strengths"></div>
-  <div class="sec-header">All Positive Comments</div>
+  <div class="sec-header">所有正面留言 All Positive Comments</div>
   <div class="comment-list" id="strengthsList"></div>
 </div>
 
 <!-- T2: BUSINESS OPPORTUNITIES -->
 <div id="t2" class="panel">
   <div style="margin-bottom:20px">
-    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">BUSINESS OPPORTUNITIES · 商業機會與許願池</div>
-    <div style="font-size:24px;font-weight:800;color:var(--blue);margin-bottom:4px">What Customers Want</div>
-    <div style="font-size:12px;color:var(--text3)">Purchase intent, use cases, and feature requests — free R&D from your audience</div>
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">商業機會 BUSINESS OPPORTUNITIES</div>
+    <div style="font-size:24px;font-weight:800;color:var(--blue);margin-bottom:4px">客戶想要什麼 What Customers Want</div>
+    <div style="font-size:12px;color:var(--text3)">購買意圖、應用場景、功能需求 — 來自觀眾的免費 R&D｜Purchase intent, use cases & feature requests</div>
   </div>
   <div class="kpi-strip" id="kpi-opportunities"></div>
-  <div class="sec-header">Intent Breakdown</div>
+  <div class="sec-header">意圖分佈 Intent Breakdown</div>
   <div id="oppIntentBars" style="margin-bottom:20px"></div>
-  <div class="sec-header">All Opportunity Comments</div>
+  <div class="sec-header">所有機會留言 All Opportunity Comments</div>
   <div class="comment-list" id="opportunitiesList"></div>
 </div>
 
 <!-- T3: COMPETITOR COMPARISONS -->
 <div id="t3" class="panel">
   <div style="margin-bottom:20px">
-    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">COMPETITOR COMPARISONS · 競品比較</div>
-    <div style="font-size:24px;font-weight:800;color:var(--amber);margin-bottom:4px">How You Compare</div>
-    <div style="font-size:12px;color:var(--text3)">Products and platforms mentioned alongside APAL — analyze where you win and lose</div>
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">競品比較 COMPETITOR COMPARISONS</div>
+    <div style="font-size:24px;font-weight:800;color:var(--amber);margin-bottom:4px">競爭定位 How You Compare</div>
+    <div style="font-size:12px;color:var(--text3)">與 APAL 一起被提及的產品和平台 — 分析優劣勢｜Products & platforms mentioned alongside APAL</div>
   </div>
   <div class="kpi-strip" id="kpi-competitors"></div>
-  <div class="sec-header">All Comparison Comments</div>
+  <div class="sec-header">所有比較留言 All Comparison Comments</div>
   <div class="comment-list" id="competitorsList"></div>
 </div>
 
 <!-- T4: PAIN POINTS -->
 <div id="t4" class="panel">
   <div style="margin-bottom:20px">
-    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">PAIN POINTS · 痛點與產品調整</div>
-    <div style="font-size:24px;font-weight:800;color:var(--red);margin-bottom:4px">What Needs Fixing</div>
-    <div style="font-size:12px;color:var(--text3)">Constructive criticism — the most valuable data for improving your product</div>
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">痛點與產品調整 PAIN POINTS</div>
+    <div style="font-size:24px;font-weight:800;color:var(--red);margin-bottom:4px">需要修正的地方 What Needs Fixing</div>
+    <div style="font-size:12px;color:var(--text3)">建設性批評 — 產品改進最有價值的數據｜Constructive criticism — most valuable data for improvement</div>
   </div>
   <div class="kpi-strip" id="kpi-pain"></div>
-  <div class="sec-header">All Pain Point Comments</div>
+  <div class="sec-header">所有痛點留言 All Pain Point Comments</div>
   <div class="comment-list" id="painList"></div>
 </div>
 
 <!-- T5: ACTIONS -->
 <div id="t5" class="panel">
   <div style="margin-bottom:20px">
-    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">RECOMMENDED ACTIONS · 建議行動方案</div>
-    <div style="font-size:24px;font-weight:800;color:var(--accent);margin-bottom:4px">What To Do Next</div>
-    <div style="font-size:12px;color:var(--text3)">Data-driven actions based on comment analysis</div>
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">建議行動方案 RECOMMENDED ACTIONS</div>
+    <div style="font-size:24px;font-weight:800;color:var(--accent);margin-bottom:4px">下一步行動 What To Do Next</div>
+    <div style="font-size:12px;color:var(--text3)">基於留言分析的數據驅動行動｜Data-driven actions based on comment analysis</div>
   </div>
   <div id="actionCards"></div>
 </div>
@@ -216,9 +216,9 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;positio
 <!-- T6: ALL COMMENTS -->
 <div id="t6" class="panel">
   <div style="margin-bottom:20px">
-    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">ALL COMMENTS · 全部留言</div>
-    <div style="font-size:24px;font-weight:800;color:var(--text);margin-bottom:4px">Full Comment Stream</div>
-    <div style="font-size:12px;color:var(--text3)">Filter by category · Sorted by date</div>
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">全部留言 ALL COMMENTS</div>
+    <div style="font-size:24px;font-weight:800;color:var(--text);margin-bottom:4px">完整留言串 Full Comment Stream</div>
+    <div style="font-size:12px;color:var(--text3)">依分類篩選 · 依日期排序｜Filter by category · Sorted by date</div>
   </div>
   <div class="filter-bar" id="filterBar"></div>
   <div id="allCountLabel" style="font-size:11px;color:var(--text3);margin-bottom:12px;font-family:var(--mono)"></div>
@@ -227,7 +227,7 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;positio
 
 </div><!-- container -->
 
-<div style="text-align:center;padding:32px;font-size:11px;color:var(--text3)">Powered by APAL Social Listening · SNIPER Mastermind</div>
+<div style="text-align:center;padding:32px;font-size:11px;color:var(--text3)">Powered by APAL 社群聆聽 Social Listening · SNIPER Mastermind</div>
 
 <script>
 const $=id=>document.getElementById(id);
@@ -292,7 +292,7 @@ function drawDonut(canvasId, data, colors) {
   ctx.fillText(total, cx, cy+2);
   ctx.font = '8px Inter';
   ctx.fillStyle = '#94a3b8';
-  ctx.fillText('MEANINGFUL', cx, cy+14);
+  ctx.fillText('有效 MEANINGFUL', cx, cy+14);
 }
 
 // ═══ BUILD OVERVIEW ═══
@@ -302,12 +302,12 @@ function buildOverview() {
   const meaningfulPct = ((meaningful/s.total)*100).toFixed(0);
 
   $('kpi-overview').innerHTML = `
-    <div class="kpi-card"><div class="kpi-label">Total Comments</div><div class="kpi-value">${s.total}</div><div class="kpi-sub">${s.top_level} top-level · ${s.replies} replies</div></div>
-    <div class="kpi-card"><div class="kpi-label">Meaningful</div><div class="kpi-value kpi-green">${meaningful}</div><div class="kpi-sub">${meaningfulPct}% actionable</div></div>
-    <div class="kpi-card"><div class="kpi-label">Total Likes</div><div class="kpi-value kpi-amber">${s.total_likes}</div><div class="kpi-sub">engagement signals</div></div>
-    <div class="kpi-card"><div class="kpi-label">Date Range</div><div class="kpi-value" style="font-size:14px">${s.date_start.slice(5)}</div><div class="kpi-sub">to ${s.date_end.slice(5)}</div></div>
-    <div class="kpi-card"><div class="kpi-label">Purchase Intent</div><div class="kpi-value kpi-blue">${(DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Purchase')||c.intent.includes('sales lead')).length}</div><div class="kpi-sub">ready to buy</div></div>
-    <div class="kpi-card"><div class="kpi-label">Use Cases Found</div><div class="kpi-value kpi-blue">${(DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Use case')||c.intent.includes('Industrial')||c.intent.includes('Marine')||c.intent.includes('Remote')).length}</div><div class="kpi-sub">community-suggested</div></div>`;
+    <div class="kpi-card"><div class="kpi-label">總留言 Total Comments</div><div class="kpi-value">${s.total}</div><div class="kpi-sub">${s.top_level} 主留言 · ${s.replies} 回覆</div></div>
+    <div class="kpi-card"><div class="kpi-label">有效留言 Meaningful</div><div class="kpi-value kpi-green">${meaningful}</div><div class="kpi-sub">${meaningfulPct}% 可行動 actionable</div></div>
+    <div class="kpi-card"><div class="kpi-label">總按讚 Total Likes</div><div class="kpi-value kpi-amber">${s.total_likes}</div><div class="kpi-sub">互動訊號 engagement</div></div>
+    <div class="kpi-card"><div class="kpi-label">日期範圍 Date Range</div><div class="kpi-value" style="font-size:14px">${s.date_start.slice(5)}</div><div class="kpi-sub">至 to ${s.date_end.slice(5)}</div></div>
+    <div class="kpi-card"><div class="kpi-label">購買意圖 Purchase Intent</div><div class="kpi-value kpi-blue">${(DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Purchase')||c.intent.includes('sales lead')).length}</div><div class="kpi-sub">準備購買 ready to buy</div></div>
+    <div class="kpi-card"><div class="kpi-label">應用場景 Use Cases</div><div class="kpi-value kpi-blue">${(DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Use case')||c.intent.includes('Industrial')||c.intent.includes('Marine')||c.intent.includes('Remote')).length}</div><div class="kpi-sub">社群建議 community</div></div>`;
 
   // Donut chart
   const catOrder = ['Core Strengths','Business Opportunities','Competitor Comparisons','Pain Points'];
@@ -333,10 +333,10 @@ function buildOverview() {
 
   // Category summary cards
   const summaries = {
-    'Core Strengths': {title:'What They Love', desc:'Authentic educational format, product quality, passionate maker community. <strong>Action:</strong> Feature these quotes in marketing materials.'},
-    'Business Opportunities': {title:'Ready to Buy + Use Cases', desc:'Strong purchase intent blocked by unclear sales funnel. Rich use cases: IoT, industrial Modbus/PLC, marine, remote monitoring, weather stations. <strong>Action:</strong> Fix product page, create use-case landing pages.'},
-    'Competitor Comparisons': {title:'Ecosystem Context', desc:'Meshtastic, LoRaWAN, Starlink, Inmarsat referenced. Audience wants interoperability and clear differentiation. <strong>Action:</strong> Create comparison pages and compatibility guides.'},
-    'Pain Points': {title:'What Needs Fixing', desc:'30KB data limit perception, stale GitHub repos, brand trust for unknown company. <strong>Action:</strong> Better expectation-setting, maintain open-source repos, build credibility.'},
+    'Core Strengths': {title:'客戶最愛 What They Love', desc:'真實教育性內容、產品品質、熱情 Maker 社群。<br><strong>行動 Action:</strong> 將好評引用至行銷素材。<br>Authentic educational format, product quality, passionate maker community. Feature these quotes in marketing.'},
+    'Business Opportunities': {title:'購買意圖 + 應用場景 Ready to Buy + Use Cases', desc:'強烈購買意圖但銷售漏斗不明確。豐富場景：IoT、工業 Modbus/PLC、船舶、遠端監控、氣象站。<br><strong>行動 Action:</strong> 修正產品頁、建立場景著陸頁。<br>Strong purchase intent blocked by unclear funnel. Rich use cases: IoT, industrial, marine, remote monitoring.'},
+    'Competitor Comparisons': {title:'生態系定位 Ecosystem Context', desc:'被提及：Meshtastic、LoRaWAN、Starlink、Inmarsat。觀眾要互通性和清楚差異化。<br><strong>行動 Action:</strong> 建立比較頁面和相容性指南。<br>Audience wants interoperability and clear differentiation.'},
+    'Pain Points': {title:'需要修正 What Needs Fixing', desc:'30KB 數據限制認知、過時 GitHub、品牌信任度。<br><strong>行動 Action:</strong> 改善期望設定、維護開源、建立信譽。<br>30KB data limit perception, stale GitHub repos, brand trust concerns.'},
   };
   $('catSummaryCards').innerHTML = catOrder.map(cat => {
     const info = CAT_COLORS[cat];
@@ -364,9 +364,9 @@ function buildCategoryTab(cat, kpiId, listId, extraContent) {
   const topLevel = items.filter(c => !c.is_reply).length;
 
   $(kpiId).innerHTML = `
-    <div class="kpi-card"><div class="kpi-label">Comments</div><div class="kpi-value" style="color:${info.fg}">${items.length}</div><div class="kpi-sub">${topLevel} top-level</div></div>
-    <div class="kpi-card"><div class="kpi-label">% of Total</div><div class="kpi-value">${(items.length/DATA.stats.total*100).toFixed(0)}%</div><div class="kpi-sub">of ${DATA.stats.total} comments</div></div>
-    <div class="kpi-card"><div class="kpi-label">Total Likes</div><div class="kpi-value kpi-amber">${totalLikes}</div><div class="kpi-sub">engagement</div></div>`;
+    <div class="kpi-card"><div class="kpi-label">留言數 Comments</div><div class="kpi-value" style="color:${info.fg}">${items.length}</div><div class="kpi-sub">${topLevel} 主留言 top-level</div></div>
+    <div class="kpi-card"><div class="kpi-label">佔比 % of Total</div><div class="kpi-value">${(items.length/DATA.stats.total*100).toFixed(0)}%</div><div class="kpi-sub">共 ${DATA.stats.total} 則留言</div></div>
+    <div class="kpi-card"><div class="kpi-label">總按讚 Total Likes</div><div class="kpi-value kpi-amber">${totalLikes}</div><div class="kpi-sub">互動 engagement</div></div>`;
 
   // Intent breakdown for this category
   const themes = DATA.intent_themes[cat] || {};
@@ -384,58 +384,58 @@ function buildCategoryTab(cat, kpiId, listId, extraContent) {
 // ═══ BUILD ACTIONS TAB ═══
 function buildActions() {
   const actions = [
-    {icon:'🔴',color:'var(--red)',pri:'URGENT',title:'Fix Sales Funnel',
-     body:`<strong>Problem:</strong> Multiple high-intent buyers asking "Where can I buy this?" / "How much?" / "DM me" — with no clear answer.<br>
-<strong>Action:</strong><br>
-• Create dedicated product landing page with Buy Now button<br>
-• Add purchase link in YouTube video description<br>
-• Pin a comment with pricing + purchase link on the video<br>
-• Set up Amazon listing or direct-to-consumer store<br>
-<strong>Evidence:</strong> ${(DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Purchase')||c.intent.includes('sales lead')||c.intent.includes('availability')).length} comments with direct purchase intent`},
+    {icon:'🔴',color:'var(--red)',pri:'緊急 URGENT',title:'修正銷售漏斗 Fix Sales Funnel',
+     body:`<strong>問題 Problem:</strong> 多位高意圖買家詢問「哪裡買？」/「多少錢？」/「私訊我」— 但無明確答案。<br>Multiple high-intent buyers asking "Where can I buy?" / "How much?" / "DM me" — no clear answer.<br>
+<strong>行動 Action:</strong><br>
+• 建立專屬產品著陸頁含「立即購買」按鈕 Create dedicated landing page with Buy Now<br>
+• 在 YouTube 影片說明加入購買連結 Add purchase link in video description<br>
+• 置頂留言附上定價 + 購買連結 Pin comment with pricing + purchase link<br>
+• 建立 Amazon 上架或 DTC 商店 Set up Amazon listing or DTC store<br>
+<strong>證據 Evidence:</strong> ${(DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Purchase')||c.intent.includes('sales lead')||c.intent.includes('availability')).length} 則直接購買意圖留言`},
 
-    {icon:'🟢',color:'var(--green)',pri:'HIGH',title:'Create Use-Case Marketing Content',
-     body:`<strong>Problem:</strong> Community is organically discovering use cases you haven't marketed yet.<br>
-<strong>Action:</strong><br>
-• <strong>Industrial IoT:</strong> Modbus/PLC/SCADA integration — target manufacturing, water treatment, marine sectors<br>
-• <strong>Remote Monitoring:</strong> Weather stations, fire detection, ranch/farm sensors<br>
-• <strong>Marine:</strong> Ship automation, fleet tracking — "plug and play on a large ship"<br>
-• Create landing pages per vertical with matching ad copy<br>
-<strong>Evidence:</strong> ${(DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Use case')||c.intent.includes('Industrial')||c.intent.includes('Marine')||c.intent.includes('Remote')).length} use-case comments from real potential customers`},
+    {icon:'🟢',color:'var(--green)',pri:'高 HIGH',title:'建立應用場景行銷內容 Use-Case Marketing',
+     body:`<strong>問題 Problem:</strong> 社群自發發現你尚未行銷的應用場景。Community discovering use cases you haven't marketed.<br>
+<strong>行動 Action:</strong><br>
+• <strong>工業 IoT Industrial:</strong> Modbus/PLC/SCADA 整合 — 鎖定製造業、水處理、船舶<br>
+• <strong>遠端監控 Remote:</strong> 氣象站、火災偵測、牧場/農場感測器<br>
+• <strong>船舶 Marine:</strong> 船舶自動化、船隊追蹤 — "plug and play on a large ship"<br>
+• 依垂直市場建立著陸頁 Create landing pages per vertical<br>
+<strong>證據 Evidence:</strong> ${(DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Use case')||c.intent.includes('Industrial')||c.intent.includes('Marine')||c.intent.includes('Remote')).length} 則來自真實潛在客戶的場景留言`},
 
-    {icon:'🟡',color:'var(--amber)',pri:'MEDIUM',title:'Address Data Limit Perception',
-     body:`<strong>Problem:</strong> "30KB" sounds tiny and users calculate impractical scenarios.<br>
-<strong>Action:</strong><br>
-• Reframe messaging: "Sends 2,500+ sensor readings per month" instead of "30KB"<br>
-• Create comparison chart: GPS ping = 12 bytes → 2,500 pings/month<br>
-• Add use-case examples on product page showing what 30KB actually enables<br>
-<strong>Evidence:</strong> Users calculating "one GPS location every 12 minutes" — framing issue, not product issue`},
+    {icon:'🟡',color:'var(--amber)',pri:'中 MEDIUM',title:'解決數據限制認知問題 Data Limit Perception',
+     body:`<strong>問題 Problem:</strong> "30KB" 聽起來很小，用戶算出不切實際的場景。"30KB" sounds tiny and users calculate impractical scenarios.<br>
+<strong>行動 Action:</strong><br>
+• 重新定義訊息：「每月傳送 2,500+ 筆感測數據」取代 "30KB"<br>Reframe: "Sends 2,500+ sensor readings/month" instead of "30KB"<br>
+• 製作比較圖：GPS ping = 12 bytes → 2,500 pings/month<br>
+• 在產品頁新增 30KB 實際可用範例 Add use-case examples showing what 30KB enables<br>
+<strong>證據 Evidence:</strong> 用戶計算「每 12 分鐘一次 GPS」— 是定位問題，非產品問題`},
 
-    {icon:'🟡',color:'var(--amber)',pri:'MEDIUM',title:'Differentiate from Meshtastic/LoRaWAN',
-     body:`<strong>Problem:</strong> Audience's #1 reference frame is Meshtastic and LoRaWAN — they want to know how APAL fits in.<br>
-<strong>Action:</strong><br>
-• Create "APAL vs Meshtastic vs LoRaWAN" comparison page<br>
-• Clarify: LoRaWAN ≠ LoRa (audience is confused)<br>
-• Highlight unique value: satellite backhaul (Meshtastic can't do this natively)<br>
-• Consider NodeRED integration to lower barrier to entry<br>
-<strong>Evidence:</strong> ${DATA.cat_counts['Competitor Comparisons']||0} comments mentioning competing platforms`},
+    {icon:'🟡',color:'var(--amber)',pri:'中 MEDIUM',title:'與 Meshtastic/LoRaWAN 差異化 Differentiate',
+     body:`<strong>問題 Problem:</strong> 觀眾主要參考框架是 Meshtastic 和 LoRaWAN — 想知道 APAL 的定位。<br>Audience's #1 reference is Meshtastic & LoRaWAN.<br>
+<strong>行動 Action:</strong><br>
+• 建立「APAL vs Meshtastic vs LoRaWAN」比較頁 Create comparison page<br>
+• 釐清：LoRaWAN ≠ LoRa（觀眾搞混了）Clarify the difference<br>
+• 強調獨特價值：衛星回傳（Meshtastic 原生不支援）Satellite backhaul advantage<br>
+• 考慮 NodeRED 整合降低入門門檻 Lower barrier to entry<br>
+<strong>證據 Evidence:</strong> ${DATA.cat_counts['Competitor Comparisons']||0} 則提及競品平台的留言`},
 
-    {icon:'🔵',color:'var(--blue)',pri:'MEDIUM',title:'Build Brand Credibility',
-     body:`<strong>Problem:</strong> Unknown company selling a $XXX device — audience has trust concerns.<br>
-<strong>Action:</strong><br>
-• Update GitHub repos (stale code = abandonment signal to technical buyers)<br>
-• Publish technical documentation and API guides<br>
-• Sponsor more creator reviews to build social proof<br>
-• Feature customer testimonials on product page<br>
-<strong>Evidence:</strong> "Company that doesn't even have [website]" + "last commit 8 years ago" comments`},
+    {icon:'🔵',color:'var(--blue)',pri:'中 MEDIUM',title:'建立品牌信譽 Build Brand Credibility',
+     body:`<strong>問題 Problem:</strong> 未知品牌販售高價設備 — 觀眾有信任疑慮。Unknown company selling $XXX device — trust concerns.<br>
+<strong>行動 Action:</strong><br>
+• 更新 GitHub 倉庫（過時代碼 = 放棄信號）Update GitHub repos<br>
+• 發布技術文件和 API 指南 Publish docs & API guides<br>
+• 贊助更多創作者評測建立社會證明 Sponsor creator reviews<br>
+• 在產品頁放置客戶見證 Feature customer testimonials<br>
+<strong>證據 Evidence:</strong> "Company that doesn't even have [website]" + "last commit 8 years ago" 等留言`},
 
-    {icon:'💚',color:'var(--green)',pri:'LEVERAGE',title:'Double Down on Core Strengths',
-     body:`<strong>What's Working:</strong> Authentic, educational review format resonates perfectly with target audience (makers, engineers, IoT enthusiasts).<br>
-<strong>Action:</strong><br>
-• Use direct quotes in ad copy: "made by people that love what they do"<br>
-• Continue sponsoring creator content (this format works)<br>
-• Highlight "hackability" and openness as brand pillars<br>
-• Create community forum/Discord for users to share projects<br>
-<strong>Evidence:</strong> ${DATA.cat_counts['Core Strengths']||0} positive sentiment comments, high engagement`},
+    {icon:'💚',color:'var(--green)',pri:'槓桿 LEVERAGE',title:'加倍發揮核心優勢 Double Down on Strengths',
+     body:`<strong>有效之處 What's Working:</strong> 真實、教育性評測格式完美匹配目標受眾（Maker、工程師、IoT 愛好者）。<br>Authentic, educational review resonates with target audience.<br>
+<strong>行動 Action:</strong><br>
+• 廣告文案引用直接好評："made by people that love what they do"<br>
+• 持續贊助創作者內容（這個格式有效）Continue sponsoring creator content<br>
+• 強調「可駭性」和開放性作為品牌支柱 Highlight hackability & openness<br>
+• 建立社群論壇/Discord 讓用戶分享專案 Create community forum<br>
+<strong>證據 Evidence:</strong> ${DATA.cat_counts['Core Strengths']||0} 則正面情感留言，高互動`},
   ];
 
   $('actionCards').innerHTML = actions.map(a =>
@@ -449,8 +449,9 @@ function buildActions() {
 // ═══ BUILD ALL COMMENTS TAB ═══
 function buildAllComments() {
   const cats = ['All','Core Strengths','Business Opportunities','Competitor Comparisons','Pain Points','Noise'];
+  const catZh = {'All':'全部','Core Strengths':'核心優勢','Business Opportunities':'商業機會','Competitor Comparisons':'競品比較','Pain Points':'痛點','Noise':'雜訊'};
   $('filterBar').innerHTML = cats.map((c,i) =>
-    `<button class="filter-btn ${i===0?'active':''}" onclick="filterComments('${c}',this)">${c === 'All' ? '📋 All' : (CAT_COLORS[c]?.icon||'') + ' ' + c}</button>`
+    `<button class="filter-btn ${i===0?'active':''}" onclick="filterComments('${c}',this)">${c === 'All' ? '📋 全部 All' : (CAT_COLORS[c]?.icon||'') + ' ' + (catZh[c]||'') + ' ' + c}</button>`
   ).join('');
   filterComments('All', null);
 }
@@ -469,7 +470,7 @@ function filterComments(cat, btn) {
     (DATA.categories[cat]||[]).forEach(item => { item._cat = cat; items.push(item); });
   }
   items.sort((a,b) => b.likes - a.likes || b.date.localeCompare(a.date));
-  $('allCountLabel').textContent = `Showing ${items.length} comments`;
+  $('allCountLabel').textContent = `顯示 ${items.length} 則留言 Showing ${items.length} comments`;
   $('allCommentsList').innerHTML = items.map(c => commentHtml(c, c._cat)).join('');
 }
 
