@@ -204,6 +204,58 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <div style="display:flex;flex-direction:column;gap:6px" id="actionNextMon"></div>
   </div>
 
+  <!-- Spring Deal Section -->
+  <div class="sec-header">Spring Sale — DE Deal Products (3/10 onwards)</div>
+  <div style="background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid #bbf7d0;border-radius:10px;padding:20px;margin-bottom:20px;box-shadow:0 1px 5px rgba(0,0,0,.06)">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <span style="font-size:22px">🌸</span>
+      <div>
+        <div style="font-size:16px;font-weight:800;color:#15803d;font-family:var(--display)">DE Spring Sale — Live from 3/10</div>
+        <div style="font-size:11px;color:#4ade80;font-family:var(--mono)">Deal products confirmed · Warm-up campaigns launched 3/10</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+      <div style="background:#fff;border:1px solid #bbf7d0;border-radius:8px;padding:14px">
+        <div style="font-size:11px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">⭐ Top Performer</div>
+        <div style="font-size:15px;font-weight:700;color:#15803d;margin-bottom:4px">ICECUBE Avento</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">
+          DE best seller — €8,996 total · W5 exploded to €3,757 (+109% WoW)<br>
+          TACOS 23.6% W5, trending down from 58.4% W1<br>
+          94 units in W5 alone · 66% organic — massive momentum<br>
+          <span style="color:#2563eb;font-weight:600">Warm-up: SP + SB campaigns created 3/10 to ride the upward wave</span>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #bbf7d0;border-radius:8px;padding:14px">
+        <div style="font-size:11px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">📈 Rising Star</div>
+        <div style="font-size:15px;font-weight:700;color:#15803d;margin-bottom:4px">ICECUBE Sportech</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">
+          Strong W5 — €361 sales (best week), 27.8% TACOS<br>
+          €601 total · TACOS 26.0% (4-week) — under target<br>
+          W5 units jumped to 9 (from 1-2/week) — demand is building<br>
+          <span style="color:#2563eb;font-weight:600">Warm-up: SP campaign created 3/10 to capture rising search volume</span>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #bbf7d0;border-radius:8px;padding:14px">
+        <div style="font-size:11px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">🔄 Revival Play</div>
+        <div style="font-size:15px;font-weight:700;color:#d97706;margin-bottom:4px">ICECUBE Jet II</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">
+          €150 total · TACOS 13.5% (4-week) — efficient when selling<br>
+          Zero sales in W5 — needs deal traffic to restart<br>
+          Deal pricing is make-or-break for this product in DE<br>
+          <span style="color:#2563eb;font-weight:600">Warm-up: SP Auto campaign created 3/10 to rebuild ranking signals</span>
+        </div>
+      </div>
+    </div>
+    <div style="background:#fff;border:1px solid #bbf7d0;border-radius:8px;padding:14px">
+      <div style="font-size:11px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">📊 DE Market Outlook</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.8">
+        Germany is performing strongly overall — sunglasses are selling well with Avento leading.<br>
+        Straps (80Days Brillenband) also solid at €3,483 total with 30.7% TACOS.<br>
+        <strong>Strategy:</strong> Spring deal on Avento + Sportech + Jet II to expand Icecube sunglasses dominance in DE. Avento's W5 surge suggests seasonal demand is ramping — the deal timing is ideal.
+      </div>
+    </div>
+  </div>
+
   <!-- Key Takeaways -->
   <div class="sec-header">本週重點結論 Key Takeaways</div>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px" id="takeawayCards"></div>
@@ -841,7 +893,7 @@ function buildExecSummary(){
   });
 
   // Add general action items
-  nextMonHtml+=makeAction('報告','#7c3aed',`<strong>Spring Sale 促銷申請</strong> — 評估哪些產品申請 3/25 Spring Sale Deal（需提前 2 週）`,`截止：3/16 (一)`);
+  nextMonHtml+=makeAction('促銷','#16a34a',`<strong>Spring Sale CONFIRMED ✅</strong> — Deal products: Avento, Sportech, Jet II · Warm-up campaigns live since 3/10 · DE sunglasses trending strong`,`進行中 · Deal starts 3/25`);
   nextMonHtml+=makeAction('報告','#7c3aed',`<strong>W6 週報更新</strong> — 更新 3/8–3/14 數據至看板`,`截止：3/16 (一)`);
 
   thisWeekEl.innerHTML=thisWeekHtml;

@@ -204,6 +204,69 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <div style="display:flex;flex-direction:column;gap:6px" id="actionNextMon"></div>
   </div>
 
+  <!-- Spring Deal Section -->
+  <div class="sec-header">Spring Sale — UK Deal Products (3/10 onwards)</div>
+  <div style="background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid #bbf7d0;border-radius:10px;padding:20px;margin-bottom:20px;box-shadow:0 1px 5px rgba(0,0,0,.06)">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <span style="font-size:22px">🌸</span>
+      <div>
+        <div style="font-size:16px;font-weight:800;color:#15803d;font-family:var(--display)">UK Spring Sale — Live from 3/10</div>
+        <div style="font-size:11px;color:#4ade80;font-family:var(--mono)">Deal products confirmed · Warm-up campaigns launched 3/10</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+      <div style="background:#fff;border:1px solid #bbf7d0;border-radius:8px;padding:14px">
+        <div style="font-size:11px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">⭐ Priority Push</div>
+        <div style="font-size:15px;font-weight:700;color:#15803d;margin-bottom:4px">ICECUBE Avento</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">
+          Best seller — £4,188 total · W5 £1,295 (+38% WoW)<br>
+          TACOS 20.7% — well under 30% target<br>
+          Strong organic ratio (65% W5) — deal will amplify momentum<br>
+          <span style="color:#2563eb;font-weight:600">Warm-up: SP + SB campaigns created 3/10 to build visibility pre-deal</span>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #bbf7d0;border-radius:8px;padding:14px">
+        <div style="font-size:11px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">📈 Growth Opportunity</div>
+        <div style="font-size:15px;font-weight:700;color:#15803d;margin-bottom:4px">ICECUBE Dynamic</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">
+          Incredible efficiency — 6.2% W5 TACOS, 11.7% 4-week<br>
+          Low volume (£210 total) — deal pricing can unlock demand<br>
+          Nearly all organic sales — minimal ad dependency<br>
+          <span style="color:#2563eb;font-weight:600">Warm-up: SP Auto campaign created 3/10 to seed keyword traffic</span>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #bbf7d0;border-radius:8px;padding:14px">
+        <div style="font-size:11px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">🔄 Conversion Play</div>
+        <div style="font-size:15px;font-weight:700;color:#d97706;margin-bottom:4px">ICECUBE Jet II</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">
+          TACOS 52.7% (4-week) — improving to 37.0% in W5<br>
+          £490 total sales · deal pricing should lift CVR<br>
+          Watch spend carefully — tighten bids if TACOS stays high<br>
+          <span style="color:#2563eb;font-weight:600">Warm-up: SP Manual campaign created 3/10 targeting top converting KWs</span>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #bbf7d0;border-radius:8px;padding:14px">
+        <div style="font-size:11px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">🧪 Test & Learn</div>
+        <div style="font-size:15px;font-weight:700;color:#d97706;margin-bottom:4px">ICECUBE Verano</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">
+          Healthy TACOS 21.0% (4-week) but low volume (£421)<br>
+          W5 sales £150 with 26.3% TACOS — stable efficiency<br>
+          Deal exposure can test if demand exists at lower price point<br>
+          <span style="color:#2563eb;font-weight:600">Warm-up: SP campaign created 3/10 with modest daily budget</span>
+        </div>
+      </div>
+    </div>
+    <div style="background:#fff;border:1px solid #bbf7d0;border-radius:8px;padding:14px">
+      <div style="font-size:11px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">🧊 Additional Goal — Push Icecube Styles in UK</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.8">
+        Sportech (£1,787, 40.7% TACOS) — needs deal-driven CVR boost to bring TACOS under control<br>
+        Ventura (£100, 6.9% TACOS) — low-cost potential, worth testing with small push<br>
+        Laso-17 (£69, 13.8% TACOS) — efficient but minimal volume, deal visibility could help<br>
+        <strong>Strategy:</strong> Spring deal pricing on Avento/Jet II/Dynamic/Verano should increase brand halo across all Icecube listings
+      </div>
+    </div>
+  </div>
+
   <!-- Key Takeaways -->
   <div class="sec-header">本週重點結論 Key Takeaways</div>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px" id="takeawayCards"></div>
@@ -841,7 +904,7 @@ function buildExecSummary(){
   });
 
   // Add general action items
-  nextMonHtml+=makeAction('報告','#7c3aed',`<strong>Spring Sale 促銷申請</strong> — 評估哪些產品申請 3/25 Spring Sale Deal（需提前 2 週）`,`截止：3/16 (一)`);
+  nextMonHtml+=makeAction('促銷','#16a34a',`<strong>Spring Sale CONFIRMED ✅</strong> — Deal products: Avento, Jet II, Verano, Dynamic · Warm-up campaigns live since 3/10 · Priority push: Avento`,`進行中 · Deal starts 3/25`);
   nextMonHtml+=makeAction('報告','#7c3aed',`<strong>W6 週報更新</strong> — 更新 3/8–3/14 數據至看板`,`截止：3/16 (一)`);
 
   thisWeekEl.innerHTML=thisWeekHtml;
