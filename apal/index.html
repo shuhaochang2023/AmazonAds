@@ -250,75 +250,95 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;positio
   <div style="margin-bottom:20px">
     <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">YOUTUBE 開箱影片留言洞察 · REDDIT 社群文案</div>
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:4px">
-      <div style="font-size:24px;font-weight:800;color:#ff4500">Reddit 發文草稿 Post Drafts</div>
-      <a href="./APAL_Reddit_Posts.pdf" download="APAL_Reddit_Posts.pdf" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:#ff4500;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap">⬇ 下載 PDF Download</a>
+      <div style="font-size:24px;font-weight:800;color:#ff4500">Reddit 發文修訂稿 Revised Post Drafts</div>
+      <a href="./APAL_Reddit_Posts_Revised.docx" download="APAL_Reddit_Posts_Revised.docx" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:#ff4500;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap">⬇ 下載 DOC Download</a>
     </div>
     <div style="font-size:12px;color:var(--text3)">基於 YouTube 留言分析撰寫的 Reddit 社群文案｜Reddit posts drafted from YouTube comment insights</div>
   </div>
 
   <div class="kpi-strip">
-    <div class="kpi-card"><div class="kpi-label">文章數 Posts</div><div class="kpi-value" style="color:#ff4500">2</div><div class="kpi-sub">長版 + 短版</div></div>
+    <div class="kpi-card"><div class="kpi-label">文章數 Posts</div><div class="kpi-value" style="color:#ff4500">2</div><div class="kpi-sub">主稿 + Meshtastic 版</div></div>
     <div class="kpi-card"><div class="kpi-label">目標社群 Subreddits</div><div class="kpi-value" style="font-size:14px">5</div><div class="kpi-sub">r/lora · r/IOT · r/meshtastic · r/raspberry_pi · r/amateurradio</div></div>
     <div class="kpi-card"><div class="kpi-label">數據來源 Data Source</div><div class="kpi-value" style="font-size:14px">180</div><div class="kpi-sub">YouTube 留言分析</div></div>
   </div>
 
-  <!-- POST 1 -->
+  <!-- REVISION NOTES -->
+  <div style="margin-bottom:16px;padding:14px 16px;background:linear-gradient(135deg,#fef3c7,#fde68a);border:1px solid #f59e0b;border-radius:8px;font-size:12px;color:#78350f;line-height:1.8">
+    <strong>修訂說明 Revision Notes (2026-03-09):</strong><br>
+    1. 折扣碼與產品連結移出內文，改為留言區自然帶出｜Moved discount code &amp; links to comment reply only<br>
+    2. 語調改為第一人稱真人分享，非品牌簡報｜Rewrote in first-person authentic tone, not brand briefing<br>
+    3. 兩篇合併為主稿 + Meshtastic 專用版｜Consolidated to 1 main post + 1 Meshtastic-specific post<br>
+    4. 新增留言區回覆範例｜Added comment reply template for "where to buy" questions
+  </div>
+
+  <!-- POST 1 — 修訂版 REVISED -->
   <div class="action-card" style="border-left:4px solid #ff4500;margin-bottom:16px">
-    <div class="action-title" style="font-size:11px;color:var(--text3);margin-bottom:4px">文章 1 · 完整版 FULL VERSION</div>
+    <div class="action-title" style="font-size:11px;color:var(--text3);margin-bottom:4px">文章 1 · 修訂版 REVISED — 主稿</div>
     <div style="font-size:10px;color:var(--text3);margin-bottom:8px;font-family:var(--mono)">適用 TARGET: r/lora · r/IOT · r/raspberry_pi · r/amateurradio</div>
     <div style="background:var(--bg3);border-radius:6px;padding:16px;margin-bottom:8px">
-      <div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:12px">APAL Hestia A2 — LoRaWAN gateway with satellite backhaul just got a wild teardown review</div>
+      <div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:12px">Has anyone seen this teardown of a LoRaWAN gateway with satellite backhaul?</div>
       <div style="font-size:13px;color:var(--text);line-height:2">
-        Came across this video from @saveitforparts where he tears apart and experiments with the APAL Hestia A2 — a LoRaWAN gateway that uses satellite connectivity (3GPP NTN via Skylo) for backhaul instead of relying on terrestrial internet.<br><br>
+        Just watched this video where a guy tears apart an APAL Hestia A2 — it's a LoRaWAN gateway that uses satellite (3GPP NTN via Skylo) instead of WiFi or cellular for backhaul.<br><br>
         <strong>Video:</strong> <a href="https://www.youtube.com/watch?v=X4q7l_8pQHg" target="_blank" style="color:var(--accent)">https://www.youtube.com/watch?v=X4q7l_8pQHg</a><br><br>
-        The comment section (180+ comments, 700+ likes) is honestly more interesting than most product review threads. Some highlights:<br><br>
-        <strong>What people are excited about:</strong><br>
-        • Satellite-backhaul LoRaWAN gateway — no WiFi/cellular needed<br>
-        • Industrial IoT use cases: Modbus/PLC/SCADA integration, water treatment, marine fleet tracking<br>
-        • Remote monitoring: weather stations, fire detection, ranch/farm sensors in areas with zero connectivity<br>
-        • "made by people that love what they do" — community vibes are strong<br><br>
-        <strong>What people are comparing it to:</strong><br>
-        • Meshtastic (APAL adds satellite backhaul that Meshtastic can't do natively)<br>
-        • LoRaWAN vs LoRa confusion (a few comments clarifying they're not the same)<br>
-        • Starlink (different price point and use case)<br>
-        • NodeRED integration suggestions for easier setup<br><br>
-        <strong>The elephant in the room — 30KB/month data:</strong><br>
-        Some comments did the math and said "one GPS location every 12 minutes" sounds limiting. But the framing matters — 30KB = ~2,500 sensor readings/month. For IoT telemetry (temperature, GPS pings, soil moisture, etc.) that's actually solid. It's not meant for streaming video.<br><br>
-        <strong>Where to get it (Save 10% with code APALSAVE10):</strong><br>
-        • 🛒 Hestia A1 Dongle: <a href="https://www.amazon.com/dp/B0F68GDT3G" target="_blank" style="color:var(--accent)">Amazon Link</a><br>
-        • 🛒 Hestia A2 Gateway: <a href="https://www.amazon.com/dp/B0F74DDPJ9" target="_blank" style="color:var(--accent)">Amazon Link</a><br>
-        • 🎟️ Use Code: <strong>APALSAVE10</strong> for 10% off (limited-time)<br><br>
-        Anyone here played with one? Curious about real-world range + reliability with the satellite uplink, especially for off-grid deployments.
+        Honestly I went in expecting another generic IoT product unboxing but ended up going down the comment section rabbit hole for like an hour. 180+ comments and people are actually having real technical discussions — Modbus/RS-485 integration, SCADA use cases, someone asking about marine fleet tracking, another person running weather stations on a ranch with zero cell coverage.<br><br>
+        The thing that caught my attention is the satellite backhaul part. I've been messing around with LoRa nodes for remote sensor stuff and the backhaul problem is always where it falls apart — you either need a gateway with internet access somewhere, or you're duct-taping a cellular modem to the setup. This thing apparently just talks to a satellite directly.<br><br>
+        Now the obvious catch: 30KB/month on the data plan. Some people in the comments were calculating that's roughly one GPS ping every 12 minutes, which sounds tight. But if you're doing basic telemetry — temperature readings, soil moisture, water level checks — someone did the math and said that's around 2,500 sensor readings a month. Not bad for stuff that just needs to phone home a number every few minutes.<br><br>
+        It also apparently supports Raspberry Pi and has RS-485 for industrial setups. A few people in the comments were talking about NodeRED integration which would make the whole pipeline way less painful.<br><br>
+        Curious if anyone here has hands-on experience with this or something similar. Specifically wondering about:<br>
+        – Real-world range on the LoRa side in rough terrain<br>
+        – How reliable the satellite uplink actually is (latency, dropped packets, etc.)<br>
+        – Whether 30KB/month is actually workable for a real deployment or if you hit the wall fast<br><br>
+        Would love to hear from anyone running off-grid sensor networks.
       </div>
+    </div>
+    <div style="background:#fff4e6;border-radius:6px;padding:10px 14px;font-size:11px;color:#92400e;line-height:1.7">
+      ℹ️ 發文提醒：折扣碼與產品連結不放在文章內文。等有人在留言區問「哪裡可以買」或「怎麼入手」時，再用個人帳號自然回覆帶出連結與 APALSAVE10 折扣碼。這樣更像真人推薦，而不是業配文。
     </div>
   </div>
 
-  <!-- POST 2 -->
+  <!-- POST 2 — 修訂版 REVISED -->
   <div class="action-card" style="border-left:4px solid #ff4500;margin-bottom:16px">
-    <div class="action-title" style="font-size:11px;color:var(--text3);margin-bottom:4px">文章 2 · 精簡版 SHORT VERSION</div>
+    <div class="action-title" style="font-size:11px;color:var(--text3);margin-bottom:4px">文章 2 · 修訂版 REVISED — Meshtastic 專用版</div>
     <div style="font-size:10px;color:var(--text3);margin-bottom:8px;font-family:var(--mono)">適用 TARGET: r/meshtastic</div>
     <div style="background:var(--bg3);border-radius:6px;padding:16px;margin-bottom:8px">
-      <div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:12px">LoRaWAN + Satellite backhaul gateway — how does this compare to Meshtastic setups?</div>
+      <div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:12px">LoRaWAN gateway with built-in satellite uplink — could this work as a Meshtastic-to-cloud bridge?</div>
       <div style="font-size:13px;color:var(--text);line-height:2">
-        Found this teardown of the APAL Hestia A2: <a href="https://www.youtube.com/watch?v=X4q7l_8pQHg" target="_blank" style="color:var(--accent)">https://www.youtube.com/watch?v=X4q7l_8pQHg</a><br><br>
-        It's a LoRaWAN gateway with built-in satellite connectivity (Skylo NTN) — basically gives you internet backhaul anywhere without WiFi or cellular. Comment section has 180+ comments debating how it fits in the Meshtastic/LoRa ecosystem.<br><br>
-        Key difference vs Meshtastic: this does satellite uplink natively (30KB/month included). Meshtastic needs an internet-connected node somewhere. Trade-off is the data cap.<br><br>
-        Supports Modbus RS-485, Raspberry Pi compatible, and they're pushing industrial IoT use cases (marine, remote monitoring, agricultural sensors).<br><br>
-        Has anyone tried integrating something like this as a Meshtastic-to-satellite bridge? Seems like the community is already asking for it.<br><br>
-        <strong>Save 10% (limited-time):</strong><br>
-        🛒 Hestia A1 Dongle: <a href="https://www.amazon.com/dp/B0F68GDT3G" target="_blank" style="color:var(--accent)">amazon.com/dp/B0F68GDT3G</a><br>
-        🛒 Hestia A2 Gateway: <a href="https://www.amazon.com/dp/B0F74DDPJ9" target="_blank" style="color:var(--accent)">amazon.com/dp/B0F74DDPJ9</a><br>
-        🎟️ Use Code: <strong>APALSAVE10</strong>
+        Stumbled on this teardown video of something called the APAL Hestia A2: <a href="https://www.youtube.com/watch?v=X4q7l_8pQHg" target="_blank" style="color:var(--accent)">https://www.youtube.com/watch?v=X4q7l_8pQHg</a><br><br>
+        It's a LoRaWAN gateway with a built-in satellite modem (Skylo / 3GPP NTN) — so it doesn't need WiFi or cell service at all for backhaul. The comment section has a bunch of people asking the same thing I'm wondering: could you use something like this as a bridge to get Meshtastic data up to the cloud from a completely off-grid location?<br><br>
+        Right now my Meshtastic setup works great for node-to-node, but the moment I want to push data to a server — MQTT, a dashboard, whatever — I need at least one node that has internet. And in the spots I'm deploying (backcountry, no cell), that's the part that always sucks.<br><br>
+        This gateway apparently comes with 30KB/month of satellite data included. That's not much, but for forwarding position reports or sensor telemetry from a mesh network it might be enough. Someone in the comments calculated ~2,500 small readings per month.<br><br>
+        It has RS-485 and supposedly works with Raspberry Pi, so in theory you could have a Pi running Meshtastic, collecting packets, and then forwarding select data through this gateway's satellite link.<br><br>
+        Has anyone tried anything like this? Or is there a better way to get Meshtastic data out of a no-internet zone that I'm missing?
       </div>
+    </div>
+    <div style="background:#fff4e6;border-radius:6px;padding:10px 14px;font-size:11px;color:#92400e;line-height:1.7">
+      ℹ️ 發文提醒：同上，不放產品連結與折扣碼。r/meshtastic 社群對業配更敏感，建議先在該社群回覆別人的文章幾天再發文。留言區有人問再自然帶出即可。
+    </div>
+  </div>
+
+  <!-- 留言區回覆範例 COMMENT REPLY TEMPLATE -->
+  <div class="action-card" style="border-left:4px solid #22c55e;margin-bottom:16px">
+    <div class="action-title" style="font-size:11px;color:var(--text3);margin-bottom:4px">附加 · 留言區回覆範例 Comment Reply Template</div>
+    <div style="font-size:10px;color:var(--text3);margin-bottom:8px;font-family:var(--mono)">當有人問「哪裡可以買」時使用 · USE WHEN SOMEONE ASKS "WHERE TO BUY"</div>
+    <div style="background:var(--bg3);border-radius:6px;padding:16px;margin-bottom:8px">
+      <div style="font-size:13px;color:var(--text);line-height:2">
+        It's on Amazon — here's the gateway: <a href="https://www.amazon.com/dp/B0F74DDPJ9" target="_blank" style="color:var(--accent)">amazon.com/dp/B0F74DDPJ9</a> and they also have a smaller dongle version: <a href="https://www.amazon.com/dp/B0F68GDT3G" target="_blank" style="color:var(--accent)">amazon.com/dp/B0F68GDT3G</a>. I think there's a code APALSAVE10 that gives 10% off, saw someone mention it in the YouTube comments.
+      </div>
+    </div>
+    <div style="background:#fff4e6;border-radius:6px;padding:10px 14px;font-size:11px;color:#92400e;line-height:1.7">
+      ↑ 語調重點：用「我好像在 YT 留言區看到有人提」而不是「官方折扣碼」，更自然。
     </div>
   </div>
 
   <div style="margin-top:16px;padding:12px 16px;background:#fff4e6;border:1px solid #fed7aa;border-radius:8px;font-size:12px;color:#92400e;line-height:1.8">
-    <strong>發文建議 Posting Tips:</strong><br>
-    • 每個 subreddit 間隔 24hr 發文，避免被標記為 spam｜Space posts 24hr apart to avoid spam flags<br>
-    • 用個人帳號發文（非品牌帳號）更自然｜Post from personal account, not brand account<br>
-    • 先在該社群互動幾天再發文｜Engage in the community a few days before posting<br>
-    • 回覆留言時保持真誠、提供價值｜Reply authentically and provide value
+    <strong>發文注意事項 Posting Checklist:</strong><br>
+    ☐ 每個 subreddit 間隔 24hr 以上發文，避免被標記為 spam｜Space posts 24hr+ apart to avoid spam flags<br>
+    ☐ 用個人帳號發文（非品牌帳號），帳號要有過去活動紀錄｜Use personal account with activity history<br>
+    ☐ 發文前先在該社群互動 3–5 天（回覆別人的文章、提問）｜Engage 3-5 days before posting<br>
+    ☐ 內文不放任何產品連結或折扣碼｜No product links or discount codes in post body<br>
+    ☐ 折扣碼僅在留言區被問到時自然帶出｜Only share code when asked in comments<br>
+    ☐ 回覆留言時保持真誠、提供技術價值，不要只推銷｜Reply authentically with technical value<br>
+    ☐ 如果被問是否為官方人員，要有誠實的回應策略｜Have a disclosure strategy if asked about affiliation
   </div>
 </div>
 
