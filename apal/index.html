@@ -258,8 +258,7 @@ function commentHtml(c, showCat) {
       ${c.is_reply ? '<span style="font-size:9px;background:#e2e8f0;padding:1px 5px;border-radius:3px;color:#64748b">REPLY</span>' : ''}
       ${showCat ? `<span class="cat-badge ${catInfo.cls}">${showCat}</span>` : ''}
     </div>
-    <div class="comment-text">${c.comment.replace(/</g,'&lt;').replace(/
-/g,'<br>')}</div>
+    <div class="comment-text">${c.comment.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>
     ${c.intent ? `<div class="comment-intent">${c.intent}</div>` : ''}
   </div>`;
 }
