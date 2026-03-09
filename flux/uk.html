@@ -69,13 +69,6 @@ tbody td:first-child{text-align:left;font-family:var(--body);font-size:13px;}
 .action-task input[type=checkbox]{margin-top:2px;accent-color:var(--accent);width:14px;height:14px;flex-shrink:0;}
 .action-task.done{opacity:.35;}
 .action-task.done .task-text{text-decoration:line-through;}
-.action-task{flex-wrap:wrap;}
-.feedback-toggle{font-size:10px;color:var(--accent);cursor:pointer;background:none;border:1px solid var(--accent);border-radius:3px;padding:1px 6px;margin-left:auto;flex-shrink:0;font-family:var(--mono);opacity:.7;transition:opacity .15s;}.feedback-toggle:hover{opacity:1;}
-.feedback-area{width:100%;margin-top:6px;display:none;}
-.feedback-area.open{display:block;}
-.feedback-area textarea{width:100%;min-height:48px;padding:8px 10px;border:1px solid var(--border2);border-radius:5px;font-family:var(--body);font-size:12px;color:var(--text);background:#fff;resize:vertical;line-height:1.5;}
-.feedback-area textarea::placeholder{color:var(--text3);font-size:11px;}
-.feedback-area textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(37,99,235,.12);}
 .task-text{font-size:12.5px;color:var(--text2);line-height:1.5;}
 .task-type{font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:2px;background:var(--bg);color:var(--text3);border:1px solid var(--border2);flex-shrink:0;margin-top:2px;}
 .q-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;}
@@ -101,123 +94,27 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   <div class="nav-inner">
   <div class="nav-brand">Flux <span class="market-tag">UK</span></div>
   <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('t0',this)">📋 總覽</button>
-    <button class="tab-btn" onclick="showTab('t1',this)">📊 銷售 &amp; 廣告佔比</button>
+    <button class="tab-btn active" onclick="showTab('t1',this)">📊 銷售 &amp; 廣告佔比</button>
     <button class="tab-btn" onclick="showTab('t2',this)">📅 週對週數據</button>
     <button class="tab-btn" onclick="showTab('t3',this)">📈 WoW 變化</button>
     <button class="tab-btn" onclick="showTab('t4',this)">🎯 產品象限</button>
     <button class="tab-btn" onclick="showTab('t5',this)">✅ 行動方案</button>
+    <button class="tab-btn" onclick="showTab('t6',this)">🌸 Spring Deal</button>
   </div>
   <div class="meta">Feb 2026 · SP+SD+SB · TACOS ≤30%</div>
   </div>
 </nav>
 
-<!-- TAB 0 — Executive Summary -->
-<div id="t0" class="panel active">
-  <div style="margin-bottom:20px">
-    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">EXECUTIVE SUMMARY · 2026 年 3 月 9 日更新</div>
-    <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">Flux 🇬🇧 UK · 執行摘要</div>
-    <div style="font-size:12px;color:var(--text3)">UK Market Feb–Mar 2026 週報 · SP+SD+SB · TACOS ≤30%</div>
-  </div>
-
-  <!-- Overall Account KPIs -->
-  <div class="kpi-strip" style="margin-bottom:20px" id="kpi-exec"></div>
-
-  <!-- Product Performance Overview -->
-  <div class="sec-header">全產品線績效總覽 Product Performance Overview</div>
-  <div class="table-wrap" style="margin-bottom:24px">
-    <table id="execProductTable"></table>
-  </div>
-
-  <!-- Tab Guide -->
-  <div class="sec-header">看板功能導覽 Dashboard Guide</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px">
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t1',document.querySelectorAll('.tab-btn')[1])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">📊</span>
-        <div style="font-weight:700;font-size:14px">銷售 & 廣告佔比</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        各產品營業額、廣告花費佔比圓餅圖，可切換單週 / 5 週合計。<br>
-        含子變體展開明細表（Sales / Spend / TACOS per week）。<br>
-        <strong>搭配 Excel：</strong>下載按鈕在頁面頂部
-      </div>
-    </div>
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t2',document.querySelectorAll('.tab-btn')[2])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">📅</span>
-        <div style="font-weight:700;font-size:14px">週對週數據</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        全產品 × 5 週完整交叉表：Sales / Spend / TACOS / Units / Organic。<br>
-        快速掃描哪週哪產品表現異常。<br>
-        <strong>用途：</strong>週會報告、趨勢追蹤
-      </div>
-    </div>
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t3',document.querySelectorAll('.tab-btn')[3])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">📈</span>
-        <div style="font-weight:700;font-size:14px">WoW 變化</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        週對週百分比變化熱力圖：Sales / Spend / TACOS / Units。<br>
-        綠色 = 正向變化，紅色 = 需關注。<br>
-        <strong>用途：</strong>快速定位異常波動
-      </div>
-    </div>
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t4',document.querySelectorAll('.tab-btn')[4])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">🎯</span>
-        <div style="font-weight:700;font-size:14px">產品象限</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        依 Sales × TACOS 四象限分類：⭐ Star / ⚠️ Question / 💤 Potential / 🔴 Cut。<br>
-        含視覺化象限圖與每象限建議行動。<br>
-        <strong>用途：</strong>策略決策、資源分配
-      </div>
-    </div>
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t5',document.querySelectorAll('.tab-btn')[5])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">✅</span>
-        <div style="font-weight:700;font-size:14px">行動方案</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        依象限自動產生的待辦清單，含 SP/SB/SD Bulk File 操作指引。<br>
-        可勾選完成項目追蹤進度。<br>
-        <strong>用途：</strong>每週執行 checklist
-      </div>
-    </div>
-  </div>
-
-  <!-- Action Items -->
-  <div class="sec-header">待辦事項 Action Items</div>
-
-  <!-- Urgent - This Week -->
-  <div style="margin-bottom:16px">
-    <div style="font-size:12px;font-weight:700;color:var(--red);font-family:var(--mono);margin-bottom:8px;letter-spacing:.05em">🔴 本週完成 DUE THIS WEEK (3/10–3/14)</div>
-    <div style="display:flex;flex-direction:column;gap:6px" id="actionThisWeek"></div>
-  </div>
-
-  <!-- Due Next Monday -->
-  <div style="margin-bottom:16px">
-    <div style="font-size:12px;font-weight:700;color:var(--amber);font-family:var(--mono);margin-bottom:8px;letter-spacing:.05em">🟡 下週一前完成 DUE BY 3/16 (一)</div>
-    <div style="display:flex;flex-direction:column;gap:6px" id="actionNextMon"></div>
-  </div>
-
-  <!-- Key Takeaways -->
-  <div class="sec-header">本週重點結論 Key Takeaways</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px" id="takeawayCards"></div>
-</div>
-
 <!-- TAB 1 -->
-<div id="t1" class="panel">
+<div id="t1" class="panel active">
   <div style="margin-bottom:16px">
     <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">全產品線佔比分析 · UK Market</div>
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:4px"><div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display)">Sales &amp; Ad Spend — Feb–Mar 2026</div><a href="./20260308_Flux_UK_Feb-Mar_2026.xlsx" download="20260308_Flux_UK_Feb-Mar_2026.xlsx" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:#16a34a;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;font-family:Inter,sans-serif">⬇ Download Excel</a></div>
+    <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">Sales &amp; Ad Spend — Feb–Mar 2026</div>
     <div style="font-size:11px;color:var(--text3)">數據來源：ScaleInsight · 目標 TACOS ≤ 70% · SP+SD+SB 合計</div>
   </div>
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
     <button class="week-btn active" onclick="switchWeek('all',this)">5W 合計</button>
+    <button class="week-btn" onclick="switchWeek('feb',this)">Feb 合計</button>
     <button class="week-btn" onclick="switchWeek('W1',this)">W1 Feb 1/7</button>
     <button class="week-btn" onclick="switchWeek('W2',this)">W2 Feb 8/14</button>
     <button class="week-btn" onclick="switchWeek('W3',this)">W3 Feb 15/21</button>
@@ -291,6 +188,150 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   <div id="actionCards"></div>
 </div>
 
+<!-- TAB 6 — Spring Deal -->
+<div id="t6" class="panel">
+  <div style="margin-bottom:16px">
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">SPRING DEAL STRATEGY · UK MARKET</div>
+    <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display)">🌸 Spring Deal — Mar 10+ 2026</div>
+    <div style="font-size:11px;color:var(--text3)">Deal Products: Jet II · Verano · Avento · Dynamic · Budget & action recommendations</div>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi-card"><div class="kpi-label">Deal Start</div><div class="kpi-value" style="font-size:16px">Mar 10, 2026</div><div class="kpi-sub">Spring Sale</div></div>
+    <div class="kpi-card"><div class="kpi-label">Deal Products</div><div class="kpi-value">4</div><div class="kpi-sub">Jet II · Verano · Avento · Dynamic</div></div>
+    <div class="kpi-card"><div class="kpi-label">Priority Push</div><div class="kpi-value kpi-green" style="font-size:16px">Avento</div><div class="kpi-sub">Best momentum · 22% TACOS</div></div>
+    <div class="kpi-card"><div class="kpi-label">Secondary Goal</div><div class="kpi-value kpi-amber" style="font-size:14px">IceCube Range</div><div class="kpi-sub">Push all styles for brand visibility</div></div>
+  </div>
+
+  <div class="sec-header">Deal Week Budget Allocation — Recommended Daily Spend</div>
+  <div class="table-wrap" style="margin-bottom:20px">
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align:left">Product</th>
+          <th>W5 Daily Avg</th>
+          <th>Deal Week Target</th>
+          <th>Change</th>
+          <th>Strategy</th>
+          <th>W5 TACOS</th>
+          <th>Target TACOS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:rgba(22,163,74,.04)">
+          <td style="font-weight:600">🟢 ICECUBE Avento</td>
+          <td>£38/day</td>
+          <td style="font-weight:700;color:var(--green)">£57/day</td>
+          <td style="color:var(--green);font-weight:600">+50%</td>
+          <td style="text-align:left;font-size:11px">Aggressive push — strongest momentum, W5 at £1,295 sales. Deal pricing will compound organic growth. Increase SP bids 20%, add SD retargeting.</td>
+          <td>20.7%</td>
+          <td class="tacos-ok">≤25%</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">🔴 ICECUBE Jet II</td>
+          <td>£11/day</td>
+          <td style="font-weight:700;color:var(--accent)">£18/day</td>
+          <td style="color:var(--accent);font-weight:600">+60%</td>
+          <td style="text-align:left;font-size:11px">Recovery mode — was dead W2-W3 but W4-W5 showed £210 each. Needs visibility boost. Increase SP exact match bids, launch new keyword campaigns.</td>
+          <td>37.0%</td>
+          <td class="tacos-warn">≤35%</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">🟡 ICECUBE Verano</td>
+          <td>£6/day</td>
+          <td style="font-weight:700;color:var(--accent)">£12/day</td>
+          <td style="color:var(--accent);font-weight:600">+100%</td>
+          <td style="text-align:left;font-size:11px">Under-invested — only £88 total spend but 21% TACOS! Extremely efficient. Double budget during deal week, add broad match and SD campaigns.</td>
+          <td>26.3%</td>
+          <td class="tacos-ok">≤25%</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">🟣 ICECUBE Dynamic</td>
+          <td>£1/day</td>
+          <td style="font-weight:700;color:var(--amber)">£8/day</td>
+          <td style="color:var(--red);font-weight:600">+700%</td>
+          <td style="text-align:left;font-size:11px">Visibility gap — only £25 total spend over 5 weeks! Product can't sell if nobody sees it. Launch fresh SP auto + manual campaigns. Monitor closely for first 3 days.</td>
+          <td>6.2%</td>
+          <td class="tacos-warn">≤40%</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr style="background:var(--bg3);font-weight:700">
+          <td>Total Deal Day Budget</td>
+          <td>£56/day</td>
+          <td style="color:var(--accent)">£95/day</td>
+          <td style="color:var(--accent)">+70%</td>
+          <td style="text-align:left;font-size:11px">£665/week deal budget for 4 products</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="sec-header">IceCube Brand Push — Expanding UK Visibility</div>
+  <div class="action-card">
+    <div class="action-card-header">
+      <div class="action-card-title">Grow IceCube Sunglasses Range in UK</div>
+      <span class="action-card-badge badge-potential">BRAND GROWTH</span>
+    </div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.7">
+      Beyond the 4 deal products, the 80Days Eyeglass Strap (£2,828) is outselling most IceCube sunglasses. The spring deal is an opportunity to build the IceCube brand across all styles. Current IceCube sunglasses breakdown:
+    </div>
+    <div class="table-wrap" style="margin-bottom:14px">
+      <table>
+        <thead>
+          <tr><th style="text-align:left">IceCube Style</th><th>5W Sales</th><th>5W Units</th><th>TACOS</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr style="background:rgba(22,163,74,.04)"><td>Avento</td><td>£4,188</td><td>120</td><td class="tacos-ok">22.2%</td><td style="color:var(--green)">⭐ Star — Deal Product</td></tr>
+          <tr><td>Sportech</td><td>£1,787</td><td>64</td><td class="tacos-warn">40.7%</td><td>Strong performer</td></tr>
+          <tr><td>Jet II</td><td>£490</td><td>14</td><td class="tacos-bad">52.7%</td><td style="color:var(--accent)">📈 Deal Product — recovering</td></tr>
+          <tr><td>Verano</td><td>£421</td><td>14</td><td class="tacos-ok">21.0%</td><td style="color:var(--accent)">📈 Deal Product — efficient</td></tr>
+          <tr><td>Dynamic</td><td>£210</td><td>6</td><td class="tacos-ok">11.7%</td><td style="color:var(--accent)">📈 Deal Product — needs visibility</td></tr>
+          <tr><td>Ventura</td><td>£100</td><td>2</td><td class="tacos-ok">6.9%</td><td style="color:var(--text3)">Low volume</td></tr>
+          <tr><td>Sprint</td><td>£75</td><td>3</td><td class="tacos-ok">3.9%</td><td style="color:var(--text3)">Low volume</td></tr>
+          <tr><td>Laso-17</td><td>£69</td><td>2</td><td class="tacos-ok">13.8%</td><td style="color:var(--text3)">Low volume</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="action-tasks">
+      <div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"><span class="task-type">SB</span><span class="task-text">Create Sponsored Brands campaign featuring full IceCube range — drive brand awareness during deal week</span></div>
+      <div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"><span class="task-type">SP</span><span class="task-text">Increase Avento SP budget by 50% — ride the W5 momentum into deal week</span></div>
+      <div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"><span class="task-type">SP</span><span class="task-text">Launch new SP campaigns for Dynamic — auto + manual exact match on "polarized sports sunglasses"</span></div>
+      <div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"><span class="task-type">SP</span><span class="task-text">Double Verano SP budget — 21% TACOS means huge room to scale</span></div>
+      <div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"><span class="task-type">SP</span><span class="task-text">Increase Jet II bids on exact match keywords — W4-W5 recovery (30-37% TACOS) shows deal can work</span></div>
+      <div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"><span class="task-type">SD</span><span class="task-text">Add SD retargeting for Avento + Jet II — capture deal browsers who don't convert immediately</span></div>
+      <div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"><span class="task-type">DEAL</span><span class="task-text">Submit spring deal applications for all 4 products — confirm deal pricing and badge eligibility</span></div>
+      <div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"><span class="task-type">MONITOR</span><span class="task-text">Track deal week daily — kill underperformers by Day 3 if TACOS exceeds 50%</span></div>
+    </div>
+  </div>
+
+  <div class="sec-header">Deal Week Success Metrics</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div class="q-card">
+      <div class="q-card-title">Target Sales (Deal Week)</div>
+      <div class="q-card-body">
+        <strong>Avento:</strong> £1,800+ (vs W5 £1,295 baseline)<br>
+        <strong>Jet II:</strong> £350+ (vs W5 £210 baseline)<br>
+        <strong>Verano:</strong> £250+ (vs W5 £150 baseline)<br>
+        <strong>Dynamic:</strong> £150+ (vs W5 £70 baseline)<br>
+        <strong>Combined target:</strong> £2,550+ deal week
+      </div>
+    </div>
+    <div class="q-card">
+      <div class="q-card-title">TACOS Guardrails</div>
+      <div class="q-card-body">
+        <strong>Avento:</strong> Maintain ≤25% — proven efficiency<br>
+        <strong>Jet II:</strong> Accept up to 40% during deal — building momentum<br>
+        <strong>Verano:</strong> Keep ≤30% — has room to scale<br>
+        <strong>Dynamic:</strong> Accept up to 45% first 3 days — new campaigns need data<br>
+        <strong>Kill switch:</strong> Cut any product exceeding 55% TACOS by Day 4
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 const PARENTS = {"B0C5TV9WQV": {"name": "ICECUBE AVENTO Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports and Activities", "short": "ICECUBE AVENTO Polarized Sports Sun", "color": "#84cc16", "children": ["B07G8WDT6H", "B07G8SL62W", "B0C2P48NCR", "B07G8W7FR8", "B07G8WNCK3", "B0C42LHKQ8"], "weeks": {"W1": {"sales": 805.0, "spsd": 73.43, "sbsp": 109.86, "spend": 183.29, "units": 23, "organic": 19, "ppc": 8, "profits": 434.74, "tacos": 22.8}, "W2": {"sales": 729.17, "spsd": 91.12, "sbsp": 85.57, "spend": 176.69, "units": 21, "organic": 18, "ppc": 9, "profits": 464.8, "tacos": 24.2}, "W3": {"sales": 420.0, "spsd": 81.38, "sbsp": 41.43, "spend": 122.81, "units": 12, "organic": 7, "ppc": 6, "profits": 190.93, "tacos": 29.2}, "W4": {"sales": 939.17, "spsd": 81.02, "sbsp": 99.29, "spend": 180.31, "units": 27, "organic": 21, "ppc": 7, "profits": 635.4, "tacos": 19.2}, "W5": {"sales": 1295.0, "spsd": 134.15, "sbsp": 134.23, "spend": 268.38, "units": 37, "organic": 24, "ppc": 16, "profits": 766.71, "tacos": 20.7}}, "total_sales": 4188.34, "total_spend": 931.48, "total_spsd": 461.1, "tacos_4w": 22.2, "sb_attr": 816.76}, "B0FJWGM5ZD": {"name": "80Days Adjustable Eyeglass Strap: N", "short": "80Days Adjustable Eyeglass Strap: N", "color": "#06b6d4", "children": ["B0FD3PMPVC", "B0FCRLQG4B", "B0FD3PSJG3", "B0FD3LHYMN", "B0FD3MZ97V", "B0FCRCZ1HC", "B0FCRK9JCK", "B0FCRQRHJ8"], "weeks": {"W1": {"sales": 554.64, "spsd": 104.51, "sbsp": 100.54, "spend": 205.05, "units": 59, "organic": 42, "ppc": 27, "profits": 275.47, "tacos": 37.0}, "W2": {"sales": 607.68, "spsd": 110.93, "sbsp": 58.58, "spend": 169.51, "units": 64, "organic": 33, "ppc": 36, "profits": 291.61, "tacos": 27.9}, "W3": {"sales": 447.0, "spsd": 108.79, "sbsp": 84.2, "spend": 192.99, "units": 49, "organic": 31, "ppc": 25, "profits": 187.17, "tacos": 43.2}, "W4": {"sales": 593.39, "spsd": 106.29, "sbsp": 72.57, "spend": 178.86, "units": 66, "organic": 40, "ppc": 31, "profits": 296.38, "tacos": 30.1}, "W5": {"sales": 624.81, "spsd": 154.24, "sbsp": 79.31, "spend": 233.55, "units": 67, "organic": 27, "ppc": 41, "profits": 268.19, "tacos": 37.4}}, "total_sales": 2827.52, "total_spend": 979.96, "total_spsd": 584.76, "tacos_4w": 34.7, "sb_attr": 669.76}, "B07CNT33P8": {"name": "ICECUBE Sportech Polarized Sports S", "short": "ICECUBE Sportech Polarized Sports S", "color": "#f59e0b", "children": ["B07CNN4FW7", "B07CNT173P", "B07CNNHJV5"], "weeks": {"W1": {"sales": 307.89, "spsd": 105.63, "sbsp": 0.0, "spend": 105.63, "units": 11, "organic": 8, "ppc": 6, "profits": 130.0, "tacos": 34.3}, "W2": {"sales": 335.88, "spsd": 99.24, "sbsp": 41.05, "spend": 140.29, "units": 12, "organic": 6, "ppc": 7, "profits": 139.16, "tacos": 41.8}, "W3": {"sales": 251.91, "spsd": 92.94, "sbsp": 66.25, "spend": 159.19, "units": 9, "organic": 4, "ppc": 7, "profits": 60.79, "tacos": 63.2}, "W4": {"sales": 247.24, "spsd": 97.24, "sbsp": 9.92, "spend": 107.16, "units": 9, "organic": 4, "ppc": 5, "profits": 87.46, "tacos": 43.3}, "W5": {"sales": 643.77, "spsd": 200.41, "sbsp": 15.33, "spend": 215.74, "units": 23, "organic": 10, "ppc": 14, "profits": 237.84, "tacos": 33.5}}, "total_sales": 1786.69, "total_spend": 728.01, "total_spsd": 595.46, "tacos_4w": 40.7, "sb_attr": 209.88}, "B0F1CXLMCX": {"name": "80Days Pilot Sunglasses – Classic Double Bridge, Sleek Metal Detail, UV400 Protection", "short": "80Days Pilot Sunglasses", "color": "#a855f7", "children": ["B0F1CZQRYS", "B0F1CWQCYB", "B0F1D2QG1X"], "weeks": {"W1": {"sales": 240.0, "spsd": 116.83, "sbsp": 10.46, "spend": 127.29, "units": 12, "organic": 8, "ppc": 6, "profits": 53.33, "tacos": 53.0}, "W2": {"sales": 140.0, "spsd": 105.47, "sbsp": 9.78, "spend": 115.25, "units": 7, "organic": 4, "ppc": 5, "profits": -9.43, "tacos": 82.3}, "W3": {"sales": 160.0, "spsd": 111.1, "sbsp": 11.84, "spend": 122.94, "units": 8, "organic": 3, "ppc": 5, "profits": -18.16, "tacos": 76.8}, "W4": {"sales": 276.67, "spsd": 106.21, "sbsp": 21.28, "spend": 127.49, "units": 14, "organic": 9, "ppc": 7, "profits": 42.84, "tacos": 46.1}, "W5": {"sales": 280.0, "spsd": 270.7, "sbsp": 0.0, "spend": 270.7, "units": 14, "organic": 6, "ppc": 11, "profits": -84.84, "tacos": 96.7}}, "total_sales": 1096.67, "total_spend": 763.67, "total_spsd": 710.31, "tacos_4w": 69.6, "sb_attr": 100.02}, "B07VQZ3S38": {"name": "ICECUBE JET II NEO PC Polarized Sports Sunglasses with 100% UV Protection - Super Lightweight Suitable for Driving, Fishing, Cycling and Other Outdoor Activities – Adjustable nose pad & temple", "short": "ICECUBE JET II NEO PC Polarized Spo", "color": "#ef4444", "children": ["B07VMRK3KV", "B0DXPTBYZD", "B08X9L1KRH"], "weeks": {"W1": {"sales": 70.0, "spsd": 34.47, "sbsp": 0.0, "spend": 34.47, "units": 2, "organic": 0, "ppc": 3, "profits": 15.21, "tacos": 49.2}, "W2": {"sales": 0.0, "spsd": 36.03, "sbsp": 0.0, "spend": 36.03, "units": 0, "organic": 0, "ppc": 1, "profits": -36.03, "tacos": null}, "W3": {"sales": 0.0, "spsd": 47.11, "sbsp": 0.0, "spend": 47.11, "units": 0, "organic": 0, "ppc": 0, "profits": -47.11, "tacos": null}, "W4": {"sales": 210.0, "spsd": 50.64, "sbsp": 12.41, "spend": 63.05, "units": 6, "organic": 3, "ppc": 5, "profits": 86.88, "tacos": 30.0}, "W5": {"sales": 210.0, "spsd": 77.64, "sbsp": 0.0, "spend": 77.64, "units": 6, "organic": 2, "ppc": 5, "profits": 79.94, "tacos": 37.0}}, "total_sales": 490.0, "total_spend": 258.3, "total_spsd": 245.89, "tacos_4w": 52.7, "sb_attr": 29.17}, "B0C4Q9PWMH": {"name": "ICECUBE Verano Polarized Sports Sunglasses with Anti-Slip Function Adjustable Nose Pad and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports and Activities", "short": "ICECUBE Verano Polarized Sports Sun", "color": "#f43f5e", "children": ["B07CNKVWQP", "B07CNYLXCC", "B07CNV788S", "B07CNSYJKD", "B07CNV8S82", "B07CP3HSYD"], "weeks": {"W1": {"sales": 60.0, "spsd": 6.46, "sbsp": 0.0, "spend": 6.46, "units": 2, "organic": 1, "ppc": 1, "profits": 39.44, "tacos": 10.8}, "W2": {"sales": 30.0, "spsd": 2.89, "sbsp": 14.67, "spend": 17.56, "units": 1, "organic": 1, "ppc": 0, "profits": 19.61, "tacos": 58.5}, "W3": {"sales": 30.75, "spsd": 5.85, "sbsp": 0.0, "spend": 5.85, "units": 1, "organic": 1, "ppc": 0, "profits": 18.3, "tacos": 19.0}, "W4": {"sales": 150.0, "spsd": 8.51, "sbsp": 10.64, "spend": 19.15, "units": 5, "organic": 5, "ppc": 2, "profits": 108.22, "tacos": 12.8}, "W5": {"sales": 150.0, "spsd": 23.03, "sbsp": 16.43, "spend": 39.46, "units": 5, "organic": 3, "ppc": 2, "profits": 89.47, "tacos": 26.3}}, "total_sales": 420.75, "total_spend": 88.48, "total_spsd": 46.74, "tacos_4w": 21.0, "sb_attr": 75.0}, "B0F1CZK7J7": {"name": "80Days Women’s Oval Sunglasses – Bold Statement Frames, Vintage Chic, UV400 Protection", "short": "80Days Women’s Oval Sunglasses", "color": "#f59e0b", "children": ["B0F1D2NSWN", "B0F1D3JGDH"], "weeks": {"W1": {"sales": 60.0, "spsd": 32.47, "sbsp": 10.46, "spend": 42.93, "units": 3, "organic": 1, "ppc": 2, "profits": 11.27, "tacos": 71.5}, "W2": {"sales": 0.0, "spsd": 39.96, "sbsp": 0.0, "spend": 39.96, "units": 0, "organic": 0, "ppc": 0, "profits": -39.96, "tacos": null}, "W3": {"sales": 20.0, "spsd": 37.17, "sbsp": 0.0, "spend": 37.17, "units": 1, "organic": 1, "ppc": 0, "profits": -22.59, "tacos": 185.8}, "W4": {"sales": 80.0, "spsd": 37.48, "sbsp": 7.09, "spend": 44.57, "units": 4, "organic": 4, "ppc": 1, "profits": 19.47, "tacos": 55.7}, "W5": {"sales": 79.99, "spsd": 79.19, "sbsp": 0.0, "spend": 79.19, "units": 4, "organic": 1, "ppc": 3, "profits": -33.72, "tacos": 99.0}}, "total_sales": 239.99, "total_spend": 243.82, "total_spsd": 226.27, "tacos_4w": 101.6, "sb_attr": 33.34}, "B07CNQBT4S": {"name": "ICECUBE DYNAMIC Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports and Activities", "short": "ICECUBE DYNAMIC Polarized Sports Su", "color": "#a855f7", "children": ["B07CP26XD7", "B07CP46YKD", "B07CNNXJ4Y", "B07CNSD47H"], "weeks": {"W1": {"sales": 0.0, "spsd": 3.08, "sbsp": 0.0, "spend": 3.08, "units": 0, "organic": 0, "ppc": 0, "profits": -3.08, "tacos": null}, "W2": {"sales": 70.0, "spsd": 2.2, "sbsp": 0.0, "spend": 2.2, "units": 2, "organic": 2, "ppc": 0, "profits": 51.58, "tacos": 3.1}, "W3": {"sales": 0.0, "spsd": 0.87, "sbsp": 0.0, "spend": 0.87, "units": 0, "organic": 0, "ppc": 0, "profits": -0.87, "tacos": null}, "W4": {"sales": 70.0, "spsd": 1.76, "sbsp": 12.41, "spend": 14.17, "units": 2, "organic": 2, "ppc": 0, "profits": 51.74, "tacos": 20.2}, "W5": {"sales": 70.0, "spsd": 4.33, "sbsp": 0.0, "spend": 4.33, "units": 2, "organic": 2, "ppc": 0, "profits": 49.73, "tacos": 6.2}}, "total_sales": 210.0, "total_spend": 24.65, "total_spsd": 12.24, "tacos_4w": 11.7, "sb_attr": 29.17}, "B09V2JN3LP": {"name": "ICECUBE Sprint Sports Performance Sunglasses: Semi-Rimless, Polarized, UV400, Unisex – Designed for Extreme Clarity, Comfort and Durability", "short": "ICECUBE Sprint Sports Performance S", "color": "#ec4899", "children": ["B09V2JRH2L", "B09V2GNC1H"], "weeks": {"W1": {"sales": 49.98, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 2, "organic": 2, "ppc": 0, "profits": 36.48, "tacos": 0.0}, "W2": {"sales": 0.0, "spsd": 0.38, "sbsp": 0.0, "spend": 0.38, "units": 0, "organic": 0, "ppc": 0, "profits": -0.38, "tacos": null}, "W3": {"sales": 24.99, "spsd": 0.94, "sbsp": 0.0, "spend": 0.94, "units": 1, "organic": 1, "ppc": 1, "profits": 17.3, "tacos": 3.8}, "W4": {"sales": 0.0, "spsd": 0.5, "sbsp": 0.0, "spend": 0.5, "units": 0, "organic": 0, "ppc": 0, "profits": -0.5, "tacos": null}, "W5": {"sales": 0.0, "spsd": 1.1, "sbsp": 0.0, "spend": 1.1, "units": 0, "organic": 0, "ppc": 0, "profits": -1.1, "tacos": null}}, "total_sales": 74.97, "total_spend": 2.92, "total_spsd": 2.92, "tacos_4w": 3.9, "sb_attr": 0}, "B0G63VMSWB": {"name": "80Days Adjustable Eyeglass Strap: Wire Cable Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "short": "80Days Adjustable Eyeglass Strap: W", "color": "#ec4899", "children": ["B0G64L8VGX", "B0G653WYKH", "B0G64Q4YRJ", "B0G64TMSXH"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W2": {"sales": 47.95, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 5, "organic": 5, "ppc": 0, "profits": -8.55, "tacos": 0.0}, "W3": {"sales": 35.96, "spsd": 0.42, "sbsp": 0.0, "spend": 0.42, "units": 4, "organic": 4, "ppc": 0, "profits": -7.26, "tacos": 1.2}, "W4": {"sales": 33.96, "spsd": 0.0, "sbsp": 5.67, "spend": 5.67, "units": 4, "organic": 4, "ppc": 0, "profits": 8.84, "tacos": 16.7}, "W5": {"sales": 23.97, "spsd": 2.5, "sbsp": 8.76, "spend": 11.26, "units": 3, "organic": 2, "ppc": 1, "profits": 15.89, "tacos": 47.0}}, "total_sales": 141.84, "total_spend": 17.35, "total_spsd": 2.92, "tacos_4w": 12.2, "sb_attr": 26.64}, "B0DWMQ7MQF": {"name": "ICECUBE Laso-17 Polarized Sunglasses – Lightweight Square Frame, Anti-Slip Rubber Nose Pads, Sporty Rubber-Tipped Temples for All-Day Wear", "short": "ICECUBE Laso-17 Polarized Sunglasse", "color": "#facc15", "children": ["B0DWMG7Q7D", "B0DWMFL3JX", "B0DWMF64DJ", "B0DWMFPXKR", "B0DWMGBB96"], "weeks": {"W1": {"sales": 34.5, "spsd": 0.44, "sbsp": 0.0, "spend": 0.44, "units": 1, "organic": 1, "ppc": 0, "profits": 26.14, "tacos": 1.3}, "W2": {"sales": 0.0, "spsd": 1.05, "sbsp": 0.0, "spend": 1.05, "units": 0, "organic": 0, "ppc": 0, "profits": -1.05, "tacos": null}, "W3": {"sales": 0.0, "spsd": 1.29, "sbsp": 0.0, "spend": 1.29, "units": 0, "organic": 0, "ppc": 0, "profits": -1.29, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.97, "sbsp": 0.0, "spend": 0.97, "units": 0, "organic": 0, "ppc": 0, "profits": -0.97, "tacos": null}, "W5": {"sales": 34.5, "spsd": 5.74, "sbsp": 0.0, "spend": 5.74, "units": 1, "organic": 1, "ppc": 0, "profits": 18.28, "tacos": 16.6}}, "total_sales": 69.0, "total_spend": 9.49, "total_spsd": 9.49, "tacos_4w": 13.8, "sb_attr": 0}, "B0CSYRSQQF": {"name": "ICECUBE VENTURA High-Performance Sunglasses: Anti-Fog PC Lenses, Ventilated TR90 Frame, 100% UV Protection, Ideal for Sports and Cycling", "short": "ICECUBE VENTURA High-Performance Su", "color": "#0ea5e9", "children": ["B0CSYD3DWY", "B0CSYT7G9V", "B0CSY8MBW8", "B0CSYPVL3D", "B0CSYD66YR", "B0CSYHJ7MJ"], "weeks": {"W1": {"sales": 0.0, "spsd": 1.5, "sbsp": 0.0, "spend": 1.5, "units": 0, "organic": 0, "ppc": 0, "profits": -1.5, "tacos": null}, "W2": {"sales": 50.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 1, "organic": 1, "ppc": 0, "profits": 39.5, "tacos": 0.0}, "W3": {"sales": 0.0, "spsd": 1.38, "sbsp": 0.0, "spend": 1.38, "units": 0, "organic": 0, "ppc": 0, "profits": -1.38, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.94, "sbsp": 0.0, "spend": 0.94, "units": 0, "organic": 0, "ppc": 0, "profits": -0.94, "tacos": null}, "W5": {"sales": 50.0, "spsd": 3.09, "sbsp": 0.0, "spend": 3.09, "units": 1, "organic": 1, "ppc": 0, "profits": 36.41, "tacos": 6.2}}, "total_sales": 100.0, "total_spend": 6.91, "total_spsd": 6.91, "tacos_4w": 6.9, "sb_attr": 0}, "B0F1CTGBT7": {"name": "80Days Round Sunglasses – Vintage Keyhole Bridge, Classic Style, UV400 Protection", "short": "80Days Round Sunglasses", "color": "#3b82f6", "children": ["B0F1CZK6SN", "B0F1CVFCGQ", "B0F1CT3GCR"], "weeks": {"W1": {"sales": 20.0, "spsd": 10.76, "sbsp": 0.0, "spend": 10.76, "units": 1, "organic": 1, "ppc": 1, "profits": 4.15, "tacos": 53.8}, "W2": {"sales": 0.0, "spsd": 0.73, "sbsp": 0.0, "spend": 0.73, "units": 0, "organic": 0, "ppc": 0, "profits": -0.73, "tacos": null}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 20.0, "spsd": 0.0, "sbsp": 7.09, "spend": 7.09, "units": 1, "organic": 1, "ppc": 0, "profits": 14.58, "tacos": 35.4}, "W5": {"sales": 0.0, "spsd": 1.55, "sbsp": 0.0, "spend": 1.55, "units": 0, "organic": 0, "ppc": 0, "profits": -1.55, "tacos": null}}, "total_sales": 40.0, "total_spend": 20.13, "total_spsd": 13.04, "tacos_4w": 50.3, "sb_attr": 16.67}, "B07VMRJS4M": {"name": "ICECUBE Casuar Polarized Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports and Activities", "short": "ICECUBE Casuar Polarized Sunglasses", "color": "#22c55e", "children": ["B07VMRK1FC", "B07VMRH51H"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 0.0, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": null, "sb_attr": 0}, "B0F1D5R8NM": {"name": "80Days Square Sunglasses – Slim Frame, Classic Keyhole Design, UV400 Protection", "short": "80Days Square Sunglasses", "color": "#ef4444", "children": ["B0F1D3VGX6", "B0F1D2B3FG"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 0.0, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": null, "sb_attr": 0}, "B0F1D44ZLL": {"name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection", "short": "80Days Women’s Geometric Sunglasses", "color": "#22c55e", "children": ["B0F1D4F97T", "B0F1D1CFHP", "B0F1D2HHD4"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 0.0, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": null, "sb_attr": 0}, "B09V2KTH7Z": {"name": "ICECUBE AURORA Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight", "short": "ICECUBE AURORA Polarized Sunglasses", "color": "#14b8a6", "children": ["B09V2KVTYB"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 0.0, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": null, "sb_attr": 0}, "B0CW5WKD3W": {"name": "ICECUBE PERIMETER Sports Performance Sunglasses: Semi-Rimless, Polarized, UV400, Unisex – Designed for Extreme Clarity, Comfort and Durability", "short": "ICECUBE PERIMETER Sports Performanc", "color": "#d946ef", "children": ["B0CW64SDXD", "B0CW5V4T13"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.5, "sbsp": 0.0, "spend": 0.5, "units": 0, "organic": 0, "ppc": 0, "profits": -0.5, "tacos": null}, "W3": {"sales": 0.0, "spsd": 0.5, "sbsp": 0.0, "spend": 0.5, "units": 0, "organic": 0, "ppc": 0, "profits": -0.5, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.5, "sbsp": 0.0, "spend": 0.5, "units": 0, "organic": 0, "ppc": 0, "profits": -0.5, "tacos": null}, "W5": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}}, "total_sales": 0.0, "total_spend": 1.5, "total_spsd": 1.5, "tacos_4w": null, "sb_attr": 0}, "B09V2KBJVR": {"name": "ICECUBE Carmel Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight", "short": "ICECUBE Carmel Polarized Sunglasses", "color": "#8b5cf6", "children": ["B09V2K6FMZ"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}}, "total_sales": 0.0, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": null, "sb_attr": 0}};
 const CHILD_DATA = [{"asin": "B07G8WDT6H", "parent": "B0C5TV9WQV", "parent_short": "ICECUBE AVENTO Polarized Sports Sun", "color": "#84cc16", "name": "ICECUBE AVENTO Polarized Sports Sunglasses - UV400 & Anti-Slip, Lightweight for Driving, Running & Golf - Unisex (BLK/Grey)", "weeks": {"W1": {"sales": 350.0, "spend": 26.26, "units": 10, "organic": 8}, "W2": {"sales": 484.17, "spend": 35.1, "units": 14, "organic": 12}, "W3": {"sales": 210.0, "spend": 25.33, "units": 6, "organic": 5}, "W4": {"sales": 490.0, "spend": 15.44, "units": 14, "organic": 12}, "W5": {"sales": 525.0, "spend": 53.92, "units": 15, "organic": 5}}, "total_sales": 2059.17}, {"asin": "B0FD3PMPVC", "parent": "B0FJWGM5ZD", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#06b6d4", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 249.98, "spend": 81.92, "units": 25, "organic": 10}, "W2": {"sales": 318.01, "spend": 83.96, "units": 32, "organic": 6}, "W3": {"sales": 209.78, "spend": 65.78, "units": 21, "organic": 10}, "W4": {"sales": 289.7, "spend": 80.41, "units": 29, "organic": 9}, "W5": {"sales": 350.13, "spend": 113.19, "units": 35, "organic": 3}}, "total_sales": 1417.6}, {"asin": "B07CNN4FW7", "parent": "B07CNT33P8", "parent_short": "ICECUBE Sportech Polarized Sports S", "color": "#f59e0b", "name": "ICECUBE Sportech Polarized Sports Sunglasses with Anti-Slip Function and Light Frame - for Men and Women Driving, Running, Baseball, Golf (S.Black, Grey)", "weeks": {"W1": {"sales": 167.94, "spend": 84.92, "units": 6, "organic": 4}, "W2": {"sales": 223.92, "spend": 80.16, "units": 8, "organic": 3}, "W3": {"sales": 139.95, "spend": 75.59, "units": 5, "organic": 1}, "W4": {"sales": 111.96, "spend": 83.07, "units": 4, "organic": 0}, "W5": {"sales": 335.88, "spend": 158.48, "units": 12, "organic": 3}}, "total_sales": 979.65}, {"asin": "B0F1CZQRYS", "parent": "B0F1CXLMCX", "parent_short": "80Days Pilot Sunglasses", "color": "#a855f7", "name": "80Days Pilot Sunglasses – Classic Double Bridge, Sleek Metal Detail, UV400 Protection (Champagne)", "weeks": {"W1": {"sales": 160.0, "spend": 97.51, "units": 8, "organic": 5}, "W2": {"sales": 80.0, "spend": 94.62, "units": 4, "organic": 1}, "W3": {"sales": 140.0, "spend": 94.11, "units": 7, "organic": 2}, "W4": {"sales": 240.0, "spend": 97.32, "units": 12, "organic": 7}, "W5": {"sales": 200.0, "spend": 254.71, "units": 10, "organic": 2}}, "total_sales": 820.0}, {"asin": "B07G8SL62W", "parent": "B0C5TV9WQV", "parent_short": "ICECUBE AVENTO Polarized Sports Sun", "color": "#84cc16", "name": "ICECUBE AVENTO Polarized Sports Sunglasses - UV400 & Anti-Slip, Lightweight for Driving, Running & Golf - Unisex (Red/Grey)", "weeks": {"W1": {"sales": 140.0, "spend": 28.85, "units": 4, "organic": 3}, "W2": {"sales": 35.0, "spend": 30.94, "units": 1, "organic": 0}, "W3": {"sales": 35.0, "spend": 30.6, "units": 1, "organic": 0}, "W4": {"sales": 239.17, "spend": 35.63, "units": 7, "organic": 5}, "W5": {"sales": 210.0, "spend": 56.5, "units": 6, "organic": 4}}, "total_sales": 659.17}, {"asin": "B07CNT173P", "parent": "B07CNT33P8", "parent_short": "ICECUBE Sportech Polarized Sports S", "color": "#f59e0b", "name": "ICECUBE Sportech Polarized Sports Sunglasses with Anti-Slip Function and Light Frame - for Men and Women Driving, Running, Baseball, Golf (S.Black, Blue)", "weeks": {"W1": {"sales": 111.96, "spend": 3.81, "units": 4, "organic": 3}, "W2": {"sales": 111.96, "spend": 4.84, "units": 4, "organic": 3}, "W3": {"sales": 83.97, "spend": 6.23, "units": 3, "organic": 2}, "W4": {"sales": 51.31, "spend": 4.1, "units": 2, "organic": 1}, "W5": {"sales": 279.9, "spend": 14.1, "units": 10, "organic": 6}}, "total_sales": 639.1}, {"asin": "B0C2P48NCR", "parent": "B0C5TV9WQV", "parent_short": "ICECUBE AVENTO Polarized Sports Sun", "color": "#84cc16", "name": "ICECUBE AVENTO Polarized Sports Sunglasses - UV400 & Anti-Slip, Lightweight for Driving, Running & Golf - Unisex (BLK/Blue)", "weeks": {"W1": {"sales": 70.0, "spend": 2.52, "units": 2, "organic": 2}, "W2": {"sales": 105.0, "spend": 3.47, "units": 3, "organic": 3}, "W3": {"sales": 105.0, "spend": 3.3, "units": 3, "organic": 1}, "W4": {"sales": 70.0, "spend": 3.03, "units": 2, "organic": 2}, "W5": {"sales": 210.0, "spend": 2.95, "units": 6, "organic": 6}}, "total_sales": 560.0}, {"asin": "B07G8W7FR8", "parent": "B0C5TV9WQV", "parent_short": "ICECUBE AVENTO Polarized Sports Sun", "color": "#84cc16", "name": "ICECUBE AVENTO Polarized Sports Sunglasses - UV400 & Anti-Slip, Lightweight for Driving, Running & Golf - Unisex (White/Grey)", "weeks": {"W1": {"sales": 175.0, "spend": 7.66, "units": 5, "organic": 4}, "W2": {"sales": 70.0, "spend": 11.51, "units": 2, "organic": 2}, "W3": {"sales": 35.0, "spend": 11.86, "units": 1, "organic": 1}, "W4": {"sales": 70.0, "spend": 12.36, "units": 2, "organic": 1}, "W5": {"sales": 140.0, "spend": 10.88, "units": 4, "organic": 3}}, "total_sales": 490.0}, {"asin": "B07VMRK3KV", "parent": "B07VQZ3S38", "parent_short": "ICECUBE JET II NEO PC Polarized Spo", "color": "#ef4444", "name": "ICECUBE JET II NEO PC Polarized Sunglasses - Ultra-Light for Driving, Fishing & Cycling | Adjustable Nose & Temple (Matte Black, Grey)", "weeks": {"W1": {"sales": 70.0, "spend": 34.47, "units": 2, "organic": 0}, "W2": {"sales": 0.0, "spend": 35.53, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 45.61, "units": 0, "organic": 0}, "W4": {"sales": 140.0, "spend": 50.14, "units": 4, "organic": 1}, "W5": {"sales": 175.0, "spend": 77.2, "units": 5, "organic": 1}}, "total_sales": 385.0}, {"asin": "B0FCRLQG4B", "parent": "B0FJWGM5ZD", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#06b6d4", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 29.96, "spend": 12.23, "units": 4, "organic": 3}, "W2": {"sales": 44.94, "spend": 11.15, "units": 6, "organic": 4}, "W3": {"sales": 74.9, "spend": 15.3, "units": 10, "organic": 6}, "W4": {"sales": 111.41, "spend": 10.84, "units": 15, "organic": 12}, "W5": {"sales": 44.94, "spend": 19.91, "units": 6, "organic": 3}}, "total_sales": 306.15}, {"asin": "B0FD3PSJG3", "parent": "B0FJWGM5ZD", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#06b6d4", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 59.94, "spend": 0.0, "units": 6, "organic": 6}, "W2": {"sales": 79.92, "spend": 2.59, "units": 8, "organic": 8}, "W3": {"sales": 29.97, "spend": 1.4, "units": 3, "organic": 3}, "W4": {"sales": 69.93, "spend": 3.4, "units": 7, "organic": 6}, "W5": {"sales": 49.95, "spend": 0.48, "units": 5, "organic": 4}}, "total_sales": 289.71}, {"asin": "B0FD3LHYMN", "parent": "B0FJWGM5ZD", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#06b6d4", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 99.9, "spend": 2.42, "units": 10, "organic": 10}, "W2": {"sales": 89.9, "spend": 5.04, "units": 9, "organic": 6}, "W3": {"sales": 19.98, "spend": 8.45, "units": 2, "organic": 1}, "W4": {"sales": 9.99, "spend": 2.88, "units": 1, "organic": 1}, "W5": {"sales": 49.95, "spend": 6.15, "units": 5, "organic": 4}}, "total_sales": 269.72}, {"asin": "B07G8WNCK3", "parent": "B0C5TV9WQV", "parent_short": "ICECUBE AVENTO Polarized Sports Sun", "color": "#84cc16", "name": "ICECUBE AVENTO Polarized Sports Sunglasses - UV400 & Anti-Slip, Lightweight for Driving, Running & Golf - Unisex (Blue/Grey)", "weeks": {"W1": {"sales": 35.0, "spend": 5.72, "units": 1, "organic": 1}, "W2": {"sales": 0.0, "spend": 5.19, "units": 0, "organic": 0}, "W3": {"sales": 35.0, "spend": 9.0, "units": 1, "organic": 0}, "W4": {"sales": 70.0, "spend": 10.78, "units": 2, "organic": 1}, "W5": {"sales": 70.0, "spend": 5.53, "units": 2, "organic": 2}}, "total_sales": 210.0}, {"asin": "B0C42LHKQ8", "parent": "B0C5TV9WQV", "parent_short": "ICECUBE AVENTO Polarized Sports Sun", "color": "#84cc16", "name": "ICECUBE AVENTO Polarized Sports Sunglasses - UV400 & Anti-Slip, Lightweight for Driving, Running & Golf - Unisex (BLK/Red)", "weeks": {"W1": {"sales": 35.0, "spend": 2.42, "units": 1, "organic": 1}, "W2": {"sales": 35.0, "spend": 4.91, "units": 1, "organic": 1}, "W3": {"sales": 0.0, "spend": 1.29, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 3.78, "units": 0, "organic": 0}, "W5": {"sales": 140.0, "spend": 4.37, "units": 4, "organic": 4}}, "total_sales": 210.0}, {"asin": "B0FD3MZ97V", "parent": "B0FJWGM5ZD", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#06b6d4", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 39.96, "spend": 0.0, "units": 4, "organic": 4}, "W2": {"sales": 29.97, "spend": 1.61, "units": 3, "organic": 3}, "W3": {"sales": 59.94, "spend": 2.17, "units": 6, "organic": 4}, "W4": {"sales": 29.97, "spend": 0.0, "units": 3, "organic": 3}, "W5": {"sales": 39.96, "spend": 1.65, "units": 4, "organic": 4}}, "total_sales": 199.8}, {"asin": "B07CNKVWQP", "parent": "B0C4Q9PWMH", "parent_short": "ICECUBE Verano Polarized Sports Sun", "color": "#f43f5e", "name": "ICECUBE Verano Polarized Sports Sunglasses with Anti-Slip Function and Light Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports and Activities (Crystal Grey/Red)", "weeks": {"W1": {"sales": 30.0, "spend": 4.38, "units": 1, "organic": 0}, "W2": {"sales": 30.0, "spend": 0.41, "units": 1, "organic": 1}, "W3": {"sales": 0.0, "spend": 2.19, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 4.29, "units": 0, "organic": 0}, "W5": {"sales": 120.0, "spend": 14.52, "units": 4, "organic": 2}}, "total_sales": 180.0}, {"asin": "B0F1D2NSWN", "parent": "B0F1CZK7J7", "parent_short": "80Days Women’s Oval Sunglasses", "color": "#f59e0b", "name": "80Days Women’s Oval Sunglasses – Bold Statement Frames, Vintage Chic, UV400 Protection (BLK)", "weeks": {"W1": {"sales": 40.0, "spend": 32.47, "units": 2, "organic": 0}, "W2": {"sales": 0.0, "spend": 39.96, "units": 0, "organic": 0}, "W3": {"sales": 20.0, "spend": 37.17, "units": 1, "organic": 1}, "W4": {"sales": 40.0, "spend": 37.48, "units": 2, "organic": 2}, "W5": {"sales": 79.99, "spend": 79.19, "units": 4, "organic": 1}}, "total_sales": 179.99}, {"asin": "B07CNNHJV5", "parent": "B07CNT33P8", "parent_short": "ICECUBE Sportech Polarized Sports S", "color": "#f59e0b", "name": "ICECUBE Sportech Polarized Sports Sunglasses with Anti-Slip Function and Light Frame - for Men and Women Driving, Running, Baseball, Golf (S.Black, Red)", "weeks": {"W1": {"sales": 27.99, "spend": 16.9, "units": 1, "organic": 1}, "W2": {"sales": 0.0, "spend": 14.24, "units": 0, "organic": 0}, "W3": {"sales": 27.99, "spend": 11.12, "units": 1, "organic": 1}, "W4": {"sales": 83.97, "spend": 10.07, "units": 3, "organic": 3}, "W5": {"sales": 27.99, "spend": 27.83, "units": 1, "organic": 1}}, "total_sales": 167.94}, {"asin": "B0FCRCZ1HC", "parent": "B0FJWGM5ZD", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#06b6d4", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 52.43, "spend": 4.64, "units": 7, "organic": 6}, "W2": {"sales": 22.47, "spend": 1.97, "units": 3, "organic": 3}, "W3": {"sales": 14.98, "spend": 6.72, "units": 2, "organic": 2}, "W4": {"sales": 37.45, "spend": 5.57, "units": 5, "organic": 3}, "W5": {"sales": 37.45, "spend": 5.55, "units": 5, "organic": 4}}, "total_sales": 164.78}, {"asin": "B0F1CWQCYB", "parent": "B0F1CXLMCX", "parent_short": "80Days Pilot Sunglasses", "color": "#a855f7", "name": "80Days Pilot Sunglasses – Classic Double Bridge, Sleek Metal Detail, UV400 Protection (BLK/Grey)", "weeks": {"W1": {"sales": 20.0, "spend": 0.0, "units": 1, "organic": 1}, "W2": {"sales": 40.0, "spend": 0.0, "units": 2, "organic": 2}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 20.0, "spend": 0.0, "units": 1, "organic": 1}, "W5": {"sales": 80.0, "spend": 0.0, "units": 4, "organic": 4}}, "total_sales": 160.0}, {"asin": "B0F1D2QG1X", "parent": "B0F1CXLMCX", "parent_short": "80Days Pilot Sunglasses", "color": "#a855f7", "name": "80Days Pilot Sunglasses – Classic Double Bridge, Sleek Metal Detail, UV400 Protection (BLK/Orange)", "weeks": {"W1": {"sales": 60.0, "spend": 19.32, "units": 3, "organic": 2}, "W2": {"sales": 20.0, "spend": 10.85, "units": 1, "organic": 1}, "W3": {"sales": 20.0, "spend": 16.99, "units": 1, "organic": 1}, "W4": {"sales": 16.67, "spend": 8.89, "units": 1, "organic": 1}, "W5": {"sales": 0.0, "spend": 15.99, "units": 0, "organic": 0}}, "total_sales": 116.67}, {"asin": "B07CP26XD7", "parent": "B07CNQBT4S", "parent_short": "ICECUBE DYNAMIC Polarized Sports Su", "color": "#a855f7", "name": "ICECUBE DYNAMIC Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports (Crystal Grey/Red)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 35.0, "spend": 0.0, "units": 1, "organic": 1}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.44, "units": 0, "organic": 0}, "W5": {"sales": 70.0, "spend": 1.65, "units": 2, "organic": 2}}, "total_sales": 105.0}, {"asin": "B0FCRK9JCK", "parent": "B0FJWGM5ZD", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#06b6d4", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 14.98, "spend": 1.12, "units": 2, "organic": 2}, "W2": {"sales": 0.0, "spend": 3.51, "units": 0, "organic": 0}, "W3": {"sales": 29.96, "spend": 6.29, "units": 4, "organic": 4}, "W4": {"sales": 14.98, "spend": 2.64, "units": 2, "organic": 2}, "W5": {"sales": 37.45, "spend": 4.47, "units": 5, "organic": 4}}, "total_sales": 97.37}, {"asin": "B07CNYLXCC", "parent": "B0C4Q9PWMH", "parent_short": "ICECUBE Verano Polarized Sports Sun", "color": "#f43f5e", "name": "ICECUBE Verano Polarized Sports Sunglasses with Anti-Slip Function and Light Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports and Activities(Crystal Grey/Grey)", "weeks": {"W1": {"sales": 30.0, "spend": 0.0, "units": 1, "organic": 1}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 30.75, "spend": 0.44, "units": 1, "organic": 1}, "W4": {"sales": 30.0, "spend": 1.32, "units": 1, "organic": 1}, "W5": {"sales": 0.0, "spend": 2.68, "units": 0, "organic": 0}}, "total_sales": 90.75}, {"asin": "B07CNV788S", "parent": "B0C4Q9PWMH", "parent_short": "ICECUBE Verano Polarized Sports Sun", "color": "#f43f5e", "name": "ICECUBE Verano Polarized Sports Sunglasses with Anti-Slip Function and Light Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports and Activities (Mat.BLK/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.8, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.33, "units": 0, "organic": 0}, "W4": {"sales": 90.0, "spend": 1.4, "units": 3, "organic": 3}, "W5": {"sales": 0.0, "spend": 3.24, "units": 0, "organic": 0}}, "total_sales": 90.0}, {"asin": "B0FCRQRHJ8", "parent": "B0FJWGM5ZD", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#06b6d4", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 7.49, "spend": 2.18, "units": 1, "organic": 1}, "W2": {"sales": 22.47, "spend": 1.1, "units": 3, "organic": 3}, "W3": {"sales": 7.49, "spend": 2.68, "units": 1, "organic": 1}, "W4": {"sales": 29.96, "spend": 0.55, "units": 4, "organic": 4}, "W5": {"sales": 14.98, "spend": 2.84, "units": 2, "organic": 1}}, "total_sales": 82.39}, {"asin": "B09V2JRH2L", "parent": "B09V2JN3LP", "parent_short": "ICECUBE Sprint Sports Performance S", "color": "#ec4899", "name": "ICECUBE SPRINT Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Black, Blue Mirror)", "weeks": {"W1": {"sales": 49.98, "spend": 0.0, "units": 2, "organic": 2}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 24.99, "spend": 0.0, "units": 1, "organic": 1}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 74.97}, {"asin": "B0G64L8VGX", "parent": "B0G63VMSWB", "parent_short": "80Days Adjustable Eyeglass Strap: W", "color": "#ec4899", "name": "80Days Adjustable Eyeglass Strap: Wire Cable Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 7.99, "spend": 0.0, "units": 1, "organic": 1}, "W3": {"sales": 15.98, "spend": 0.42, "units": 2, "organic": 2}, "W4": {"sales": 23.97, "spend": 0.0, "units": 3, "organic": 3}, "W5": {"sales": 23.97, "spend": 2.17, "units": 3, "organic": 2}}, "total_sales": 71.91}, {"asin": "B0DXPTBYZD", "parent": "B07VQZ3S38", "parent_short": "ICECUBE JET II NEO PC Polarized Spo", "color": "#ef4444", "name": "ICECUBE JET II NEO PC Polarized Sunglasses - Ultra-Light for Driving, Fishing & Cycling | Adjustable Nose & Temple (Red,Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.5, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 1.5, "units": 0, "organic": 0}, "W4": {"sales": 35.0, "spend": 0.5, "units": 1, "organic": 1}, "W5": {"sales": 35.0, "spend": 0.44, "units": 1, "organic": 1}}, "total_sales": 70.0}, {"asin": "B07CP46YKD", "parent": "B07CNQBT4S", "parent_short": "ICECUBE DYNAMIC Polarized Sports Su", "color": "#a855f7", "name": "ICECUBE DYNAMIC Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports (Crystal Grey/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 35.0, "spend": 0.0, "units": 1, "organic": 1}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 35.0, "spend": 0.0, "units": 1, "organic": 1}, "W5": {"sales": 0.0, "spend": 1.54, "units": 0, "organic": 0}}, "total_sales": 70.0}, {"asin": "B0DWMG7Q7D", "parent": "B0DWMQ7MQF", "parent_short": "ICECUBE Laso-17 Polarized Sunglasse", "color": "#facc15", "name": "ICECUBE Laso-17 Polarized Sunglasses – Lightweight Square Frame, Anti-Slip Rubber Nose Pads, Sporty Rubber-Tipped Temples for All-Day Wear", "weeks": {"W1": {"sales": 34.5, "spend": 0.44, "units": 1, "organic": 1}, "W2": {"sales": 0.0, "spend": 1.05, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 1.29, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.97, "units": 0, "organic": 0}, "W5": {"sales": 34.5, "spend": 4.67, "units": 1, "organic": 1}}, "total_sales": 69.0}, {"asin": "B0F1D3JGDH", "parent": "B0F1CZK7J7", "parent_short": "80Days Women’s Oval Sunglasses", "color": "#f59e0b", "name": "80Days Women’s Oval Sunglasses – Bold Statement Frames, Vintage Chic, UV400 Protection (Crystal Pink)", "weeks": {"W1": {"sales": 20.0, "spend": 0.0, "units": 1, "organic": 1}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 40.0, "spend": 0.0, "units": 2, "organic": 2}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 60.0}, {"asin": "B07CNSYJKD", "parent": "B0C4Q9PWMH", "parent_short": "ICECUBE Verano Polarized Sports Sun", "color": "#f43f5e", "name": "ICECUBE Verano Polarized Sports Sunglasses with Anti-Slip Function and Light Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports and Activities (Mat.Black/Red)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.44, "units": 0, "organic": 0}, "W4": {"sales": 30.0, "spend": 0.37, "units": 1, "organic": 1}, "W5": {"sales": 30.0, "spend": 0.88, "units": 1, "organic": 1}}, "total_sales": 60.0}, {"asin": "B0CSYD3DWY", "parent": "B0CSYRSQQF", "parent_short": "ICECUBE VENTURA High-Performance Su", "color": "#0ea5e9", "name": "ICECUBE VENTURA High-Performance Sunglasses: Anti-Fog PC Lenses, Ventilated TR90 Frame, 100% UV Protection, Ideal for Sports and Cycling (BLK-R/Red)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 50.0, "spend": 0.0, "units": 1, "organic": 1}, "W3": {"sales": 0.0, "spend": 0.5, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 1.6, "units": 0, "organic": 0}}, "total_sales": 50.0}, {"asin": "B0CSYT7G9V", "parent": "B0CSYRSQQF", "parent_short": "ICECUBE VENTURA High-Performance Su", "color": "#0ea5e9", "name": "ICECUBE VENTURA High-Performance Sunglasses: Anti-Fog PC Lenses, Ventilated TR90 Frame, 100% UV Protection, Ideal for Sports and Cycling (BLK-R/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 1.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.44, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.44, "units": 0, "organic": 0}, "W5": {"sales": 50.0, "spend": 0.0, "units": 1, "organic": 1}}, "total_sales": 50.0}, {"asin": "B0F1CZK6SN", "parent": "B0F1CTGBT7", "parent_short": "80Days Round Sunglasses", "color": "#3b82f6", "name": "80Days Round Sunglasses – Vintage Keyhole Bridge, Classic Style, UV400 Protection (Demi/Brown)", "weeks": {"W1": {"sales": 20.0, "spend": 0.0, "units": 1, "organic": 1}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 20.0, "spend": 0.0, "units": 1, "organic": 1}, "W5": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}}, "total_sales": 40.0}, {"asin": "B0G653WYKH", "parent": "B0G63VMSWB", "parent_short": "80Days Adjustable Eyeglass Strap: W", "color": "#ec4899", "name": "80Days Adjustable Eyeglass Strap: Wire Cable Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 19.98, "spend": 0.0, "units": 2, "organic": 2}, "W3": {"sales": 9.99, "spend": 0.0, "units": 1, "organic": 1}, "W4": {"sales": 9.99, "spend": 0.0, "units": 1, "organic": 1}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 39.96}, {"asin": "B07CNNXJ4Y", "parent": "B07CNQBT4S", "parent_short": "ICECUBE DYNAMIC Polarized Sports Su", "color": "#a855f7", "name": "ICECUBE DYNAMIC Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports (Crystal Grey/Blue)", "weeks": {"W1": {"sales": 0.0, "spend": 3.08, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 1.32, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.87, "units": 0, "organic": 0}, "W4": {"sales": 35.0, "spend": 1.32, "units": 1, "organic": 1}, "W5": {"sales": 0.0, "spend": 1.14, "units": 0, "organic": 0}}, "total_sales": 35.0}, {"asin": "B08X9L1KRH", "parent": "B07VQZ3S38", "parent_short": "ICECUBE JET II NEO PC Polarized Spo", "color": "#ef4444", "name": "ICECUBE JET II NEO PC Polarized Sunglasses - Ultra-Light for Driving, Fishing & Cycling | Adjustable Nose & Temple (Matte Black, Blue)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 35.0, "spend": 0.0, "units": 1, "organic": 1}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 35.0}, {"asin": "B0G64Q4YRJ", "parent": "B0G63VMSWB", "parent_short": "80Days Adjustable Eyeglass Strap: W", "color": "#ec4899", "name": "80Days Adjustable Eyeglass Strap: Wire Cable Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 9.99, "spend": 0.0, "units": 1, "organic": 1}, "W3": {"sales": 9.99, "spend": 0.0, "units": 1, "organic": 1}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.33, "units": 0, "organic": 0}}, "total_sales": 19.98}, {"asin": "B0G64TMSXH", "parent": "B0G63VMSWB", "parent_short": "80Days Adjustable Eyeglass Strap: W", "color": "#ec4899", "name": "80Days Adjustable Eyeglass Strap: Wire Cable Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 9.99, "spend": 0.0, "units": 1, "organic": 1}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 9.99}, {"asin": "B09V2GNC1H", "parent": "B09V2JN3LP", "parent_short": "ICECUBE Sprint Sports Performance S", "color": "#ec4899", "name": "ICECUBE SPRINT Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte White, Grey Mirror)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.38, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.94, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.5, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 1.1, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CSY8MBW8", "parent": "B0CSYRSQQF", "parent_short": "ICECUBE VENTURA High-Performance Su", "color": "#0ea5e9", "name": "ICECUBE VENTURA High-Performance Sunglasses: Anti-Fog PC Lenses, Ventilated TR90 Frame, 100% UV Protection, Ideal for Sports and Cycling (BLK-YW/Red)", "weeks": {"W1": {"sales": 0.0, "spend": 0.5, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.44, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.5, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 1.49, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DWMFL3JX", "parent": "B0DWMQ7MQF", "parent_short": "ICECUBE Laso-17 Polarized Sunglasse", "color": "#facc15", "name": "ICECUBE Laso-17 Polarized Sunglasses – Lightweight Square Frame, Anti-Slip Rubber Nose Pads, Sporty Rubber-Tipped Temples for All-Day Wear", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.52, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1CVFCGQ", "parent": "B0F1CTGBT7", "parent_short": "80Days Round Sunglasses", "color": "#3b82f6", "name": "80Days Round Sunglasses – Vintage Keyhole Bridge, Classic Style, UV400 Protection (BLK/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 7.3, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 1.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B07CNV8S82", "parent": "B0C4Q9PWMH", "parent_short": "ICECUBE Verano Polarized Sports Sun", "color": "#f43f5e", "name": "ICECUBE Verano Polarized Sports Sunglasses with Anti-Slip Function and Light Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports and Activities (Mat.BLK/Blue)", "weeks": {"W1": {"sales": 0.0, "spend": 1.28, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 2.48, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 2.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 1.13, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 1.71, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B07VMRK1FC", "parent": "B07VMRJS4M", "parent_short": "ICECUBE Casuar Polarized Sunglasses", "color": "#22c55e", "name": "Icecube Casuar Polarized Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports and Activities (Black, Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CSYPVL3D", "parent": "B0CSYRSQQF", "parent_short": "ICECUBE VENTURA High-Performance Su", "color": "#0ea5e9", "name": "ICECUBE VENTURA High-Performance Sunglasses: Anti-Fog PC Lenses, Ventilated TR90 Frame, 100% UV Protection, Ideal for Sports and Cycling (White/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1CT3GCR", "parent": "B0F1CTGBT7", "parent_short": "80Days Round Sunglasses", "color": "#3b82f6", "name": "80Days Round Sunglasses – Vintage Keyhole Bridge, Classic Style, UV400 Protection (Demi/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 3.46, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.73, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D3VGX6", "parent": "B0F1D5R8NM", "parent_short": "80Days Square Sunglasses", "color": "#ef4444", "name": "80Days Square Sunglasses – Slim Frame, Classic Keyhole Design, UV400 Protection (Tortoise)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D4F97T", "parent": "B0F1D44ZLL", "parent_short": "80Days Women’s Geometric Sunglasses", "color": "#22c55e", "name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection (BLK)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DWMF64DJ", "parent": "B0DWMQ7MQF", "parent_short": "ICECUBE Laso-17 Polarized Sunglasse", "color": "#facc15", "name": "ICECUBE Laso-17 Polarized Sunglasses – Lightweight Square Frame, Anti-Slip Rubber Nose Pads, Sporty Rubber-Tipped Temples for All-Day Wear", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.55, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B07CP3HSYD", "parent": "B0C4Q9PWMH", "parent_short": "ICECUBE Verano Polarized Sports Sun", "color": "#f43f5e", "name": "ICECUBE Verano Polarized Sports Sunglasses with Anti-Slip Function and Light Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports and Activities: (Crystal Grey/Blue)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.45, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DWMFPXKR", "parent": "B0DWMQ7MQF", "parent_short": "ICECUBE Laso-17 Polarized Sunglasse", "color": "#facc15", "name": "ICECUBE Laso-17 Polarized Sunglasses – Lightweight Square Frame, Anti-Slip Rubber Nose Pads, Sporty Rubber-Tipped Temples for All-Day Wear", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DWMGBB96", "parent": "B0DWMQ7MQF", "parent_short": "ICECUBE Laso-17 Polarized Sunglasse", "color": "#facc15", "name": "ICECUBE Laso-17 Polarized Sunglasses – Lightweight Square Frame, Anti-Slip Rubber Nose Pads, Sporty Rubber-Tipped Temples for All-Day Wear", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B09V2KVTYB", "parent": "B09V2KTH7Z", "parent_short": "ICECUBE AURORA Polarized Sunglasses", "color": "#14b8a6", "name": "ICECUBE AURORA Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Black, Grey Mirror)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B07VMRH51H", "parent": "B07VMRJS4M", "parent_short": "ICECUBE Casuar Polarized Sunglasses", "color": "#22c55e", "name": "ICECUBE Casuar Polarized Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports (Tortoise, Brown)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CSYD66YR", "parent": "B0CSYRSQQF", "parent_short": "ICECUBE VENTURA High-Performance Su", "color": "#0ea5e9", "name": "ICECUBE VENTURA High-Performance Sunglasses: Anti-Fog PC Lenses, Ventilated TR90 Frame, 100% UV Protection, Ideal for Sports and Cycling (BLK-YW/Blue)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CSYHJ7MJ", "parent": "B0CSYRSQQF", "parent_short": "ICECUBE VENTURA High-Performance Su", "color": "#0ea5e9", "name": "ICECUBE VENTURA High-Performance Sunglasses: Anti-Fog PC Lenses, Ventilated TR90 Frame, 100% UV Protection, Ideal for Sports and Cycling (White/Blue)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D1CFHP", "parent": "B0F1D44ZLL", "parent_short": "80Days Women’s Geometric Sunglasses", "color": "#22c55e", "name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection (Taupe)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D2HHD4", "parent": "B0F1D44ZLL", "parent_short": "80Days Women’s Geometric Sunglasses", "color": "#22c55e", "name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection (Demi)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CW64SDXD", "parent": "B0CW5WKD3W", "parent_short": "ICECUBE PERIMETER Sports Performanc", "color": "#d946ef", "name": "ICECUBE PERIMETER Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Met.Grey, Grey Mirror)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.5, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.5, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.5, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D2B3FG", "parent": "B0F1D5R8NM", "parent_short": "80Days Square Sunglasses", "color": "#ef4444", "name": "80Days Square Sunglasses – Slim Frame, Classic Keyhole Design, UV400 Protection (BLK)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CW5V4T13", "parent": "B0CW5WKD3W", "parent_short": "ICECUBE PERIMETER Sports Performanc", "color": "#d946ef", "name": "ICECUBE PERIMETER Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (BLK,Blue Mirror)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B07CNSD47H", "parent": "B07CNQBT4S", "parent_short": "ICECUBE DYNAMIC Polarized Sports Su", "color": "#a855f7", "name": "ICECUBE DYNAMIC Polarized Sports Sunglasses - Anti-Slip, Lightweight for Men & Women: Driving, Running, Golf, Casual Sports (Matte BLK/Red)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.88, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B09V2K6FMZ", "parent": "B09V2KBJVR", "parent_short": "ICECUBE Carmel Polarized Sunglasses", "color": "#8b5cf6", "name": "ICECUBE Carmel Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Black, Grey Mirror)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}];
@@ -338,10 +379,11 @@ function drawDonut(canvasId, data) {
 
 // ═══ TAB 1 ═══
 function buildT1() {
+  const FEB_WEEKS=['W1','W2','W3','W4'];
   window._t1={};
-  ['all',...WEEKS].forEach(mode=>{
+  ['all','feb',...WEEKS].forEach(mode=>{
     const sp=sortedParents();
-    const weeks=mode==='all'?WEEKS:[mode];
+    const weeks=mode==='all'?WEEKS:mode==='feb'?FEB_WEEKS:[mode];
     const byAsin=sp.map(([pid,p])=>{
       const sales=weeks.reduce((a,w)=>a+p.weeks[w].sales,0);
       const spend=weeks.reduce((a,w)=>a+p.weeks[w].spend,0);
@@ -410,7 +452,8 @@ function switchWeek(mode, btn) {
 
 function renderChildTable(mode) {
   const tbl=$('childTable'); if(!tbl) return;
-  const weeks=mode==='all'?WEEKS:[mode];
+  const FEB_WEEKS=['W1','W2','W3','W4'];
+  const weeks=mode==='all'?WEEKS:mode==='feb'?FEB_WEEKS:[mode];
   const modeAdj=CHILD_DATA.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
 
   const wH=weeks.map(w=>`<th colspan="3" style="text-align:center;border-left:1px solid var(--border2)">${w} <span style="color:var(--text3);font-size:8px">${W_LABELS[w]}</span></th>`).join('');
@@ -723,202 +766,12 @@ function toggleTask(pid, idx, cb) {
   if(el) el.classList.toggle('done', cb.checked);
 }
 
-// ═══ TAB 0 — Executive Summary ═══
-function buildExecSummary(){
-  const sp=sortedParents();
-  const totS=sp.reduce((s,[,p])=>s+p.total_sales,0);
-  const totE=sp.reduce((s,[,p])=>s+p.total_spend,0);
-  const totU=sp.reduce((s,[,p])=>s+WEEKS.reduce((a,w)=>a+p.weeks[w].units,0),0);
-  const totProfit=sp.reduce((s,[,p])=>s+WEEKS.reduce((a,w)=>a+p.weeks[w].profits,0),0);
-  const acctTacos=totS>0?totE/totS*100:0;
-  const totOrganic=sp.reduce((s,[,p])=>s+WEEKS.reduce((a,w)=>a+p.weeks[w].organic,0),0);
-  const orgPct=totU>0?(totOrganic/totU*100).toFixed(0):0;
-  const prodCount=sp.filter(([,p])=>p.total_sales>0).length;
-
-  $('kpi-exec').innerHTML=`
-    <div class="kpi-card"><div class="kpi-label">5W 總營業額</div><div class="kpi-value">${fmt(totS,0)}</div><div class="kpi-sub">${totU} units · ${prodCount} 產品</div></div>
-    <div class="kpi-card"><div class="kpi-label">5W 總廣告費</div><div class="kpi-value kpi-amber">${fmt(totE,0)}</div><div class="kpi-sub">SP+SD+SB</div></div>
-    <div class="kpi-card"><div class="kpi-label">帳戶 TACOS</div><div class="kpi-value ${acctTacos<=TACOS_TARGET?'kpi-green':acctTacos<=TACOS_TARGET*1.2?'kpi-amber':'kpi-red'}">${pct(acctTacos)}</div><div class="kpi-sub">${acctTacos<=TACOS_TARGET?'✓ 達標':'⚠ 超過 '+TACOS_TARGET+'% 目標'}</div></div>
-    <div class="kpi-card"><div class="kpi-label">5W 損益</div><div class="kpi-value ${totProfit>=0?'kpi-green':'kpi-red'}">${fmt(totProfit,0)}</div><div class="kpi-sub">${totProfit>=0?'盈利':'虧損'}</div></div>
-    <div class="kpi-card"><div class="kpi-label">有機佔比</div><div class="kpi-value ${orgPct>=50?'kpi-green':'kpi-amber'}">${orgPct}%</div><div class="kpi-sub">${totOrganic} / ${totU} units</div></div>`;
-
-  // Product table
-  const salesArr=sp.filter(([,p])=>p.total_sales>0).map(([,p])=>p.total_sales).sort((a,b)=>a-b);
-  const med=salesArr.length%2===0?(salesArr[salesArr.length/2-1]+salesArr[salesArr.length/2])/2:salesArr[Math.floor(salesArr.length/2)];
-  const quadLabel=p=>{
-    if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return '<span style="color:var(--green);font-weight:700">⭐ Star</span>';
-    if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return '<span style="color:var(--amber);font-weight:700">⚠️ Question</span>';
-    if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return '<span style="color:var(--accent);font-weight:700">💤 Potential</span>';
-    return '<span style="color:var(--red);font-weight:700">🔴 Cut</span>';
-  };
-  const trend=(p)=>{
-    const w4=p.weeks['W4'],w5=p.weeks['W5'];
-    if(!w4||!w5||w4.sales===0) return '<span class="muted">—</span>';
-    const chg=(w5.sales-w4.sales)/w4.sales*100;
-    return `<span style="color:${chg>=0?'var(--green)':'var(--red)'};">${chg>=0?'+':''}${chg.toFixed(0)}%</span>`;
-  };
-
-  const pt=$('execProductTable');
-  if(pt){
-    pt.innerHTML=`<thead><tr>
-      <th style="text-align:left;font-size:11px">產品 Product</th>
-      <th style="font-size:11px">象限 Quadrant</th>
-      <th style="font-size:11px">5W Sales</th>
-      <th style="font-size:11px">5W Spend</th>
-      <th style="font-size:11px">TACOS</th>
-      <th style="font-size:11px">Units</th>
-      <th style="font-size:11px">Organic %</th>
-      <th style="font-size:11px">5W Profit</th>
-      <th style="font-size:11px">W4→W5</th>
-      <th style="text-align:left;font-size:11px">本週行動 Action</th>
-    </tr></thead><tbody>${sp.filter(([,p])=>p.total_sales>0).map(([pid,p])=>{
-      const units=WEEKS.reduce((a,w)=>a+p.weeks[w].units,0);
-      const organic=WEEKS.reduce((a,w)=>a+p.weeks[w].organic,0);
-      const profit=WEEKS.reduce((a,w)=>a+p.weeks[w].profits,0);
-      const op=units>0?(organic/units*100).toFixed(0):'0';
-      const q=(function(){
-        if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return 'star';
-        if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return 'question';
-        if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return 'potential';
-        return 'cut';
-      })();
-      const actionMap={star:'加碼投放 +30%',question:'CPC 降 20%',cut:'降價 + Coupon',potential:'新建 SP Auto $10/天'};
-      return `<tr>
-        <td style="text-align:left;font-size:13px"><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span><strong style="color:${p.color}">${zhShort(pid)}</strong></td>
-        <td style="font-size:12px">${quadLabel(p)}</td>
-        <td style="font-size:13px;font-weight:600">${fmt(p.total_sales,0)}</td>
-        <td style="font-size:13px;color:var(--amber)">${fmt(p.total_spend,0)}</td>
-        <td style="font-size:13px;font-weight:700" class="${tacosClass(p.tacos_4w)}">${pct(p.tacos_4w)}</td>
-        <td style="font-size:13px">${units}</td>
-        <td style="font-size:13px;color:${op>=50?'var(--green)':'var(--red)'}">${op}%</td>
-        <td style="font-size:13px;font-weight:700;color:${profit>=0?'var(--green)':'var(--red)'}">${fmt(profit,0)}</td>
-        <td style="font-size:13px">${trend(p)}</td>
-        <td style="text-align:left;font-size:12px;color:var(--text2)">${actionMap[q]||'—'}</td>
-      </tr>`;}).join('')}
-    <tr style="background:var(--bg3);font-weight:700;border-top:2px solid var(--border2)">
-      <td style="text-align:left;font-size:13px">TOTAL 合計</td><td></td>
-      <td style="font-size:13px">${fmt(totS,0)}</td>
-      <td style="font-size:13px;color:var(--amber)">${fmt(totE,0)}</td>
-      <td style="font-size:13px" class="${tacosClass(acctTacos)}">${pct(acctTacos)}</td>
-      <td style="font-size:13px">${totU}</td>
-      <td style="font-size:13px">${orgPct}%</td>
-      <td style="font-size:13px;color:${totProfit>=0?'var(--green)':'var(--red)'}">${fmt(totProfit,0)}</td>
-      <td></td><td></td>
-    </tr></tbody>`;
-  }
-
-  // Dynamic action items based on quadrant data
-  const thisWeekEl=$('actionThisWeek');
-  const nextMonEl=$('actionNextMon');
-  if(!thisWeekEl||!nextMonEl) return;
-
-  let thisWeekHtml='';
-  let nextMonHtml='';
-  const activeProducts=sp.filter(([,p])=>p.total_sales>0);
-
-  activeProducts.forEach(([pid,p])=>{
-    const q=(function(){
-      if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return 'star';
-      if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return 'question';
-      if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return 'potential';
-      return 'cut';
-    })();
-    const name=zhShort(pid);
-    const tacos=p.tacos_4w!=null?p.tacos_4w.toFixed(1)+'%':'N/A';
-
-    if(q==='star'){
-      thisWeekHtml+=makeAction('廣告','var(--green)',`<strong>${name} SP 預算 +30%</strong> — ⭐ Star 象限，TACOS ${tacos}，加碼投放`,`截止：3/12 (三)`);
-      nextMonHtml+=makeAction('策略','#7c3aed',`<strong>${name} 建立 SB + SD Retargeting</strong> — 擴大廣告覆蓋面，提高品牌曝光`,`截止：3/16 (一)`);
-    } else if(q==='question'){
-      thisWeekHtml+=makeAction('廣告','var(--amber)',`<strong>${name} CPC 出價降 20%</strong> — ⚠️ Question 象限，TACOS ${tacos}，降低出價觀察`,`截止：3/12 (三)`);
-      thisWeekHtml+=makeAction('廣告','var(--amber)',`<strong>${name} 暫停 ACOS ≥85% 關鍵字</strong> — 下載 SP Bulk File，Pause 14 天無轉換 KW`,`截止：3/13 (四)`);
-    } else if(q==='cut'){
-      thisWeekHtml+=makeAction('定價','var(--red)',`<strong>${name} 降價或加 Coupon 5-10%</strong> — 🔴 Cut 象限，TACOS ${tacos}，需提升轉換率`,`截止：3/11 (二)`);
-      thisWeekHtml+=makeAction('廣告','var(--red)',`<strong>${name} SP Bid 全部降至上限</strong> — 減少無效花費`,`截止：3/12 (三)`);
-    } else {
-      nextMonHtml+=makeAction('策略','var(--accent)',`<strong>${name} 新建 SP Auto $10/天</strong> — 💤 Potential 象限，30 天跑數據`,`截止：3/16 (一)`);
-    }
-  });
-
-  // Add general action items
-  nextMonHtml+=makeAction('報告','#7c3aed',`<strong>Spring Sale 促銷申請</strong> — 評估哪些產品申請 3/25 Spring Sale Deal（需提前 2 週）`,`截止：3/16 (一)`);
-  nextMonHtml+=makeAction('報告','#7c3aed',`<strong>W6 週報更新</strong> — 更新 3/8–3/14 數據至看板`,`截止：3/16 (一)`);
-
-  thisWeekEl.innerHTML=thisWeekHtml;
-  nextMonEl.innerHTML=nextMonHtml;
-
-  // Key Takeaways
-  const stars=activeProducts.filter(([,p])=>p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET);
-  const questions=activeProducts.filter(([,p])=>p.total_sales>=med&&p.tacos_4w>TACOS_TARGET);
-  const cuts=activeProducts.filter(([,p])=>{
-    const q=(function(){
-      if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return 'star';
-      if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return 'question';
-      if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return 'potential';
-      return 'cut';
-    })();
-    return q==='cut';
-  });
-
-  const tkEl=$('takeawayCards');
-  if(tkEl){
-    tkEl.innerHTML=`
-    <div class="chart-card" style="border-left:3px solid var(--green)">
-      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--green)">✅ 正向訊號</div>
-      <div style="font-size:13px;color:var(--text2);line-height:2">
-        ${stars.length>0?stars.map(([pid,p])=>`• ${zhShort(pid)} TACOS ${p.tacos_4w!=null?p.tacos_4w.toFixed(1):'N/A'}% — Star 表現穩定`).join('<br>'):'• 暫無 Star 象限產品'}
-        <br>• 有機佔比 ${orgPct}%${orgPct>=50?' — 健康':' — 需提升'}
-        <br>• ${prodCount} 產品線運作中
-      </div>
-    </div>
-    <div class="chart-card" style="border-left:3px solid var(--red)">
-      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--red)">⚠️ 警示訊號</div>
-      <div style="font-size:13px;color:var(--text2);line-height:2">
-        ${cuts.length>0?cuts.map(([pid,p])=>`• ${zhShort(pid)} TACOS ${p.tacos_4w!=null?p.tacos_4w.toFixed(1):'N/A'}% — 需止血`).join('<br>'):'• 暫無需止血產品'}
-        ${questions.length>0?'<br>'+questions.map(([pid,p])=>`• ${zhShort(pid)} TACOS ${p.tacos_4w!=null?p.tacos_4w.toFixed(1):'N/A'}% — 需觀察`).join('<br>'):''}
-        <br>• 帳戶 TACOS ${acctTacos.toFixed(1)}%${acctTacos>TACOS_TARGET?' — 超過目標':' — 達標'}
-      </div>
-    </div>
-    <div class="chart-card" style="border-left:3px solid var(--accent)">
-      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--accent)">📋 本週優先級</div>
-      <div style="font-size:13px;color:var(--text2);line-height:2">
-        ${cuts.length>0?'1. Cut 產品止血（降預算 + Coupon）<br>':''}
-        ${questions.length>0?(cuts.length>0?'2':'1')+'. Question 產品降 CPC 觀察<br>':''}
-        ${stars.length>0?((cuts.length>0?2:0)+(questions.length>0?1:0)+1)+'. Star 產品加碼投放<br>':''}
-        ${(cuts.length>0?2:0)+(questions.length>0?1:0)+(stars.length>0?1:0)+1}. Spring Sale 促銷評估
-      </div>
-    </div>`;
-  }
-
-  // Inject feedback fields into all action items
-  document.querySelectorAll('.action-task').forEach((task,i)=>{
-    const btn=document.createElement('button');
-    btn.className='feedback-toggle';
-    btn.textContent='💬 客戶回饋';
-    btn.onclick=function(){
-      const fb=this.parentElement.querySelector('.feedback-area');
-      fb.classList.toggle('open');
-      this.textContent=fb.classList.contains('open')?'收起 ▲':'💬 客戶回饋';
-    };
-    task.appendChild(btn);
-    const fb=document.createElement('div');
-    fb.className='feedback-area';
-    fb.innerHTML='<textarea placeholder="若不同意此行動方案，請在此填寫您的意見或替代方案 …&#10;If you disagree, please write your feedback or alternative here …"></textarea>';
-    task.appendChild(fb);
-  });
-}
-
-function makeAction(type, color, text, deadline){
-  return `<div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done',this.checked)"><span class="task-type" style="background:${color};color:#fff;border:none">${type}</span><span class="task-text" style="font-size:13px">${text}<br><span style="color:var(--text3);font-size:11px">${deadline}</span></span></div>`;
-}
-
 // ═══ INIT ═══
 buildT1();
 buildWowTab();
 buildHeatTab();
 buildQuadTab();
 buildActionTab();
-buildExecSummary();
 </script>
 </body>
 </html>
