@@ -115,6 +115,7 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   <div class="nav-inner">
     <div class="nav-brand">DAIKEN <span class="market-tag" style="background:#dc2626">JP</span></div>
     <div class="tabs">
+      <button class="tab-btn" onclick="showTab('jp0',this)">📋 總覽</button>
       <button class="tab-btn" onclick="showTab('jp1',this)">📊 銷售 &amp; 廣告佔比</button>
       <button class="tab-btn" onclick="showTab('jp2',this)">📅 週對週數據</button>
       <button class="tab-btn" onclick="showTab('jp3',this)">📈 WoW 變化</button>
@@ -391,6 +392,36 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   <div id="actionCards"></div>
 </div>
 
+
+<!-- JP TAB 0 — Executive Summary -->
+<div id="jp0" class="panel">
+  <div style="margin-bottom:20px">
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">EXECUTIVE SUMMARY · 2026 年 3 月 9 日更新 · 🇯🇵 JP MARKET</div>
+    <div style="font-size:28px;font-weight:800;color:#dc2626;font-family:var(--display);margin-bottom:4px">DAIKEN 大研生醫 · JP 執行摘要</div>
+    <div style="font-size:12px;color:var(--text3)">Japan 市場 Feb–Mar 2026 週報 · 9 產品線（7 活躍） · 18 個 ASIN · DAA ¥55M · DSP ¥5.5M</div>
+  </div>
+
+  <!-- Overall Account KPIs -->
+  <div class="kpi-strip" style="margin-bottom:20px" id="kpi-jp-exec"></div>
+
+  <!-- Product Performance Overview -->
+  <div class="sec-header">全產品線績效總覽 Product Performance Overview (JP)</div>
+  <div class="table-wrap" style="margin-bottom:24px">
+    <table id="jpExecProductTable"></table>
+  </div>
+
+  <!-- Tab Guide -->
+  <div class="sec-header">看板功能導覽 Dashboard Guide (JP)</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px" id="jpGuideCards"></div>
+
+  <!-- Action Items -->
+  <div class="sec-header">待辦事項 Action Items (JP)</div>
+  <div id="jpExecActions"></div>
+
+  <!-- Key Takeaways -->
+  <div class="sec-header">本週重點結論 Key Takeaways (JP)</div>
+  <div id="jpExecTakeaways" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px"></div>
+</div>
 
 <!-- JP TAB 1 — Sales & Ad Spend -->
 <div id="jp1" class="panel">
@@ -1662,6 +1693,182 @@ function jpBuildActionTab() {
   $('jpActionCards').innerHTML=html;
 }
 
+// ═══ JP Executive Summary ═══
+function jpBuildExecSummary(){
+  const sp=jpSortedParents();
+  const active=sp.filter(([,p])=>p.total_sales>0);
+  const totS=sp.reduce((s,[,p])=>s+p.total_sales,0);
+  const totE=sp.reduce((s,[,p])=>s+p.total_spend,0);
+  const totU=sp.reduce((s,[,p])=>s+JP_WEEKS.reduce((a,w)=>a+p.weeks[w].units,0),0);
+  const totProfit=sp.reduce((s,[,p])=>s+JP_WEEKS.reduce((a,w)=>a+p.weeks[w].profits,0),0);
+  const acctTacos=totS>0?totE/totS*100:0;
+  const totOrganic=sp.reduce((s,[,p])=>s+JP_WEEKS.reduce((a,w)=>a+p.weeks[w].organic,0),0);
+  const orgPct=totU>0?(totOrganic/totU*100).toFixed(0):0;
+
+  // KPI strip
+  const tClass=v=>v==null?'':v<=JP_TACOS_TARGET?'kpi-green':v<=JP_TACOS_TARGET*1.2?'kpi-amber':'kpi-red';
+  $('kpi-jp-exec').innerHTML=`
+    <div class="kpi-card"><div class="kpi-label">5W 總營業額</div><div class="kpi-value">${jpFmt(totS,0)}</div><div class="kpi-sub">${totU} units · ${active.length} 活躍產品</div></div>
+    <div class="kpi-card"><div class="kpi-label">5W 總廣告費</div><div class="kpi-value kpi-amber">${jpFmt(totE,0)}</div><div class="kpi-sub">SP+SD+SB</div></div>
+    <div class="kpi-card"><div class="kpi-label">帳戶 TACOS</div><div class="kpi-value ${tClass(acctTacos)}">${pct(acctTacos)}</div><div class="kpi-sub">${acctTacos<=JP_TACOS_TARGET?'✓ 達標':'⚠ 超過 '+JP_TACOS_TARGET+'% 目標'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">5W 損益</div><div class="kpi-value ${totProfit>=0?'kpi-green':'kpi-red'}">${jpFmt(totProfit,0)}</div><div class="kpi-sub">${totProfit>=0?'盈利':'虧損'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">有機佔比</div><div class="kpi-value ${orgPct>=50?'kpi-green':'kpi-amber'}">${orgPct}%</div><div class="kpi-sub">${totOrganic} / ${totU} units</div></div>
+    <div class="kpi-card"><div class="kpi-label">DAA 年度預算</div><div class="kpi-value" style="font-size:16px">¥55,000,000</div><div class="kpi-sub">DSP ¥5.5M</div></div>`;
+
+  // Product table
+  const salesArr=active.map(([,p])=>p.total_sales).sort((a,b)=>a-b);
+  const med=salesArr.length%2===0?(salesArr[salesArr.length/2-1]+salesArr[salesArr.length/2])/2:salesArr[Math.floor(salesArr.length/2)];
+  const quadLabel=p=>{
+    if(p.tacos_4w==null) return '<span class="muted">—</span>';
+    if(p.total_sales>=med&&p.tacos_4w<=JP_TACOS_TARGET) return '<span style="color:var(--green);font-weight:700">⭐ Star</span>';
+    if(p.total_sales>=med&&p.tacos_4w>JP_TACOS_TARGET)  return '<span style="color:var(--amber);font-weight:700">⚠️ Question</span>';
+    if(p.total_sales<med&&p.tacos_4w<=JP_TACOS_TARGET)   return '<span style="color:var(--accent);font-weight:700">💤 Potential</span>';
+    return '<span style="color:var(--red);font-weight:700">🔴 Cut</span>';
+  };
+  const trend=(p)=>{
+    const w4=p.weeks['W4'],w5=p.weeks['W5'];
+    if(!w4||!w5||w4.sales===0) return '<span class="muted">—</span>';
+    const chg=(w5.sales-w4.sales)/w4.sales*100;
+    return `<span style="color:${chg>=0?'var(--green)':'var(--red)'};">${chg>=0?'+':''}${chg.toFixed(0)}%</span>`;
+  };
+
+  const pt=$('jpExecProductTable');
+  if(pt){
+    pt.innerHTML=`<thead><tr>
+      <th style="text-align:left;font-size:11px">產品 Product</th>
+      <th style="font-size:11px">象限</th>
+      <th style="font-size:11px">5W Sales</th>
+      <th style="font-size:11px">5W Spend</th>
+      <th style="font-size:11px">TACOS</th>
+      <th style="font-size:11px">Units</th>
+      <th style="font-size:11px">Organic %</th>
+      <th style="font-size:11px">5W Profit</th>
+      <th style="font-size:11px">W4→W5</th>
+    </tr></thead><tbody>${active.map(([pid,p])=>{
+      const units=JP_WEEKS.reduce((a,w)=>a+p.weeks[w].units,0);
+      const organic=JP_WEEKS.reduce((a,w)=>a+p.weeks[w].organic,0);
+      const profit=JP_WEEKS.reduce((a,w)=>a+p.weeks[w].profits,0);
+      const op=units>0?(organic/units*100).toFixed(0):'0';
+      return `<tr>
+        <td style="text-align:left;font-size:13px"><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span><strong style="color:${p.color}">${jpZhShort(pid)}</strong></td>
+        <td style="font-size:12px">${quadLabel(p)}</td>
+        <td style="font-size:13px;font-weight:600">${jpFmt(p.total_sales,0)}</td>
+        <td style="font-size:13px;color:var(--amber)">${jpFmt(p.total_spend,0)}</td>
+        <td style="font-size:13px;font-weight:700" class="${jpTacosClass(p.tacos_4w)}">${p.tacos_4w!=null?pct(p.tacos_4w):'—'}</td>
+        <td style="font-size:13px">${units}</td>
+        <td style="font-size:13px;color:${op>=50?'var(--green)':'var(--red)'}">${op}%</td>
+        <td style="font-size:13px;font-weight:700;color:${profit>=0?'var(--green)':'var(--red)'}">${jpFmt(profit,0)}</td>
+        <td style="font-size:13px">${trend(p)}</td>
+      </tr>`;}).join('')}
+    <tr style="background:var(--bg3);font-weight:700;border-top:2px solid var(--border2)">
+      <td style="text-align:left;font-size:13px">TOTAL 合計</td><td></td>
+      <td style="font-size:13px">${jpFmt(totS,0)}</td>
+      <td style="font-size:13px;color:var(--amber)">${jpFmt(totE,0)}</td>
+      <td style="font-size:13px" class="${tClass(acctTacos)}">${pct(acctTacos)}</td>
+      <td style="font-size:13px">${totU}</td>
+      <td style="font-size:13px">${orgPct}%</td>
+      <td style="font-size:13px;color:${totProfit>=0?'var(--green)':'var(--red)'}">${jpFmt(totProfit,0)}</td>
+      <td></td>
+    </tr></tbody>`;
+  }
+
+  // Dashboard Guide Cards
+  const guides=[
+    {tab:'jp1',icon:'📊',title:'銷售 & 廣告佔比',desc:'各產品營業額、廣告花費佔比圓餅圖，可切換單週 / 5 週合計。<br>含子變體展開明細表（Sales / Spend / TACOS per week）。'},
+    {tab:'jp2',icon:'📅',title:'週對週數據',desc:'7 產品 × 5 週完整交叉表：Sales / Spend / TACOS / Units / Organic。<br>快速掃描哪週哪產品表現異常。'},
+    {tab:'jp3',icon:'📈',title:'WoW 變化',desc:'週對週百分比變化熱力圖：Sales / Spend / TACOS / Units。<br>綠色 = 正向變化，紅色 = 需關注。'},
+    {tab:'jp4',icon:'🎯',title:'產品象限',desc:'依 Sales × TACOS 四象限分類：⭐ Star / ⚠️ Question / 💤 Potential / 🔴 Cut。<br>含視覺化象限圖與每象限建議行動。'},
+    {tab:'jp5',icon:'✅',title:'行動方案',desc:'依象限自動產生的待辦清單，含 SP/SB/SD Bulk File 操作指引。<br>可勾選完成項目追蹤進度。'},
+    {tab:'t6',icon:'🇯🇵',title:'DSP Media Plan',desc:'Amazon DAA 年度預算 ¥55M 配置、DSP ¥5.5M Full-Funnel 計畫。<br>9 條 Line Items、月度 Pacing、優化指南。'},
+  ];
+  const allBtns=document.querySelectorAll('.tab-btn');
+  $('jpGuideCards').innerHTML=guides.map(g=>{
+    return `<div class="action-card" style="cursor:pointer" onclick="showTab('${g.tab}',document.querySelectorAll('.tab-btn')[0])">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <span style="font-size:18px">${g.icon}</span>
+        <div style="font-weight:700;font-size:14px">${g.title}</div>
+        <span class="market-tag" style="background:#dc2626">JP</span>
+      </div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.7">${g.desc}</div>
+    </div>`;
+  }).join('');
+
+  // Action Items — auto-generated from quadrant data
+  const actionGroups={urgent:[],monitor:[],growth:[]};
+  active.forEach(([pid,p])=>{
+    const q=jpGetQuadrant(p,med);
+    const name=jpZhShort(pid);
+    const tacos=p.tacos_4w!=null?pct(p.tacos_4w):'N/A';
+    if(q==='cut'){
+      actionGroups.urgent.push(`<div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done',this.checked)"><span class="task-type" style="background:var(--red);color:#fff;border:none">降低</span><span class="task-text" style="font-size:13px"><strong>${name} CPC 降 30% + 暫停無轉換 KW</strong> — 🔴 Cut · TACOS ${tacos}，需止血<br><span style="color:var(--text3);font-size:11px">截止：本週</span></span></div>`);
+    } else if(q==='question'){
+      actionGroups.urgent.push(`<div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done',this.checked)"><span class="task-type" style="background:var(--amber);color:#fff;border:none">優化</span><span class="task-text" style="font-size:13px"><strong>${name} CPC 降 20% + 觀察 TACOS</strong> — ⚠️ Question · TACOS ${tacos}<br><span style="color:var(--text3);font-size:11px">截止：本週</span></span></div>`);
+    } else if(q==='star'){
+      actionGroups.growth.push(`<div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done',this.checked)"><span class="task-type" style="background:var(--green);color:#fff;border:none">加碼</span><span class="task-text" style="font-size:13px"><strong>${name} 複製 SP + 預算 +30%</strong> — ⭐ Star · TACOS ${tacos}，持續加碼<br><span style="color:var(--text3);font-size:11px">截止：本週</span></span></div>`);
+    } else {
+      actionGroups.monitor.push(`<div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done',this.checked)"><span class="task-type" style="background:var(--accent);color:#fff;border:none">觀察</span><span class="task-text" style="font-size:13px"><strong>${name} 維持現有投放觀察</strong> — 💤 Potential · TACOS ${tacos}<br><span style="color:var(--text3);font-size:11px">截止：下週</span></span></div>`);
+    }
+  });
+
+  let actionsHtml='';
+  if(actionGroups.urgent.length) actionsHtml+=`<div style="margin-bottom:16px"><div style="font-size:12px;font-weight:700;color:var(--red);font-family:var(--mono);margin-bottom:8px;letter-spacing:.05em">🔴 本週完成 URGENT</div><div style="display:flex;flex-direction:column;gap:6px">${actionGroups.urgent.join('')}</div></div>`;
+  if(actionGroups.growth.length) actionsHtml+=`<div style="margin-bottom:16px"><div style="font-size:12px;font-weight:700;color:var(--green);font-family:var(--mono);margin-bottom:8px;letter-spacing:.05em">🟢 加碼成長 GROWTH</div><div style="display:flex;flex-direction:column;gap:6px">${actionGroups.growth.join('')}</div></div>`;
+  if(actionGroups.monitor.length) actionsHtml+=`<div style="margin-bottom:16px"><div style="font-size:12px;font-weight:700;color:var(--accent);font-family:var(--mono);margin-bottom:8px;letter-spacing:.05em">🔵 持續觀察 MONITOR</div><div style="display:flex;flex-direction:column;gap:6px">${actionGroups.monitor.join('')}</div></div>`;
+  $('jpExecActions').innerHTML=actionsHtml;
+
+  // Key Takeaways
+  const topSales=active[0];
+  const bestTacos=active.filter(([,p])=>p.tacos_4w!=null).sort((a,b)=>a[1].tacos_4w-b[1].tacos_4w)[0];
+  const worstTacos=active.filter(([,p])=>p.tacos_4w!=null).sort((a,b)=>b[1].tacos_4w-a[1].tacos_4w)[0];
+  const profitable=active.filter(([,p])=>{const pr=JP_WEEKS.reduce((a,w)=>a+p.weeks[w].profits,0);return pr>=0;});
+
+  $('jpExecTakeaways').innerHTML=`
+    <div class="chart-card" style="border-left:3px solid var(--green)">
+      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--green)">✅ 正向訊號</div>
+      <div style="font-size:13px;color:var(--text2);line-height:2">
+        ${bestTacos?`• ${jpZhShort(bestTacos[0])} TACOS 最低 ${pct(bestTacos[1].tacos_4w)}，效率最佳`:''}
+        ${topSales?`<br>• ${jpZhShort(topSales[0])} 銷售最大 ${jpFmt(topSales[1].total_sales,0)}`:''}<br>
+        • ${active.length} 產品線活躍運作中<br>
+        • 有機佔比 ${orgPct}%
+      </div>
+    </div>
+    <div class="chart-card" style="border-left:3px solid var(--red)">
+      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--red)">⚠️ 警示訊號</div>
+      <div style="font-size:13px;color:var(--text2);line-height:2">
+        • 帳戶 TACOS ${pct(acctTacos)} 超過 ${JP_TACOS_TARGET}% 目標<br>
+        ${worstTacos?`• ${jpZhShort(worstTacos[0])} TACOS 最高 ${pct(worstTacos[1].tacos_4w)}`:''}<br>
+        • 5W 總虧損 ${jpFmt(Math.abs(totProfit),0)}<br>
+        • Fish Oil 佔銷售 74% 集中風險
+      </div>
+    </div>
+    <div class="chart-card" style="border-left:3px solid var(--accent)">
+      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--accent)">📋 本週優先級</div>
+      <div style="font-size:13px;color:var(--text2);line-height:2">
+        1. 高 TACOS 產品止血（降 CPC + 暫停 KW）<br>
+        2. Fish Oil 集中優化廣告效率<br>
+        3. Collagen/Maca 低 TACOS 產品加碼<br>
+        4. DSP Media Plan 審核
+      </div>
+    </div>`;
+
+  // Inject feedback fields into JP exec action items
+  $('jpExecActions').querySelectorAll('.action-task').forEach((task,i)=>{
+    const btn=document.createElement('button');
+    btn.className='feedback-toggle';
+    btn.textContent='💬 客戶回饋';
+    btn.onclick=function(){
+      const fb=this.parentElement.querySelector('.feedback-area');
+      fb.classList.toggle('open');
+      this.textContent=fb.classList.contains('open')?'收起 ▲':'💬 客戶回饋';
+    };
+    task.appendChild(btn);
+    const fb=document.createElement('div');
+    fb.className='feedback-area';
+    fb.innerHTML='<textarea placeholder="若不同意此行動方案，請在此填寫您的意見或替代方案 …&#10;If you disagree, please write your feedback or alternative here …"></textarea>';
+    task.appendChild(fb);
+  });
+}
+
 // ═══ INIT ═══
 buildT1();
 buildWowTab();
@@ -1677,6 +1884,7 @@ jpBuildWowTab();
 jpBuildHeatTab();
 jpBuildQuadTab();
 jpBuildActionTab();
+jpBuildExecSummary();
 
 function buildDspTab(){
   // Monthly pacing data from DAA Media Plan
