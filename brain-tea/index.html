@@ -102,7 +102,12 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
 <body>
 <nav>
   <div class="nav-inner">
-  <div class="nav-brand">Brain Tea <span class="market-tag">US</span></div>
+  <div class="nav-brand">Brain Tea <span class="market-tag">US</span>
+    <button onclick="exportToExcel()" style="margin-left:8px;background:#217346;color:#fff;border:none;padding:5px 14px;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--mono);display:flex;align-items:center;gap:5px;white-space:nowrap;" onmouseover="this.style.background='#1a5c38'" onmouseout="this.style.background='#217346'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M12.9,14.5L15.8,19H14L12,15.6L10,19H8.2L11.1,14.5L8.4,10H10.1L12,13.1L13.9,10H15.6L12.9,14.5Z"/></svg>
+      Download Excel
+    </button>
+  </div>
   <div class="tabs">
     <button class="tab-btn active" onclick="showTab('t1',this)">&#x1F4CA; 銷售 &amp; 廣告佔比</button>
     <button class="tab-btn" onclick="showTab('t2',this)">&#x1F4C5; 週對週數據</button>
@@ -677,6 +682,240 @@ buildWowTab();
 buildHeatTab();
 buildQuadTab();
 buildActionTab();
+</script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<script>
+function exportToExcel(){
+  var sp=Object.entries(PARENTS).sort(function(a,b){return b[1].total_sales-a[1].total_sales;});
+  var WKS=["W1","W2","W3","W4","W5"];
+  var WL={"W1":"Feb 1–7","W2":"Feb 8–14","W3":"Feb 15–21","W4":"Feb 22–28","W5":"Mar 1–7"};
+  var wb=XLSX.utils.book_new();
+
+  /* ── Sheet 1: Sales & Ad Spend ── */
+  var s1=[];
+  var totS=sp.reduce(function(s,e){return s+e[1].total_sales;},0);
+  var totE=sp.reduce(function(s,e){return s+e[1].total_spend;},0);
+  var totP=sp.reduce(function(s,e){return s+WKS.reduce(function(a,w){return a+e[1].weeks[w].profits;},0);},0);
+  var acctT=totS>0?totE/totS*100:0;
+  s1.push(["📊 Sales & Ad Spend — Brain Tea US · Feb–Mar 2026"]);
+  s1.push([]);
+  s1.push(["KPI SUMMARY"]);
+  s1.push(["Metric","Value"]);
+  s1.push(["Total Sales",totS]);
+  s1.push(["Total Ad Spend",totE]);
+  s1.push(["Account TACOS",acctT.toFixed(1)+"%"]);
+  s1.push(["Total Profit",totP]);
+  s1.push([]);
+
+  s1.push(["SALES DISTRIBUTION"]);
+  s1.push(["Product","Sales","% of Total"]);
+  sp.forEach(function(e){
+    var pct2=totS>0?(e[1].total_sales/totS*100).toFixed(1)+"%":"0%";
+    s1.push([e[1].short,e[1].total_sales,pct2]);
+  });
+  s1.push([]);
+
+  s1.push(["AD SPEND DISTRIBUTION"]);
+  s1.push(["Product","Spend","% of Total"]);
+  sp.forEach(function(e){
+    var pct2=totE>0?(e[1].total_spend/totE*100).toFixed(1)+"%":"0%";
+    s1.push([e[1].short,e[1].total_spend,pct2]);
+  });
+  s1.push([]);
+
+  sp.forEach(function(e){
+    var pid=e[0],pr=e[1];
+    s1.push([pr.name+" ("+pid+")"]);
+    s1.push(["5W Sales",pr.total_sales,"Total Spend",pr.total_spend,"TACOS (4W)",pr.tacos_4w+"%"]);
+    s1.push(["Week","Period","Sales","Spend (SP)","Spend (SB)","Spend (Total)","Units","Organic","PPC","Profits","TACOS"]);
+    WKS.forEach(function(w){
+      var wd=pr.weeks[w];
+      s1.push([w,WL[w],wd.sales,wd.spsd,wd.sbsp,wd.spend,wd.units,wd.organic,wd.ppc,wd.profits,wd.tacos+"%"]);
+    });
+    s1.push([]);
+  });
+
+  s1.push(["VARIANT-LEVEL BREAKDOWN"]);
+  var vh=["Variant","ASIN","Parent","5W Sales"];WKS.forEach(function(w){vh.push(w+" Sales");vh.push(w+" Units");vh.push(w+" Organic");});
+  s1.push(vh);
+  CHILD_DATA.forEach(function(c){
+    var row=[c.name,c.asin,c.parent_short,c.total_sales];
+    WKS.forEach(function(w){row.push(c.weeks[w].sales||"—");row.push(c.weeks[w].units||"—");row.push(c.weeks[w].organic||"—");});
+    s1.push(row);
+  });
+
+  var ws1=XLSX.utils.aoa_to_sheet(s1);
+  ws1["!cols"]=[{wch:38},{wch:16},{wch:14},{wch:14},{wch:14},{wch:14},{wch:10},{wch:10},{wch:10},{wch:12},{wch:10}];
+  XLSX.utils.book_append_sheet(wb,ws1,"Sales & Ad Spend");
+
+  /* ── Sheet 2: Week-over-Week ── */
+  var s2=[];
+  s2.push(["📅 Week-over-Week Data — Brain Tea US"]);
+  s2.push([]);
+  // KPI row
+  var kpiRow=[];WKS.forEach(function(w){
+    var wS=sp.reduce(function(s,e){return s+e[1].weeks[w].sales;},0);
+    var wE=sp.reduce(function(s,e){return s+e[1].weeks[w].spend;},0);
+    var wT=wS>0?(wE/wS*100).toFixed(1)+"%":"0%";
+    kpiRow.push(w+" · "+WL[w],"Sales: $"+wS.toFixed(0),"Spend: $"+wE.toFixed(0),"TACOS: "+wT,"");
+  });
+  s2.push(kpiRow);
+  s2.push([]);
+
+  var h2=["Product","ASIN"];WKS.forEach(function(w){h2.push(w+" Sales",w+" Spend",w+" TACOS",w+" Units",w+" Organic");});
+  s2.push(h2);
+  sp.forEach(function(e){
+    var pid=e[0],pr=e[1];
+    var row=[pr.short,pid];
+    WKS.forEach(function(w){var wd=pr.weeks[w];row.push(wd.sales,wd.spend,wd.tacos+"%",wd.units,wd.organic);});
+    s2.push(row);
+  });
+  var totRow=["TOTAL",""];
+  WKS.forEach(function(w){
+    var wS=sp.reduce(function(s,e){return s+e[1].weeks[w].sales;},0);
+    var wE=sp.reduce(function(s,e){return s+e[1].weeks[w].spend;},0);
+    var wU=sp.reduce(function(s,e){return s+e[1].weeks[w].units;},0);
+    var wO=sp.reduce(function(s,e){return s+e[1].weeks[w].organic;},0);
+    var wT=wS>0?(wE/wS*100).toFixed(1)+"%":"0%";
+    totRow.push(wS,wE,wT,wU,wO);
+  });
+  s2.push(totRow);
+
+  var ws2=XLSX.utils.aoa_to_sheet(s2);
+  var cols2=[{wch:22},{wch:14}];WKS.forEach(function(){cols2.push({wch:13},{wch:13},{wch:10},{wch:8},{wch:10});});
+  ws2["!cols"]=cols2;
+  XLSX.utils.book_append_sheet(wb,ws2,"Week-over-Week");
+
+  /* ── Sheet 3: WoW % Changes ── */
+  var s3=[];
+  s3.push(["📈 Week-over-Week % Changes — Heat Map"]);
+  s3.push([]);
+  var pairs=[["W1","W2"],["W2","W3"],["W3","W4"],["W4","W5"]];
+  var mets=[{key:"sales",label:"Sales"},{key:"spend",label:"Spend"},{key:"tacos",label:"TACOS"},{key:"units",label:"Units"}];
+  var h3=["Product"];pairs.forEach(function(pr2){mets.forEach(function(m){h3.push(pr2[0]+"→"+pr2[1]+" "+m.label);});});
+  s3.push(h3);
+  sp.forEach(function(e){
+    var pr=e[1];var row=[pr.short];
+    pairs.forEach(function(pr2){
+      mets.forEach(function(m){
+        var a2=pr.weeks[pr2[0]][m.key],b2=pr.weeks[pr2[1]][m.key];
+        var chg=(!a2||a2===0)?null:(b2-a2)/a2*100;
+        row.push(chg!=null?(chg>0?"+":"")+chg.toFixed(1)+"%":"—");
+      });
+    });
+    s3.push(row);
+  });
+  s3.push([]);
+  s3.push(["ACCOUNT TOTALS"]);
+  var h3t=[""];pairs.forEach(function(pr2){mets.forEach(function(m){h3t.push(pr2[0]+"→"+pr2[1]+" "+m.label);});});
+  s3.push(h3t);
+  var totChgRow=["Total"];
+  pairs.forEach(function(pr2){
+    mets.forEach(function(m){
+      var a3=sp.reduce(function(s,e){return s+e[1].weeks[pr2[0]][m.key];},0);
+      var b3=sp.reduce(function(s,e){return s+e[1].weeks[pr2[1]][m.key];},0);
+      var chg=(!a3||a3===0)?null:(b3-a3)/a3*100;
+      totChgRow.push(chg!=null?(chg>0?"+":"")+chg.toFixed(1)+"%":"—");
+    });
+  });
+  s3.push(totChgRow);
+
+  var ws3=XLSX.utils.aoa_to_sheet(s3);
+  var cols3=[{wch:22}];for(var ci=0;ci<16;ci++)cols3.push({wch:16});
+  ws3["!cols"]=cols3;
+  XLSX.utils.book_append_sheet(wb,ws3,"WoW Changes");
+
+  /* ── Sheet 4: Product Quadrant ── */
+  var s4=[];
+  var salesArr2=sp.map(function(e){return e[1].total_sales;}).sort(function(a,b){return a-b;});
+  var med2=salesArr2.length%2===0?(salesArr2[salesArr2.length/2-1]+salesArr2[salesArr2.length/2])/2:salesArr2[Math.floor(salesArr2.length/2)];
+  s4.push(["🎯 Product Quadrant Analysis"]);
+  s4.push([]);
+  s4.push(["THRESHOLDS"]);
+  s4.push(["Metric","Value"]);
+  s4.push(["TACOS Target (Y-axis)","15%"]);
+  s4.push(["Account TACOS",acctT.toFixed(1)+"%"]);
+  s4.push(["Sales Median (X-axis)",med2]);
+  s4.push([]);
+
+  var qCounts={Star:0,Question:0,Potential:0,Cut:0};
+  sp.forEach(function(e){
+    var q2=e[1].total_sales>=med2&&e[1].tacos_4w<=15?"Star":e[1].total_sales>=med2&&e[1].tacos_4w>15?"Question":e[1].total_sales<med2&&e[1].tacos_4w<=15?"Potential":"Cut";
+    qCounts[q2]++;
+  });
+  s4.push(["QUADRANT COUNTS"]);
+  s4.push(["⭐ Star",qCounts.Star,"⚠️ Question",qCounts.Question,"💤 Potential",qCounts.Potential,"🔴 Cut",qCounts.Cut]);
+  s4.push([]);
+
+  s4.push(["PRODUCT CLASSIFICATION"]);
+  s4.push(["Product","ASIN","Quadrant","5W Sales","5W Spend","TACOS","Strategy"]);
+  var qRecs={Star:"Scale up: duplicate SP campaigns, increase budget +30%",Question:"Optimize: lower CPC bids, pause high-TACOS keywords",Cut:"Revive: reduce price $0.50, add coupons, apply for deals",Potential:"Grow: launch SP/SB campaigns with low CPC $0.50–$1.00"};
+  sp.forEach(function(e){
+    var pid=e[0],pr=e[1];
+    var q2=pr.total_sales>=med2&&pr.tacos_4w<=15?"Star":pr.total_sales>=med2&&pr.tacos_4w>15?"Question":pr.total_sales<med2&&pr.tacos_4w<=15?"Potential":"Cut";
+    s4.push([pr.short,pid,q2,pr.total_sales,pr.total_spend,pr.tacos_4w+"%",qRecs[q2]]);
+  });
+  s4.push([]);
+
+  s4.push(["QUADRANT DEFINITIONS"]);
+  s4.push(["Quadrant","Criteria","Actions"]);
+  s4.push(["⭐ Star","High Sales + Low TACOS (≤15%)","Duplicate SP campaigns, increase budget +30%, add SB if missing"]);
+  s4.push(["⚠️ Question","High Sales + High TACOS (>15%)","Lower CPC bids ×0.8, pause TACOS≥25% keywords, hold budget"]);
+  s4.push(["💤 Potential","Low Sales + Low TACOS (≤15%)","Launch new SP/SB/SD campaigns, low CPC $0.50–$1.00, competitor targeting"]);
+  s4.push(["🔴 Cut","Low Sales + High TACOS (>15%)","Reduce price $0.50, create coupons 5–10%, apply for deals, lower bids"]);
+
+  var ws4=XLSX.utils.aoa_to_sheet(s4);
+  ws4["!cols"]=[{wch:22},{wch:16},{wch:14},{wch:14},{wch:14},{wch:10},{wch:55}];
+  XLSX.utils.book_append_sheet(wb,ws4,"Product Quadrant");
+
+  /* ── Sheet 5: Action Plan ── */
+  var s5=[];
+  s5.push(["✅ Action Plan — Brain Tea US · Feb–Mar 2026"]);
+  s5.push([]);
+  var QUAD_TASKS={
+    star:{label:"⭐ Star",pri:"Execute This Week",tasks:[
+      {type:"SP Bulk",text:"下載現有 SP 活動 Bulk File → 複製所有 Enabled campaigns → 新命名加 _COPY 後綴"},
+      {type:"Budget",text:"全部 SP 活動預算 ×1.3（+30%）→ 上傳 Bulk File"},
+      {type:"SB",text:"檢查是否有 SB Banner 廣告，若無則新建 SB Campaign 指向此產品"},
+      {type:"Review",text:"維持現有策略，監控 TACOS 保持在 15% 以下"}
+    ]},
+    question:{label:"⚠️ Question",pri:"Execute This Week",tasks:[
+      {type:"CPC",text:"下載 SP 活動 Bulk File → 找出 ACOS ≥25% 的關鍵字 → Bid ×0.8（降20%）"},
+      {type:"Pause KW",text:"TACOS ≥25% 且過去 14 天無轉換的關鍵字 → 狀態改為 Paused"},
+      {type:"Budget",text:"SP 活動預算維持不變，待 TACOS 下降至 15% 再考慮增加"},
+      {type:"Review",text:"檢查競品 listing 定價，評估是否需要調整售價提高轉換率"}
+    ]},
+    cut:{label:"🔴 Cut",pri:"Execute This Week",tasks:[
+      {type:"Price",text:"在 Seller Central 將售價下調 $0.50，觀察轉換率變化"},
+      {type:"Coupon",text:"建立 Coupon 折扣（建議 5–10%）→ 提升搜尋結果曝光"},
+      {type:"Deal",text:"申請 Prime Exclusive Discount 或 Lightning Deal（需提前 2 週申請）"},
+      {type:"SP Bid",text:"下載 SP Bulk File → 全部 Keyword Bid 降至 $0.50–$1.00 範圍"}
+    ]},
+    potential:{label:"💤 Potential",pri:"Next Week",tasks:[
+      {type:"SP",text:"新建 SP Auto campaign，日預算 $10，CPC 出價 $0.50–$1.00，30天跑數據"},
+      {type:"SB",text:"新建 SB Banner campaign，指向此產品 store page，CPC $0.50–$1.00"},
+      {type:"SD",text:"新建 SD Audience campaign，目標 Competitor ASIN 的瀏覽受眾"},
+      {type:"KW",text:"用現有暢銷產品的高轉換 KW 根詞，建立 SP Exact Match campaign"}
+    ]}
+  };
+  sp.forEach(function(e){
+    var pid=e[0],pr=e[1];
+    var q2=pr.total_sales>=med2&&pr.tacos_4w<=15?"star":pr.total_sales>=med2&&pr.tacos_4w>15?"question":pr.total_sales<med2&&pr.tacos_4w<=15?"potential":"cut";
+    var cfg=QUAD_TASKS[q2];
+    s5.push([pr.short+" — "+cfg.label,"ASIN: "+pid,"5W Sales: $"+pr.total_sales.toFixed(2),"TACOS: "+pr.tacos_4w+"%","Priority: "+cfg.pri]);
+    s5.push(["#","Type","Action","Status"]);
+    cfg.tasks.forEach(function(t,i){
+      s5.push([i+1,t.type,t.text,"☐ Pending"]);
+    });
+    s5.push([]);
+  });
+
+  var ws5=XLSX.utils.aoa_to_sheet(s5);
+  ws5["!cols"]=[{wch:6},{wch:12},{wch:65},{wch:14},{wch:20}];
+  XLSX.utils.book_append_sheet(wb,ws5,"Action Plan");
+
+  XLSX.writeFile(wb,"Brain_Tea_Dashboard.xlsx");
+}
 </script>
 </body>
 </html>

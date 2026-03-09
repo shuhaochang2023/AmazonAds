@@ -218,6 +218,7 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   </div>
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
     <button class="week-btn active" onclick="switchWeek('all',this)">5W 合計</button>
+    <button class="week-btn" onclick="switchWeek('feb',this)">Feb 合計</button>
     <button class="week-btn" onclick="switchWeek('W1',this)">W1 Feb 1/7</button>
     <button class="week-btn" onclick="switchWeek('W2',this)">W2 Feb 8/14</button>
     <button class="week-btn" onclick="switchWeek('W3',this)">W3 Feb 15/21</button>
@@ -338,10 +339,11 @@ function drawDonut(canvasId, data) {
 
 // ═══ TAB 1 ═══
 function buildT1() {
+  const FEB_WEEKS=['W1','W2','W3','W4'];
   window._t1={};
-  ['all',...WEEKS].forEach(mode=>{
+  ['all','feb',...WEEKS].forEach(mode=>{
     const sp=sortedParents();
-    const weeks=mode==='all'?WEEKS:[mode];
+    const weeks=mode==='all'?WEEKS:mode==='feb'?FEB_WEEKS:[mode];
     const byAsin=sp.map(([pid,p])=>{
       const sales=weeks.reduce((a,w)=>a+p.weeks[w].sales,0);
       const spend=weeks.reduce((a,w)=>a+p.weeks[w].spend,0);
@@ -410,7 +412,7 @@ function switchWeek(mode, btn) {
 
 function renderChildTable(mode) {
   const tbl=$('childTable'); if(!tbl) return;
-  const weeks=mode==='all'?WEEKS:[mode];
+  const weeks=mode==='all'?WEEKS:mode==='feb'?FEB_WEEKS:[mode];
   const modeAdj=CHILD_DATA.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
 
   const wH=weeks.map(w=>`<th colspan="3" style="text-align:center;border-left:1px solid var(--border2)">${w} <span style="color:var(--text3);font-size:8px">${W_LABELS[w]}</span></th>`).join('');
