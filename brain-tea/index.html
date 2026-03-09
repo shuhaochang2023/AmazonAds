@@ -685,16 +685,152 @@ buildActionTab();
 </script>
 <script>
 function exportToExcel(){
+  var sp=Object.entries(PARENTS).sort(function(a,b){return b[1].total_sales-a[1].total_sales;});
+  var WKS=["W1","W2","W3","W4","W5"];
+  var WL={"W1":"Feb 1–7","W2":"Feb 8–14","W3":"Feb 15–21","W4":"Feb 22–28","W5":"Mar 1–7"};
+  var cs='style="background:#059669;color:#fff;font-weight:bold;padding:8px 12px;border:1px solid #047857;font-size:13px;"';
+  var hs='style="background:#f1f5f9;font-weight:bold;padding:6px 10px;border:1px solid #cbd5e1;font-size:12px;"';
+  var ds='style="padding:6px 10px;border:1px solid #e2e8f0;font-family:Consolas,monospace;font-size:12px;"';
+  var ts='style="padding:6px 10px;border:1px solid #e2e8f0;font-weight:bold;background:#f8fafc;font-family:Consolas,monospace;font-size:12px;"';
+  var f=function(v){return v==null?'—':'$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});};
+  var p=function(v){return v==null?'—':v.toFixed(1)+'%';};
+
   var html='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">';
-  html+='<head><meta charset="UTF-8"></head><body>';
-  var panels=document.querySelectorAll('.panel');
-  panels.forEach(function(p){
-    var clone=p.cloneNode(true);
-    clone.style.display='block';
-    // Remove canvases and buttons
-    clone.querySelectorAll('canvas,button,.view-toggle,.period-bar').forEach(function(el){el.remove();});
-    html+='<div>'+clone.innerHTML+'</div><br>';
+  html+='<head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets>';
+  var sheetNames=["Sales & Ad Spend","Week-over-Week","WoW Changes","Product Quadrant","Action Plan"];
+  sheetNames.forEach(function(n){html+='<x:ExcelWorksheet><x:Name>'+n+'</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet>';});
+  html+='</x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body>';
+
+  // Sheet 1: Sales & Ad Spend
+  html+='<div id="Sales & Ad Spend">';
+  html+='<table><tr><td colspan="8" '+cs+'>Sales & Ad Spend — Brain Tea US · Feb–Mar 2026</td></tr>';
+  html+='<tr><td colspan="8" style="height:8px"></td></tr>';
+  // KPI
+  var totS=sp.reduce(function(s,e){return s+e[1].total_sales;},0);
+  var totE=sp.reduce(function(s,e){return s+e[1].total_spend;},0);
+  var totP=sp.reduce(function(s,e){return s+WKS.reduce(function(a,w){return a+e[1].weeks[w].profits;},0);},0);
+  var acctT=totS>0?totE/totS*100:0;
+  html+='<tr><td '+hs+'>Metric</td><td '+hs+'>Value</td></tr>';
+  html+='<tr><td '+ds+'>Total Sales</td><td '+ds+'>'+f(totS)+'</td></tr>';
+  html+='<tr><td '+ds+'>Total Ad Spend</td><td '+ds+'>'+f(totE)+'</td></tr>';
+  html+='<tr><td '+ds+'>Account TACOS</td><td '+ds+'>'+p(acctT)+'</td></tr>';
+  html+='<tr><td '+ds+'>Total Profit</td><td '+ds+'>'+f(totP)+'</td></tr>';
+  html+='<tr><td colspan="8" style="height:16px"></td></tr>';
+  // Per product weekly
+  sp.forEach(function(e){
+    var pid=e[0],pr=e[1];
+    html+='<tr><td colspan="8" style="background:'+pr.color+';color:#fff;font-weight:bold;padding:8px 12px;font-size:13px;">'+pr.name+' ('+pid+')</td></tr>';
+    html+='<tr><td '+ds+'>5W Sales: '+f(pr.total_sales)+'</td><td '+ds+'>Total Spend: '+f(pr.total_spend)+'</td><td '+ds+'>TACOS (4W): '+p(pr.tacos_4w)+'</td></tr>';
+    html+='<tr><td '+hs+'>Week</td><td '+hs+'>Period</td><td '+hs+'>Sales</td><td '+hs+'>Spend</td><td '+hs+'>Units</td><td '+hs+'>Organic</td><td '+hs+'>PPC</td><td '+hs+'>TACOS</td></tr>';
+    WKS.forEach(function(w){
+      var wd=pr.weeks[w];
+      html+='<tr><td '+ds+'>'+w+'</td><td '+ds+'>'+WL[w]+'</td><td '+ds+'>'+f(wd.sales)+'</td><td '+ds+'>'+f(wd.spend)+'</td><td '+ds+'>'+wd.units+'</td><td '+ds+'>'+wd.organic+'</td><td '+ds+'>'+wd.ppc+'</td><td '+ds+'>'+p(wd.tacos)+'</td></tr>';
+    });
+    html+='<tr><td colspan="8" style="height:12px"></td></tr>';
   });
+  // Variant breakdown
+  html+='<tr><td colspan="8" '+cs+'>Variant-Level Breakdown</td></tr>';
+  html+='<tr><td '+hs+'>Variant</td><td '+hs+'>ASIN</td><td '+hs+'>Parent</td><td '+hs+'>5W Sales</td>';
+  WKS.forEach(function(w){html+='<td '+hs+'>'+w+'</td>';});
+  html+='</tr>';
+  CHILD_DATA.forEach(function(c){
+    html+='<tr><td '+ds+'>'+c.name+'</td><td '+ds+'>'+c.asin+'</td><td '+ds+'>'+c.parent_short+'</td><td '+ds+'>'+f(c.total_sales)+'</td>';
+    WKS.forEach(function(w){html+='<td '+ds+'>'+(c.weeks[w].sales>0?f(c.weeks[w].sales):'—')+'</td>';});
+    html+='</tr>';
+  });
+  html+='</table></div>';
+
+  // Sheet 2: Week-over-Week
+  html+='<div id="Week-over-Week">';
+  html+='<table><tr><td colspan="'+(2+WKS.length*5)+'" '+cs+'>Week-over-Week Data — Brain Tea US</td></tr>';
+  html+='<tr><td '+hs+'>Product</td><td '+hs+'>ASIN</td>';
+  WKS.forEach(function(w){html+='<td '+hs+'>'+w+' Sales</td><td '+hs+'>'+w+' Spend</td><td '+hs+'>'+w+' TACOS</td><td '+hs+'>'+w+' Units</td><td '+hs+'>'+w+' Organic</td>';});
+  html+='</tr>';
+  sp.forEach(function(e){
+    var pid=e[0],pr=e[1];
+    html+='<tr><td '+ds+' style="font-weight:bold;color:'+pr.color+'">'+pr.short+'</td><td '+ds+'>'+pid+'</td>';
+    WKS.forEach(function(w){var wd=pr.weeks[w];html+='<td '+ds+'>'+f(wd.sales)+'</td><td '+ds+'>'+f(wd.spend)+'</td><td '+ds+'>'+p(wd.tacos)+'</td><td '+ds+'>'+wd.units+'</td><td '+ds+'>'+wd.organic+'</td>';});
+    html+='</tr>';
+  });
+  // Totals row
+  html+='<tr><td '+ts+'>TOTAL</td><td '+ts+'></td>';
+  WKS.forEach(function(w){
+    var wS=sp.reduce(function(s,e){return s+e[1].weeks[w].sales;},0);
+    var wE=sp.reduce(function(s,e){return s+e[1].weeks[w].spend;},0);
+    var wU=sp.reduce(function(s,e){return s+e[1].weeks[w].units;},0);
+    var wO=sp.reduce(function(s,e){return s+e[1].weeks[w].organic;},0);
+    var wT=wS>0?wE/wS*100:0;
+    html+='<td '+ts+'>'+f(wS)+'</td><td '+ts+'>'+f(wE)+'</td><td '+ts+'>'+p(wT)+'</td><td '+ts+'>'+wU+'</td><td '+ts+'>'+wO+'</td>';
+  });
+  html+='</tr></table></div>';
+
+  // Sheet 3: WoW Changes
+  html+='<div id="WoW Changes">';
+  html+='<table><tr><td colspan="17" '+cs+'>Week-over-Week % Changes</td></tr>';
+  var pairs=[["W1","W2"],["W2","W3"],["W3","W4"],["W4","W5"]];
+  var mets=["sales","spend","tacos","units"];
+  html+='<tr><td '+hs+'>Product</td>';
+  pairs.forEach(function(pr2){mets.forEach(function(m){html+='<td '+hs+'>'+pr2[0]+'→'+pr2[1]+' '+m.charAt(0).toUpperCase()+m.slice(1)+'</td>';});});
+  html+='</tr>';
+  sp.forEach(function(e){
+    var pid=e[0],pr=e[1];
+    html+='<tr><td '+ds+' style="font-weight:bold">'+pr.short+'</td>';
+    pairs.forEach(function(pr2){
+      mets.forEach(function(m){
+        var a2=pr.weeks[pr2[0]][m],b2=pr.weeks[pr2[1]][m];
+        var chg=(!a2||a2===0)?null:(b2-a2)/a2*100;
+        var color=chg==null?'#94a3b8':chg>0?'#16a34a':'#dc2626';
+        html+='<td '+ds+' style="color:'+color+'">'+(chg!=null?(chg>0?'+':'')+chg.toFixed(1)+'%':'—')+'</td>';
+      });
+    });
+    html+='</tr>';
+  });
+  html+='</table></div>';
+
+  // Sheet 4: Product Quadrant
+  html+='<div id="Product Quadrant">';
+  var salesArr2=sp.map(function(e){return e[1].total_sales;}).sort(function(a,b){return a-b;});
+  var med2=salesArr2.length%2===0?(salesArr2[salesArr2.length/2-1]+salesArr2[salesArr2.length/2])/2:salesArr2[Math.floor(salesArr2.length/2)];
+  html+='<table><tr><td colspan="5" '+cs+'>Product Quadrant Analysis</td></tr>';
+  html+='<tr><td '+hs+'>Thresholds</td><td '+hs+'>Value</td></tr>';
+  html+='<tr><td '+ds+'>Sales Median (X-axis)</td><td '+ds+'>'+f(med2)+'</td></tr>';
+  html+='<tr><td '+ds+'>TACOS Target (Y-axis)</td><td '+ds+'>15%</td></tr>';
+  html+='<tr><td '+ds+'>Account TACOS</td><td '+ds+'>'+p(acctT)+'</td></tr>';
+  html+='<tr><td colspan="5" style="height:12px"></td></tr>';
+  html+='<tr><td '+hs+'>Product</td><td '+hs+'>Quadrant</td><td '+hs+'>5W Sales</td><td '+hs+'>TACOS</td><td '+hs+'>Recommendation</td></tr>';
+  var qRecs={star:'Scale up: duplicate SP campaigns, increase budget +30%',question:'Optimize: lower CPC bids, pause high-TACOS keywords',cut:'Revive: reduce price $0.50, add coupons, apply for deals',potential:'Grow: launch SP/SB campaigns with low CPC $0.50–$1.00'};
+  sp.forEach(function(e){
+    var pid=e[0],pr=e[1];
+    var q2=pr.total_sales>=med2&&pr.tacos_4w<=15?'Star':pr.total_sales>=med2&&pr.tacos_4w>15?'Question':pr.total_sales<med2&&pr.tacos_4w<=15?'Potential':'Cut';
+    var qk=q2.toLowerCase();
+    var qColor={Star:'#16a34a',Question:'#d97706',Cut:'#dc2626',Potential:'#059669'};
+    html+='<tr><td '+ds+' style="font-weight:bold">'+pr.short+'</td><td '+ds+' style="color:'+qColor[q2]+';font-weight:bold">'+q2+'</td><td '+ds+'>'+f(pr.total_sales)+'</td><td '+ds+'>'+p(pr.tacos_4w)+'</td><td '+ds+'>'+(qRecs[qk]||'')+'</td></tr>';
+  });
+  html+='</table></div>';
+
+  // Sheet 5: Action Plan
+  html+='<div id="Action Plan">';
+  html+='<table><tr><td colspan="5" '+cs+'>Action Plan — Brain Tea US</td></tr>';
+  var QUAD_TASKS={
+    star:[{type:'SP Bulk',text:'Download SP Bulk File → duplicate all Enabled campaigns → rename with _COPY suffix'},{type:'Budget',text:'Increase all SP campaign budgets ×1.3 (+30%) → upload Bulk File'},{type:'SB',text:'Check for SB Banner ads; if none, create new SB Campaign'},{type:'Review',text:'Maintain strategy, monitor TACOS below 15%'}],
+    question:[{type:'CPC',text:'SP Bulk File → find keywords with ACOS ≥25% → Bid ×0.8 (reduce 20%)'},{type:'Pause KW',text:'Pause keywords with TACOS ≥25% and no conversions in 14 days'},{type:'Budget',text:'Keep SP budget unchanged until TACOS drops below 15%'},{type:'Review',text:'Check competitor pricing, evaluate price adjustment for conversion'}],
+    cut:[{type:'Price',text:'Reduce price by $0.50 in Seller Central, observe conversion rate'},{type:'Coupon',text:'Create Coupon discount (5–10%) to boost search visibility'},{type:'Deal',text:'Apply for Prime Exclusive Discount or Lightning Deal (2 weeks ahead)'},{type:'SP Bid',text:'SP Bulk File → lower all Keyword Bids to $0.50–$1.00'}],
+    potential:[{type:'SP',text:'Launch SP Auto campaign, $10/day budget, CPC $0.50–$1.00, run 30 days'},{type:'SB',text:'Launch SB Banner campaign targeting product store page, CPC $0.50–$1.00'},{type:'SD',text:'Launch SD Audience campaign targeting competitor ASIN viewers'},{type:'KW',text:'Use top-converting KW root words from best sellers for SP Exact Match'}]
+  };
+  sp.forEach(function(e){
+    var pid=e[0],pr=e[1];
+    var q2=pr.total_sales>=med2&&pr.tacos_4w<=15?'star':pr.total_sales>=med2&&pr.tacos_4w>15?'question':pr.total_sales<med2&&pr.tacos_4w<=15?'potential':'cut';
+    var qLabel={star:'⭐ Star',question:'⚠️ Question',cut:'🔴 Cut',potential:'💤 Potential'};
+    html+='<tr><td colspan="5" style="height:12px"></td></tr>';
+    html+='<tr><td colspan="5" style="background:'+pr.color+';color:#fff;font-weight:bold;padding:8px 12px;font-size:13px;">'+pr.short+' — '+qLabel[q2]+' | 5W Sales: '+f(pr.total_sales)+' · TACOS: '+p(pr.tacos_4w)+'</td></tr>';
+    html+='<tr><td '+hs+'>Priority</td><td '+hs+'>Type</td><td colspan="3" '+hs+'>Action</td></tr>';
+    var tasks=QUAD_TASKS[q2]||[];
+    tasks.forEach(function(t,i){
+      html+='<tr><td '+ds+'>'+(i+1)+'</td><td '+ds+' style="font-weight:bold">'+t.type+'</td><td colspan="3" '+ds+'>'+t.text+'</td></tr>';
+    });
+  });
+  html+='</table></div>';
+
   html+='</body></html>';
   var blob=new Blob([html],{type:'application/vnd.ms-excel'});
   var url=URL.createObjectURL(blob);
