@@ -214,12 +214,11 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;positio
   </div>
   <div class="kpi-strip" id="kpi-purchase"></div>
   <div class="sec-header" style="margin-bottom:12px">APAL 購買連結 Where to Buy</div>
-  <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
-    <a href="https://www.apaltec.com/hestia/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--accent);color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none">🌐 APAL 官網 Official Site</a>
-    <a href="https://www.amazon.com/s?k=APAL+Hestia" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#ff9900;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none">🇺🇸 Amazon US</a>
-    <a href="https://www.amazon.co.uk/s?k=APAL+Hestia" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#ff9900;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none">🇬🇧 Amazon UK</a>
-    <a href="https://www.amazon.ae/s?k=APAL+Hestia" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#ff9900;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none">🇦🇪 Amazon UAE</a>
+  <div style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap">
+    <a href="https://www.amazon.com/dp/B0F68GDT3G" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#ff9900;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none">🛒 Hestia A1 Dongle — Amazon</a>
+    <a href="https://www.amazon.com/dp/B0F74DDPJ9" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#ff9900;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none">🛒 Hestia A2 Gateway — Amazon</a>
   </div>
+  <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:10px 16px;margin-bottom:20px;font-size:13px;color:#92400e;font-weight:600">🎟️ 限時優惠 Save 10%：結帳輸入折扣碼 Use Code <span style="background:#dc2626;color:#fff;padding:2px 8px;border-radius:4px;font-family:var(--mono);letter-spacing:.05em">APALSAVE10</span></div>
   <div class="sec-header">所有購買意圖留言 All Purchase Intent Comments</div>
   <div class="comment-list" id="purchaseList"></div>
 </div>
@@ -285,9 +284,10 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;positio
         • NodeRED integration suggestions for easier setup<br><br>
         <strong>The elephant in the room — 30KB/month data:</strong><br>
         Some comments did the math and said "one GPS location every 12 minutes" sounds limiting. But the framing matters — 30KB = ~2,500 sensor readings/month. For IoT telemetry (temperature, GPS pings, soil moisture, etc.) that's actually solid. It's not meant for streaming video.<br><br>
-        <strong>Where to get it:</strong><br>
-        • Official site: <a href="https://www.apaltec.com/hestia/" target="_blank" style="color:var(--accent)">apaltec.com/hestia</a><br>
-        • Amazon US/UK/UAE listings are live<br><br>
+        <strong>Where to get it (Save 10% with code APALSAVE10):</strong><br>
+        • 🛒 Hestia A1 Dongle: <a href="https://www.amazon.com/dp/B0F68GDT3G" target="_blank" style="color:var(--accent)">Amazon Link</a><br>
+        • 🛒 Hestia A2 Gateway: <a href="https://www.amazon.com/dp/B0F74DDPJ9" target="_blank" style="color:var(--accent)">Amazon Link</a><br>
+        • 🎟️ Use Code: <strong>APALSAVE10</strong> for 10% off (limited-time)<br><br>
         Anyone here played with one? Curious about real-world range + reliability with the satellite uplink, especially for off-grid deployments.
       </div>
     </div>
@@ -304,7 +304,11 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;positio
         It's a LoRaWAN gateway with built-in satellite connectivity (Skylo NTN) — basically gives you internet backhaul anywhere without WiFi or cellular. Comment section has 180+ comments debating how it fits in the Meshtastic/LoRa ecosystem.<br><br>
         Key difference vs Meshtastic: this does satellite uplink natively (30KB/month included). Meshtastic needs an internet-connected node somewhere. Trade-off is the data cap.<br><br>
         Supports Modbus RS-485, Raspberry Pi compatible, and they're pushing industrial IoT use cases (marine, remote monitoring, agricultural sensors).<br><br>
-        Has anyone tried integrating something like this as a Meshtastic-to-satellite bridge? Seems like the community is already asking for it.
+        Has anyone tried integrating something like this as a Meshtastic-to-satellite bridge? Seems like the community is already asking for it.<br><br>
+        <strong>Save 10% (limited-time):</strong><br>
+        🛒 Hestia A1 Dongle: <a href="https://www.amazon.com/dp/B0F68GDT3G" target="_blank" style="color:var(--accent)">amazon.com/dp/B0F68GDT3G</a><br>
+        🛒 Hestia A2 Gateway: <a href="https://www.amazon.com/dp/B0F74DDPJ9" target="_blank" style="color:var(--accent)">amazon.com/dp/B0F74DDPJ9</a><br>
+        🎟️ Use Code: <strong>APALSAVE10</strong>
       </div>
     </div>
   </div>
@@ -495,12 +499,13 @@ function buildActions() {
     {icon:'🔴',color:'var(--red)',pri:'緊急 URGENT',title:'修正銷售漏斗 Fix Sales Funnel',
      body:`<strong>問題 Problem:</strong> 多位高意圖買家詢問「哪裡買？」/「多少錢？」/「私訊我」— 但無明確答案。<br>Multiple high-intent buyers asking "Where can I buy?" / "How much?" / "DM me" — no clear answer.<br>
 <strong>行動 Action:</strong><br>
-• 在 YouTube 影片說明加入 APAL 官網連結：<a href="https://www.apaltec.com/hestia/" target="_blank" style="color:var(--blue)">apaltec.com/hestia</a><br>Add APAL official site link in video description<br>
-• 在影片說明加入 Amazon 購買連結：<a href="https://www.amazon.com/s?k=APAL+Hestia" target="_blank" style="color:var(--blue)">Amazon US</a> · <a href="https://www.amazon.co.uk/s?k=APAL+Hestia" target="_blank" style="color:var(--blue)">Amazon UK</a> · <a href="https://www.amazon.ae/s?k=APAL+Hestia" target="_blank" style="color:var(--blue)">Amazon UAE</a><br>
-• 置頂留言附上定價 + 官網 + Amazon 購買連結 Pin comment with pricing + purchase links<br>
-• 在官網 apaltec.com/hestia 加入明確的「立即購買 Buy Now」按鈕導向 Amazon<br>
+• 在 YouTube 影片說明加入 Amazon 產品連結 Add Amazon product links in video description<br>
+  A1 Dongle: <a href="https://www.amazon.com/dp/B0F68GDT3G" target="_blank" style="color:var(--blue)">amazon.com/dp/B0F68GDT3G</a> · A2 Gateway: <a href="https://www.amazon.com/dp/B0F74DDPJ9" target="_blank" style="color:var(--blue)">amazon.com/dp/B0F74DDPJ9</a><br>
+• 置頂留言附上定價 + 折扣碼 APALSAVE10 + Amazon 連結<br>Pin comment with pricing + discount code + Amazon links<br>
+• 在所有社群文案加入折扣碼 Include discount code in all social posts<br>
+  🎟️ 限時 9 折：Use Code <strong>APALSAVE10</strong><br>
 <strong>證據 Evidence:</strong> ${(DATA.categories['Business Opportunities']||[]).filter(c=>c.intent.includes('Purchase')||c.intent.includes('sales lead')||c.intent.includes('availability')).length} 則直接購買意圖留言`,
-     links:[{label:'🌐 APAL 官網',url:'https://www.apaltec.com/hestia/'},{label:'🇺🇸 Amazon US',url:'https://www.amazon.com/s?k=APAL+Hestia'},{label:'🇬🇧 Amazon UK',url:'https://www.amazon.co.uk/s?k=APAL+Hestia'},{label:'🇦🇪 Amazon UAE',url:'https://www.amazon.ae/s?k=APAL+Hestia'}]},
+     links:[{label:'🛒 A1 Dongle',url:'https://www.amazon.com/dp/B0F68GDT3G'},{label:'🛒 A2 Gateway',url:'https://www.amazon.com/dp/B0F74DDPJ9'}]},
 
     {icon:'🟢',color:'var(--green)',pri:'高 HIGH',title:'建立應用場景行銷內容 Use-Case Marketing',
      body:`<strong>問題 Problem:</strong> 社群自發發現你尚未行銷的應用場景。Community discovering use cases you haven't marketed.<br>
