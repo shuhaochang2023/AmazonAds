@@ -76,6 +76,16 @@ tbody td:first-child{text-align:left;font-family:var(--body);font-size:13px;}
 .q-card-body{font-size:11px;color:var(--text2);line-height:1.7;}
 .done-cb{cursor:pointer;accent-color:var(--accent);width:14px;height:14px;}
 tr.done-row td{opacity:.35;text-decoration:line-through;}
+/* View mode toggle */
+.view-toggle{display:inline-flex;border:1px solid var(--border2);border-radius:6px;overflow:hidden;margin-right:12px;}
+.view-toggle-btn{padding:6px 14px;font-size:11px;font-family:var(--mono);font-weight:600;cursor:pointer;border:none;background:var(--bg2);color:var(--text3);transition:all .12s;}
+.view-toggle-btn:not(:last-child){border-right:1px solid var(--border2);}
+.view-toggle-btn:hover{color:var(--text);}
+.view-toggle-btn.active{background:var(--accent);color:#fff;}
+.month-btn{padding:8px 20px;border-radius:6px;font-size:12.5px;cursor:pointer;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);font-family:var(--mono);font-weight:700;transition:all .12s;}
+.month-btn:hover{color:var(--text);border-color:var(--accent);}
+.month-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.period-bar{display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
 
 /* ── childTable freeze pane ── */
 #childTable-wrap{max-height:calc(100vh - 160px);overflow:auto;border-radius:10px;border:1px solid var(--border);box-shadow:0 1px 5px rgba(0,0,0,.05);}
@@ -100,7 +110,7 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <button class="tab-btn" onclick="showTab('t4',this)">🎯 產品象限</button>
     <button class="tab-btn" onclick="showTab('t5',this)">✅ 行動方案</button>
   </div>
-  <div class="meta">Feb 2026 · SP+SD+SB · TACOS ≤70%</div>
+  <div class="meta">Feb–Mar 2026 · 週/月切換 · SP+SD+SB · TACOS ≤70%</div>
   </div>
 </nav>
 
@@ -111,13 +121,12 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">Sales &amp; Ad Spend — Feb–Mar 2026</div>
     <div style="font-size:11px;color:var(--text3)">數據來源：ScaleInsight · 目標 TACOS ≤ 70% · SP+SD+SB 合計</div>
   </div>
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-    <button class="week-btn active" onclick="switchWeek('all',this)">5W 合計</button>
-    <button class="week-btn" onclick="switchWeek('W1',this)">W1 Feb 1/7</button>
-    <button class="week-btn" onclick="switchWeek('W2',this)">W2 Feb 8/14</button>
-    <button class="week-btn" onclick="switchWeek('W3',this)">W3 Feb 15/21</button>
-    <button class="week-btn" onclick="switchWeek('W4',this)">W4 Feb 22/28</button>
-    <button class="week-btn" onclick="switchWeek('W5',this)">W5 Mar 1/7</button>
+  <div class="period-bar">
+    <div class="view-toggle">
+      <button class="view-toggle-btn active" onclick="setViewMode('week',this)">週 Weeks</button>
+      <button class="view-toggle-btn" onclick="setViewMode('month',this)">月 Months</button>
+    </div>
+    <div id="periodBtns"></div>
   </div>
   <div class="kpi-strip" id="kpi-t1"></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
@@ -196,6 +205,11 @@ const CHILD_ZH = {"B09Y8VBQTV": "瑪卡粉 · 22包", "B0DTT8T7X1": "成人頂�
 const TACOS_TARGET = 70;
 const WEEKS = ["W1", "W2", "W3", "W4", "W5"];
 const W_LABELS = {"W1": "Feb 1\u20137", "W2": "Feb 8\u201314", "W3": "Feb 15\u201321", "W4": "Feb 22\u201328", "W5": "Mar 1\u20137"};
+const MONTHS = {
+  "Feb": {label:"Feb 2026", weeks:["W1","W2","W3","W4"]},
+  "Mar": {label:"Mar 2026 (partial)", weeks:["W5"]}
+};
+const M_KEYS = Object.keys(MONTHS);
 
 const $ = id => document.getElementById(id);
 const fmt = (v,d=0) => v==null?'—':'$'+v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
@@ -232,11 +246,21 @@ function drawDonut(canvasId, data) {
 }
 
 // ═══ TAB 1 ═══
+window._viewMode = 'week';
+window._modeWeeksMap = {}; // maps mode key → array of weeks
+
 function buildT1() {
   window._t1={};
-  ['all',...WEEKS].forEach(mode=>{
+  // Compute data for each possible mode: all, W1..W5, Feb, Mar, month_all
+  const allModes = ['all',...WEEKS,...M_KEYS,'month_all'];
+  allModes.forEach(mode=>{
     const sp=sortedParents();
-    const weeks=mode==='all'?WEEKS:[mode];
+    let weeks;
+    if(mode==='all') weeks=WEEKS;
+    else if(mode==='month_all') weeks=WEEKS;
+    else if(MONTHS[mode]) weeks=MONTHS[mode].weeks;
+    else weeks=[mode];
+    window._modeWeeksMap[mode]=weeks;
     const byAsin=sp.map(([pid,p])=>{
       const sales=weeks.reduce((a,w)=>a+p.weeks[w].sales,0);
       const spend=weeks.reduce((a,w)=>a+p.weeks[w].spend,0);
@@ -253,11 +277,34 @@ function buildT1() {
       totProfit:sp.reduce((s,[,p])=>s+weeks.reduce((a,w)=>a+p.weeks[w].profits,0),0),
     };
   });
-  switchWeek('all', document.querySelector('.week-btn'));
+  setViewMode('week', document.querySelector('.view-toggle-btn'));
+}
+
+function setViewMode(mode, btn) {
+  window._viewMode = mode;
+  document.querySelectorAll('.view-toggle-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+
+  const container = $('periodBtns');
+  if(mode==='week') {
+    container.innerHTML = `
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="week-btn active" onclick="switchWeek('all',this)">5W 合計 All</button>
+        ${WEEKS.map(w=>`<button class="week-btn" onclick="switchWeek('${w}',this)">${w} ${W_LABELS[w]}</button>`).join('')}
+      </div>`;
+    switchWeek('all', container.querySelector('.week-btn'));
+  } else {
+    container.innerHTML = `
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="month-btn active" onclick="switchWeek('month_all',this)">全期間 All</button>
+        ${M_KEYS.map(m=>`<button class="month-btn" onclick="switchWeek('${m}',this)">${MONTHS[m].label}</button>`).join('')}
+      </div>`;
+    switchWeek('month_all', container.querySelector('.month-btn'));
+  }
 }
 
 function switchWeek(mode, btn) {
-  document.querySelectorAll('.week-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.week-btn,.month-btn').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
   const d=window._t1[mode]; if(!d) return;
 
@@ -305,41 +352,53 @@ function switchWeek(mode, btn) {
 
 function renderChildTable(mode) {
   const tbl=$('childTable'); if(!tbl) return;
-  const weeks=mode==='all'?WEEKS:[mode];
-  const modeAdj=CHILD_DATA.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
 
-  const wH=weeks.map(w=>`<th colspan="3" style="text-align:center;border-left:1px solid var(--border2)">${w} <span style="color:var(--text3);font-size:8px">${W_LABELS[w]}</span></th>`).join('');
-  const sH=weeks.map(()=>`<th style="border-left:1px solid var(--border2)">Sales</th><th>Spend</th><th>TACOS</th>`).join('');
+  // Determine which columns to show
+  let cols; // each col = {key, label, weeks:[...]}
+  if(mode==='month_all') {
+    cols = M_KEYS.map(m=>({key:m, label:MONTHS[m].label, weeks:MONTHS[m].weeks}));
+  } else if(MONTHS[mode]) {
+    // Single month selected — show its component weeks
+    cols = MONTHS[mode].weeks.map(w=>({key:w, label:w+' '+W_LABELS[w], weeks:[w]}));
+  } else if(mode==='all') {
+    cols = WEEKS.map(w=>({key:w, label:w+' '+W_LABELS[w], weeks:[w]}));
+  } else {
+    cols = [{key:mode, label:mode+' '+W_LABELS[mode], weeks:[mode]}];
+  }
+
+  const allWeeks = cols.flatMap(c=>c.weeks);
+  const modeAdj=CHILD_DATA.reduce((s,r)=>s+allWeeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
+
+  const wH=cols.map(c=>`<th colspan="3" style="text-align:center;border-left:1px solid var(--border2)">${c.label}</th>`).join('');
+  const sH=cols.map(()=>`<th style="border-left:1px solid var(--border2)">Sales</th><th>Spend</th><th>TACOS</th>`).join('');
 
   // Group by parent
   const parentIds=[...new Set(CHILD_DATA.map(r=>r.parent))];
-  // Sort parents by total sales desc
   const parentOrder=sortedParents().map(([pid])=>pid).filter(pid=>parentIds.includes(pid));
 
   let bodyHtml='';
   let pIdx=0;
   parentOrder.forEach(pid=>{
-    const children=CHILD_DATA.filter(r=>r.parent===pid&&(weeks.reduce((a,w)=>a+r.weeks[w].sales,0)>0||weeks.reduce((a,w)=>a+r.weeks[w].spend,0)>0));
+    const children=CHILD_DATA.filter(r=>r.parent===pid&&(allWeeks.reduce((a,w)=>a+r.weeks[w].sales,0)>0||allWeeks.reduce((a,w)=>a+r.weeks[w].spend,0)>0));
     if(!children.length) return;
     const p=PARENTS[pid];
-    const pSales=children.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
-    const pSpend=children.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].spend,0),0);
+    const pSales=children.reduce((s,r)=>s+allWeeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
+    const pSpend=children.reduce((s,r)=>s+allWeeks.reduce((a,w)=>a+r.weeks[w].spend,0),0);
     const pTacos=pSales>0?pSpend/pSales*100:null;
     const pPct=modeAdj>0?(pSales/modeAdj*100).toFixed(1):'0.0';
     const gid=`pg${pIdx++}`;
 
-    const pWcells=weeks.map(w=>{
-      const wS=children.reduce((s,r)=>s+r.weeks[w].sales,0);
-      const wE=children.reduce((s,r)=>s+r.weeks[w].spend,0);
+    const pWcells=cols.map(c=>{
+      const wS=children.reduce((s,r)=>s+c.weeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
+      const wE=children.reduce((s,r)=>s+c.weeks.reduce((a,w)=>a+r.weeks[w].spend,0),0);
       const tc=wS>0?wE/wS*100:null;
       return `<td style="border-left:1px solid var(--border2);font-weight:600">${wS>0?fmt(wS,0):'—'}</td>
               <td style="font-weight:600">${wE>0?fmt(wE,0):'—'}</td>
               <td class="${tacosClass(tc)}" style="font-weight:600">${tc!=null?pct(tc):'—'}</td>`;
     }).join('');
 
-    // Parent row
     bodyHtml+=`<tr class="parent-row" onclick="toggleGroup('${gid}')" style="background:${p.color}0d;border-top:2px solid ${p.color}33">
-      <td>
+      <td class="col-freeze">
         <span class="toggle-icon" id="ti_${gid}">▼</span>
         <span style="color:${p.color};font-weight:700;font-family:var(--display);font-size:13px;margin-left:4px">${zhShort(pid)}</span>
         <span style="color:var(--text3);font-size:10px;margin-left:8px;font-family:var(--mono)">${children.length} 個變體</span>
@@ -348,18 +407,18 @@ function renderChildTable(mode) {
       ${pWcells}
     </tr>`;
 
-    // Child rows
     bodyHtml+=`<tbody id="${gid}" class="child-rows">`;
     children.sort((a,b)=>b.total_sales-a.total_sales).forEach(r=>{
-      const cSales=weeks.reduce((a,w)=>a+r.weeks[w].sales,0);
-      const cSpend=weeks.reduce((a,w)=>a+r.weeks[w].spend,0);
+      const cSales=allWeeks.reduce((a,w)=>a+r.weeks[w].sales,0);
+      const cSpend=allWeeks.reduce((a,w)=>a+r.weeks[w].spend,0);
       const cPct=modeAdj>0?(cSales/modeAdj*100).toFixed(1):'0.0';
       const cName=CHILD_ZH[r.asin]||r.name.replace(/^DAIKEN\s*/,'').substring(0,50);
-      const wCells=weeks.map(w=>{
-        const wd=r.weeks[w];
-        const tc=wd.sales>0?wd.spend/wd.sales*100:null;
-        return `<td style="border-left:1px solid var(--border2)">${wd.sales>0?fmt(wd.sales,0):'—'}</td>
-                <td>${wd.spend>0?fmt(wd.spend,0):'—'}</td>
+      const wCells=cols.map(c=>{
+        const cS=c.weeks.reduce((a,w)=>a+r.weeks[w].sales,0);
+        const cE=c.weeks.reduce((a,w)=>a+r.weeks[w].spend,0);
+        const tc=cS>0?cE/cS*100:null;
+        return `<td style="border-left:1px solid var(--border2)">${cS>0?fmt(cS,0):'—'}</td>
+                <td>${cE>0?fmt(cE,0):'—'}</td>
                 <td class="${tacosClass(tc)}">${tc!=null?pct(tc):'—'}</td>`;
       }).join('');
       bodyHtml+=`<tr style="background:var(--bg)">
@@ -374,17 +433,16 @@ function renderChildTable(mode) {
     bodyHtml+='</tbody>';
   });
 
-  const totalCells=weeks.map(w=>{
-    const wS=CHILD_DATA.reduce((s,r)=>s+r.weeks[w].sales,0);
-    const wE=CHILD_DATA.reduce((s,r)=>s+r.weeks[w].spend,0);
+  const totalCells=cols.map(c=>{
+    const wS=CHILD_DATA.reduce((s,r)=>s+c.weeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
+    const wE=CHILD_DATA.reduce((s,r)=>s+c.weeks.reduce((a,w)=>a+r.weeks[w].spend,0),0);
     const wT=wS>0?wE/wS*100:null;
     return `<td style="border-left:1px solid var(--border2);font-weight:700">${fmt(wS,0)}</td>
             <td style="font-weight:700">${fmt(wE,0)}</td>
             <td class="${tacosClass(wT)}">${wT!=null?pct(wT):'—'}</td>`;
   }).join('');
 
-  // Fixed column widths via colgroup — eliminates blank space
-  const nWeeks=weeks.length;
+  const nWeeks=cols.length;
   const colDefs=[220,58,...Array(nWeeks*3).fill(0).flatMap((_,i)=>i%3===0?[82]:i%3===1?[72]:[60])];
   const cg='<colgroup>'+colDefs.map(w=>`<col style="width:${w}px">`).join('')+'</colgroup>';
   tbl.innerHTML=`${cg}<thead>
