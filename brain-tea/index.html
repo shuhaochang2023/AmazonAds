@@ -102,7 +102,12 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
 <body>
 <nav>
   <div class="nav-inner">
-  <div class="nav-brand">Brain Tea <span class="market-tag">US</span></div>
+  <div class="nav-brand">Brain Tea <span class="market-tag">US</span>
+    <button onclick="exportToExcel()" style="margin-left:8px;background:#217346;color:#fff;border:none;padding:5px 14px;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--mono);display:flex;align-items:center;gap:5px;white-space:nowrap;" onmouseover="this.style.background='#1a5c38'" onmouseout="this.style.background='#217346'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M12.9,14.5L15.8,19H14L12,15.6L10,19H8.2L11.1,14.5L8.4,10H10.1L12,13.1L13.9,10H15.6L12.9,14.5Z"/></svg>
+      Download Excel
+    </button>
+  </div>
   <div class="tabs">
     <button class="tab-btn active" onclick="showTab('t1',this)">&#x1F4CA; 銷售 &amp; 廣告佔比</button>
     <button class="tab-btn" onclick="showTab('t2',this)">&#x1F4C5; 週對週數據</button>
@@ -677,6 +682,30 @@ buildWowTab();
 buildHeatTab();
 buildQuadTab();
 buildActionTab();
+</script>
+<script>
+function exportToExcel(){
+  var html='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">';
+  html+='<head><meta charset="UTF-8"></head><body>';
+  var panels=document.querySelectorAll('.panel');
+  panels.forEach(function(p){
+    var clone=p.cloneNode(true);
+    clone.style.display='block';
+    // Remove canvases and buttons
+    clone.querySelectorAll('canvas,button,.view-toggle,.period-bar').forEach(function(el){el.remove();});
+    html+='<div>'+clone.innerHTML+'</div><br>';
+  });
+  html+='</body></html>';
+  var blob=new Blob([html],{type:'application/vnd.ms-excel'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download='Brain_Tea_Dashboard.xls';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 </script>
 </body>
 </html>
