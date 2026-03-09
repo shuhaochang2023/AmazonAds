@@ -114,6 +114,7 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;positio
       <button class="tab-btn" onclick="showTab('t5',this)">🛒 購買意圖 Purchase</button>
       <button class="tab-btn" onclick="showTab('t6',this)">🎬 行動方案 Actions</button>
       <button class="tab-btn" onclick="showTab('t7',this)">💬 全部留言 All</button>
+      <button class="tab-btn" onclick="showTab('t8',this)">📝 Reddit 文案</button>
     </div>
     <div class="meta">更新 Updated Mar 9, 2026</div>
   </div>
@@ -125,7 +126,7 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;positio
 <div id="t0" class="panel active">
   <div style="margin-bottom:20px">
     <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">社群聆聽 SOCIAL LISTENING · YOUTUBE 留言分析</div>
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:4px"><div style="font-size:28px;font-weight:800;color:var(--accent)">APAL Hestia A2 Gateway · 留言洞察 Comment Insights</div><a href="./APAL_Comment_Insights.xlsx" download="APAL_Comment_Insights.xlsx" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:#16a34a;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;font-family:Inter,sans-serif">⬇ 下載 Excel</a></div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:4px"><div style="font-size:28px;font-weight:800;color:var(--accent)">APAL Hestia A2 Gateway · YouTube 開箱影片留言洞察</div><a href="./APAL_Comment_Insights.xlsx" download="APAL_Comment_Insights.xlsx" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:#16a34a;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;font-family:Inter,sans-serif">⬇ 下載 Excel</a></div>
     <div style="font-size:12px;color:var(--text3)">影片 Video: <a href="https://www.youtube.com/watch?v=X4q7l_8pQHg" target="_blank" style="color:var(--accent);text-decoration:underline">"Hacking A Mysterious Satellite Gadget"</a> by @saveitforparts · Feb 26 – Mar 8, 2026</div>
   </div>
 
@@ -243,6 +244,78 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;positio
   <div class="filter-bar" id="filterBar"></div>
   <div id="allCountLabel" style="font-size:11px;color:var(--text3);margin-bottom:12px;font-family:var(--mono)"></div>
   <div class="comment-list" id="allCommentsList"></div>
+</div>
+
+<!-- T8: REDDIT POSTS -->
+<div id="t8" class="panel">
+  <div style="margin-bottom:20px">
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">YOUTUBE 開箱影片留言洞察 · REDDIT 社群文案</div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:4px">
+      <div style="font-size:24px;font-weight:800;color:#ff4500">Reddit 發文草稿 Post Drafts</div>
+      <a href="./APAL_Reddit_Posts.pdf" download="APAL_Reddit_Posts.pdf" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:#ff4500;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap">⬇ 下載 PDF Download</a>
+    </div>
+    <div style="font-size:12px;color:var(--text3)">基於 YouTube 留言分析撰寫的 Reddit 社群文案｜Reddit posts drafted from YouTube comment insights</div>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi-card"><div class="kpi-label">文章數 Posts</div><div class="kpi-value" style="color:#ff4500">2</div><div class="kpi-sub">長版 + 短版</div></div>
+    <div class="kpi-card"><div class="kpi-label">目標社群 Subreddits</div><div class="kpi-value" style="font-size:14px">5</div><div class="kpi-sub">r/lora · r/IOT · r/meshtastic · r/raspberry_pi · r/amateurradio</div></div>
+    <div class="kpi-card"><div class="kpi-label">數據來源 Data Source</div><div class="kpi-value" style="font-size:14px">180</div><div class="kpi-sub">YouTube 留言分析</div></div>
+  </div>
+
+  <!-- POST 1 -->
+  <div class="action-card" style="border-left:4px solid #ff4500;margin-bottom:16px">
+    <div class="action-title" style="font-size:11px;color:var(--text3);margin-bottom:4px">文章 1 · 完整版 FULL VERSION</div>
+    <div style="font-size:10px;color:var(--text3);margin-bottom:8px;font-family:var(--mono)">適用 TARGET: r/lora · r/IOT · r/raspberry_pi · r/amateurradio</div>
+    <div style="background:var(--bg3);border-radius:6px;padding:16px;margin-bottom:8px">
+      <div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:12px">APAL Hestia A2 — LoRaWAN gateway with satellite backhaul just got a wild teardown review</div>
+      <div style="font-size:13px;color:var(--text);line-height:2">
+        Came across this video from @saveitforparts where he tears apart and experiments with the APAL Hestia A2 — a LoRaWAN gateway that uses satellite connectivity (3GPP NTN via Skylo) for backhaul instead of relying on terrestrial internet.<br><br>
+        <strong>Video:</strong> <a href="https://www.youtube.com/watch?v=X4q7l_8pQHg" target="_blank" style="color:var(--accent)">https://www.youtube.com/watch?v=X4q7l_8pQHg</a><br><br>
+        The comment section (180+ comments, 700+ likes) is honestly more interesting than most product review threads. Some highlights:<br><br>
+        <strong>What people are excited about:</strong><br>
+        • Satellite-backhaul LoRaWAN gateway — no WiFi/cellular needed<br>
+        • Industrial IoT use cases: Modbus/PLC/SCADA integration, water treatment, marine fleet tracking<br>
+        • Remote monitoring: weather stations, fire detection, ranch/farm sensors in areas with zero connectivity<br>
+        • "made by people that love what they do" — community vibes are strong<br><br>
+        <strong>What people are comparing it to:</strong><br>
+        • Meshtastic (APAL adds satellite backhaul that Meshtastic can't do natively)<br>
+        • LoRaWAN vs LoRa confusion (a few comments clarifying they're not the same)<br>
+        • Starlink (different price point and use case)<br>
+        • NodeRED integration suggestions for easier setup<br><br>
+        <strong>The elephant in the room — 30KB/month data:</strong><br>
+        Some comments did the math and said "one GPS location every 12 minutes" sounds limiting. But the framing matters — 30KB = ~2,500 sensor readings/month. For IoT telemetry (temperature, GPS pings, soil moisture, etc.) that's actually solid. It's not meant for streaming video.<br><br>
+        <strong>Where to get it:</strong><br>
+        • Official site: <a href="https://www.apaltec.com/hestia/" target="_blank" style="color:var(--accent)">apaltec.com/hestia</a><br>
+        • Amazon US/UK/UAE listings are live<br><br>
+        Anyone here played with one? Curious about real-world range + reliability with the satellite uplink, especially for off-grid deployments.
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 2 -->
+  <div class="action-card" style="border-left:4px solid #ff4500;margin-bottom:16px">
+    <div class="action-title" style="font-size:11px;color:var(--text3);margin-bottom:4px">文章 2 · 精簡版 SHORT VERSION</div>
+    <div style="font-size:10px;color:var(--text3);margin-bottom:8px;font-family:var(--mono)">適用 TARGET: r/meshtastic</div>
+    <div style="background:var(--bg3);border-radius:6px;padding:16px;margin-bottom:8px">
+      <div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:12px">LoRaWAN + Satellite backhaul gateway — how does this compare to Meshtastic setups?</div>
+      <div style="font-size:13px;color:var(--text);line-height:2">
+        Found this teardown of the APAL Hestia A2: <a href="https://www.youtube.com/watch?v=X4q7l_8pQHg" target="_blank" style="color:var(--accent)">https://www.youtube.com/watch?v=X4q7l_8pQHg</a><br><br>
+        It's a LoRaWAN gateway with built-in satellite connectivity (Skylo NTN) — basically gives you internet backhaul anywhere without WiFi or cellular. Comment section has 180+ comments debating how it fits in the Meshtastic/LoRa ecosystem.<br><br>
+        Key difference vs Meshtastic: this does satellite uplink natively (30KB/month included). Meshtastic needs an internet-connected node somewhere. Trade-off is the data cap.<br><br>
+        Supports Modbus RS-485, Raspberry Pi compatible, and they're pushing industrial IoT use cases (marine, remote monitoring, agricultural sensors).<br><br>
+        Has anyone tried integrating something like this as a Meshtastic-to-satellite bridge? Seems like the community is already asking for it.
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;padding:12px 16px;background:#fff4e6;border:1px solid #fed7aa;border-radius:8px;font-size:12px;color:#92400e;line-height:1.8">
+    <strong>發文建議 Posting Tips:</strong><br>
+    • 每個 subreddit 間隔 24hr 發文，避免被標記為 spam｜Space posts 24hr apart to avoid spam flags<br>
+    • 用個人帳號發文（非品牌帳號）更自然｜Post from personal account, not brand account<br>
+    • 先在該社群互動幾天再發文｜Engage in the community a few days before posting<br>
+    • 回覆留言時保持真誠、提供價值｜Reply authentically and provide value
+  </div>
 </div>
 
 </div><!-- container -->
