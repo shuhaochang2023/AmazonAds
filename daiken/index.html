@@ -106,7 +106,7 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
       <button class="tab-btn" onclick="showTab('t2',this)">📅 週對週數據</button>
       <button class="tab-btn" onclick="showTab('t3',this)">📈 WoW 變化</button>
       <button class="tab-btn" onclick="showTab('t4',this)">🎯 產品象限</button>
-      <button class="tab-btn" onclick="showTab('t5',this)">✅ 行動方案</button>
+
       <button class="tab-btn" onclick="showTab('t7',this)">📉 兒童魚油 Pacing</button>
       <button class="tab-btn" onclick="showTab('t8',this)">🐟 魚油促銷計劃</button>
     </div>
@@ -120,7 +120,7 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
       <button class="tab-btn" onclick="showTab('jp2',this)">📅 週對週數據</button>
       <button class="tab-btn" onclick="showTab('jp3',this)">📈 WoW 變化</button>
       <button class="tab-btn" onclick="showTab('jp4',this)">🎯 產品象限</button>
-      <button class="tab-btn" onclick="showTab('jp5',this)">✅ 行動方案</button>
+
       <button class="tab-btn" onclick="showTab('t6',this)">📊 DSP Media Plan</button>
     </div>
     <div class="meta">Feb–Mar 2026 · SP+SD+SB · DAA ¥55M · DSP ¥5.5M</div>
@@ -193,18 +193,6 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
         依 Sales × TACOS 四象限分類：⭐ Star / ⚠️ Question / 💤 Potential / 🔴 Cut。<br>
         含視覺化象限圖與每象限建議行動。<br>
         <strong>用途：</strong>策略決策、資源分配
-      </div>
-    </div>
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t5',document.querySelectorAll('.tab-btn')[5])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">✅</span>
-        <div style="font-weight:700;font-size:14px">行動方案</div>
-        <span class="market-tag">US</span>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        依象限自動產生的待辦清單，含 SP/SB/SD Bulk File 操作指引。<br>
-        可勾選完成項目追蹤進度。<br>
-        <strong>用途：</strong>每週執行 checklist
       </div>
     </div>
     <div class="action-card" style="cursor:pointer" onclick="showTab('t7',document.querySelectorAll('.tab-btn')[6])">
@@ -383,14 +371,6 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   </div>
 </div>
 
-<!-- TAB 5 — 行動方案 -->
-<div id="t5" class="panel">
-  <div style="margin-bottom:20px">
-    <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">行動方案 Action Plan</div>
-    <div style="font-size:11px;color:var(--text3)">依象限分類 · 勾選完成項目 · 對應 Bulk File 操作</div>
-  </div>
-  <div id="actionCards"></div>
-</div>
 
 
 <!-- JP TAB 0 — Executive Summary -->
@@ -500,14 +480,6 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   </div>
 </div>
 
-<!-- JP TAB 5 — Action Plan -->
-<div id="jp5" class="panel">
-  <div style="margin-bottom:20px">
-    <div style="font-size:28px;font-weight:800;color:#dc2626;font-family:var(--display);margin-bottom:4px">行動方案 Action Plan · 🇯🇵 JP Market</div>
-    <div style="font-size:11px;color:var(--text3)">依象限分類 · 勾選完成項目 · 對應 Bulk File 操作 · TACOS 目標 ≤70%</div>
-  </div>
-  <div id="jpActionCards"></div>
-</div>
 
 <!-- TAB 6 — Japan DSP Media Plan -->
 <div id="t6" class="panel">
@@ -1295,74 +1267,6 @@ const qDefs=[
   window._quad_med = med;
 }
 
-// ═══ TAB 5 — 行動方案 ═══
-function buildActionTab() {
-  const sp=sortedParents().filter(([,p])=>p.total_sales>0);
-  const salesArr=sp.map(([,p])=>p.total_sales).sort((a,b)=>a-b);
-  const med=salesArr.length%2===0?(salesArr[salesArr.length/2-1]+salesArr[salesArr.length/2])/2:salesArr[Math.floor(salesArr.length/2)];
-
-  const QUAD_CONFIG = {
-    star:     {label:'⭐ Star',badgeCls:'badge-star',   pri:'badge-now', priLabel:'本週執行',
-      tasks:[
-        {type:'SP Bulk',text:'下載現有 SP 活動 Bulk File → 複製所有 Enabled campaigns → 新命名加 _COPY 後綴'},
-        {type:'Budget',text:'全部 SP 活動預算 × 1.3（+30%）→ 上傳 Bulk File'},
-        {type:'SB',text:'檢查是否有 SB Banner 廣告，若無則新建 SB Campaign 指向此產品'},
-        {type:'SD',text:'建立 SD Retargeting 活動 targeting 已瀏覽 ASIN 的受眾'},
-      ]},
-    question: {label:'⚠️ Question',badgeCls:'badge-question',pri:'badge-now', priLabel:'本週執行',
-      tasks:[
-        {type:'CPC',text:'下載 SP 活動 Bulk File → 找出 ACOS ≥85% 的關鍵字 → Bid × 0.8（降20%）'},
-        {type:'Pause KW',text:'TACOS ≥85% 且過去 14 天無轉換的關鍵字 → 狀態改為 Paused'},
-        {type:'Budget',text:'SP 活動預算維持不變，待 TACOS 下降再考慮增加'},
-        {type:'Review',text:'檢查競品 listing 定價，評估是否需要調整售價提高轉換率'},
-      ]},
-    cut:      {label:'🔴 Cut',badgeCls:'badge-cut',    pri:'badge-now', priLabel:'本週執行',
-      tasks:[
-        {type:'Price',text:'在 Seller Central 將售價下調 $0.50，觀察轉換率變化'},
-        {type:'Coupon',text:'建立 Coupon 折扣（建議 5–10%）→ 提升搜尋結果曝光'},
-        {type:'Deal',text:'申請 Prime Exclusive Discount 或 Lightning Deal（需提前 2 週申請）'},
-        {type:'SP Bid',text:'下載 SP Bulk File → 全部 Keyword Bid 降至 $2.00 上限'},
-      ]},
-    potential:{label:'💤 Potential',badgeCls:'badge-potential',pri:'badge-next',priLabel:'下週執行',
-      tasks:[
-        {type:'SP',text:'新建 SP Auto campaign，日預算 $10，CPC 出價 $2.00，30天跑數據'},
-        {type:'SB',text:'新建 SB Banner campaign，指向此產品 store page，CPC $2.00'},
-        {type:'SD',text:'新建 SD Audience campaign，目標 Competitor ASIN 的瀏覽受眾'},
-        {type:'AMC',text:'建立 AMC Lookalike 受眾 → 相似購買行為受眾 → 套用至 SD campaign'},
-        {type:'KW',text:'用現有暢銷產品的高轉換 KW 根詞，建立 SP Exact Match campaign'},
-      ]},
-  };
-
-  const html=sp.map(([pid,p])=>{
-    const q=getQuadrant(p, med);
-    const cfg=QUAD_CONFIG[q];
-    const taskHtml=cfg.tasks.map((t,i)=>`
-      <div class="action-task" id="task_${pid}_${i}">
-        <input type="checkbox" onchange="toggleTask('${pid}',${i},this)">
-        <span class="task-type">${t.type}</span>
-        <span class="task-text">${t.text}</span>
-      </div>`).join('');
-    return `<div class="action-card">
-      <div class="action-card-header">
-        <span style="width:12px;height:12px;border-radius:3px;background:${p.color};display:inline-block;flex-shrink:0"></span>
-        <div class="action-card-title" style="color:${p.color}">${zhShort(pid)}</div>
-        <span class="action-card-badge ${cfg.badgeCls}">${cfg.label}</span>
-        <span class="action-card-badge ${cfg.pri}">${cfg.priLabel}</span>
-        <span style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:auto">5W Sales ${fmt(p.total_sales,0)} · TACOS <span class="${tacosClass(p.tacos_4w)}">${pct(p.tacos_4w)}</span></span>
-        <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span>
-      </div>
-      <div class="action-tasks">${taskHtml}</div>
-    </div>`;
-  }).join('');
-
-  $('actionCards').innerHTML=html;
-}
-
-function toggleTask(pid, idx, cb) {
-  const el=document.getElementById(`task_${pid}_${idx}`);
-  if(el) el.classList.toggle('done', cb.checked);
-}
-
 // ═══ JP Market — Helper Functions ═══
 const jpFmt = (v,d=0) => v==null?'—':'¥'+v.toLocaleString('ja-JP',{minimumFractionDigits:d,maximumFractionDigits:d});
 const jpTacosClass = v => v==null?'muted':v<=JP_TACOS_TARGET?'tacos-ok':v<=JP_TACOS_TARGET*1.2?'tacos-warn':'tacos-bad';
@@ -1634,65 +1538,6 @@ function jpBuildQuadTab() {
 }
 
 // ═══ JP TAB 5 — Action Plan ═══
-function jpBuildActionTab() {
-  const sp=jpSortedParents().filter(([,p])=>p.total_sales>0);
-  const salesArr=sp.map(([,p])=>p.total_sales).sort((a,b)=>a-b);
-  const med=salesArr.length%2===0?(salesArr[salesArr.length/2-1]+salesArr[salesArr.length/2])/2:salesArr[Math.floor(salesArr.length/2)];
-
-  const QUAD_CONFIG = {
-    star:{label:'⭐ Star',badgeCls:'badge-star',pri:'badge-now',priLabel:'本週執行',
-      tasks:[
-        {type:'SP Bulk',text:'下載現有 SP 活動 Bulk File → 複製所有 Enabled campaigns → 新命名加 _COPY 後綴'},
-        {type:'Budget',text:'全部 SP 活動預算 × 1.3（+30%）→ 上傳 Bulk File'},
-        {type:'SB',text:'檢查是否有 SB Banner 廣告，若無則新建 SB Campaign'},
-        {type:'SD',text:'建立 SD Retargeting 活動 targeting 已瀏覽 ASIN 的受眾'},
-      ]},
-    question:{label:'⚠️ Question',badgeCls:'badge-question',pri:'badge-now',priLabel:'本週執行',
-      tasks:[
-        {type:'CPC',text:'下載 SP 活動 Bulk File → 找出 ACOS ≥85% 的關鍵字 → Bid × 0.8（降20%）'},
-        {type:'Pause KW',text:'TACOS ≥85% 且過去 14 天無轉換的關鍵字 → 狀態改為 Paused'},
-        {type:'Budget',text:'SP 活動預算維持不變，待 TACOS 下降再考慮增加'},
-        {type:'Review',text:'檢查競品 listing 定價，評估是否需要調整售價提高轉換率'},
-      ]},
-    cut:{label:'🔴 Cut',badgeCls:'badge-cut',pri:'badge-now',priLabel:'本週執行',
-      tasks:[
-        {type:'Price',text:'在 Seller Central 將售價下調，觀察轉換率變化'},
-        {type:'Coupon',text:'建立 Coupon 折扣（建議 5–10%）→ 提升搜尋結果曝光'},
-        {type:'SP Bid',text:'下載 SP Bulk File → 全部 Keyword Bid 降低 30%'},
-        {type:'Pause',text:'14 天無轉換的 KW 全部暫停，只留高轉換關鍵字'},
-      ]},
-    potential:{label:'💤 Potential',badgeCls:'badge-potential',pri:'badge-next',priLabel:'下週執行',
-      tasks:[
-        {type:'SP',text:'新建 SP Auto campaign，日預算適中，30天跑數據'},
-        {type:'SB',text:'新建 SB Banner campaign，指向此產品 store page'},
-        {type:'KW',text:'用現有暢銷產品的高轉換 KW 根詞，建立 SP Exact Match campaign'},
-      ]},
-  };
-
-  const html=sp.map(([pid,p])=>{
-    const q=jpGetQuadrant(p,med);
-    const cfg=QUAD_CONFIG[q];
-    const taskHtml=cfg.tasks.map((t,i)=>`
-      <div class="action-task" id="jptask_${pid}_${i}">
-        <input type="checkbox" onchange="document.getElementById('jptask_${pid}_${i}').classList.toggle('done',this.checked)">
-        <span class="task-type">${t.type}</span>
-        <span class="task-text">${t.text}</span>
-      </div>`).join('');
-    return `<div class="action-card">
-      <div class="action-card-header">
-        <span style="width:12px;height:12px;border-radius:3px;background:${p.color};display:inline-block;flex-shrink:0"></span>
-        <div class="action-card-title" style="color:${p.color}">${jpZhShort(pid)}</div>
-        <span class="action-card-badge ${cfg.badgeCls}">${cfg.label}</span>
-        <span class="action-card-badge ${cfg.pri}">${cfg.priLabel}</span>
-        <span style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:auto">5W Sales ${jpFmt(p.total_sales,0)} · TACOS <span class="${jpTacosClass(p.tacos_4w)}">${p.tacos_4w!=null?pct(p.tacos_4w):'N/A'}</span></span>
-      </div>
-      <div class="action-tasks">${taskHtml}</div>
-    </div>`;
-  }).join('');
-
-  $('jpActionCards').innerHTML=html;
-}
-
 // ═══ JP Executive Summary ═══
 function jpBuildExecSummary(){
   const sp=jpSortedParents();
@@ -1778,7 +1623,7 @@ function jpBuildExecSummary(){
     {tab:'jp2',icon:'📅',title:'週對週數據',desc:'7 產品 × 5 週完整交叉表：Sales / Spend / TACOS / Units / Organic。<br>快速掃描哪週哪產品表現異常。'},
     {tab:'jp3',icon:'📈',title:'WoW 變化',desc:'週對週百分比變化熱力圖：Sales / Spend / TACOS / Units。<br>綠色 = 正向變化，紅色 = 需關注。'},
     {tab:'jp4',icon:'🎯',title:'產品象限',desc:'依 Sales × TACOS 四象限分類：⭐ Star / ⚠️ Question / 💤 Potential / 🔴 Cut。<br>含視覺化象限圖與每象限建議行動。'},
-    {tab:'jp5',icon:'✅',title:'行動方案',desc:'依象限自動產生的待辦清單，含 SP/SB/SD Bulk File 操作指引。<br>可勾選完成項目追蹤進度。'},
+
     {tab:'t6',icon:'🇯🇵',title:'DSP Media Plan',desc:'Amazon DAA 年度預算 ¥55M 配置、DSP ¥5.5M Full-Funnel 計畫。<br>9 條 Line Items、月度 Pacing、優化指南。'},
   ];
   const allBtns=document.querySelectorAll('.tab-btn');
@@ -1874,7 +1719,6 @@ buildT1();
 buildWowTab();
 buildHeatTab();
 buildQuadTab();
-buildActionTab();
 buildDspTab();
 buildPacingTab();
 buildBurndownTab();
@@ -1883,7 +1727,6 @@ jpBuildT1();
 jpBuildWowTab();
 jpBuildHeatTab();
 jpBuildQuadTab();
-jpBuildActionTab();
 jpBuildExecSummary();
 
 function buildDspTab(){
