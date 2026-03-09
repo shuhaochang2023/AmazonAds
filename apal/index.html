@@ -268,15 +268,18 @@ const CAT_COLORS = {
   'Noise': {fg:'#94a3b8',bg:'#f1f5f9',cls:'cat-noise',icon:'💤'}
 };
 
+const YT_VIDEO = 'X4q7l_8pQHg';
 function commentHtml(c, showCat) {
   const catInfo = CAT_COLORS[showCat] || CAT_COLORS['Noise'];
+  const ytLink = c.id ? 'https://www.youtube.com/watch?v='+YT_VIDEO+'&lc='+c.id : '';
   return `<div class="comment-item">
     <div class="comment-header">
       <span class="comment-author">${c.author}</span>
       <span class="comment-date">${c.date}</span>
       ${c.likes > 0 ? `<span class="comment-likes">♥ ${c.likes}</span>` : ''}
-      ${c.is_reply ? '<span style="font-size:9px;background:#e2e8f0;padding:1px 5px;border-radius:3px;color:#64748b">REPLY</span>' : ''}
+      ${c.is_reply ? '<span style="font-size:9px;background:#e2e8f0;padding:1px 5px;border-radius:3px;color:#64748b">回覆 REPLY</span>' : ''}
       ${showCat ? `<span class="cat-badge ${catInfo.cls}">${showCat}</span>` : ''}
+      ${ytLink ? `<a href="${ytLink}" target="_blank" style="font-size:10px;color:var(--accent);text-decoration:none;margin-left:auto" title="在 YouTube 上查看 View on YouTube">▶ YouTube</a>` : ''}
     </div>
     <div class="comment-text">${c.comment.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>
     ${c.intent ? `<div class="comment-intent">${c.intent}</div>` : ''}
