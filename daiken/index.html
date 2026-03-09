@@ -379,6 +379,7 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   </div>
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
     <button class="week-btn active" onclick="jpSwitchWeek('all',this)">5W 合計</button>
+    <button class="week-btn" onclick="jpSwitchWeek('feb',this)">Feb 合計</button>
     <button class="week-btn" onclick="jpSwitchWeek('W1',this)">W1 Feb 1/7</button>
     <button class="week-btn" onclick="jpSwitchWeek('W2',this)">W2 Feb 8/14</button>
     <button class="week-btn" onclick="jpSwitchWeek('W3',this)">W3 Feb 15/21</button>
@@ -1244,10 +1245,11 @@ function jpSortedParents() {
 
 // ═══ JP TAB 1 — Sales & Ad Spend ═══
 function jpBuildT1() {
+  const JP_FEB_WEEKS=['W1','W2','W3','W4'];
   window._jp1={};
-  ['all',...JP_WEEKS].forEach(mode=>{
+  ['all','feb',...JP_WEEKS].forEach(mode=>{
     const sp=jpSortedParents();
-    const weeks=mode==='all'?JP_WEEKS:[mode];
+    const weeks=mode==='all'?JP_WEEKS:mode==='feb'?JP_FEB_WEEKS:[mode];
     const byAsin=sp.map(([pid,p])=>{
       const sales=weeks.reduce((a,w)=>a+p.weeks[w].sales,0);
       const spend=weeks.reduce((a,w)=>a+p.weeks[w].spend,0);
@@ -1315,7 +1317,7 @@ function jpSwitchWeek(mode, btn) {
 
 function jpRenderChildTable(mode) {
   const tbl=$('jpChildTable'); if(!tbl) return;
-  const weeks=mode==='all'?JP_WEEKS:[mode];
+  const weeks=mode==='all'?JP_WEEKS:mode==='feb'?JP_FEB_WEEKS:[mode];
   const modeAdj=JP_CHILD_DATA.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
   const wH=weeks.map(w=>`<th colspan="3" style="text-align:center;border-left:1px solid var(--border2)">${w} <span style="color:var(--text3);font-size:8px">${JP_W_LABELS[w]}</span></th>`).join('');
   const sH=weeks.map(()=>`<th style="border-left:1px solid var(--border2)">Sales</th><th>Spend</th><th>TACOS</th>`).join('');
