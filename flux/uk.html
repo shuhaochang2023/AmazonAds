@@ -95,11 +95,11 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   <div class="nav-brand">Flux <span class="market-tag">UK</span></div>
   <div class="tabs">
     <button class="tab-btn active" onclick="showTab('t1',this)">📊 銷售 &amp; 廣告佔比</button>
+    <button class="tab-btn" onclick="showTab('t6',this)" style="background:#16a34a;color:#fff;border-radius:6px;margin:8px 4px;padding:6px 16px;font-weight:800;letter-spacing:.08em;border-bottom:none;height:auto">SPRINGSALES</button>
     <button class="tab-btn" onclick="showTab('t2',this)">📅 週對週數據</button>
     <button class="tab-btn" onclick="showTab('t3',this)">📈 WoW 變化</button>
     <button class="tab-btn" onclick="showTab('t4',this)">🎯 產品象限</button>
     <button class="tab-btn" onclick="showTab('t5',this)">✅ 行動方案</button>
-    <button class="tab-btn" onclick="showTab('t6',this)">🌸 Spring Deal</button>
   </div>
   <div class="meta">Feb 2026 · SP+SD+SB · TACOS ≤30%</div>
   </div>
@@ -347,6 +347,64 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
       <div class="action-task done"><input type="checkbox" checked onchange="this.parentElement.classList.toggle('done')"><span class="task-type" style="background:var(--green);color:#fff;border:none">DONE</span><span class="task-text">Spring deals CONFIRMED for Avento, Jet II, Verano, Dynamic — warm-up campaigns launched 3/10</span></div>
       <div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done')"><span class="task-type">MONITOR</span><span class="task-text">Track deal week daily — kill underperformers by Day 3 if TACOS exceeds 50%</span></div>
     </div>
+  </div>
+
+  <div class="sec-header">Bulk File — UK_SP_SpringDeal_20260310.xlsx (7 Campaigns, 61 Rows)</div>
+  <div class="table-wrap" style="margin-bottom:20px">
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align:left">Product</th>
+          <th style="text-align:left">Campaigns</th>
+          <th>Budget</th>
+          <th>Bid</th>
+          <th style="text-align:left">Keywords (Broad)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:rgba(22,163,74,.04)">
+          <td style="font-weight:700">ICECUBE Avento</td>
+          <td style="text-align:left">SP Auto + SP Manual</td>
+          <td style="font-weight:700;color:var(--green)">£57/day</td>
+          <td>£0.55</td>
+          <td style="text-align:left;font-size:11px">polarized sports sunglasses, running sunglasses men, cycling sunglasses, sports sunglasses uv400, polarized sunglasses men</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700">ICECUBE Jet II</td>
+          <td style="text-align:left">SP Auto + SP Manual</td>
+          <td style="font-weight:700;color:var(--accent)">£18/day</td>
+          <td>£0.45</td>
+          <td style="text-align:left;font-size:11px">lightweight polarized sunglasses, sports sunglasses men, polarized sunglasses cycling, uv protection sunglasses</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700">ICECUBE Verano</td>
+          <td style="text-align:left">SP Auto + SP Manual</td>
+          <td style="font-weight:700;color:var(--accent)">£12/day</td>
+          <td>£0.40</td>
+          <td style="text-align:left;font-size:11px">polarized sports sunglasses, anti slip sunglasses, sports sunglasses men women</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700">ICECUBE Dynamic</td>
+          <td style="text-align:left">SP Auto only</td>
+          <td style="font-weight:700;color:var(--amber)">£8/day</td>
+          <td>£0.40</td>
+          <td style="text-align:left;font-size:11px;color:var(--text3)">None — discovery mode (no KW history)</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr style="background:var(--bg3);font-weight:700">
+          <td>Total</td>
+          <td style="text-align:left">7 campaigns</td>
+          <td style="color:var(--accent)">£95/day</td>
+          <td></td>
+          <td style="text-align:left;font-size:11px">12 keywords + 4 auto campaigns</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div style="font-size:11px;color:var(--text3);margin-bottom:20px;font-family:var(--mono);line-height:1.8">
+    Bidding: Dynamic bids - down only · All child ASINs with SKUs · Campaign names timestamped _20260310_1200<br>
+    File location: clients/flux/bulk-output/UK_SP_SpringDeal_20260310.xlsx
   </div>
 
   <div class="sec-header">Deal Week Success Metrics</div>
