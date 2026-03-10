@@ -425,19 +425,99 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     </div>
   </div>
 
-  <!-- Action Items -->
-  <div class="sec-header">待辦事項 Action Items</div>
+  <!-- Action Items — Master Task List -->
+  <div class="sec-header">待辦事項總表 GEO Master Task List · Updated 3/10</div>
 
-  <!-- Urgent - This Week -->
-  <div style="margin-bottom:16px">
-    <div style="font-size:12px;font-weight:700;color:var(--red);font-family:var(--mono);margin-bottom:8px;letter-spacing:.05em">🔴 本週完成 DUE THIS WEEK (3/10–3/14)</div>
-    <div style="display:flex;flex-direction:column;gap:6px" id="actionThisWeek"></div>
+  <!-- ✅ COMPLETED -->
+  <div style="margin-bottom:20px">
+    <div style="font-size:12px;font-weight:700;color:var(--green);font-family:var(--mono);margin-bottom:10px;letter-spacing:.05em">✅ 已完成 COMPLETED</div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+
+      <div class="action-task done" style="opacity:.45">
+        <input type="checkbox" checked disabled><span class="task-type" style="background:rgba(22,163,74,.12);color:var(--green);border-color:var(--green)">SP</span>
+        <span class="task-text" style="text-decoration:line-through"><strong>#5 ASIN Targeting 競品機殼 ≥$160</strong> — 28 campaigns（16 品牌防禦 + 12 競品進攻），bid $0.21 · budget $1/campaign · 已上線 3/10</span>
+      </div>
+
+      <div class="action-task done" style="opacity:.45">
+        <input type="checkbox" checked disabled><span class="task-type" style="background:rgba(22,163,74,.12);color:var(--green);border-color:var(--green)">SP</span>
+        <span class="task-text" style="text-decoration:line-through"><strong>#6 MBA Pair 1-to-Many</strong> — Market Basket Analysis 購物籃配對策略，14 個月數據分析完成，品牌防禦 + 競品進攻 ASIN targeting campaigns 已建立</span>
+      </div>
+
+      <div class="action-task done" style="opacity:.45">
+        <input type="checkbox" checked disabled><span class="task-type" style="background:rgba(22,163,74,.12);color:var(--green);border-color:var(--green)">API</span>
+        <span class="task-text" style="text-decoration:line-through"><strong>#2 M4/M8 廣告止血</strong> — Cut 象限執行完成：M4 King Arthur (TACOS 107%) + M8 Case (TACOS 33%) + S2503R + S3805 — 97 kw/targets bid → $0.16 最低，48 campaigns 已降至最低出價</span>
+      </div>
+
+      <div class="action-task done" style="opacity:.45">
+        <input type="checkbox" checked disabled><span class="task-type" style="background:rgba(22,163,74,.12);color:var(--green);border-color:var(--green)">API</span>
+        <span class="task-text" style="text-decoration:line-through"><strong>#3 Fan + AIO 加碼投放</strong> — Star 象限 913 campaigns budget +30%：M5 Case · Eskimo Pro · S2503 140mm Fan + 新建 S2503 120mm SP Auto $10/day (campaign 34479926380272)</span>
+      </div>
+
+      <div class="action-task done" style="opacity:.45">
+        <input type="checkbox" checked disabled><span class="task-type" style="background:rgba(22,163,74,.12);color:var(--green);border-color:var(--green)">Misc</span>
+        <span class="task-text" style="text-decoration:line-through"><strong>#1 Creator Connections</strong> — 已完成</span>
+      </div>
+
+      <div class="action-task done" style="opacity:.45">
+        <input type="checkbox" checked disabled><span class="task-type" style="background:rgba(22,163,74,.12);color:var(--green);border-color:var(--green)">SP</span>
+        <span class="task-text" style="text-decoration:line-through"><strong>#8 2/1 BTP 繼續執行</strong> — Brand Tailored Promotions 已持續</span>
+      </div>
+
+    </div>
   </div>
 
-  <!-- Due Next Monday -->
-  <div style="margin-bottom:16px">
-    <div style="font-size:12px;font-weight:700;color:var(--amber);font-family:var(--mono);margin-bottom:8px;letter-spacing:.05em">🟡 下週一前完成 DUE BY 3/16 (一)</div>
-    <div style="display:flex;flex-direction:column;gap:6px" id="actionNextMon"></div>
+  <!-- 🔴 THIS WEEK -->
+  <div style="margin-bottom:20px">
+    <div style="font-size:12px;font-weight:700;color:var(--red);font-family:var(--mono);margin-bottom:10px;letter-spacing:.05em">🔴 本週完成 DUE THIS WEEK (3/10–3/14)</div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+
+      <div class="action-task">
+        <input type="checkbox" class="done-cb"><span class="task-type" style="background:rgba(220,38,38,.1);color:var(--red);border-color:var(--red)">SBV</span>
+        <span class="task-text"><strong>#7 SBV Campaigns 建立</strong> — Sponsored Brand Video campaigns，建議優先為 Star 產品（M5 Case · Eskimo Pro）建立 SBV，CPC $0.21，指向品牌 Store 產品頁面<br>
+        <span style="font-size:11px;color:var(--text3)">截止 3/12 (三) · 需準備 15-30s 產品影片素材或使用 Amazon Video Builder</span></span>
+      </div>
+
+      <div class="action-task">
+        <input type="checkbox" class="done-cb"><span class="task-type" style="background:rgba(220,38,38,.1);color:var(--red);border-color:var(--red)">AMC</span>
+        <span class="task-text"><strong>#4 AMC Audience 建立與應用</strong> — Amazon Marketing Cloud 受眾建立：(1) Competitor ASIN 瀏覽受眾 (2) 已購買 GEO 產品的 Lookalike 受眾 → 套用至 SD Retargeting campaigns<br>
+        <span style="font-size:11px;color:var(--text3)">截止 3/13 (四) · 需 AMC instance access · 產出受眾後 48hr 才可用於 DSP/SD</span></span>
+      </div>
+
+      <div class="action-task">
+        <input type="checkbox" class="done-cb"><span class="task-type" style="background:rgba(220,38,38,.1);color:var(--red);border-color:var(--red)">SD</span>
+        <span class="task-text"><strong>#9 Campaign B2B Audience</strong> — Sponsored Display B2B 受眾定位，針對企業 / SI 買家（bulk orders），建議定位 In-Market: Computer Components + 企業相關受眾段<br>
+        <span style="font-size:11px;color:var(--text3)">截止 3/14 (五) · 可先用 Amazon 內建 B2B audiences，AMC 建好後替換</span></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 🟡 ONGOING / NEXT -->
+  <div style="margin-bottom:20px">
+    <div style="font-size:12px;font-weight:700;color:var(--amber);font-family:var(--mono);margin-bottom:10px;letter-spacing:.05em">🟡 持續進行 ONGOING / NEXT WEEK</div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+
+      <div class="action-task">
+        <input type="checkbox" class="done-cb"><span class="task-type" style="background:rgba(217,119,6,.1);color:var(--amber);border-color:var(--amber)">Strategy</span>
+        <span class="task-text"><strong>#10 Growth Hack 2M/3M</strong> — 與 Amazon Manager 合作制定 2-3 月成長策略。討論項目：(1) Brand Store 優化 (2) A+ Content Premium (3) Lightning Deal / DOTD 提名 (4) Vine 新品評論 (5) 季節性促銷排程<br>
+        <span style="font-size:11px;color:var(--text3)">持續進行 · 與 AMZ account manager 每週同步</span></span>
+      </div>
+
+      <div class="action-task">
+        <input type="checkbox" class="done-cb"><span class="task-type" style="background:rgba(217,119,6,.1);color:var(--amber);border-color:var(--amber)">Report</span>
+        <span class="task-text"><strong>W6 週報更新</strong> — 更新 3/8–3/14 數據至看板 + Excel，確認 Star/Question/Cut 象限是否因本週操作而改善<br>
+        <span style="font-size:11px;color:var(--text3)">截止 3/16 (一) · 需等 3/14 數據出爐</span></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Dynamic quadrant actions (kept for reference) -->
+  <div style="margin-bottom:16px;display:none">
+    <div id="actionThisWeek"></div>
+  </div>
+  <div style="margin-bottom:16px;display:none">
+    <div id="actionNextMon"></div>
   </div>
 
   <!-- Key Takeaways -->
