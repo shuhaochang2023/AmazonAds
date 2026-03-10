@@ -69,6 +69,13 @@ tbody td:first-child{text-align:left;font-family:var(--body);font-size:13px;}
 .action-task input[type=checkbox]{margin-top:2px;accent-color:var(--accent);width:14px;height:14px;flex-shrink:0;}
 .action-task.done{opacity:.35;}
 .action-task.done .task-text{text-decoration:line-through;}
+.action-task{flex-wrap:wrap;}
+.feedback-toggle{font-size:10px;color:var(--accent);cursor:pointer;background:none;border:1px solid var(--accent);border-radius:3px;padding:1px 6px;margin-left:auto;flex-shrink:0;font-family:var(--mono);opacity:.7;transition:opacity .15s;}.feedback-toggle:hover{opacity:1;}
+.feedback-area{width:100%;margin-top:6px;display:none;}
+.feedback-area.open{display:block;}
+.feedback-area textarea{width:100%;min-height:48px;padding:8px 10px;border:1px solid var(--border2);border-radius:5px;font-family:var(--body);font-size:12px;color:var(--text);background:#fff;resize:vertical;line-height:1.5;}
+.feedback-area textarea::placeholder{color:var(--text3);font-size:11px;}
+.feedback-area textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(37,99,235,.12);}
 .task-text{font-size:12.5px;color:var(--text2);line-height:1.5;}
 .task-type{font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:2px;background:var(--bg);color:var(--text3);border:1px solid var(--border2);flex-shrink:0;margin-top:2px;}
 .q-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;}
@@ -94,7 +101,8 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   <div class="nav-inner">
   <div class="nav-brand">Flux <span class="market-tag">DE</span></div>
   <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('t1',this)">📊 銷售 &amp; 廣告佔比</button>
+    <button class="tab-btn active" onclick="showTab('t0',this)">📋 總覽</button>
+    <button class="tab-btn" onclick="showTab('t1',this)">📊 銷售 &amp; 廣告佔比</button>
     <button class="tab-btn" onclick="showTab('t2',this)">📅 週對週數據</button>
     <button class="tab-btn" onclick="showTab('t3',this)">📈 WoW 變化</button>
     <button class="tab-btn" onclick="showTab('t4',this)">🎯 產品象限</button>
@@ -104,8 +112,142 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   </div>
 </nav>
 
+<!-- TAB 0 — Executive Summary -->
+<div id="t0" class="panel active">
+  <div style="margin-bottom:20px">
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">EXECUTIVE SUMMARY · 2026 年 3 月 10 日更新</div>
+    <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">Flux 🇩🇪 DE · 執行摘要</div>
+    <div style="font-size:12px;color:var(--text3)">DE Market Feb–Mar 2026 週報 · SP+SD+SB · TACOS ≤30%</div>
+  </div>
+
+  <details style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
+    <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
+      <span style="font-size:14px;transition:transform .2s;display:inline-block" class="log-arrow">&#9654;</span>
+      <span>Campaign Action Log 廣告操作紀錄</span>
+      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">2 entries</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/10 — 春季特賣預熱廣告上線</span>
+    </summary>
+    <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
+
+      <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-10 — SPRING DEAL WARM-UP 春季特賣預熱廣告上線</span>
+          <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
+        </div>
+        <div style="color:var(--text2)">
+          <strong style="color:var(--green)">新建 5 組 SP 廣告活動</strong> — 針對德國春季特賣商品（Avento、Sportech、Jet II）進行預熱投放。<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
+            德國市場太陽眼鏡季節性需求確認爆發。Avento W5 銷售額飆升至 €3,757（23.6% TACOS），趁勢在特賣前建立關鍵字排名。每個商品配置 Auto + Manual 雙軌廣告（Jet II 因零銷售僅開 Auto 探索模式）。關鍵字使用德文 + 英文雙語投放，覆蓋德國市場搜尋習慣。
+          </div>
+          &nbsp;&nbsp;• Avento：Auto + Manual €176/天，6 個 broad KW（德文 + 英文雙語）<br>
+          &nbsp;&nbsp;• Sportech：Auto + Manual €22/天，4 個 broad KW<br>
+          &nbsp;&nbsp;• Jet II：僅 Auto €10/天 — W5 零銷售，探索模式發現新詞<br>
+          &nbsp;&nbsp;• 預熱總預算：€208/天，5 個廣告活動<br>
+          &nbsp;&nbsp;• <strong>市場現況：</strong>Avento W5 爆發 €3,757（23.6% TACOS）、Sportech 穩定 €1,068（W5 TACOS 30.2%）<br>
+          <a href="./DE_SP_SpringDeal_20260310.xlsx" download style="display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;color:var(--accent);text-decoration:none;background:rgba(37,99,235,.08);padding:4px 10px;border-radius:4px;border:1px solid rgba(37,99,235,.2);margin-top:6px">⬇ DE_SP_SpringDeal_20260310.xlsx <span style="color:var(--text3);font-size:10px">43 rows</span></a>
+        </div>
+      </div>
+
+      <div style="border-left:3px solid var(--text3);padding-left:14px">
+        <div style="font-weight:800;color:var(--text3);font-size:13px;font-family:var(--mono);margin-bottom:6px">2026-03-09 — INITIAL ANALYSIS 初始分析與策略規劃</div>
+        <div style="color:var(--text3)">
+          確認德國春季特賣商品：Avento、Sportech、Jet II（3/10 開始）。識別 Avento 為優先推廣 — W5 銷售額飆升至 €3,757，TACOS 23.6%。Sportech TACOS 持續改善（W3 44% → W5 30.2%）。Jet II W5 零銷售 — 需要特賣週流量帶動發現。德國太陽眼鏡市場季節性需求確認上升。
+        </div>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- Overall Account KPIs -->
+  <div class="kpi-strip" style="margin-bottom:20px" id="kpi-exec"></div>
+
+  <!-- Product Performance Overview -->
+  <div class="sec-header">全產品線績效總覽 Product Performance Overview</div>
+  <div class="table-wrap" style="margin-bottom:24px">
+    <table id="execProductTable"></table>
+  </div>
+
+  <!-- Tab Guide -->
+  <div class="sec-header">看板功能導覽 Dashboard Guide</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px">
+    <div class="action-card" style="cursor:pointer" onclick="showTab('t1',document.querySelectorAll('.tab-btn')[1])">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <span style="font-size:18px">📊</span>
+        <div style="font-weight:700;font-size:14px">銷售 & 廣告佔比</div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.7">
+        各產品營業額、廣告花費佔比圓餅圖，可切換單週 / 5 週合計。<br>
+        含子變體展開明細表（Sales / Spend / TACOS per week）。<br>
+        <strong>搭配 Excel：</strong>下載按鈕在頁面頂部
+      </div>
+    </div>
+    <div class="action-card" style="cursor:pointer" onclick="showTab('t2',document.querySelectorAll('.tab-btn')[2])">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <span style="font-size:18px">📅</span>
+        <div style="font-weight:700;font-size:14px">週對週數據</div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.7">
+        全產品 × 5 週完整交叉表：Sales / Spend / TACOS / Units / Organic。<br>
+        快速掃描哪週哪產品表現異常。<br>
+        <strong>用途：</strong>週會報告、趨勢追蹤
+      </div>
+    </div>
+    <div class="action-card" style="cursor:pointer" onclick="showTab('t3',document.querySelectorAll('.tab-btn')[3])">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <span style="font-size:18px">📈</span>
+        <div style="font-weight:700;font-size:14px">WoW 變化</div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.7">
+        週對週百分比變化熱力圖：Sales / Spend / TACOS / Units。<br>
+        綠色 = 正向變化，紅色 = 需關注。<br>
+        <strong>用途：</strong>快速定位異常波動
+      </div>
+    </div>
+    <div class="action-card" style="cursor:pointer" onclick="showTab('t4',document.querySelectorAll('.tab-btn')[4])">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <span style="font-size:18px">🎯</span>
+        <div style="font-weight:700;font-size:14px">產品象限</div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.7">
+        依 Sales × TACOS 四象限分類：⭐ Star / ⚠️ Question / 💤 Potential / 🔴 Cut。<br>
+        含視覺化象限圖與每象限建議行動。<br>
+        <strong>用途：</strong>策略決策、資源分配
+      </div>
+    </div>
+    <div class="action-card" style="cursor:pointer" onclick="showTab('t5',document.querySelectorAll('.tab-btn')[5])">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <span style="font-size:18px">✅</span>
+        <div style="font-weight:700;font-size:14px">行動方案</div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.7">
+        依象限自動產生的待辦清單，含 SP/SB/SD Bulk File 操作指引。<br>
+        可勾選完成項目追蹤進度。<br>
+        <strong>用途：</strong>每週執行 checklist
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Items -->
+  <div class="sec-header">待辦事項 Action Items</div>
+  <div style="margin-bottom:16px">
+    <div style="font-size:12px;font-weight:700;color:var(--red);font-family:var(--mono);margin-bottom:8px;letter-spacing:.05em">🔴 本週完成 DUE THIS WEEK (3/10–3/14)</div>
+    <div style="display:flex;flex-direction:column;gap:6px" id="actionThisWeek"></div>
+  </div>
+  <div style="margin-bottom:16px">
+    <div style="font-size:12px;font-weight:700;color:var(--amber);font-family:var(--mono);margin-bottom:8px;letter-spacing:.05em">🟡 下週一前完成 DUE BY 3/16 (一)</div>
+    <div style="display:flex;flex-direction:column;gap:6px" id="actionNextMon"></div>
+  </div>
+
+  <!-- Key Takeaways -->
+  <div class="sec-header">本週重點結論 Key Takeaways</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px" id="takeawayCards"></div>
+
+</div>
+
+
 <!-- TAB 1 -->
-<div id="t1" class="panel active">
+<div id="t1" class="panel">
   <div style="margin-bottom:16px">
     <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">全產品線佔比分析 · DE Market</div>
     <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">Sales &amp; Ad Spend — Feb–Mar 2026</div>
@@ -618,7 +760,196 @@ function toggleTask(pid, idx, cb) {
   if(el) el.classList.toggle('done', cb.checked);
 }
 
+function buildExecSummary(){
+  const sp=sortedParents();
+  const totS=sp.reduce((s,[,p])=>s+p.total_sales,0);
+  const totE=sp.reduce((s,[,p])=>s+p.total_spend,0);
+  const totU=sp.reduce((s,[,p])=>s+WEEKS.reduce((a,w)=>a+p.weeks[w].units,0),0);
+  const totProfit=sp.reduce((s,[,p])=>s+WEEKS.reduce((a,w)=>a+p.weeks[w].profits,0),0);
+  const acctTacos=totS>0?totE/totS*100:0;
+  const totOrganic=sp.reduce((s,[,p])=>s+WEEKS.reduce((a,w)=>a+p.weeks[w].organic,0),0);
+  const orgPct=totU>0?(totOrganic/totU*100).toFixed(0):0;
+  const prodCount=sp.filter(([,p])=>p.total_sales>0).length;
+
+  $('kpi-exec').innerHTML=`
+    <div class="kpi-card"><div class="kpi-label">5W 總營業額</div><div class="kpi-value">${fmt(totS,0)}</div><div class="kpi-sub">${totU} units · ${prodCount} 產品</div></div>
+    <div class="kpi-card"><div class="kpi-label">5W 總廣告費</div><div class="kpi-value kpi-amber">${fmt(totE,0)}</div><div class="kpi-sub">SP+SD+SB</div></div>
+    <div class="kpi-card"><div class="kpi-label">帳戶 TACOS</div><div class="kpi-value ${acctTacos<=TACOS_TARGET?'kpi-green':acctTacos<=TACOS_TARGET*1.2?'kpi-amber':'kpi-red'}">${pct(acctTacos)}</div><div class="kpi-sub">${acctTacos<=TACOS_TARGET?'✓ 達標':'⚠ 超過 '+TACOS_TARGET+'% 目標'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">5W 損益</div><div class="kpi-value ${totProfit>=0?'kpi-green':'kpi-red'}">${fmt(totProfit,0)}</div><div class="kpi-sub">${totProfit>=0?'盈利':'虧損'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">有機佔比</div><div class="kpi-value ${orgPct>=50?'kpi-green':'kpi-amber'}">${orgPct}%</div><div class="kpi-sub">${totOrganic} / ${totU} units</div></div>`;
+
+  // Product table
+  const salesArr=sp.filter(([,p])=>p.total_sales>0).map(([,p])=>p.total_sales).sort((a,b)=>a-b);
+  const med=salesArr.length%2===0?(salesArr[salesArr.length/2-1]+salesArr[salesArr.length/2])/2:salesArr[Math.floor(salesArr.length/2)];
+  const quadLabel=p=>{
+    if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return '<span style="color:var(--green);font-weight:700">⭐ Star</span>';
+    if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return '<span style="color:var(--amber);font-weight:700">⚠️ Question</span>';
+    if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return '<span style="color:var(--accent);font-weight:700">💤 Potential</span>';
+    return '<span style="color:var(--red);font-weight:700">🔴 Cut</span>';
+  };
+  const trend=(p)=>{
+    const w4=p.weeks['W4'],w5=p.weeks['W5'];
+    if(!w4||!w5||w4.sales===0) return '<span class="muted">—</span>';
+    const chg=(w5.sales-w4.sales)/w4.sales*100;
+    return `<span style="color:${chg>=0?'var(--green)':'var(--red)'};">${chg>=0?'+':''}${chg.toFixed(0)}%</span>`;
+  };
+
+  const pt=$('execProductTable');
+  if(pt){
+    pt.innerHTML=`<thead><tr>
+      <th style="text-align:left;font-size:11px">產品 Product</th>
+      <th style="font-size:11px">象限 Quadrant</th>
+      <th style="font-size:11px">5W Sales</th>
+      <th style="font-size:11px">5W Spend</th>
+      <th style="font-size:11px">TACOS</th>
+      <th style="font-size:11px">Units</th>
+      <th style="font-size:11px">Organic %</th>
+      <th style="font-size:11px">5W Profit</th>
+      <th style="font-size:11px">W4→W5</th>
+      <th style="text-align:left;font-size:11px">本週行動 Action</th>
+    </tr></thead><tbody>${sp.filter(([,p])=>p.total_sales>0).map(([pid,p])=>{
+      const units=WEEKS.reduce((a,w)=>a+p.weeks[w].units,0);
+      const organic=WEEKS.reduce((a,w)=>a+p.weeks[w].organic,0);
+      const profit=WEEKS.reduce((a,w)=>a+p.weeks[w].profits,0);
+      const op=units>0?(organic/units*100).toFixed(0):'0';
+      const q=(function(){
+        if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return 'star';
+        if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return 'question';
+        if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return 'potential';
+        return 'cut';
+      })();
+      const actionMap={star:'加碼投放 +30%',question:'CPC 降 20%',cut:'降價 + Coupon',potential:'新建 SP Auto $10/天'};
+      return `<tr>
+        <td style="text-align:left;font-size:13px"><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span><strong style="color:${p.color}">${zhShort(pid)}</strong></td>
+        <td style="font-size:12px">${quadLabel(p)}</td>
+        <td style="font-size:13px;font-weight:600">${fmt(p.total_sales,0)}</td>
+        <td style="font-size:13px;color:var(--amber)">${fmt(p.total_spend,0)}</td>
+        <td style="font-size:13px;font-weight:700" class="${tacosClass(p.tacos_4w)}">${pct(p.tacos_4w)}</td>
+        <td style="font-size:13px">${units}</td>
+        <td style="font-size:13px;color:${op>=50?'var(--green)':'var(--red)'}">${op}%</td>
+        <td style="font-size:13px;font-weight:700;color:${profit>=0?'var(--green)':'var(--red)'}">${fmt(profit,0)}</td>
+        <td style="font-size:13px">${trend(p)}</td>
+        <td style="text-align:left;font-size:12px;color:var(--text2)">${actionMap[q]||'—'}</td>
+      </tr>`;}).join('')}
+    <tr style="background:var(--bg3);font-weight:700;border-top:2px solid var(--border2)">
+      <td style="text-align:left;font-size:13px">TOTAL 合計</td><td></td>
+      <td style="font-size:13px">${fmt(totS,0)}</td>
+      <td style="font-size:13px;color:var(--amber)">${fmt(totE,0)}</td>
+      <td style="font-size:13px" class="${tacosClass(acctTacos)}">${pct(acctTacos)}</td>
+      <td style="font-size:13px">${totU}</td>
+      <td style="font-size:13px">${orgPct}%</td>
+      <td style="font-size:13px;color:${totProfit>=0?'var(--green)':'var(--red)'}">${fmt(totProfit,0)}</td>
+      <td></td><td></td>
+    </tr></tbody>`;
+  }
+
+  // Dynamic action items based on quadrant data
+  const thisWeekEl=$('actionThisWeek');
+  const nextMonEl=$('actionNextMon');
+  if(!thisWeekEl||!nextMonEl) return;
+
+  let thisWeekHtml='';
+  let nextMonHtml='';
+  const activeProducts=sp.filter(([,p])=>p.total_sales>0);
+
+  activeProducts.forEach(([pid,p])=>{
+    const q=(function(){
+      if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return 'star';
+      if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return 'question';
+      if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return 'potential';
+      return 'cut';
+    })();
+    const name=zhShort(pid);
+    const tacos=p.tacos_4w!=null?p.tacos_4w.toFixed(1)+'%':'N/A';
+
+    if(q==='star'){
+      thisWeekHtml+=makeAction('廣告','var(--green)',`<strong>${name} SP 預算 +30%</strong> — ⭐ Star 象限，TACOS ${tacos}，加碼投放`,`截止：3/12 (三)`);
+      nextMonHtml+=makeAction('策略','#7c3aed',`<strong>${name} 建立 SB + SD Retargeting</strong> — 擴大廣告覆蓋面，提高品牌曝光`,`截止：3/16 (一)`);
+    } else if(q==='question'){
+      thisWeekHtml+=makeAction('廣告','var(--amber)',`<strong>${name} CPC 出價降 20%</strong> — ⚠️ Question 象限，TACOS ${tacos}，降低出價觀察`,`截止：3/12 (三)`);
+      thisWeekHtml+=makeAction('廣告','var(--amber)',`<strong>${name} 暫停 ACOS ≥85% 關鍵字</strong> — 下載 SP Bulk File，Pause 14 天無轉換 KW`,`截止：3/13 (四)`);
+    } else if(q==='cut'){
+      thisWeekHtml+=makeAction('定價','var(--red)',`<strong>${name} 降價或加 Coupon 5-10%</strong> — 🔴 Cut 象限，TACOS ${tacos}，需提升轉換率`,`截止：3/11 (二)`);
+      thisWeekHtml+=makeAction('廣告','var(--red)',`<strong>${name} SP Bid 全部降至上限</strong> — 減少無效花費`,`截止：3/12 (三)`);
+    } else {
+      nextMonHtml+=makeAction('策略','var(--accent)',`<strong>${name} 新建 SP Auto $10/天</strong> — 💤 Potential 象限，30 天跑數據`,`截止：3/16 (一)`);
+    }
+  });
+
+  // Add general action items
+  nextMonHtml+=makeAction('報告','#7c3aed',`<strong>Spring Sale 促銷申請</strong> — 評估哪些產品申請 3/25 Spring Sale Deal（需提前 2 週）`,`截止：3/16 (一)`);
+  nextMonHtml+=makeAction('報告','#7c3aed',`<strong>W6 週報更新</strong> — 更新 3/8–3/14 數據至看板`,`截止：3/16 (一)`);
+
+  thisWeekEl.innerHTML=thisWeekHtml;
+  nextMonEl.innerHTML=nextMonHtml;
+
+  // Key Takeaways
+  const stars=activeProducts.filter(([,p])=>p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET);
+  const questions=activeProducts.filter(([,p])=>p.total_sales>=med&&p.tacos_4w>TACOS_TARGET);
+  const cuts=activeProducts.filter(([,p])=>{
+    const q=(function(){
+      if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return 'star';
+      if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return 'question';
+      if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return 'potential';
+      return 'cut';
+    })();
+    return q==='cut';
+  });
+
+  const tkEl=$('takeawayCards');
+  if(tkEl){
+    tkEl.innerHTML=`
+    <div class="chart-card" style="border-left:3px solid var(--green)">
+      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--green)">✅ 正向訊號</div>
+      <div style="font-size:13px;color:var(--text2);line-height:2">
+        ${stars.length>0?stars.map(([pid,p])=>`• ${zhShort(pid)} TACOS ${p.tacos_4w!=null?p.tacos_4w.toFixed(1):'N/A'}% — Star 表現穩定`).join('<br>'):'• 暫無 Star 象限產品'}
+        <br>• 有機佔比 ${orgPct}%${orgPct>=50?' — 健康':' — 需提升'}
+        <br>• ${prodCount} 產品線運作中
+      </div>
+    </div>
+    <div class="chart-card" style="border-left:3px solid var(--red)">
+      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--red)">⚠️ 警示訊號</div>
+      <div style="font-size:13px;color:var(--text2);line-height:2">
+        ${cuts.length>0?cuts.map(([pid,p])=>`• ${zhShort(pid)} TACOS ${p.tacos_4w!=null?p.tacos_4w.toFixed(1):'N/A'}% — 需止血`).join('<br>'):'• 暫無需止血產品'}
+        ${questions.length>0?'<br>'+questions.map(([pid,p])=>`• ${zhShort(pid)} TACOS ${p.tacos_4w!=null?p.tacos_4w.toFixed(1):'N/A'}% — 需觀察`).join('<br>'):''}
+        <br>• 帳戶 TACOS ${acctTacos.toFixed(1)}%${acctTacos>TACOS_TARGET?' — 超過目標':' — 達標'}
+      </div>
+    </div>
+    <div class="chart-card" style="border-left:3px solid var(--accent)">
+      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--accent)">📋 本週優先級</div>
+      <div style="font-size:13px;color:var(--text2);line-height:2">
+        ${cuts.length>0?'1. Cut 產品止血（降預算 + Coupon）<br>':''}
+        ${questions.length>0?(cuts.length>0?'2':'1')+'. Question 產品降 CPC 觀察<br>':''}
+        ${stars.length>0?((cuts.length>0?2:0)+(questions.length>0?1:0)+1)+'. Star 產品加碼投放<br>':''}
+        ${(cuts.length>0?2:0)+(questions.length>0?1:0)+(stars.length>0?1:0)+1}. Spring Sale 促銷評估
+      </div>
+    </div>`;
+  }
+
+  // Inject feedback fields into all action items
+  document.querySelectorAll('.action-task').forEach((task,i)=>{
+    const btn=document.createElement('button');
+    btn.className='feedback-toggle';
+    btn.textContent='💬 客戶回饋';
+    btn.onclick=function(){
+      const fb=this.parentElement.querySelector('.feedback-area');
+      fb.classList.toggle('open');
+      this.textContent=fb.classList.contains('open')?'收起 ▲':'💬 客戶回饋';
+    };
+    task.appendChild(btn);
+    const fb=document.createElement('div');
+    fb.className='feedback-area';
+    fb.innerHTML='<textarea placeholder="若不同意此行動方案，請在此填寫您的意見或替代方案 …&#10;If you disagree, please write your feedback or alternative here …"></textarea>';
+    task.appendChild(fb);
+  });
+}
+
+function makeAction(type, color, text, deadline){
+  return `<div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done',this.checked)"><span class="task-type" style="background:${color};color:#fff;border:none">${type}</span><span class="task-text" style="font-size:13px">${text}<br><span style="color:var(--text3);font-size:11px">${deadline}</span></span></div>`;
+}
+
 // ═══ INIT ═══
+buildExecSummary();
 buildT1();
 buildWowTab();
 buildHeatTab();
