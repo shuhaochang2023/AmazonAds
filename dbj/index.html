@@ -33,7 +33,13 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);height:54px;posi
 .week-btn{padding:6px 16px;border-radius:4px;font-size:11.5px;cursor:pointer;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);font-family:var(--mono);font-weight:600;transition:all .12s;}
 .week-btn:hover{color:var(--text);border-color:var(--accent);}.week-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
 .chart-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px;box-shadow:0 1px 5px rgba(0,0,0,.06);}
-.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border);box-shadow:0 1px 5px rgba(0,0,0,.05);}
+.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border);box-shadow:0 1px 5px rgba(0,0,0,.05);position:relative;}
+.table-wrap.sticky-wrap{max-height:80vh;}
+.sticky-wrap table{border-collapse:separate;border-spacing:0;}
+.sticky-wrap thead th{position:sticky;top:0;z-index:2;}
+.sticky-wrap thead tr:nth-child(2) th{top:28px;}
+.sticky-wrap td:first-child,.sticky-wrap th:first-child{position:sticky;left:0;z-index:1;background:var(--bg);}
+.sticky-wrap thead th:first-child{z-index:3;}
 table{width:100%;border-collapse:collapse;min-width:600px;}
 thead th{background:var(--bg3);color:var(--text3);font-size:9px;text-transform:uppercase;letter-spacing:.1em;padding:7px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--border);font-family:var(--mono);font-weight:600;}
 thead th:first-child{text-align:left;}
@@ -472,7 +478,7 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
 <!-- TAB 2 -->
 <div id="t2" class="panel">
   <div class="kpi-strip" id="kpi-t2"></div>
-  <div class="table-wrap"><table id="wowTable"></table></div>
+  <div class="table-wrap sticky-wrap"><table id="wowTable"></table></div>
 </div>
 
 <!-- TAB 3 -->
@@ -730,7 +736,25 @@ function toggleGroup(gid) {
   if(icon) icon.textContent=el.classList.contains('collapsed')?'▶':'▼';
 }
 
+function toggleExecGroup(gid) {
+  const el=document.getElementById(gid);
+  const icon=document.getElementById('eti_'+gid);
+  if(!el) return;
+  const open=el.style.display!=='none';
+  el.style.display=open?'none':'';
+  if(icon) icon.textContent=open?'▶':'▼';
+}
+
 // ═══ TAB 2 ═══
+const WEEK_COLORS={W1:'#eff6ff',W2:'#f0fdf4',W3:'#fefce8',W4:'#faf5ff',W5:'#fff1f2',W6:'#fff7ed'};
+const WEEK_HDR_COLORS={W1:'#dbeafe',W2:'#dcfce7',W3:'#fef9c3',W4:'#f3e8ff',W5:'#fecdd3',W6:'#fed7aa'};
+function childShortName(asin){
+  const c=CHILD_DATA.find(x=>x.asin===asin);
+  if(!c) return asin;
+  let n=c.name||'';
+  n=n.replace(/^Displays? By Jack\s*/i,'').replace(/^DBJ\s*/i,'');
+  return n.length>40?n.slice(0,38)+'…':n;
+}
 function buildWowTab() {
   const sp=sortedParents();
   const totals={};
@@ -746,20 +770,21 @@ function buildWowTab() {
       <div class="kpi-sub">Spend ${fmt(totals[w].spend,0)} · TACOS <span class="${tacosClass(tc)}">${pct(tc)}</span></div>
     </div>`;
   }).join('');
-  $('wowTable').innerHTML=`<thead><tr><th rowspan="2">產品</th>
-    ${WEEKS.map(w=>`<th colspan="5" style="text-align:center;background:var(--bg3)">${w} ${W_LABELS[w]}</th>`).join('')}</tr>
-    <tr class="week-group">${WEEKS.map(()=>'<th>Sales</th><th>Spend</th><th>TACOS</th><th>Units</th><th>Organic</th>').join('')}</tr>
+  const wBg=(w,hdr)=>hdr?WEEK_HDR_COLORS[w]:WEEK_COLORS[w];
+  $('wowTable').innerHTML=`<thead><tr><th rowspan="2" style="min-width:200px;background:var(--bg3)">產品</th>
+    ${WEEKS.map(w=>`<th colspan="5" style="text-align:center;background:${wBg(w,true)};color:#1e293b;border-bottom:2px solid ${wBg(w,true)}">${w} ${W_LABELS[w]}</th>`).join('')}</tr>
+    <tr class="week-group">${WEEKS.map(w=>{const bg=wBg(w,true);return `<th style="background:${bg}">Sales</th><th style="background:${bg}">Spend</th><th style="background:${bg}">TACOS</th><th style="background:${bg}">Units</th><th style="background:${bg}">Organic</th>`;}).join('')}</tr>
   </thead><tbody>${sp.map(([pid,p])=>`<tr>
-    <td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>
+    <td style="background:var(--bg);min-width:200px"><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>
     <strong style="color:${p.color}">${zhShort(pid)}</strong><br>
-    <span class="muted" style="font-size:10px">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span></td>
-    ${WEEKS.map(w=>{const wd=p.weeks[w],tc=wd.tacos;
-      return `<td>${fmt(wd.sales,0)}</td><td>${fmt(wd.spend,0)}</td><td class="${tacosClass(tc)}">${pct(tc)}</td><td>${wd.units||'—'}</td><td>${wd.organic||'—'}</td>`;
+    <span style="font-size:10px;line-height:1.6">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank" title="${c}">${childShortName(c)}</a>`).join(' · ')}</span></td>
+    ${WEEKS.map(w=>{const wd=p.weeks[w],tc=wd.tacos,bg=wBg(w,false);
+      return `<td style="background:${bg}">${fmt(wd.sales,0)}</td><td style="background:${bg}">${fmt(wd.spend,0)}</td><td style="background:${bg}" class="${tacosClass(tc)}">${pct(tc)}</td><td style="background:${bg}">${wd.units||'—'}</td><td style="background:${bg}">${wd.organic||'—'}</td>`;
     }).join('')}
   </tr>`).join('')}
-  <tr style="background:var(--bg3);font-weight:700"><td>TOTAL</td>
-    ${WEEKS.map(w=>{const tc=totals[w].sales>0?totals[w].spend/totals[w].sales*100:0;
-      return `<td>${fmt(totals[w].sales,0)}</td><td>${fmt(totals[w].spend,0)}</td><td class="${tacosClass(tc)}">${pct(tc)}</td><td>${totals[w].units}</td><td>${totals[w].organic}</td>`;
+  <tr style="font-weight:700"><td style="background:var(--bg3)">TOTAL</td>
+    ${WEEKS.map(w=>{const tc=totals[w].sales>0?totals[w].spend/totals[w].sales*100:0;const bg=WEEK_HDR_COLORS[w];
+      return `<td style="background:${bg}">${fmt(totals[w].sales,0)}</td><td style="background:${bg}">${fmt(totals[w].spend,0)}</td><td style="background:${bg}" class="${tacosClass(tc)}">${pct(tc)}</td><td style="background:${bg}">${totals[w].units}</td><td style="background:${bg}">${totals[w].organic}</td>`;
     }).join('')}
   </tr></tbody>`;
 }
@@ -971,18 +996,9 @@ function buildExecSummary(){
 
   const pt=$('execProductTable');
   if(pt){
-    pt.innerHTML=`<thead><tr>
-      <th style="text-align:left;font-size:11px">產品 Product</th>
-      <th style="font-size:11px">象限 Quadrant</th>
-      <th style="font-size:11px">6W Sales</th>
-      <th style="font-size:11px">6W Spend</th>
-      <th style="font-size:11px">TACOS</th>
-      <th style="font-size:11px">Units</th>
-      <th style="font-size:11px">Organic %</th>
-      <th style="font-size:11px">6W Profit</th>
-      <th style="font-size:11px">W5→W6</th>
-      <th style="text-align:left;font-size:11px">本週行動 Action</th>
-    </tr></thead><tbody>${sp.filter(([,p])=>p.total_sales>0).map(([pid,p])=>{
+    let bodyHtml='';
+    let eIdx=0;
+    sp.filter(([,p])=>p.total_sales>0).forEach(([pid,p])=>{
       const units=WEEKS.reduce((a,w)=>a+p.weeks[w].units,0);
       const organic=WEEKS.reduce((a,w)=>a+p.weeks[w].organic,0);
       const profit=WEEKS.reduce((a,w)=>a+p.weeks[w].profits,0);
@@ -994,8 +1010,15 @@ function buildExecSummary(){
         return 'cut';
       })();
       const actionMap={star:'加碼投放 +30%',question:'CPC 降 20%',cut:'降價 + Coupon',potential:'新建 SP Auto $10/天'};
-      return `<tr>
-        <td style="text-align:left;font-size:13px"><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span><strong style="color:${p.color}">${zhShort(pid)}</strong></td>
+      const children=CHILD_DATA.filter(c=>c.parent===pid);
+      const hasChildren=children.length>1;
+      const gid=`eg${eIdx++}`;
+      bodyHtml+=`<tr style="cursor:${hasChildren?'pointer':'default'};background:${p.color}08;border-left:3px solid ${p.color}" ${hasChildren?`onclick="toggleExecGroup('${gid}')"`:''}>
+        <td style="text-align:left;font-size:13px">
+          ${hasChildren?`<span class="toggle-icon" id="eti_${gid}" style="font-size:10px;margin-right:4px;color:var(--text3)">▶</span>`:'<span style="display:inline-block;width:14px"></span>'}
+          <span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span><strong style="color:${p.color}">${zhShort(pid)}</strong>
+          ${hasChildren?`<span style="font-size:10px;color:var(--text3);margin-left:6px;font-family:var(--mono)">${children.length} variants</span>`:''}
+        </td>
         <td style="font-size:12px">${quadLabel(p)}</td>
         <td style="font-size:13px;font-weight:600">${fmt(p.total_sales,0)}</td>
         <td style="font-size:13px;color:var(--amber)">${fmt(p.total_spend,0)}</td>
@@ -1005,7 +1028,46 @@ function buildExecSummary(){
         <td style="font-size:13px;font-weight:700;color:${profit>=0?'var(--green)':'var(--red)'}">${fmt(profit,0)}</td>
         <td style="font-size:13px">${trend(p)}</td>
         <td style="text-align:left;font-size:12px;color:var(--text2)">${actionMap[q]||'—'}</td>
-      </tr>`;}).join('')}
+      </tr>`;
+      if(hasChildren){
+        bodyHtml+=`<tbody id="${gid}" style="display:none">`;
+        children.sort((a,b)=>b.total_sales-a.total_sales).forEach(c=>{
+          const cSales=WEEKS.reduce((a,w)=>a+c.weeks[w].sales,0);
+          const cSpend=WEEKS.reduce((a,w)=>a+c.weeks[w].spend,0);
+          const cUnits=WEEKS.reduce((a,w)=>a+c.weeks[w].units,0);
+          const cOrg=WEEKS.reduce((a,w)=>a+c.weeks[w].organic,0);
+          const cTacos=cSales>0?cSpend/cSales*100:null;
+          const cOrgPct=cUnits>0?(cOrg/cUnits*100).toFixed(0):'0';
+          const cName=(CHILD_ZH[c.asin]||c.name||'').substring(0,45);
+          bodyHtml+=`<tr style="background:var(--bg);border-left:3px solid ${p.color}44">
+            <td style="text-align:left;font-size:12px;padding-left:36px">
+              <a class="asin-link" href="https://www.amazon.com/dp/${c.asin}" target="_blank">${c.asin}</a>
+              <span style="color:var(--text2);font-size:11px;margin-left:6px">${cName}</span>
+            </td>
+            <td></td>
+            <td style="font-size:12px;font-family:var(--mono)">${cSales>0?fmt(cSales,0):'—'}</td>
+            <td style="font-size:12px;font-family:var(--mono);color:var(--amber)">${cSpend>0?fmt(cSpend,0):'—'}</td>
+            <td style="font-size:12px;font-family:var(--mono)" class="${tacosClass(cTacos)}">${cTacos!=null?pct(cTacos):'—'}</td>
+            <td style="font-size:12px;font-family:var(--mono)">${cUnits||'—'}</td>
+            <td style="font-size:12px;font-family:var(--mono);color:${cOrgPct>=50?'var(--green)':'var(--red)'}">${cOrgPct}%</td>
+            <td colspan="3"></td>
+          </tr>`;
+        });
+        bodyHtml+='</tbody>';
+      }
+    });
+    pt.innerHTML=`<thead><tr>
+      <th style="text-align:left;font-size:11px">產品 Product</th>
+      <th style="font-size:11px">象限 Quadrant</th>
+      <th style="font-size:11px">6W Sales</th>
+      <th style="font-size:11px">6W Spend</th>
+      <th style="font-size:11px">TACOS</th>
+      <th style="font-size:11px">Units</th>
+      <th style="font-size:11px">Organic %</th>
+      <th style="font-size:11px">6W Profit</th>
+      <th style="font-size:11px">W5→W6</th>
+      <th style="text-align:left;font-size:11px">本週行動 Action</th>
+    </tr></thead><tbody>${bodyHtml}
     <tr style="background:var(--bg3);font-weight:700;border-top:2px solid var(--border2)">
       <td style="text-align:left;font-size:13px">TOTAL 合計</td><td></td>
       <td style="font-size:13px">${fmt(totS,0)}</td>
