@@ -210,6 +210,8 @@ const CHILD_ZH = {"B0824GK8BP": "專注記憶茶 Focus Tea · 30包", "B0CRZRHT7
 const TACOS_TARGET = 15;
 const WEEKS = ["W1", "W2", "W3", "W4", "W5"];
 const W_LABELS = {"W1": "Feb 1–7", "W2": "Feb 8–14", "W3": "Feb 15–21", "W4": "Feb 22–28", "W5": "Mar 1–7"};
+const WEEK_COLORS={W1:'#eff6ff',W2:'#f0fdf4',W3:'#fefce8',W4:'#faf5ff',W5:'#fff1f2'};
+const WEEK_HDR_COLORS={W1:'#dbeafe',W2:'#dcfce7',W3:'#fef9c3',W4:'#f3e8ff',W5:'#fecdd3'};
 const MONTHS = {
   "Feb": {label:"Feb 2026", weeks:["W1","W2","W3","W4"]},
   "Mar": {label:"Mar 2026 (partial)", weeks:["W5"]}
@@ -484,25 +486,54 @@ function buildWowTab() {
   }));
   $('kpi-t2').innerHTML=WEEKS.map(w=>{
     const tc=totals[w].sales>0?totals[w].spend/totals[w].sales*100:0;
-    return `<div class="kpi-card"><div class="kpi-label">${w} \u00B7 ${W_LABELS[w]}</div>
+    return `<div class="kpi-card"><div class="kpi-label">${w} \u00b7 ${W_LABELS[w]}</div>
       <div class="kpi-value" style="font-size:18px">${fmt(totals[w].sales,0)}</div>
-      <div class="kpi-sub">Spend ${fmt(totals[w].spend,0)} \u00B7 TACOS <span class="${tacosClass(tc)}">${pct(tc)}</span></div>
+      <div class="kpi-sub">Spend ${fmt(totals[w].spend,0)} \u00b7 TACOS <span class="${tacosClass(tc)}">${pct(tc)}</span></div>
     </div>`;
   }).join('');
-  $('wowTable').innerHTML=`<thead><tr><th rowspan="2">產品</th>
-    ${WEEKS.map(w=>`<th colspan="5" style="text-align:center;background:var(--bg3)">${w} ${W_LABELS[w]}</th>`).join('')}</tr>
-    <tr class="week-group">${WEEKS.map(()=>'<th>Sales</th><th>Spend</th><th>TACOS</th><th>Units</th><th>Organic</th>').join('')}</tr>
-  </thead><tbody>${sp.map(([pid,p])=>`<tr>
-    <td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>
-    <strong style="color:${p.color}">${zhShort(pid)}</strong><br>
-    <span class="muted" style="font-size:10px">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span></td>
-    ${WEEKS.map(w=>{const wd=p.weeks[w],tc=wd.tacos;
-      return `<td>${fmt(wd.sales,0)}</td><td>${fmt(wd.spend,0)}</td><td class="${tacosClass(tc)}">${pct(tc)}</td><td>${wd.units||'\u2014'}</td><td>${wd.organic||'\u2014'}`;
-    }).join('')}
-  </tr>`).join('')}
-  <tr style="background:var(--bg3);font-weight:700"><td>TOTAL</td>
-    ${WEEKS.map(w=>{const tc=totals[w].sales>0?totals[w].spend/totals[w].sales*100:0;
-      return `<td>${fmt(totals[w].sales,0)}</td><td>${fmt(totals[w].spend,0)}</td><td class="${tacosClass(tc)}">${pct(tc)}</td><td>${totals[w].units}</td><td>${totals[w].organic}</td>`;
+  const wBg=(w,hdr)=>hdr?WEEK_HDR_COLORS[w]:WEEK_COLORS[w];
+  let wowBody='';
+  let wIdx=0;
+  sp.forEach(([pid,p])=>{
+    const children=CHILD_DATA.filter(r=>r.parent===pid);
+    const hasChildren=children.length>1;
+    const gid=`wg${wIdx++}`;
+    wowBody+=`<tr class="parent-row" ${hasChildren?`onclick="toggleGroup('${gid}')"`:''}style="background:${p.color}0d;border-top:2px solid ${p.color}33">
+      <td style="background:var(--bg);min-width:200px">
+        ${hasChildren?`<span class="toggle-icon" id="ti_${gid}" style="font-size:10px;margin-right:4px;color:var(--text3)">\u25b6</span>`:'<span style="display:inline-block;width:14px"></span>'}
+        <span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>
+        <strong style="color:${p.color}">${zhShort(pid)}</strong>
+        ${hasChildren?`<span style="color:var(--text3);font-size:10px;margin-left:6px;font-family:var(--mono)">${children.length} \u500b\u8b8a\u9ad4</span>`:''}
+      </td>
+      ${WEEKS.map(w=>{const wd=p.weeks[w],tc=wd.tacos,bg=wBg(w,false);
+        return `<td style="background:${bg};font-weight:600">${fmt(wd.sales,0)}</td><td style="background:${bg};font-weight:600">${fmt(wd.spend,0)}</td><td style="background:${bg};font-weight:600" class="${tacosClass(tc)}">${pct(tc)}</td><td style="background:${bg};font-weight:600">${wd.units||'\u2014'}</td><td style="background:${bg};font-weight:600">${wd.organic||'\u2014'}</td>`;
+      }).join('')}
+    </tr>`;
+    if(hasChildren){
+      wowBody+=`<tbody id="${gid}" class="child-rows collapsed">`;
+      children.sort((a,b)=>b.total_sales-a.total_sales).forEach(c=>{
+        const cName=CHILD_ZH[c.asin]||c.name.substring(0,40);
+        wowBody+=`<tr style="background:var(--bg)">
+          <td style="padding-left:32px;background:var(--bg)">
+            <a class="asin-link" href="https://www.amazon.com/dp/${c.asin}" target="_blank">${c.asin}</a>
+            <span style="color:var(--text2);font-size:11.5px;margin-left:8px">${cName}</span>
+          </td>
+          ${WEEKS.map(w=>{const wd=c.weeks[w],bg=wBg(w,false);
+            const tc=wd.sales>0?wd.spend/wd.sales*100:null;
+            return `<td style="background:${bg}">${wd.sales>0?fmt(wd.sales,0):'\u2014'}</td><td style="background:${bg}">${wd.spend>0?fmt(wd.spend,0):'\u2014'}</td><td style="background:${bg}" class="${tacosClass(tc)}">${tc!=null?pct(tc):'\u2014'}</td><td style="background:${bg}">${wd.units||'\u2014'}</td><td style="background:${bg}">${wd.organic||'\u2014'}</td>`;
+          }).join('')}
+        </tr>`;
+      });
+      wowBody+='</tbody>';
+    }
+  });
+  $('wowTable').innerHTML=`<thead><tr><th rowspan="2" style="min-width:200px;background:var(--bg3)">\u7522\u54c1</th>
+    ${WEEKS.map(w=>`<th colspan="5" style="text-align:center;background:${wBg(w,true)};color:#1e293b;border-bottom:2px solid ${wBg(w,true)}">${w} ${W_LABELS[w]}</th>`).join('')}</tr>
+    <tr class="week-group">${WEEKS.map(w=>{const bg=wBg(w,true);return `<th style="background:${bg}">Sales</th><th style="background:${bg}">Spend</th><th style="background:${bg}">TACOS</th><th style="background:${bg}">Units</th><th style="background:${bg}">Organic</th>`;}).join('')}</tr>
+  </thead><tbody>${wowBody}
+  <tr style="font-weight:700"><td style="background:var(--bg3)">TOTAL</td>
+    ${WEEKS.map(w=>{const tc=totals[w].sales>0?totals[w].spend/totals[w].sales*100:0;const bg=WEEK_HDR_COLORS[w];
+      return `<td style="background:${bg}">${fmt(totals[w].sales,0)}</td><td style="background:${bg}">${fmt(totals[w].spend,0)}</td><td style="background:${bg}" class="${tacosClass(tc)}">${pct(tc)}</td><td style="background:${bg}">${totals[w].units}</td><td style="background:${bg}">${totals[w].organic}</td>`;
     }).join('')}
   </tr></tbody>`;
 }
@@ -515,11 +546,43 @@ function buildHeatTab() {
   const chg=(a,b)=>(!a||a===0)?null:(b-a)/a*100;
   const fmtC=(v,up)=>{if(v==null)return'<span class="muted">\u2014</span>';const g=(up?v>0:v<0);return`<span style="color:${g?'var(--green)':'var(--red)'}">${v>0?'+':''}${v.toFixed(1)}%</span>`;};
   const wH=periods.map(([a,b])=>metrics.map(m=>`<th>${a}\u2192${b}<br><span style="color:var(--text2);font-weight:400">${m.label}</span></th>`).join('')).join('');
-  $('heatTable').innerHTML=`<thead><tr><th>產品</th>${wH}</tr></thead><tbody>${
-    sp.map(([pid,p])=>`<tr><td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>${zhShort(pid)}</td>
-      ${periods.map(([a,b])=>metrics.map(m=>`<td>${fmtC(chg(p.weeks[a][m.key],p.weeks[b][m.key]),m.up)}</td>`).join('')).join('')}
-    </tr>`).join('')
-  }</tbody>`;
+  let heatBody='';
+  let hIdx=0;
+  sp.forEach(([pid,p])=>{
+    const children=CHILD_DATA.filter(r=>r.parent===pid);
+    const hasChildren=children.length>1;
+    const gid=`hg${hIdx++}`;
+    heatBody+=`<tr class="parent-row" ${hasChildren?`onclick="toggleGroup('${gid}')"`:''} style="background:${p.color}0d;border-top:2px solid ${p.color}33">
+      <td>
+        ${hasChildren?`<span class="toggle-icon" id="ti_${gid}" style="font-size:10px;margin-right:4px;color:var(--text3)">\u25b6</span>`:'<span style="display:inline-block;width:14px"></span>'}
+        <span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>
+        <strong style="color:${p.color}">${zhShort(pid)}</strong>
+        ${hasChildren?`<span style="color:var(--text3);font-size:10px;margin-left:6px;font-family:var(--mono)">${children.length} 個變體</span>`:''}
+      </td>
+      ${periods.map(([a,b])=>metrics.map(m=>`<td style="font-weight:600">${fmtC(chg(p.weeks[a][m.key],p.weeks[b][m.key]),m.up)}</td>`).join('')).join('')}
+    </tr>`;
+    if(hasChildren){
+      heatBody+=`<tbody id="${gid}" class="child-rows collapsed">`;
+      children.sort((a,b)=>b.total_sales-a.total_sales).forEach(c=>{
+        const cName=CHILD_ZH[c.asin]||c.name.substring(0,40);
+        heatBody+=`<tr style="background:var(--bg)">
+          <td style="padding-left:32px">
+            <a class="asin-link" href="https://www.amazon.com/dp/${c.asin}" target="_blank">${c.asin}</a>
+            <span style="color:var(--text2);font-size:11.5px;margin-left:8px">${cName}</span>
+          </td>
+          ${periods.map(([a,b])=>{
+            const sA=c.weeks[a].sales,sB=c.weeks[b].sales;
+            const eA=c.weeks[a].spend,eB=c.weeks[b].spend;
+            const tA=sA>0?eA/sA*100:null,tB=sB>0?eB/sB*100:null;
+            const uA=c.weeks[a].units,uB=c.weeks[b].units;
+            return `<td>${fmtC(chg(sA,sB),true)}</td><td>${fmtC(chg(eA,eB),false)}</td><td>${fmtC(chg(tA,tB),false)}</td><td>${fmtC(chg(uA,uB),true)}</td>`;
+          }).join('')}
+        </tr>`;
+      });
+      heatBody+='</tbody>';
+    }
+  });
+  $('heatTable').innerHTML=`<thead><tr><th>產品</th>${wH}</tr></thead><tbody>${heatBody}</tbody>`;
 }
 
 // TAB 4 — QUADRANT
@@ -558,7 +621,15 @@ const qDefs=[
     {title:'Star',color:'#16a34a',items:qStar,action:'複製現有 SP 活動\n提高預算 30%'},
   ];
   $('qCards').innerHTML=qDefs.map(q=>`<div class="q-card" style="border-color:${q.color}33"><div class="q-card-title" style="color:${q.color}">${q.title}</div><div class="q-card-body">${q.action.split('\n').join('<br>')}
-    <br><br>${q.items.map(([pid,p])=>`<span style="display:inline-block;margin:2px 3px;padding:2px 8px;background:${p.color}22;border:1px solid ${p.color}44;border-radius:3px;font-size:10px;color:${p.color};font-family:var(--mono)">${zhShort(pid)}</span>`).join('')}
+    <br><br>${q.items.map(([pid,p])=>{
+      const children=p.children||[];
+      const childPills=children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank" title="${c}" style="font-size:9px;margin-left:4px">${CHILD_ZH[c]||c}</a>`).join(' \u00b7 ');
+      return `<div style="display:inline-block;margin:3px 3px;padding:4px 10px;background:${p.color}12;border:1px solid ${p.color}33;border-radius:5px">
+        <span style="font-size:11px;color:${p.color};font-weight:700;font-family:var(--display)">${zhShort(pid)}</span>
+        <span style="font-size:9px;color:var(--text3);margin-left:4px;font-family:var(--mono)">${children.length>1?children.length+'\u8b8a\u9ad4':''}</span>
+        ${children.length>1?'<br><span style="font-size:9px;line-height:1.8">'+childPills+'</span>':''}
+      </div>`;
+    }).join('')}
     ${q.items.length===0?'<span class="muted">None</span>':''}</div>
   </div>`).join('');
 
@@ -662,7 +733,7 @@ function buildActionTab() {
         <span class="action-card-badge ${cfg.badgeCls}">${cfg.label}</span>
         <span class="action-card-badge ${cfg.pri}">${cfg.priLabel}</span>
         <span style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:auto">5W Sales ${fmt(p.total_sales,0)} \u00B7 TACOS <span class="${tacosClass(p.tacos_4w)}">${pct(p.tacos_4w)}</span></span>
-        <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank" title="${c}">${CHILD_ZH[c]||c}</a>`).join(' · ')}</span>
       </div>
       <div class="action-tasks">${taskHtml}</div>
     </div>`;
