@@ -271,47 +271,60 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
 
     <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-10 — KIDS FISH OIL BASKET CROSS-SELL</span>
+        <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-10 — KIDS FISH OIL BASKET CROSS-SELL 兒童魚油軟糖交互銷售增長策略</span>
         <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
       </div>
       <div style="color:var(--text2)">
-        <strong style="color:var(--green)">CREATE 1 SP Manual campaign</strong> — Product Targeting on market basket ASINs for Kids Fish Oil Gummy.<br>
-        &nbsp;&nbsp;• <strong>Source:</strong> 6 months of basket analysis data (Sep 2025 – Feb 2026)<br>
-        &nbsp;&nbsp;• <strong>Advertised:</strong> Kids Fish Oil Gummy × 2 SKUs (B0G7K4CHWG + B0G7K1VC4G)<br>
-        &nbsp;&nbsp;• <strong>Targets:</strong> 154 product ASINs co-purchased by existing DAIKEN buyers (not new-to-brand)<br>
-        &nbsp;&nbsp;• <strong>Budget:</strong> $30/day | Default Bid: $1.50 | PT Bid: $1.00 (conservative — cross-sell, lower intent)<br>
-        &nbsp;&nbsp;• <strong>Strategy:</strong> Dynamic bids - down only. Warm audience = higher CVR expected vs cold keyword traffic<br>
-        &nbsp;&nbsp;• Top targets: Bluebonnet L-Theanine (3×), ELMNT Maca Root (3×), Culturelle Probiotics (2×), Viteyes AREDS 2 (2×)<br>
-        <span style="font-family:var(--mono);color:var(--text3)">File: DAIKEN_KidsFishOil_BasketPT_20260310_0800.xlsx — 158 rows</span>
+        <strong style="color:var(--green)">新建 1 組 SP Manual 商品定位廣告</strong> — 針對購物籃分析中與 DAIKEN 產品共同購買的 ASIN 進行商品投放。<br>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+          <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
+          根據 Amazon Brand Analytics 購物籃分析（2025年9月–2026年2月，共6個月），提取所有曾與 DAIKEN 產品一起被購買的 154 個非品牌 ASIN。這些消費者<strong>已經購買過 DAIKEN 產品</strong>，屬於回購型暖客群（not new-to-brand），在他們瀏覽這些常購商品時展示兒童魚油軟糖廣告，轉換率預期高於冷流量關鍵字廣告。
+        </div>
+        &nbsp;&nbsp;• <strong>資料來源：</strong>購物籃分析 6 個月數據（Sep 2025 – Feb 2026），涵蓋 14 款 DAIKEN 產品<br>
+        &nbsp;&nbsp;• <strong>廣告商品：</strong>兒童魚油軟糖 × 2 SKUs — B0G7K4CHWG（223 orders）+ B0G7K1VC4G（39 orders）<br>
+        &nbsp;&nbsp;• <strong>投放目標：</strong>154 個商品 ASIN — 包含 DAIKEN 自有品牌交叉銷售 + 競品/互補品牌 ASIN<br>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+          <div style="font-weight:700;margin-bottom:8px;color:var(--text)">目標 ASIN 分類 Target Breakdown</div>
+          <strong>自有品牌交叉銷售（DAIKEN→DAIKEN）：</strong>買過納豆激酶、瑪卡、苦瓜素、魚油的客人也可能需要兒童魚油<br>
+          <strong>健康補充品競品：</strong>Bluebonnet L-Theanine（3×出現）、Culturelle Probiotics（2×）、Nature Made Vitamin C、NOW Foods 系列<br>
+          <strong>眼睛保健：</strong>Viteyes AREDS 2（2×）、Nature's Bounty Lutein — 關注健康的家長群<br>
+          <strong>超級食品/能量：</strong>ELMNT Maca Root（3×）、Amazing Grass Greens — 注重營養的消費者<br>
+          <strong>其他高頻共購：</strong>Garden of Life Organics Women's Gummy（2×）、Zhou Resveratrol（2×）
+        </div>
+        &nbsp;&nbsp;• <strong>預算：</strong>$30/day | 預設出價 $1.50 | 商品定位出價 $1.00（保守策略 — 交互銷售意圖較低）<br>
+        &nbsp;&nbsp;• <strong>出價策略：</strong>Dynamic bids - down only，暖客群預期 CVR 較高，以低出價測試<br>
+        <span style="font-family:var(--mono);color:var(--text3)">File: DAIKEN_KidsFishOil_BasketPT_20260310_0800.xlsx — 158 rows（1 Campaign + 1 Ad Group + 2 Product Ads + 154 Product Targets）</span>
       </div>
     </div>
 
     <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:18px">
-      <div style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono);margin-bottom:6px">2026-03-09 — BUDGET ADJUSTMENT + BID OPTIMIZATION</div>
+      <div style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono);margin-bottom:6px">2026-03-09 — BUDGET REBALANCE 全帳戶預算重新分配</div>
       <div style="color:var(--text2)">
-        <strong>Bulk budget adjustment</strong> across all active US campaigns.<br>
-        &nbsp;&nbsp;• Adjusted daily budgets based on W5 performance data<br>
-        &nbsp;&nbsp;• Focus: protect Nattokinase momentum, contain Kids Fish Oil bleed<br>
+        <strong>批量預算調整</strong> — 根據 W5 績效數據重新分配所有 US 活躍廣告預算。<br>
+        &nbsp;&nbsp;• <strong>加碼：</strong>Nattokinase 納豆激酶（W5 爆發 $3,261，TACOS 27.7%）— 追加預算乘勝追擊<br>
+        &nbsp;&nbsp;• <strong>加碼：</strong>Maca 瑪卡（有機佔比上升，19→45 units）— 趨勢正向，增加曝光<br>
+        &nbsp;&nbsp;• <strong>止血：</strong>兒童魚油（TACOS 124%，5W 虧損 $4,527）— 降預算降出價，控制虧損<br>
+        &nbsp;&nbsp;• <strong>止血：</strong>Lutein 葉黃素（TACOS 100.6%）— 銷量極低，降低支出<br>
         <span style="font-family:var(--mono);color:var(--text3)">File: bulk_budget_adjustment_20260309.xlsx — 286KB</span>
       </div>
     </div>
 
     <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:18px">
-      <div style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono);margin-bottom:6px">2026-03-09 — BID ADJUSTMENTS (4 FILES)</div>
+      <div style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono);margin-bottom:6px">2026-03-09 — BID OPTIMIZATION 出價優化（4檔案）</div>
       <div style="color:var(--text2)">
-        <strong>4 bulk files</strong> for keyword, product targeting, new campaigns, and SB bid updates:<br>
-        &nbsp;&nbsp;• File1: KW Bid Update — keyword bid adjustments on SP campaigns<br>
-        &nbsp;&nbsp;• File2: PT Bid Update — product targeting bid adjustments<br>
-        &nbsp;&nbsp;• File3: SP New Campaigns — new SP campaigns created<br>
-        &nbsp;&nbsp;• File4: SB Bid Update — Sponsored Brands bid adjustments<br>
-        <span style="font-family:var(--mono);color:var(--text3)">Files: File1–4 in bulk-output/ (Mar 9)</span>
+        <strong>4 組批量檔案</strong>，針對關鍵字、商品定位、新廣告活動、品牌廣告分別優化：<br>
+        &nbsp;&nbsp;• <strong>File1 關鍵字出價：</strong>SP 關鍵字 bid 調整 — 高 ACOS 詞降價，低 ACOS 高轉換詞加碼<br>
+        &nbsp;&nbsp;• <strong>File2 商品定位出價：</strong>SP Product Targeting bid 調整 — 依 ACOS 表現上下調整<br>
+        &nbsp;&nbsp;• <strong>File3 新建廣告活動：</strong>為表現優異產品新增 SP campaigns — 擴展覆蓋範圍<br>
+        &nbsp;&nbsp;• <strong>File4 品牌廣告出價：</strong>SB Sponsored Brands bid 調整 — 品牌曝光效率優化<br>
+        <span style="font-family:var(--mono);color:var(--text3)">Files: File1_KW_Bid_Update / File2_PT_Bid_Update / File3_SP_New_Campaigns / File4_SB_Bid_Update</span>
       </div>
     </div>
 
     <div style="border-left:3px solid var(--text3);padding-left:14px">
-      <div style="font-weight:800;color:var(--text3);font-size:13px;font-family:var(--mono);margin-bottom:6px">2026-03-08 — SEARCH TERM REPORT ANALYSIS</div>
+      <div style="font-weight:800;color:var(--text3);font-size:13px;font-family:var(--mono);margin-bottom:6px">2026-03-08 — SEARCH TERM ANALYSIS 搜尋詞報告分析</div>
       <div style="color:var(--text3)">
-        Collected SP + SB Search Term Reports for US market. Analyzed keyword performance for bid optimization inputs. Identified high-ACOS terms for negative targeting and low-ACOS winners for bid increases. Data fed into 3/9 bid adjustment files.
+        收集並分析 US 市場 SP + SB 搜尋詞報告。識別高 ACOS 搜尋詞（建議加入否定詞）及低 ACOS 高轉換詞（建議加碼出價）。分析結果輸入至 3/9 的出價調整檔案中。主要發現：Nattokinase 相關搜尋詞表現最佳，兒童魚油泛詞（kids vitamins、kids supplements）ACOS 過高需收斂。
       </div>
     </div>
 
