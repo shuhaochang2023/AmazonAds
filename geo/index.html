@@ -125,15 +125,164 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
       <span style="font-size:14px;transition:transform .2s;display:inline-block" class="log-arrow">&#9654;</span>
       <span>Campaign Action Log 廣告操作紀錄</span>
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">2 entries</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/10 — API 首次執行：出價自動調整</span>
+      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">3 entries</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/10 — ASIN Targeting 品牌防禦 + 競品進攻策略</span>
     </summary>
     <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
 
       <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-10 — API 首次執行：搜尋詞報告驅動的出價調整</span>
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-10 — ASIN Targeting 購物籃驅動的品牌防禦 + 競品進攻策略</span>
           <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
+        </div>
+        <div style="color:var(--text2)">
+          <strong>分析 US Market Basket 數據</strong>（2025 Q1–Q4，14 個月份 + 4 季度報告），提取 GEO 全產品交叉購買組合。<br>
+          <strong>目標：</strong>GEO 品牌曝光不足，高轉換產品缺乏足夠 impression/clicks → 透過 ASIN 定位廣告主動出擊。<br>
+          <strong>設定：</strong>Bid $0.21 · Budget $1/campaign · 單一 ASIN 配對 → 最大化組合覆蓋率<br>
+
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy 購物籃交叉銷售 ASIN 定位</div>
+            分析 4 個季度 + 12 個月份的購物籃數據，識別 GEO 產品之間的高頻交叉購買組合（品牌防禦）以及競品 ASIN（進攻搶量）。<br>
+            <strong>品牌防禦 Brand Defense：</strong>在自家產品頁面投放互補產品廣告，促進交叉銷售（Case ↔ AIO、Fan Forward ↔ Reverse、1pk → 3pk upsell）。<br>
+            <strong>競品進攻 Offense Conquesting：</strong>在競品 AIO / Case / Fan 頁面展示 GEO 產品，搶奪競品流量。<br>
+            每個 campaign 只配對 1 個 target ASIN，可精準控制預算與績效，方便後續優化。
+          </div>
+
+          <!-- ═══ BRAND DEFENSE ═══ -->
+          <div style="margin:16px 0 8px;font-weight:800;font-size:14px;color:var(--green)">品牌防禦 Brand Defense — 16 Campaigns</div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:10px">在自家產品頁面交叉投放互補 GEO 產品，防止競品搶佔流量 + 促進加購</div>
+
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px">
+            <div style="font-weight:700;color:var(--green);margin-bottom:8px;font-size:12px">Case ↔ AIO Cooler 機殼 ↔ 水冷（8 campaigns）</div>
+            <table style="width:100%;font-size:11px;border-collapse:collapse">
+              <thead><tr style="background:var(--bg);border-bottom:1px solid var(--border)">
+                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">ADVERTISE</th>
+                <th style="text-align:center;padding:4px;font-size:9px;color:var(--text3)">→</th>
+                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">TARGET (show on this page)</th>
+                <th style="text-align:right;padding:4px 8px;font-size:9px;color:var(--text3)">COMBO %</th>
+              </tr></thead>
+              <tbody>
+                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Black</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFX3T34" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFX3T34</a> M5F Case B/Grey +Fans</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">23.2%</td></tr>
+                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Black</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFS7QTL" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFS7QTL</a> M5F Case B/Green +Fans</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">19.2%</td></tr>
+                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Black</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFW4N61" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFW4N61</a> M5F Case B/Yellow +Fans</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">15.2%</td></tr>
+                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFX3T34" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFX3T34</a> M5F Case B/Grey +Fans</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Black</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">15.4%</td></tr>
+                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFS7QTL" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFS7QTL</a> M5F Case B/Green +Fans</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Black</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">11.3%</td></tr>
+                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFW4N61" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFW4N61</a> M5F Case B/Yellow +Fans</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Black</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">26.0%</td></tr>
+                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXG3QPM" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXG3QPM</a> Eskimo Pro 420 White</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFW5G2G" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFW5G2G</a> M5F Case White +Fans</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">62.1%</td></tr>
+                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFW5G2G" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFW5G2G</a> M5F Case White +Fans</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXG3QPM" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXG3QPM</a> Eskimo Pro 420 White</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">19.6%</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px">
+            <div style="font-weight:700;color:var(--green);margin-bottom:8px;font-size:12px">Fan Forward ↔ Reverse 正反扇互推（4 campaigns）</div>
+            <table style="width:100%;font-size:11px;border-collapse:collapse">
+              <thead><tr style="background:var(--bg);border-bottom:1px solid var(--border)">
+                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">ADVERTISE</th>
+                <th style="text-align:center;padding:4px;font-size:9px;color:var(--text3)">→</th>
+                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">TARGET</th>
+                <th style="text-align:right;padding:4px 8px;font-size:9px;color:var(--text3)">COMBO %</th>
+              </tr></thead>
+              <tbody>
+                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGP1TPR5" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGP1TPR5</a> S2503R Rev 140mm 1pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGXJBKN" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGXJBKN</a> S2503 Fwd 140mm 1pk Blk</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">38.6%</td></tr>
+                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGXJBKN" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGXJBKN</a> S2503 Fwd 140mm 1pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGP1TPR5" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGP1TPR5</a> S2503R Rev 140mm 1pk Blk</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">51.5%</td></tr>
+                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGP17VXV" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGP17VXV</a> S2503R Rev 140mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGVRBX2" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGVRBX2</a> S2503 Fwd 140mm 3pk Blk</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">27.5%</td></tr>
+                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGVRBX2" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGVRBX2</a> S2503 Fwd 140mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGP17VXV" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGP17VXV</a> S2503R Rev 140mm 3pk Blk</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">28.0%</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px">
+            <div style="font-weight:700;color:var(--green);margin-bottom:8px;font-size:12px">Fan Upsell + Cross-Size 升級推薦 + 跨尺寸（4 campaigns）</div>
+            <table style="width:100%;font-size:11px;border-collapse:collapse">
+              <thead><tr style="background:var(--bg);border-bottom:1px solid var(--border)">
+                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">ADVERTISE</th>
+                <th style="text-align:center;padding:4px;font-size:9px;color:var(--text3)">→</th>
+                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">TARGET</th>
+                <th style="text-align:right;padding:4px 8px;font-size:9px;color:var(--text3)">COMBO %</th>
+              </tr></thead>
+              <tbody>
+                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGVRBX2" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGVRBX2</a> S2503 Fwd 140mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGXJBKN" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGXJBKN</a> S2503 Fwd 140mm 1pk Blk</td><td style="text-align:right;padding:3px 8px;font-weight:700">12.0%</td></tr>
+                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGP17VXV" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGP17VXV</a> S2503R Rev 140mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGP1TPR5" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGP1TPR5</a> S2503R Rev 140mm 1pk Blk</td><td style="text-align:right;padding:3px 8px;font-weight:700">23.5%</td></tr>
+                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGVRBX2" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGVRBX2</a> S2503 Fwd 140mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0B3XFZN7C" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0B3XFZN7C</a> S2503 Fwd 120mm 3pk Blk</td><td style="text-align:right;padding:3px 8px;font-weight:700">26.7%</td></tr>
+                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGP17VXV" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGP17VXV</a> S2503R Rev 140mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0CHR85N54" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0CHR85N54</a> S2503R Rev 120mm 1pk Blk</td><td style="text-align:right;padding:3px 8px;font-weight:700">20.0%</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ═══ OFFENSE CONQUESTING ═══ -->
+          <div style="margin:20px 0 8px;font-weight:800;font-size:14px;color:var(--red)">競品進攻 Offense Conquesting — 12 Campaigns</div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:10px">在競品產品頁面展示 GEO 產品，搶佔競品買家流量（購物籃數據中出現的競品 ASINs）</div>
+
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px">
+            <div style="font-weight:700;color:var(--red);margin-bottom:8px;font-size:12px">AIO Cooler Conquesting 搶競品水冷（6 campaigns）</div>
+            <table style="width:100%;font-size:11px;border-collapse:collapse">
+              <thead><tr style="background:var(--bg);border-bottom:1px solid var(--border)">
+                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">ADVERTISE (GEO)</th>
+                <th style="text-align:center;padding:4px;font-size:9px;color:var(--text3)">→</th>
+                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">TARGET (COMPETITOR)</th>
+                <th style="text-align:right;padding:4px 8px;font-size:9px;color:var(--text3)">DATA SOURCE</th>
+              </tr></thead>
+              <tbody>
+                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DPHSLXSS" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0DPHSLXSS</a> ARCTIC LF3 Pro 420 ARGB Blk</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Q4 basket</td></tr>
+                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DPHQ1353" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0DPHQ1353</a> ARCTIC LF3 Pro 420 Blk</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Q3+Q4</td></tr>
+                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXG3QPM" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXG3QPM</a> Eskimo Pro 420 Wht</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DPHS13XW" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0DPHS13XW</a> ARCTIC LF3 Pro 420 ARGB Wht</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Q4 basket</td></tr>
+                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0CJY3DYQ3" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0CJY3DYQ3</a> be quiet! Dark Rock Pro 5</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Nov basket</td></tr>
+                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHX99JLW" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHX99JLW</a> Eskimo Pro 360 Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DWZJNH28" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0DWZJNH28</a> be quiet! Silent Loop 3 360mm</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Dec basket</td></tr>
+                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0CCNVFXWH" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0CCNVFXWH</a> Thermalright Aqua Elite 360</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Oct basket</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px">
+            <div style="font-weight:700;color:var(--red);margin-bottom:8px;font-size:12px">Case Conquesting 搶競品機殼（2 campaigns）</div>
+            <table style="width:100%;font-size:11px;border-collapse:collapse">
+              <thead><tr style="background:var(--bg);border-bottom:1px solid var(--border)">
+                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">ADVERTISE (GEO)</th>
+                <th style="text-align:center;padding:4px;font-size:9px;color:var(--text3)">→</th>
+                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">TARGET (COMPETITOR)</th>
+                <th style="text-align:right;padding:4px 8px;font-size:9px;color:var(--text3)">DATA SOURCE</th>
+              </tr></thead>
+              <tbody>
+                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFW5G2G" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFW5G2G</a> M5F Case White +Fans</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0B65JCS4C" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0B65JCS4C</a> KEDIERS C650 Mech Case Wht</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Dec basket</td></tr>
+                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFS7QTL" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFS7QTL</a> M5F Case B/Green +Fans</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DMPGQ33G" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0DMPGQ33G</a> ASUS A31 White ATX Case</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Q3 basket</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px">
+            <div style="font-weight:700;color:var(--red);margin-bottom:8px;font-size:12px">Fan Conquesting 搶競品風扇（4 campaigns）</div>
+            <table style="width:100%;font-size:11px;border-collapse:collapse">
+              <thead><tr style="background:var(--bg);border-bottom:1px solid var(--border)">
+                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">ADVERTISE (GEO)</th>
+                <th style="text-align:center;padding:4px;font-size:9px;color:var(--text3)">→</th>
+                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">TARGET (COMPETITOR)</th>
+                <th style="text-align:right;padding:4px 8px;font-size:9px;color:var(--text3)">DATA SOURCE</th>
+              </tr></thead>
+              <tbody>
+                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0B3XFZN7C" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0B3XFZN7C</a> S2503 Fwd 120mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B07HC7P3HJ" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B07HC7P3HJ</a> ARCTIC P12 5-Pack 120mm</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Nov basket</td></tr>
+                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGVRBX2" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGVRBX2</a> S2503 Fwd 140mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0C743H79N" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0C743H79N</a> Thermalright TL-S12 3pk</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Nov basket</td></tr>
+                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0CHR85N54" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0CHR85N54</a> S2503R Rev 120mm 1pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0CFQ17QVQ" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0CFQ17QVQ</a> ID-COOLING AF-127 3pk</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Dec basket</td></tr>
+                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0B3XFZN7C" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0B3XFZN7C</a> S2503 Fwd 120mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0B7J5VFM8" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0B7J5VFM8</a> DS RGB Fans 120mm 6pk</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Dec basket</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- SUMMARY BOX -->
+          <div style="background:linear-gradient(135deg,rgba(37,99,235,.06),rgba(22,163,74,.06));border:1px solid var(--accent);border-radius:8px;padding:14px;margin:12px 0">
+            <div style="font-weight:800;font-size:13px;color:var(--accent);margin-bottom:8px">總投資 Total Investment</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;font-size:12px">
+              <div><strong>28 campaigns</strong><br><span style="color:var(--text2)">16 Defense + 12 Offense</span></div>
+              <div><strong>$28/day max</strong><br><span style="color:var(--text2)">$1 budget × 28 campaigns</span></div>
+              <div><strong>$0.21/click</strong><br><span style="color:var(--text2)">GEO bid ceiling</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono)">2026-03-10 — API 首次執行：搜尋詞報告驅動的出價調整</span>
         </div>
         <div style="color:var(--text2)">
           <strong>分析 SP 搜尋詞報告</strong>（3,625 筆）+ <strong>SP 目標報告</strong>（2,486 筆）+ <strong>SP 活動報告</strong>（3,825 筆）。<br>
