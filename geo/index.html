@@ -125,15 +125,50 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
       <span style="font-size:14px;transition:transform .2s;display:inline-block" class="log-arrow">&#9654;</span>
       <span>Campaign Action Log 廣告操作紀錄</span>
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">3 entries</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/10 — ASIN Targeting 品牌防禦 + 競品進攻策略</span>
+      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">4 entries</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/10 — API 象限行動方案執行 Quadrant Action Items</span>
     </summary>
     <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
 
       <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-10 — ASIN Targeting 購物籃驅動的品牌防禦 + 競品進攻策略</span>
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-10 — API 象限行動方案執行 Quadrant-Based Action Items</span>
           <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
+        </div>
+        <div style="color:var(--text2)">
+          <strong>透過 Amazon Ads API 自動執行產品象限分類後的優化行動</strong>，根據 TACOS 10% 目標與中位數銷售額分析 9 個產品線，即時調整 1,183 個 bid/budget 設定。<br>
+          <strong>分類依據：</strong>TACOS ≤ 10% + 銷售 ≥ 中位數 = Star · TACOS > 10% + 高銷售 = Question · TACOS > 10% + 低銷售 = Cut · TACOS ≤ 10% + 低銷售 = Potential<br>
+
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy 象限驅動的自動化廣告優化</div>
+            從 Dashboard 產品績效數據動態計算象限分類，API 自動匹配 campaign ASIN → 象限，批量執行 budget 與 bid 調整。所有變更即時生效，無需 bulk file 上傳。
+          </div>
+
+          <strong style="color:var(--green)">⭐ Star 加碼投放 — 913 campaigns budget +30%</strong><br>
+          &nbsp;&nbsp;• <strong>M5 Case</strong>（TACOS 10.0%, $41,312 銷售）— 帳戶核心，預算 $1.00 → $1.30<br>
+          &nbsp;&nbsp;• <strong>Eskimo Pro 360</strong>（TACOS 2.9%, $6,444 銷售）— 最高效產品，低花費高轉換<br>
+          &nbsp;&nbsp;• <strong>S2503 140mm Fan</strong>（TACOS 4.4%, $3,077 銷售）— 風扇主力，穩定成長<br>
+
+          <strong style="color:var(--amber)">⚠️ Question 降低出價 — 173 keywords/targets bid -20%</strong><br>
+          &nbsp;&nbsp;• <strong>M5 Vent Case</strong>（TACOS 13.8%, $3,537 銷售）— bid $0.21→$0.17、$0.22→$0.18<br>
+          &nbsp;&nbsp;• <strong>M8 Case</strong>（TACOS 32.9%, $1,029 銷售）— 高花費低轉換，降低浪費<br>
+
+          <strong style="color:var(--red)">🔴 Cut 降至最低 — 97 keywords/targets bid → $0.16</strong><br>
+          &nbsp;&nbsp;• <strong>M4 King Arthur</strong>（TACOS 107.4%, $399 銷售）— 嚴重虧損，bid 壓至最低<br>
+          &nbsp;&nbsp;• <strong>S2503R 120mm Fan</strong>（TACOS 27.4%, $159 銷售）— 超過暫停線<br>
+          &nbsp;&nbsp;• <strong>S3805 Fan</strong>（TACOS 39.1%, $19 銷售）— 幾乎無銷售<br>
+
+          <strong style="color:var(--accent)">💤 Potential 新建 SP Auto — S2503 120mm Fan</strong><br>
+          &nbsp;&nbsp;• <strong>S2503 120mm Fan</strong>（TACOS 1.1%, $449 銷售）— 高效率但曝光不足<br>
+          &nbsp;&nbsp;• 新建 SP Auto campaign：$10/day · bid $0.21 · DOWN_ONLY 策略<br>
+          &nbsp;&nbsp;• ASINs: GEO-S2503B-3 (Black 3pk) + GEO-S2503W-3 (White 3pk)<br>
+          &nbsp;&nbsp;• Campaign ID: 34479926380272 · ✅ 已上線
+        </div>
+      </div>
+
+      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono)">2026-03-10 — ASIN Targeting 購物籃驅動的品牌防禦 + 競品進攻策略</span>
         </div>
         <div style="color:var(--text2)">
           <strong>分析 US Market Basket 數據</strong>（2025 Q1–Q4，14 個月份 + 4 季度報告），提取 GEO 全產品交叉購買組合。<br>
