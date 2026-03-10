@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Amazon Ads Reports</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   body{font-family:'Inter',sans-serif;background:#f1f5f9;min-height:100vh;padding:48px 24px;}
@@ -14,17 +14,29 @@
   .sub{font-size:14px;color:#64748b;margin-bottom:36px;}
   .section-label{font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:.08em;text-transform:uppercase;margin:28px 0 10px;}
   .cards{display:flex;flex-direction:column;gap:8px;}
-  .card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;text-decoration:none;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px 20px;text-decoration:none;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.04);display:block;}
   .card:hover{border-color:#2563eb;box-shadow:0 4px 16px rgba(37,99,235,.10);transform:translateY(-1px);}
   .card.pending{opacity:.55;cursor:default;pointer-events:none;}
+  .card-top{display:flex;align-items:center;justify-content:space-between;}
   .card-left{display:flex;align-items:center;gap:14px;}
   .dot{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
   .card-name{font-size:15px;font-weight:700;color:#0f172a;}
-  .card-meta{font-size:11.5px;color:#94a3b8;margin-top:2px;font-family:monospace;}
+  .card-meta{font-size:11.5px;color:#94a3b8;margin-top:2px;font-family:'JetBrains Mono',monospace;}
   .badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;margin-left:8px;vertical-align:middle;}
   .badge-live{background:#dcfce7;color:#16a34a;}
   .badge-soon{background:#f1f5f9;color:#94a3b8;}
   .arrow{color:#cbd5e1;font-size:16px;}
+  .status-bar{margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;display:flex;align-items:center;gap:8px;}
+  .status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+  .status-dot.active{background:#16a34a;animation:pulse 1.5s ease-in-out infinite;}
+  .status-dot.idle{background:#d97706;}
+  .status-dot.pending{background:#94a3b8;}
+  .status-text{font-family:'JetBrains Mono',monospace;font-size:10px;color:#64748b;line-height:1.4;}
+  .status-label{font-weight:700;font-size:9px;padding:1px 5px;border-radius:2px;margin-right:4px;letter-spacing:.03em;}
+  .label-active{background:rgba(22,163,74,.1);color:#16a34a;}
+  .label-idle{background:rgba(217,119,6,.1);color:#d97706;}
+  .label-pacing{background:rgba(37,99,235,.1);color:#2563eb;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
   .footer{margin-top:48px;font-size:11px;color:#cbd5e1;text-align:center;}
 </style>
 </head>
@@ -36,83 +48,143 @@
 
   <div class="section-label">Active</div>
   <div class="cards">
+
     <a class="card" href="../daiken/">
-      <div class="card-left">
-        <div class="dot" style="background:#2563eb"></div>
-        <div>
-          <div class="card-name">DAIKEN <span class="badge badge-live">LIVE</span></div>
-          <div class="card-meta">US Market · Feb–Mar 2026 · W1–W5</div>
+      <div class="card-top">
+        <div class="card-left">
+          <div class="dot" style="background:#2563eb"></div>
+          <div>
+            <div class="card-name">DAIKEN <span class="badge badge-live">LIVE</span></div>
+            <div class="card-meta">US + JP Market · Feb–Mar 2026 · 7 products · 21 ASINs</div>
+          </div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="status-bar">
+        <div class="status-dot active"></div>
+        <div class="status-text">
+          <span class="status-label label-pacing">PACING</span>Budget tracking live · $153/$780 (20%) · cron 08:00+14:30<br>
+          <span class="status-label label-active">3/10</span>Budget Reallocation Option C 全產品線預算重分配 · 392 rows · Basket Cross-Sell 兒童魚油 154 ASINs
         </div>
       </div>
-      <span class="arrow">→</span>
     </a>
+
     <a class="card" href="../geo/">
-      <div class="card-left">
-        <div class="dot" style="background:#0891b2"></div>
-        <div>
-          <div class="card-name">Geometric Future <span class="badge badge-live">LIVE</span></div>
-          <div class="card-meta">US Market · Feb–Mar 2026 · W1–W5</div>
+      <div class="card-top">
+        <div class="card-left">
+          <div class="dot" style="background:#0891b2"></div>
+          <div>
+            <div class="card-name">Geometric Future <span class="badge badge-live">LIVE</span></div>
+            <div class="card-meta">US Market · Feb–Mar 2026 · PC cases · 4 products</div>
+          </div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="status-bar">
+        <div class="status-dot active"></div>
+        <div class="status-text">
+          <span class="status-label label-active">3/11</span>B2B 企業客戶 SP 廣告上線 Amazon Business Exclusive Campaigns<br>
+          <span class="status-label label-active">3/10</span>Creator Connection 網紅合作 + API quadrant action items executed
         </div>
       </div>
-      <span class="arrow">→</span>
     </a>
+
     <a class="card" href="../brain-tea/">
-      <div class="card-left">
-        <div class="dot" style="background:#059669"></div>
-        <div>
-          <div class="card-name">Brain Tea <span class="badge badge-live">LIVE</span></div>
-          <div class="card-meta">US Market · Feb–Mar 2026 · W1–W5</div>
+      <div class="card-top">
+        <div class="card-left">
+          <div class="dot" style="background:#059669"></div>
+          <div>
+            <div class="card-name">Brain Tea <span class="badge badge-live">LIVE</span></div>
+            <div class="card-meta">US Market · Feb–Mar 2026 · supplements</div>
+          </div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="status-bar">
+        <div class="status-dot idle"></div>
+        <div class="status-text">
+          <span class="status-label label-idle">IDLE</span>Dashboard upgraded · awaiting new weekly data + campaign actions
         </div>
       </div>
-      <span class="arrow">→</span>
     </a>
+
   </div>
 
   <div class="section-label">Coming Soon</div>
   <div class="cards">
     <a class="card active" href="../dbj/">
-      <div class="card-left">
-        <div class="dot" style="background:#b45309"></div>
-        <div>
-          <div class="card-name">DBJ <span class="badge badge-live">LIVE</span></div>
-          <div class="card-meta">US Market · Feb–Mar 2026 · W1–W5</div>
+      <div class="card-top">
+        <div class="card-left">
+          <div class="dot" style="background:#b45309"></div>
+          <div>
+            <div class="card-name">DBJ <span class="badge badge-live">LIVE</span></div>
+            <div class="card-meta">US Market · Feb–Mar 2026 · bags · W1–W6</div>
+          </div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="status-bar">
+        <div class="status-dot idle"></div>
+        <div class="status-text">
+          <span class="status-label label-active">3/10</span>W6 data + Market Basket Analysis + Search Query strategy recs<br>
+          <span class="status-label label-idle">IDLE</span>Awaiting client approval on 5 strategy action items
         </div>
       </div>
-      <span class="arrow">→</span>
     </a>
     <a class="card pending" href="../kijo/">
-      <div class="card-left">
-        <div class="dot" style="background:#be185d"></div>
-        <div>
-          <div class="card-name">KIJO <span class="badge badge-soon">即將上線</span></div>
-          <div class="card-meta">US Market</div>
+      <div class="card-top">
+        <div class="card-left">
+          <div class="dot" style="background:#be185d"></div>
+          <div>
+            <div class="card-name">KIJO <span class="badge badge-soon">即將上線</span></div>
+            <div class="card-meta">US Market</div>
+          </div>
         </div>
+        <span class="arrow">→</span>
       </div>
-      <span class="arrow">→</span>
+      <div class="status-bar">
+        <div class="status-dot pending"></div>
+        <div class="status-text"><span class="status-label label-idle">PENDING</span>Onboarding — awaiting campaign setup</div>
+      </div>
     </a>
     <a class="card" href="../apal/">
-      <div class="card-left">
-        <div class="dot" style="background:#047857"></div>
-        <div>
-          <div class="card-name">APAL <span class="badge badge-live">LIVE</span></div>
-          <div class="card-meta">Social Listening · YouTube Comment Analysis</div>
+      <div class="card-top">
+        <div class="card-left">
+          <div class="dot" style="background:#047857"></div>
+          <div>
+            <div class="card-name">APAL <span class="badge badge-live">LIVE</span></div>
+            <div class="card-meta">Social Listening · YouTube Comment Analysis</div>
+          </div>
         </div>
+        <span class="arrow">→</span>
       </div>
-      <span class="arrow">→</span>
+      <div class="status-bar">
+        <div class="status-dot idle"></div>
+        <div class="status-text"><span class="status-label label-idle">IDLE</span>Monitoring mode — no ad campaigns</div>
+      </div>
     </a>
   </div>
 
   <div class="section-label">Multi-Market</div>
   <div class="cards">
     <a class="card" href="../flux/">
-      <div class="card-left">
-        <div class="dot" style="background:#ea580c"></div>
-        <div>
-          <div class="card-name">Flux <span class="badge badge-live">LIVE</span></div>
-          <div class="card-meta">🇦🇺 AU · 🇬🇧 UK · 🇩🇪 DE · 🇺🇸 US · 🇨🇦 CA</div>
+      <div class="card-top">
+        <div class="card-left">
+          <div class="dot" style="background:#ea580c"></div>
+          <div>
+            <div class="card-name">Flux <span class="badge badge-live">LIVE</span></div>
+            <div class="card-meta">🇦🇺 AU · 🇬🇧 UK · 🇩🇪 DE · 🇺🇸 US · 🇨🇦 CA</div>
+          </div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="status-bar">
+        <div class="status-dot active"></div>
+        <div class="status-text">
+          <span class="status-label label-active">3/10</span>AU SB attribution audit + 38 broad campaign cleanup plan<br>
+          <span class="status-label label-idle">IDLE</span>UK/DE/US/CA — awaiting next week data refresh
         </div>
       </div>
-      <span class="arrow">→</span>
     </a>
   </div>
 
