@@ -2,6 +2,20 @@
 
 ## 2026-03-10
 
+### Budget Reallocation Option C 全產品線預算重新分配
+- **File:** `bulk-output/Budget_Reallocation_OptionC.xlsx` (392 rows)
+- Full account budget reallocation based on product-line performance
+- 292 budget adjustments + 100 campaigns paused
+- **Scale up:** Bitter Melon — 28 campaigns, $87 → $130 (+49.3%)
+- **Scale down:** Fish Oil — 101 campaigns, $836 → $402 (-51.9%)
+- **Scale down:** Premium Fish — 4 campaigns, $119 → $30 (-74.6%)
+- **Scale down:** Lutein — 16 campaigns, $48 → $20 (-58.3%)
+- **Scale down:** Maca — 135 campaigns, $433 → $224 (-48.3%)
+- **Scale down:** Vitamins — 29 campaigns, $81 → $59 (-26.8%)
+- **Scale down:** Nattokinase — 77 campaigns, $154 → $123 (-20.2%)
+- **Scale down:** Brand — 2 campaigns, $21 → $10 (-52.4%)
+- **Total daily budget:** $1,779 → $998 (-43.9%)
+
 ### Kids Fish Oil Basket Cross-Sell 兒童魚油軟糖交互銷售增長策略
 - **File:** `bulk-output/DAIKEN_KidsFishOil_BasketPT_20260310_0800.xlsx` (158 rows)
 - **CREATE 1 SP Manual campaign** — Product Targeting on market basket ASINs
