@@ -1,122 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Amazon Ads Reports</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>404</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Inter',sans-serif;background:#f1f5f9;min-height:100vh;padding:48px 24px;}
-  .wrap{max-width:720px;margin:0 auto;}
-  .logo{font-size:12px;font-weight:800;color:#2563eb;letter-spacing:.08em;text-transform:uppercase;margin-bottom:36px;}
-  h1{font-size:28px;font-weight:800;color:#0f172a;margin-bottom:6px;}
-  .sub{font-size:14px;color:#64748b;margin-bottom:36px;}
-  .section-label{font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:.08em;text-transform:uppercase;margin:28px 0 10px;}
-  .cards{display:flex;flex-direction:column;gap:8px;}
-  .card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;text-decoration:none;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.04);}
-  .card:hover{border-color:#2563eb;box-shadow:0 4px 16px rgba(37,99,235,.10);transform:translateY(-1px);}
-  .card.pending{opacity:.55;cursor:default;pointer-events:none;}
-  .card-left{display:flex;align-items:center;gap:14px;}
-  .dot{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
-  .card-name{font-size:15px;font-weight:700;color:#0f172a;}
-  .card-meta{font-size:11.5px;color:#94a3b8;margin-top:2px;font-family:monospace;}
-  .badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;margin-left:8px;vertical-align:middle;}
-  .badge-live{background:#dcfce7;color:#16a34a;}
-  .badge-soon{background:#f1f5f9;color:#94a3b8;}
-  .arrow{color:#cbd5e1;font-size:16px;}
-  .footer{margin-top:48px;font-size:11px;color:#cbd5e1;text-align:center;}
+  body{font-family:-apple-system,sans-serif;background:#f1f5f9;min-height:100vh;display:flex;align-items:center;justify-content:center;}
+  .msg{text-align:center;color:#94a3b8;}
+  .msg h1{font-size:48px;font-weight:800;color:#cbd5e1;}
+  .msg p{font-size:14px;margin-top:8px;}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="logo">⚡ Amazon Ads Reports</div>
-  <h1>廣告績效看板</h1>
-  <p class="sub">點擊品牌查看最新週報 · 每週自動更新</p>
-
-  <div class="section-label">Active</div>
-  <div class="cards">
-    <a class="card" href="./daiken/">
-      <div class="card-left">
-        <div class="dot" style="background:#2563eb"></div>
-        <div>
-          <div class="card-name">DAIKEN <span class="badge badge-live">LIVE</span></div>
-          <div class="card-meta">US Market · Feb–Mar 2026 · W1–W5</div>
-        </div>
-      </div>
-      <span class="arrow">→</span>
-    </a>
-    <a class="card" href="./geo/">
-      <div class="card-left">
-        <div class="dot" style="background:#0891b2"></div>
-        <div>
-          <div class="card-name">Geometric Future <span class="badge badge-live">LIVE</span></div>
-          <div class="card-meta">US Market · Feb–Mar 2026 · W1–W5</div>
-        </div>
-      </div>
-      <span class="arrow">→</span>
-    </a>
-    <a class="card" href="./brain-tea/">
-      <div class="card-left">
-        <div class="dot" style="background:#059669"></div>
-        <div>
-          <div class="card-name">Brain Tea <span class="badge badge-live">LIVE</span></div>
-          <div class="card-meta">US Market · Feb–Mar 2026 · W1–W5</div>
-        </div>
-      </div>
-      <span class="arrow">→</span>
-    </a>
-  </div>
-
-  <div class="section-label">Coming Soon</div>
-  <div class="cards">
-    <a class="card active" href="./dbj/">
-      <div class="card-left">
-        <div class="dot" style="background:#b45309"></div>
-        <div>
-          <div class="card-name">DBJ <span class="badge badge-live">LIVE</span></div>
-          <div class="card-meta">US Market · Feb–Mar 2026 · W1–W5</div>
-        </div>
-      </div>
-      <span class="arrow">→</span>
-    </a>
-    <a class="card pending" href="./kijo/">
-      <div class="card-left">
-        <div class="dot" style="background:#be185d"></div>
-        <div>
-          <div class="card-name">KIJO <span class="badge badge-soon">即將上線</span></div>
-          <div class="card-meta">US Market</div>
-        </div>
-      </div>
-      <span class="arrow">→</span>
-    </a>
-    <a class="card" href="./apal/">
-      <div class="card-left">
-        <div class="dot" style="background:#047857"></div>
-        <div>
-          <div class="card-name">APAL <span class="badge badge-live">LIVE</span></div>
-          <div class="card-meta">Social Listening · YouTube Comment Analysis</div>
-        </div>
-      </div>
-      <span class="arrow">→</span>
-    </a>
-  </div>
-
-  <div class="section-label">Multi-Market</div>
-  <div class="cards">
-    <a class="card" href="./flux/">
-      <div class="card-left">
-        <div class="dot" style="background:#ea580c"></div>
-        <div>
-          <div class="card-name">Flux <span class="badge badge-live">LIVE</span></div>
-          <div class="card-meta">🇦🇺 AU · 🇬🇧 UK · 🇩🇪 DE · 🇺🇸 US · 🇨🇦 CA</div>
-        </div>
-      </div>
-      <span class="arrow">→</span>
-    </a>
-  </div>
-
-  <div class="footer">Powered by Amazon Autopilot · SNIPER Mastermind</div>
+<div class="msg">
+  <h1>404</h1>
+  <p>Page not found.</p>
 </div>
 </body>
 </html>
