@@ -120,6 +120,56 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <div style="font-size:12px;color:var(--text3)">US Market Feb–Mar 2026 週報 · 10 產品線 · SP+SD+SB · TACOS ≤10%</div>
   </div>
 
+  <details style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
+    <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
+      <span style="font-size:14px;transition:transform .2s;display:inline-block" class="log-arrow">&#9654;</span>
+      <span>Campaign Action Log 廣告操作紀錄</span>
+      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">2 entries</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/10 — API 首次執行：出價自動調整</span>
+    </summary>
+    <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
+
+      <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-10 — API 首次執行：搜尋詞報告驅動的出價調整</span>
+          <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
+        </div>
+        <div style="color:var(--text2)">
+          <strong>分析 SP 搜尋詞報告</strong>（3,625 筆）+ <strong>SP 目標報告</strong>（2,486 筆）+ <strong>SP 活動報告</strong>（3,825 筆）。<br>
+          <strong>W5 帳戶績效 (Mar 1–7)：</strong>Spend $1,022 · Sales $4,776 · TACOS 21.4% · 43 orders<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
+            透過 Amazon Ads API 自動拉取 SP 報告（Campaign / Search Term / Targeting），根據 TACOS 規則自動分析 4,529 個關鍵字與目標的績效。暫停花費 >$5 且零轉換的浪費關鍵字，提高 TACOS &lt; 10% 的高效關鍵字出價至 $0.21 上限。取代手動 Bulk 操作，實現即時生效。
+          </div>
+          <strong style="color:var(--red)">暫停 30 個 SP 關鍵字</strong>（花費 >$5，零銷售）：<br>
+          &nbsp;&nbsp;• <code>+pc +case</code> BROAD — $23.08 花費 / 0 轉換（跨多個 campaigns）<br>
+          &nbsp;&nbsp;• <code>+pc +case</code> PHRASE — $8.08 花費 / 0 轉換<br>
+          &nbsp;&nbsp;• <code>pc case</code> BROAD — $7.33 / 0、<code>pc box</code> BROAD — $7.26 / 0<br>
+          &nbsp;&nbsp;• <code>green pc case</code> BROAD — $7.04 / 0、<code>pc case</code> BROAD — $6.71 / 0<br>
+          <strong style="color:var(--green)">提高 5 個關鍵字出價 → $0.21</strong>（TACOS &lt; 10%，效率優秀）：<br>
+          &nbsp;&nbsp;• <code>+case +gaming</code> BROAD — TACOS 3.8%（$5.70 → $149.90 銷售）<br>
+          &nbsp;&nbsp;• <code>pc atx case</code> BROAD — TACOS 1.9%（$5.25 → $269.80 銷售）<br>
+          &nbsp;&nbsp;• <code>gaming tower</code> BROAD — TACOS 0.9%（$1.44 → $159.90 銷售）
+        </div>
+      </div>
+
+      <div style="border-left:3px solid var(--text3);padding-left:14px;margin-bottom:18px">
+        <div style="font-weight:800;color:var(--text2);font-size:13px;font-family:var(--mono);margin-bottom:6px">2026-03-10 — API 基礎建設 Infrastructure Setup</div>
+        <div style="color:var(--text2)">
+          <strong>新增 API 自動化腳本</strong> <code>api/geo_full_workflow.py</code><br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
+            建立 GEO 完整 API 工作流程：自動拉取報告 → 列出所有實體 → 根據 TACOS 規則生成出價建議 → 確認後執行。Profile ID: 3947387233604911，SDK: python-amazon-ad-api V3 端點。
+          </div>
+          &nbsp;&nbsp;• 實體統計：2,501 campaigns · 2,509 ad groups · 723 keywords · 3,806 targets<br>
+          &nbsp;&nbsp;• Bid 範圍設定：$0.16–$0.21 · TACOS 目標 10% · 暫停線 25%<br>
+          &nbsp;&nbsp;• 執行方式：<code>python3 api/geo_full_workflow.py</code>
+        </div>
+      </div>
+
+    </div>
+  </details>
+
   <!-- Overall Account KPIs -->
   <div class="kpi-strip" style="margin-bottom:20px" id="kpi-exec"></div>
 
@@ -203,56 +253,6 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <div style="font-size:12px;font-weight:700;color:var(--amber);font-family:var(--mono);margin-bottom:8px;letter-spacing:.05em">🟡 下週一前完成 DUE BY 3/16 (一)</div>
     <div style="display:flex;flex-direction:column;gap:6px" id="actionNextMon"></div>
   </div>
-
-  <!-- Activity Log -->
-  <details open style="margin-bottom:24px;border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.05)">
-    <summary style="display:flex;align-items:center;gap:8px;padding:14px 18px;background:var(--bg3);cursor:pointer;font-size:13px;font-weight:700;font-family:var(--mono);user-select:none">
-      <span>Campaign Action Log 廣告操作紀錄</span>
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">2 entries</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/10 — API 首次執行：出價自動調整</span>
-    </summary>
-    <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
-
-      <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-10 — API 首次執行：搜尋詞報告驅動的出價調整</span>
-          <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
-        </div>
-        <div style="color:var(--text2)">
-          <strong>分析 SP 搜尋詞報告</strong>（3,625 筆）+ <strong>SP 目標報告</strong>（2,486 筆）+ <strong>SP 活動報告</strong>（3,825 筆）。<br>
-          <strong>W5 帳戶績效 (Mar 1–7)：</strong>Spend $1,022 · Sales $4,776 · TACOS 21.4% · 43 orders<br>
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
-            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
-            透過 Amazon Ads API 自動拉取 SP 報告（Campaign / Search Term / Targeting），根據 TACOS 規則自動分析 4,529 個關鍵字與目標的績效。暫停花費 >$5 且零轉換的浪費關鍵字，提高 TACOS &lt; 10% 的高效關鍵字出價至 $0.21 上限。取代手動 Bulk 操作，實現即時生效。
-          </div>
-          <strong style="color:var(--red)">暫停 30 個 SP 關鍵字</strong>（花費 >$5，零銷售）：<br>
-          &nbsp;&nbsp;• <code>+pc +case</code> BROAD — $23.08 花費 / 0 轉換（跨多個 campaigns）<br>
-          &nbsp;&nbsp;• <code>+pc +case</code> PHRASE — $8.08 花費 / 0 轉換<br>
-          &nbsp;&nbsp;• <code>pc case</code> BROAD — $7.33 / 0、<code>pc box</code> BROAD — $7.26 / 0<br>
-          &nbsp;&nbsp;• <code>green pc case</code> BROAD — $7.04 / 0、<code>pc case</code> BROAD — $6.71 / 0<br>
-          <strong style="color:var(--green)">提高 5 個關鍵字出價 → $0.21</strong>（TACOS &lt; 10%，效率優秀）：<br>
-          &nbsp;&nbsp;• <code>+case +gaming</code> BROAD — TACOS 3.8%（$5.70 → $149.90 銷售）<br>
-          &nbsp;&nbsp;• <code>pc atx case</code> BROAD — TACOS 1.9%（$5.25 → $269.80 銷售）<br>
-          &nbsp;&nbsp;• <code>gaming tower</code> BROAD — TACOS 0.9%（$1.44 → $159.90 銷售）
-        </div>
-      </div>
-
-      <div style="border-left:3px solid var(--text3);padding-left:14px;margin-bottom:18px">
-        <div style="font-weight:800;color:var(--text2);font-size:13px;font-family:var(--mono);margin-bottom:6px">2026-03-10 — API 基礎建設 Infrastructure Setup</div>
-        <div style="color:var(--text2)">
-          <strong>新增 API 自動化腳本</strong> <code>api/geo_full_workflow.py</code><br>
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
-            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
-            建立 GEO 完整 API 工作流程：自動拉取報告 → 列出所有實體 → 根據 TACOS 規則生成出價建議 → 確認後執行。Profile ID: 3947387233604911，SDK: python-amazon-ad-api V3 端點。
-          </div>
-          &nbsp;&nbsp;• 實體統計：2,501 campaigns · 2,509 ad groups · 723 keywords · 3,806 targets<br>
-          &nbsp;&nbsp;• Bid 範圍設定：$0.16–$0.21 · TACOS 目標 10% · 暫停線 25%<br>
-          &nbsp;&nbsp;• 執行方式：<code>python3 api/geo_full_workflow.py</code>
-        </div>
-      </div>
-
-    </div>
-  </details>
 
   <!-- Key Takeaways -->
   <div class="sec-header">本週重點結論 Key Takeaways</div>
