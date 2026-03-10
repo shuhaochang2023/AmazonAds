@@ -1044,18 +1044,18 @@ function buildExecSummary(){
         return 'cut';
       })();
       const actionMap={star:'加碼投放 +30%',question:'CPC 降 20%',cut:'降價 + Coupon',potential:'新建 SP Auto €10/天'};
-      return \`<tr>
-        <td style="text-align:left;font-size:13px"><span style="display:inline-block;width:8px;height:8px;background:\${p.color};border-radius:2px;margin-right:6px"></span><strong style="color:\${p.color}">\${zhShort(pid)}</strong></td>
-        <td style="font-size:12px">\${quadLabel(p)}</td>
-        <td style="font-size:13px;font-weight:600">\${fmt(p.total_sales,0)}</td>
-        <td style="font-size:13px;color:var(--amber)">\${fmt(p.total_spend,0)}</td>
-        <td style="font-size:13px;font-weight:700" class="\${tacosClass(p.tacos_4w)}">\${pct(p.tacos_4w)}</td>
-        <td style="font-size:13px">\${units}</td>
-        <td style="font-size:13px;color:\${op>=50?'var(--green)':'var(--red)'}">\${op}%</td>
-        <td style="font-size:13px;font-weight:700;color:\${profit>=0?'var(--green)':'var(--red)'}">\${fmt(profit,0)}</td>
-        <td style="font-size:13px">\${trend(p)}</td>
-        <td style="text-align:left;font-size:12px;color:var(--text2)">\${actionMap[q]||'—'}</td>
-      </tr>\`;}).join('')}
+      return `<tr>
+        <td style="text-align:left;font-size:13px"><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span><strong style="color:${p.color}">${zhShort(pid)}</strong></td>
+        <td style="font-size:12px">${quadLabel(p)}</td>
+        <td style="font-size:13px;font-weight:600">${fmt(p.total_sales,0)}</td>
+        <td style="font-size:13px;color:var(--amber)">${fmt(p.total_spend,0)}</td>
+        <td style="font-size:13px;font-weight:700" class="${tacosClass(p.tacos_4w)}">${pct(p.tacos_4w)}</td>
+        <td style="font-size:13px">${units}</td>
+        <td style="font-size:13px;color:${op>=50?'var(--green)':'var(--red)'}">${op}%</td>
+        <td style="font-size:13px;font-weight:700;color:${profit>=0?'var(--green)':'var(--red)'}">${fmt(profit,0)}</td>
+        <td style="font-size:13px">${trend(p)}</td>
+        <td style="text-align:left;font-size:12px;color:var(--text2)">${actionMap[q]||'—'}</td>
+      </tr>`;}).join('')}
     <tr style="background:var(--bg3);font-weight:700;border-top:2px solid var(--border2)">
       <td style="text-align:left;font-size:13px">TOTAL 合計</td><td></td>
       <td style="font-size:13px">${fmt(totS,0)}</td>
