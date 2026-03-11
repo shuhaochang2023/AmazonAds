@@ -30,7 +30,7 @@ BUDGET_TARGETS = {
     'Lutein':            20,
     'Vitamins':          10,
 }
-TOTAL_TARGET = sum(BUDGET_TARGETS.values())  # $780
+TOTAL_TARGET = sum(BUDGET_TARGETS.values())  # $780 (client original targets)
 
 PRODUCT_ZH = {
     'Kids Fish Oil':   '兒童魚油軟糖',
@@ -142,8 +142,10 @@ def fetch_sb_campaigns(access_token, client_id):
     return []
 
 
-def create_sp_report(access_token, client_id, date_str):
-    """Request an SP campaign-level report for a date via Reporting API v3."""
+def create_sp_report(access_token, client_id, start_date, end_date=None):
+    """Request an SP campaign-level report for a date range via Reporting API v3."""
+    if end_date is None:
+        end_date = start_date
     headers = {
         'Amazon-Advertising-API-ClientId': client_id,
         'Amazon-Advertising-API-Scope': PROFILE_ID,
@@ -152,9 +154,9 @@ def create_sp_report(access_token, client_id, date_str):
         'Accept': 'application/vnd.createasyncreportrequest.v3+json',
     }
     body = {
-        'name': f'SP Campaign Daily Spend {date_str}',
-        'startDate': date_str,
-        'endDate': date_str,
+        'name': f'SP Campaign MTD {start_date}_{end_date}_{datetime.now().strftime("%H%M")}',
+        'startDate': start_date,
+        'endDate': end_date,
         'configuration': {
             'adProduct': 'SPONSORED_PRODUCTS',
             'groupBy': ['campaign'],
@@ -162,7 +164,7 @@ def create_sp_report(access_token, client_id, date_str):
                         'campaignBudgetAmount', 'spend', 'sales14d',
                         'impressions', 'clicks', 'purchases14d'],
             'reportTypeId': 'spCampaigns',
-            'timeUnit': 'DAILY',
+            'timeUnit': 'SUMMARY',
             'format': 'GZIP_JSON',
         }
     }
@@ -247,16 +249,24 @@ def aggregate_spend(report_rows):
 
 
 def build_pacing_data(cats):
-    """Compare spend to targets, compute pacing metrics."""
+    """Compare MTD spend to MTD targets (daily budget × days elapsed)."""
     now = datetime.now()
+    days_elapsed = (now - timedelta(days=1)).day  # through yesterday
+    days_in_month = 31 if now.month == 3 else 30  # simplify
     products = []
     total_spend = 0
-    for product, target in BUDGET_TARGETS.items():
+    total_mtd_target = 0
+    total_month_target = 0
+    for product, daily_target in BUDGET_TARGETS.items():
         data = cats.get(product, {})
         spend = round(data.get('spend', 0), 2)
         total_spend += spend
-        diff = round(spend - target, 2)
-        pct = round(spend / target * 100, 1) if target > 0 else 0
+        mtd_target = round(daily_target * days_elapsed, 2)
+        month_target = round(daily_target * days_in_month, 2)
+        total_mtd_target += mtd_target
+        total_month_target += month_target
+        diff = round(spend - mtd_target, 2)
+        pct = round(spend / mtd_target * 100, 1) if mtd_target > 0 else 0
         status = 'on_track'
         if pct > 120:
             status = 'over'
@@ -266,7 +276,8 @@ def build_pacing_data(cats):
             'product': product,
             'product_zh': PRODUCT_ZH.get(product, ''),
             'spend': spend,
-            'target': target,
+            'target': mtd_target,
+            'month_target': month_target,
             'diff': diff,
             'pct': pct,
             'status': status,
@@ -278,10 +289,13 @@ def build_pacing_data(cats):
 
     return {
         'timestamp': now.strftime('%Y-%m-%d %H:%M'),
-        'report_date': (now - timedelta(days=1)).strftime('%Y-%m-%d'),
+        'report_date': now.strftime('%Y-%m-%d'),
+        'days_elapsed': days_elapsed,
+        'days_in_month': days_in_month,
         'total_spend': round(total_spend + other_spend, 2),
-        'total_target': TOTAL_TARGET,
-        'total_pct': round((total_spend + other_spend) / TOTAL_TARGET * 100, 1) if TOTAL_TARGET else 0,
+        'total_target': round(total_mtd_target, 2),
+        'total_month_target': round(total_month_target, 2),
+        'total_pct': round((total_spend + other_spend) / total_mtd_target * 100, 1) if total_mtd_target else 0,
         'products': products,
         'other_spend': other_spend,
     }
@@ -291,50 +305,86 @@ def inject_dashboard(pacing):
     """Inject/update the budget pacing widget into the dashboard HTML."""
     html = DASHBOARD_HTML.read_text(encoding='utf-8')
 
-    # Build the pacing widget HTML
     ts = pacing['timestamp']
     rdate = pacing['report_date']
+    days_elapsed = pacing.get('days_elapsed', 10)
+    days_in_month = pacing.get('days_in_month', 31)
+
+    # Build compact product rows
     rows_html = ''
     for p in pacing['products']:
-        color = 'var(--green)' if p['status'] == 'on_track' else 'var(--red)' if p['status'] == 'over' else 'var(--amber)'
-        arrow = '→' if p['status'] == 'on_track' else '▲' if p['status'] == 'over' else '▼'
-        sign = '+' if p['diff'] >= 0 else ''
-        bar_w = min(p['pct'], 150)
-        rows_html += f'''<tr>
-<td style="font-family:var(--body);font-size:13px;text-align:left">{p['product_zh']}<br><span style="font-size:10px;color:var(--text3)">{p['product']}</span></td>
-<td style="font-family:var(--mono);font-weight:700">${p['spend']:,.0f}</td>
-<td style="font-family:var(--mono);color:var(--text2)">${p['target']:,.0f}</td>
-<td><div style="background:var(--bg);border-radius:3px;height:14px;width:80px;position:relative"><div style="background:{color};height:100%;border-radius:3px;width:{bar_w * 80 / 150:.0f}px"></div><span style="position:absolute;right:4px;top:-1px;font-size:9px;font-family:var(--mono);color:var(--text2)">{p['pct']:.0f}%</span></div></td>
-<td style="font-family:var(--mono);color:{color};font-size:12px;font-weight:600">{arrow} {sign}${p['diff']:,.0f}</td>
-<td style="font-family:var(--mono);font-size:11px">${p['sales']:,.0f}</td>
-<td style="font-family:var(--mono);font-size:11px">{p['orders']}</td>
-</tr>'''
+        if p['status'] == 'on_track':
+            bar_bg = 'linear-gradient(90deg,#16a34a,#22c55e)'
+            c = '#16a34a'
+        elif p['status'] == 'over':
+            bar_bg = 'linear-gradient(90deg,#dc2626,#f87171)'
+            c = '#dc2626'
+        else:
+            bar_bg = 'linear-gradient(90deg,#d97706,#fbbf24)'
+            c = '#d97706'
 
-    total_color = 'var(--green)' if abs(pacing['total_pct'] - 100) <= 20 else 'var(--red)' if pacing['total_pct'] > 120 else 'var(--amber)'
+        bar_pct = min(p['pct'], 100)
+        sign = '+' if p['diff'] >= 0 else ''
+
+        rows_html += f'''<div style="display:flex;align-items:center;gap:8px;padding:4px 0">
+  <div style="width:62px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden">{p['product_zh']}</div>
+  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
+    <div style="height:100%;border-radius:3px;background:{bar_bg};width:{bar_pct}%;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
+    </div>
+  </div>
+  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:{c};text-align:right">{p['pct']:.0f}%</div>
+  <div style="width:70px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">${p['spend']:,.0f}/${p['target']:,.0f}</div>
+</div>'''
+
+    # Total
+    total_pct = min(pacing['total_pct'], 100)
     total_diff = pacing['total_spend'] - pacing['total_target']
     total_sign = '+' if total_diff >= 0 else ''
+    if abs(pacing['total_pct'] - 100) <= 20:
+        t_grad = 'linear-gradient(90deg,#2563eb,#60a5fa)'
+        t_c = '#2563eb'
+    elif pacing['total_pct'] > 120:
+        t_grad = 'linear-gradient(90deg,#dc2626,#f87171)'
+        t_c = '#dc2626'
+    else:
+        t_grad = 'linear-gradient(90deg,#d97706,#fbbf24)'
+        t_c = '#d97706'
 
     widget = f'''<!-- BUDGET PACING WIDGET — auto-generated by budget_pacing.py -->
-<div id="budget-pacing-widget" style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-    <div>
-      <div style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent)">BUDGET PACING 預算執行追蹤</div>
-      <div style="font-size:11px;color:var(--text3);margin-top:2px">Report date: {rdate} · Updated: {ts} TWN</div>
+<style>
+@keyframes pacingShimmer {{ 0%{{transform:translateX(-100%)}} 100%{{transform:translateX(100%)}} }}
+@keyframes pacingPulse {{ 0%,100%{{opacity:1}} 50%{{opacity:.35}} }}
+</style>
+<details id="budget-pacing-widget" style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
+  <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
+    <span style="font-size:14px;transition:transform .2s;display:inline-block">&#9654;</span>
+    <span>Budget Pacing 預算執行追蹤</span>
+    <span style="display:inline-flex;align-items:center;gap:4px;font-size:8px;font-weight:700;color:#16a34a;background:rgba(22,163,74,.1);border:1px solid rgba(34,197,94,.25);padding:2px 6px;border-radius:3px">
+      <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#16a34a;animation:pacingPulse 1.5s ease-in-out infinite"></span>LIVE
+    </span>
+    <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">${pacing['total_spend']:,.0f} / ${pacing['total_target']:,.0f} ({pacing['total_pct']:.0f}%) · {rdate}</span>
+  </summary>
+  <div style="padding:4px 18px 18px">
+
+    <!-- Total bar -->
+    <div style="position:relative;height:22px;background:var(--bg);border-radius:6px;overflow:hidden;border:1px solid var(--border);margin-bottom:4px;max-width:520px">
+      <div style="height:100%;border-radius:5px;background:{t_grad};width:{total_pct}%;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:pacingShimmer 2.5s infinite"></div>
+      </div>
+      <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center">
+        <span style="font-family:var(--mono);font-size:11px;font-weight:800;color:var(--text);text-shadow:0 0 3px rgba(255,255,255,.9)">${pacing['total_spend']:,.0f} / ${pacing['total_target']:,.0f} ({pacing['total_pct']:.0f}%)</span>
+      </div>
     </div>
-    <div style="display:flex;gap:10px;align-items:center">
-      <div style="font-family:var(--mono);font-size:18px;font-weight:800;color:{total_color}">${pacing['total_spend']:,.0f}<span style="font-size:12px;color:var(--text3);font-weight:500"> / ${pacing['total_target']:,.0f}</span></div>
-      <div style="font-family:var(--mono);font-size:11px;color:{total_color};background:rgba(0,0,0,.04);padding:3px 8px;border-radius:4px">{pacing['total_pct']:.0f}% {total_sign}${total_diff:,.0f}</div>
+    <div style="font-family:var(--mono);font-size:9px;color:var(--text3);text-align:right;margin-bottom:10px;max-width:520px">gap: {total_sign}${total_diff:,.0f} · MTD day {days_elapsed}/{days_in_month} · updated {ts}</div>
+
+    <!-- Product bars -->
+    <div style="max-width:520px">
+      {rows_html}
     </div>
+
   </div>
-  <div class="table-wrap">
-    <table style="min-width:auto">
-      <thead><tr>
-        <th style="text-align:left">產品 Product</th><th>日均花費 Spend</th><th>目標 Target</th><th>達成率</th><th>差額 Gap</th><th>銷售 Sales</th><th>訂單</th>
-      </tr></thead>
-      <tbody>{rows_html}</tbody>
-    </table>
-  </div>
-</div>
+</details>
 <!-- /BUDGET PACING WIDGET -->'''
 
     # Remove existing widget if present
@@ -366,11 +416,12 @@ def main():
     access_token = get_access_token(env)
     client_id = env['AMAZON_ADS_CLIENT_ID']
 
-    # Use yesterday's date for the report (today's data is incomplete)
+    # MTD: March 1 through yesterday (today's data is incomplete)
+    month_start = datetime.now().replace(day=1).strftime('%Y-%m-%d')
     yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
-    print(f'Pulling SP report for {yesterday}...')
+    print(f'Pulling SP report for {month_start} to {yesterday} (MTD)...')
 
-    report_id = create_sp_report(access_token, client_id, yesterday)
+    report_id = create_sp_report(access_token, client_id, month_start, end_date=yesterday)
     if not report_id:
         print('Failed to create report. Exiting.')
         return
@@ -392,13 +443,15 @@ def main():
     print(f'Saved: {PACING_JSON}')
 
     # Print summary
-    print(f'\n{"Product":<20} {"Spend":>10} {"Target":>10} {"Pct":>8} {"Gap":>10} {"Status"}')
-    print('-' * 68)
+    print(f'\nMTD through day {pacing["days_elapsed"]}/{pacing["days_in_month"]}')
+    print(f'{"Product":<20} {"MTD Spend":>10} {"MTD Tgt":>10} {"Pct":>8} {"Gap":>10} {"Status"}')
+    print('-' * 72)
     for p in pacing['products']:
         sign = '+' if p['diff'] >= 0 else ''
         print(f'{p["product"]:<20} ${p["spend"]:>8,.0f} ${p["target"]:>8,.0f} {p["pct"]:>7.0f}% {sign}${p["diff"]:>7,.0f}  {p["status"]}')
-    print('-' * 68)
+    print('-' * 72)
     print(f'{"TOTAL":<20} ${pacing["total_spend"]:>8,.0f} ${pacing["total_target"]:>8,.0f} {pacing["total_pct"]:>7.0f}%')
+    print(f'Month target: ${pacing["total_month_target"]:,.0f}')
 
     # Update dashboard
     inject_dashboard(pacing)
