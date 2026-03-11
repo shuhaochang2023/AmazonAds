@@ -248,72 +248,39 @@ def aggregate_spend(report_rows):
     return dict(cats)
 
 
-def build_pacing_data(cats):
-    """Compare MTD spend to MTD targets + calculate today's catch-up target."""
+def build_pacing_data(yesterday_cats, today_cats):
+    """Build today's pacing: bar = daily + yesterday's unspent, fill = today's spend."""
     now = datetime.now()
-    days_elapsed = (now - timedelta(days=1)).day  # through yesterday
-    days_in_month = 31 if now.month == 3 else 30
-    days_remaining = days_in_month - days_elapsed  # includes today
     products = []
-    total_spend = 0
-    total_mtd_target = 0
-    total_month_target = 0
     total_today_target = 0
+    total_today_spend = 0
     for product, daily_target in BUDGET_TARGETS.items():
-        data = cats.get(product, {})
-        spend = round(data.get('spend', 0), 2)
-        total_spend += spend
-        mtd_target = round(daily_target * days_elapsed, 2)
-        month_target = round(daily_target * days_in_month, 2)
-        total_mtd_target += mtd_target
-        total_month_target += month_target
-
-        # MTD pacing
-        mtd_diff = round(spend - mtd_target, 2)
-        mtd_pct = round(spend / mtd_target * 100, 1) if mtd_target > 0 else 0
-
-        # Today's catch-up: daily_target + spread the gap over remaining days
-        gap = mtd_target - spend  # positive = underspent
-        catchup_per_day = round(gap / days_remaining, 2) if days_remaining > 0 else 0
-        today_target = round(daily_target + max(catchup_per_day, 0), 2)  # only catch up, don't reduce below daily
+        y_spend = round(yesterday_cats.get(product, 0), 2)
+        t_spend = round(today_cats.get(product, 0), 2)
+        unspent = round(max(daily_target - y_spend, 0), 2)
+        today_target = round(daily_target + unspent, 2)
+        fill_pct = round(t_spend / today_target * 100, 1) if today_target > 0 else 0
         total_today_target += today_target
-
-        status = 'on_track'
-        if mtd_pct > 120:
-            status = 'over'
-        elif mtd_pct < 80:
-            status = 'under'
+        total_today_spend += t_spend
         products.append({
             'product': product,
             'product_zh': PRODUCT_ZH.get(product, ''),
-            'spend': spend,
-            'target': mtd_target,
-            'month_target': month_target,
-            'mtd_diff': mtd_diff,
-            'mtd_pct': mtd_pct,
             'daily_target': daily_target,
+            'yesterday_spend': y_spend,
+            'unspent': unspent,
             'today_target': today_target,
-            'catchup': round(max(catchup_per_day, 0), 2),
-            'status': status,
-            'sales': round(data.get('sales', 0), 2),
-            'orders': int(data.get('orders', 0)),
+            'today_spend': t_spend,
+            'fill_pct': fill_pct,
         })
-
-    other_spend = round(cats.get('Other', {}).get('spend', 0), 2)
 
     return {
         'timestamp': now.strftime('%Y-%m-%d %H:%M'),
-        'report_date': now.strftime('%Y-%m-%d'),
-        'days_elapsed': days_elapsed,
-        'days_in_month': days_in_month,
-        'days_remaining': days_remaining,
-        'total_spend': round(total_spend + other_spend, 2),
-        'total_target': round(total_mtd_target, 2),
-        'total_month_target': round(total_month_target, 2),
+        'today': now.strftime('%Y-%m-%d'),
+        'yesterday': (now - timedelta(days=1)).strftime('%Y-%m-%d'),
         'total_today_target': round(total_today_target, 2),
-        'total_pct': round((total_spend + other_spend) / total_mtd_target * 100, 1) if total_mtd_target else 0,
+        'total_today_spend': round(total_today_spend, 2),
+        'total_fill_pct': round(total_today_spend / total_today_target * 100, 1) if total_today_target > 0 else 0,
         'products': products,
-        'other_spend': other_spend,
     }
 
 
@@ -322,47 +289,46 @@ def inject_dashboard(pacing):
     html = DASHBOARD_HTML.read_text(encoding='utf-8')
 
     ts = pacing['timestamp']
-    days_elapsed = pacing.get('days_elapsed', 10)
-    days_in_month = pacing.get('days_in_month', 31)
-    total_today = pacing.get('total_today_target', 0)
+    total_tgt = pacing['total_today_target']
+    total_spd = pacing['total_today_spend']
+    total_fill = pacing['total_fill_pct']
 
-    # Build product bars — green fill, red at 90%+, white unfilled
+    # Build product bars
     rows_html = ''
     for p in pacing['products']:
-        catchup = p.get('catchup', 0)
-        today_tgt = p.get('today_target', p.get('daily_target', 0))
-        daily_tgt = p.get('daily_target', 0)
-        mtd_pct = p.get('mtd_pct', 0)
+        daily = p['daily_target']
+        unspent = p['unspent']
+        today_tgt = p['today_target']
+        today_spd = p['today_spend']
+        fill = min(p['fill_pct'], 100)
 
-        # Fill % = MTD pacing (how much of expected spend is done)
-        fill_pct = min(mtd_pct, 100)
-
-        # Green normally, red at 90%+ (danger — approaching pause threshold)
-        if mtd_pct >= 90:
+        # Green fill, red at 90%+
+        if p['fill_pct'] >= 90:
             bar_bg = '#dc2626'
             c = '#dc2626'
-            status_icon = '&#x26A0;'  # warning
-        elif mtd_pct >= 70:
+        elif p['fill_pct'] >= 60:
             bar_bg = '#16a34a'
             c = '#16a34a'
-            status_icon = ''
         else:
-            bar_bg = '#2563eb'
-            c = '#2563eb'
-            status_icon = ''
+            bar_bg = '#22c55e'
+            c = '#16a34a'
 
-        catchup_label = f'+${catchup:.0f}' if catchup > 0 else ''
+        # Right label: $daily + $unspent = $target
+        if unspent > 0:
+            right_label = f'${daily:.0f}<span style="color:#dc2626">+{unspent:.0f}</span>=${today_tgt:.0f}'
+        else:
+            right_label = f'${today_tgt:.0f}'
 
         rows_html += f'''<div style="display:flex;align-items:center;gap:5px;padding:2px 0">
-  <div style="width:48px;font-size:9px;font-weight:600;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{p['product_zh']}</div>
-  <div style="flex:1;position:relative;height:18px;background:#fff;border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:{bar_bg};width:{fill_pct}%;transition:width .3s"></div>
-    <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center">
-      <span style="font-family:var(--mono);font-size:9px;font-weight:700;color:{'#fff' if fill_pct > 50 else 'var(--text)'};text-shadow:{'0 0 2px rgba(0,0,0,.3)' if fill_pct > 50 else 'none'}">{status_icon} {mtd_pct:.0f}%</span>
+  <div style="width:44px;font-size:8px;font-weight:600;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{p['product_zh']}</div>
+  <div style="flex:1;position:relative;height:20px;background:#fff;border-radius:4px;overflow:hidden;border:1px solid var(--border)">
+    <div style="height:100%;border-radius:3px;background:{bar_bg};width:{fill}%"></div>
+    <div style="position:absolute;top:0;left:6px;right:6px;bottom:0;display:flex;align-items:center;justify-content:space-between">
+      <span style="font-family:var(--mono);font-size:9px;font-weight:700;color:{'#fff' if fill > 45 else 'var(--text)'}">${today_spd:.0f}</span>
+      <span style="font-family:var(--mono);font-size:8px;color:{'rgba(255,255,255,.7)' if fill > 85 else 'var(--text3)'}">${today_tgt:.0f}</span>
     </div>
   </div>
-  <div style="width:75px;font-family:var(--mono);font-size:8px;color:var(--text3);text-align:right">${daily_tgt:.0f}{(' <span style=color:#dc2626;font-weight:700>' + catchup_label + '</span>') if catchup_label else ''}</div>
-  <div style="width:32px;font-family:var(--mono);font-size:9px;font-weight:700;color:{c};text-align:right">${today_tgt:.0f}</div>
+  <div style="width:36px;font-family:var(--mono);font-size:9px;font-weight:700;color:{c};text-align:right">{p['fill_pct']:.0f}%</div>
 </div>'''
 
     widget = f'''<!-- BUDGET PACING WIDGET — auto-generated by budget_pacing.py -->
@@ -372,23 +338,21 @@ def inject_dashboard(pacing):
 <details id="budget-pacing-widget" open style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
   <summary style="padding:10px 18px;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--accent);list-style:none">
     <span style="font-size:12px">&#9654;</span>
-    <span>Today&#39;s Pacing 今日預算</span>
+    <span>Today&#39;s Pacing 今日預算執行</span>
     <span style="display:inline-flex;align-items:center;gap:4px;font-size:7px;font-weight:700;color:#16a34a;background:rgba(22,163,74,.1);border:1px solid rgba(34,197,94,.25);padding:1px 5px;border-radius:3px">
       <span style="display:inline-block;width:4px;height:4px;border-radius:50%;background:#16a34a;animation:pacingPulse 1.5s ease-in-out infinite"></span>LIVE
     </span>
-    <span style="font-size:10px;color:var(--text3);font-weight:500;margin-left:auto">target ${total_today:,.0f} · day {days_elapsed + 1}/{days_in_month} · {ts}</span>
+    <span style="font-size:10px;color:var(--text3);font-weight:500;margin-left:auto">${total_spd:,.0f} / ${total_tgt:,.0f} ({total_fill:.0f}%) · {ts}</span>
   </summary>
   <div style="padding:2px 18px 14px">
-    <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-bottom:6px;display:flex;justify-content:space-between;max-width:480px">
-      <span>MTD pacing · green=on track · <span style="color:#dc2626">red=90%+ PAUSE</span></span>
-      <span>daily {catchup_label if catchup_label else ''} = today</span>
+    <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-bottom:4px;max-width:520px">
+      bar = daily budget + yesterday&#39;s unspent · <span style="color:#16a34a">green</span> = spending · <span style="color:#dc2626">red = 90%+ AUTO-PAUSE</span>
     </div>
-    <div style="max-width:480px">
+    <div style="max-width:520px">
 {rows_html}
     </div>
-    <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:6px;border-top:1px solid var(--border);padding-top:4px;max-width:480px;display:flex;justify-content:space-between">
-      <span>&#x1F6D1; 90%+ = auto-pause portfolios · resume daily 15:00 TW</span>
-      <span>MTD ${pacing['total_spend']:,.0f}/${pacing['total_target']:,.0f}</span>
+    <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:4px;border-top:1px solid var(--border);padding-top:3px;max-width:520px">
+      &#x1F6D1; 90%+ auto-pause all campaigns · resume 15:00 TW daily
     </div>
   </div>
 </details>
@@ -415,49 +379,56 @@ def inject_dashboard(pacing):
     print(f'Dashboard updated: {DASHBOARD_HTML}')
 
 
+def pull_day_report(access_token, client_id, date_str, label):
+    """Pull a single-day SP report. Returns aggregated spend by category."""
+    report_id = create_sp_report(access_token, client_id, date_str, date_str)
+    if not report_id:
+        print(f'  {label}: failed to create report')
+        return {}
+    print(f'  {label}: {report_id} — polling...')
+    url = poll_report(access_token, client_id, report_id, max_wait=600)
+    if not url:
+        print(f'  {label}: timed out')
+        return {}
+    rows = download_report(url)
+    print(f'  {label}: {len(rows)} rows')
+    cats = aggregate_spend(rows)
+    # Flatten to just spend per category
+    return {k: v.get('spend', 0) for k, v in cats.items()}
+
+
 def main():
-    print(f'[{datetime.now().strftime("%Y-%m-%d %H:%M")}] DAIKEN Budget Pacing Check')
+    print(f'[{datetime.now().strftime("%Y-%m-%d %H:%M")}] DAIKEN Daily Pacing')
     print('=' * 60)
 
     env = load_env()
     access_token = get_access_token(env)
     client_id = env['AMAZON_ADS_CLIENT_ID']
 
-    # MTD: March 1 through yesterday (today's data is incomplete)
-    month_start = datetime.now().replace(day=1).strftime('%Y-%m-%d')
     yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
-    print(f'Pulling SP report for {month_start} to {yesterday} (MTD)...')
+    today = datetime.now().strftime('%Y-%m-%d')
 
-    report_id = create_sp_report(access_token, client_id, month_start, end_date=yesterday)
-    if not report_id:
-        print('Failed to create report. Exiting.')
+    print(f'Pulling yesterday ({yesterday}) + today ({today})...')
+    y_cats = pull_day_report(access_token, client_id, yesterday, 'yesterday')
+    t_cats = pull_day_report(access_token, client_id, today, 'today')
+
+    if not y_cats and not t_cats:
+        print('Both reports failed. Exiting.')
         return
 
-    print(f'Report ID: {report_id} — polling...')
-    url = poll_report(access_token, client_id, report_id, max_wait=300)
-    if not url:
-        print('Failed to get report. Exiting.')
-        return
-
-    rows = download_report(url)
-    print(f'Downloaded {len(rows)} campaign rows')
-
-    cats = aggregate_spend(rows)
-    pacing = build_pacing_data(cats)
+    pacing = build_pacing_data(y_cats, t_cats)
 
     # Save JSON
     PACING_JSON.write_text(json.dumps(pacing, indent=2, ensure_ascii=False), encoding='utf-8')
     print(f'Saved: {PACING_JSON}')
 
     # Print summary
-    print(f'\nMTD through day {pacing["days_elapsed"]}/{pacing["days_in_month"]} | {pacing["days_remaining"]} days remaining')
-    print(f'{"Product":<20} {"MTD Spend":>10} {"MTD Tgt":>10} {"Pct":>6} {"Daily":>8} {"Catch":>8} {"Today":>8}')
-    print('-' * 80)
+    print(f'\n{"Product":<20} {"Daily":>6} {"Yday":>8} {"Unspent":>8} {"TodayTgt":>9} {"TodaySpd":>9} {"Fill%":>6}')
+    print('-' * 72)
     for p in pacing['products']:
-        print(f'{p["product"]:<20} ${p["spend"]:>8,.0f} ${p["target"]:>8,.0f} {p["mtd_pct"]:>5.0f}% ${p["daily_target"]:>6,.0f} +${p["catchup"]:>5,.0f} ${p["today_target"]:>6,.0f}')
-    print('-' * 80)
-    print(f'{"TOTAL":<20} ${pacing["total_spend"]:>8,.0f} ${pacing["total_target"]:>8,.0f} {pacing["total_pct"]:>5.0f}%')
-    print(f'Today\'s total target: ${pacing["total_today_target"]:,.0f} (daily ${sum(BUDGET_TARGETS.values()):,.0f} + catch-up)')
+        print(f'{p["product"]:<20} ${p["daily_target"]:>5} ${p["yesterday_spend"]:>7.0f} ${p["unspent"]:>7.0f} ${p["today_target"]:>8.0f} ${p["today_spend"]:>8.0f} {p["fill_pct"]:>5.0f}%')
+    print('-' * 72)
+    print(f'{"TOTAL":<20} ${sum(BUDGET_TARGETS.values()):>5} {"":>8} {"":>8} ${pacing["total_today_target"]:>8.0f} ${pacing["total_today_spend"]:>8.0f} {pacing["total_fill_pct"]:>5.0f}%')
 
     # Update dashboard
     inject_dashboard(pacing)
@@ -465,7 +436,7 @@ def main():
     # Git push
     os.chdir(ROOT)
     os.system('git add daiken/index.html api/budget_pacing.json')
-    os.system(f'git commit -m "DAIKEN: budget pacing update {pacing["timestamp"]}"')
+    os.system(f'git commit -m "DAIKEN: daily pacing {pacing["timestamp"]}"')
     os.system('git push origin main')
     print('\nDone — dashboard deployed.')
 
