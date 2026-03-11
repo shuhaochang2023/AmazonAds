@@ -34,7 +34,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 .kpi-sub{font-size:11px;color:var(--text2);margin-top:3px;}
 
 /* Benefit grid */
-.benefit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;}
+.benefit-grid{display:flex;flex-direction:column;gap:8px;}
 .benefit{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--bg);border-radius:8px;border:1px solid var(--border);}
 .benefit-icon{font-size:24px;flex-shrink:0;}
 .benefit-title{font-weight:600;font-size:13px;}
@@ -46,7 +46,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 .scene-visual{padding:20px 20px 16px;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;text-align:center;color:#fff;}
 .scene-visual.blue{background:linear-gradient(135deg,#1e3a5f,#2563eb);}
 .scene-visual.green{background:linear-gradient(135deg,#0d4a2e,#16a34a);}
-.scene-ref-img{width:100%;height:140px;object-fit:cover;border-radius:6px;margin-bottom:12px;border:2px solid rgba(255,255,255,.2);}
+.scene-ref-img{width:100%;height:auto;border-radius:6px;margin-bottom:12px;border:2px solid rgba(255,255,255,.2);}
 .scene-emoji{font-size:32px;margin-bottom:6px;}
 .scene-dir-label{font-family:var(--mono);font-size:9px;opacity:.7;margin-bottom:4px;text-transform:uppercase;letter-spacing:.08em;}
 .scene-dir{font-size:12px;font-weight:600;line-height:1.4;}
@@ -138,7 +138,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Medium shot of you holding or receiving the sealed package</div>
         <div class="scene-angle">Eye-level / slightly above</div>
-        <div class="scene-ref-caption">Reference image — yours should feature YOU + the Daiken box</div>
+        <div class="scene-ref-caption">You + sealed package</div>
       </div>
       <div class="scene-body">
         <span class="scene-time blue">0:00 – 0:08</span><span class="scene-title">Opening Hook</span>
@@ -156,7 +156,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Close-up on hands opening the box. Show the packaging, then pull out blister packs. Hold a single gummy to camera.</div>
         <div class="scene-angle">Top-down + close-up combo</div>
-        <div class="scene-ref-caption">Show the blister packs like this — individually sealed</div>
+        <div class="scene-ref-caption">Blister packs close-up</div>
       </div>
       <div class="scene-body">
         <span class="scene-time blue">0:08 – 0:25</span><span class="scene-title">The Unboxing</span>
@@ -174,7 +174,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Medium shot — bring the gummy to your nose. Show genuine reaction. If your kid is there, let them smell it too.</div>
         <div class="scene-angle">Capture the surprise moment</div>
-        <div class="scene-ref-caption">The "no fishy smell" reaction is key</div>
+        <div class="scene-ref-caption">Genuine smell reaction</div>
       </div>
       <div class="scene-body">
         <span class="scene-time blue">0:25 – 0:40</span><span class="scene-title">First Impressions & Smell Test</span>
@@ -192,7 +192,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Show kid trying the gummy. Capture their honest reaction — thumbs up, asking for more, big smile.</div>
         <div class="scene-angle">Kid close-up is the money shot</div>
-        <div class="scene-ref-caption">Genuine kid reactions sell — let them be natural</div>
+        <div class="scene-ref-caption">Kid's honest reaction</div>
       </div>
       <div class="scene-body">
         <span class="scene-time blue">0:40 – 0:52</span><span class="scene-title">The Kid Test / Taste Moment</span>
@@ -210,7 +210,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Medium shot talking to camera. Product visible on table or in hand. Warm, genuine wrap-up.</div>
         <div class="scene-angle">Eye contact + clear CTA</div>
-        <div class="scene-ref-caption">Keep the product in frame during your closing</div>
+        <div class="scene-ref-caption">Warm closing to camera</div>
       </div>
       <div class="scene-body">
         <span class="scene-time blue">0:52 – 1:00</span><span class="scene-title">Closing & Call to Action</span>
@@ -238,7 +238,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Medium shot with the sealed package in front of you. Curious, investigative energy.</div>
         <div class="scene-angle">Set the "let's find out" tone</div>
-        <div class="scene-ref-caption">Package visible, you in frame — investigative vibe</div>
+        <div class="scene-ref-caption">Curious investigative energy</div>
       </div>
       <div class="scene-body">
         <span class="scene-time green">0:00 – 0:08</span><span class="scene-title">Opening Hook</span>
@@ -256,7 +256,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Close-up on the back of the box. Zoom in on the nutrition facts panel. Point at key numbers as you read them.</div>
         <div class="scene-angle">Label should be readable on screen</div>
-        <div class="scene-ref-caption">Zoom in so viewers can read the label with you</div>
+        <div class="scene-ref-caption">Label zoom close-up</div>
       </div>
       <div class="scene-body">
         <span class="scene-time green">0:08 – 0:30</span><span class="scene-title">The Unboxing & Label Deep-Dive</span>
@@ -278,7 +278,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Smell test close-up, then taste test. If kid is present, capture their honest reaction — thumbs up or asking for another.</div>
         <div class="scene-angle">Real reactions only</div>
-        <div class="scene-ref-caption">Smell it first, then the taste test</div>
+        <div class="scene-ref-caption">Real taste test moment</div>
       </div>
       <div class="scene-body">
         <span class="scene-time green">0:30 – 0:45</span><span class="scene-title">The Sensory Check</span>
@@ -296,7 +296,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Talking head with product visible. Honest verdict energy — like a product review from a friend.</div>
         <div class="scene-angle">Trustworthy close</div>
-        <div class="scene-ref-caption">Wrap up with product in frame — honest recommendation</div>
+        <div class="scene-ref-caption">Honest parent verdict</div>
       </div>
       <div class="scene-body">
         <span class="scene-time green">0:45 – 1:00</span><span class="scene-title">Parent Verdict & Call to Action</span>
