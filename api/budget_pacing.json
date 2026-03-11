@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-03-11 12:20",
+  "timestamp": "2026-03-11 12:42",
   "report_date": "2026-03-10",
-  "total_spend": 297.41,
+  "total_spend": 310.74,
   "total_target": 780,
-  "total_pct": 38.1,
+  "total_pct": 39.8,
   "products": [
     {
       "product": "Kids Fish Oil",
       "product_zh": "兒童魚油軟糖",
-      "spend": 149.51,
+      "spend": 152.39,
       "target": 400,
-      "diff": -250.49,
-      "pct": 37.4,
+      "diff": -247.61,
+      "pct": 38.1,
       "status": "under",
-      "sales": 65.97,
-      "orders": 3
+      "sales": 82.96,
+      "orders": 4
     },
     {
       "product": "Nattokinase",
@@ -30,10 +30,10 @@
     {
       "product": "Maca",
       "product_zh": "瑪卡",
-      "spend": 26.11,
+      "spend": 31.74,
       "target": 130,
-      "diff": -103.89,
-      "pct": 20.1,
+      "diff": -98.26,
+      "pct": 24.4,
       "status": "under",
       "sales": 0.0,
       "orders": 0
@@ -41,10 +41,10 @@
     {
       "product": "Bitter Melon",
       "product_zh": "苦瓜酵素",
-      "spend": 54.1,
+      "spend": 56.37,
       "target": 100,
-      "diff": -45.9,
-      "pct": 54.1,
+      "diff": -43.63,
+      "pct": 56.4,
       "status": "under",
       "sales": 0.0,
       "orders": 0
@@ -83,5 +83,5 @@
       "orders": 0
     }
   ],
-  "other_spend": 32.25
+  "other_spend": 34.8
 }
