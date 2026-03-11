@@ -1,193 +1,19 @@
 {
-  "DBJ": {
-    "brand": "DBJ",
-    "timestamp": "2026-03-11 09:01",
-    "report_date": "2026-03-10",
-    "total_spend": 13.31,
-    "total_target": 40,
-    "total_pct": 33.3,
-    "products": [
-      {
-        "product": "Hangers",
-        "product_zh": "衣架",
-        "spend": 2.75,
-        "target": 5,
-        "diff": -2.25,
-        "pct": 55.0,
-        "status": "under",
-        "sales": 0.0,
-        "orders": 0
-      },
-      {
-        "product": "Wire Shelving",
-        "product_zh": "鐵架",
-        "spend": 0.0,
-        "target": 6,
-        "diff": -6.0,
-        "pct": 0.0,
-        "status": "under",
-        "sales": 0.0,
-        "orders": 0
-      },
-      {
-        "product": "Storage Racks",
-        "product_zh": "收納架",
-        "spend": 3.1,
-        "target": 5,
-        "diff": -1.9,
-        "pct": 62.0,
-        "status": "under",
-        "sales": 0.0,
-        "orders": 0
-      },
-      {
-        "product": "Rolling Carts",
-        "product_zh": "推車",
-        "spend": 1.79,
-        "target": 2,
-        "diff": -0.21,
-        "pct": 89.5,
-        "status": "on_track",
-        "sales": 0.0,
-        "orders": 0
-      },
-      {
-        "product": "Broom Holder",
-        "product_zh": "掃把架",
-        "spend": 0.99,
-        "target": 1,
-        "diff": -0.01,
-        "pct": 99.0,
-        "status": "on_track",
-        "sales": 14.46,
-        "orders": 1
-      },
-      {
-        "product": "Other",
-        "product_zh": "其他",
-        "spend": 4.68,
-        "target": 21,
-        "diff": -16.32,
-        "pct": 22.3,
-        "status": "under",
-        "sales": 16.42,
-        "orders": 1
-      }
-    ]
-  },
-  "GEO": {
-    "brand": "GEO",
-    "timestamp": "2026-03-11 09:02",
-    "report_date": "2026-03-10",
-    "total_spend": 59.68,
-    "total_target": 153,
-    "total_pct": 39.0,
-    "products": [
-      {
-        "product": "Squama Fans",
-        "product_zh": "風扇",
-        "spend": 1.44,
-        "target": 15,
-        "diff": -13.56,
-        "pct": 9.6,
-        "status": "under",
-        "sales": 0.0,
-        "orders": 0
-      },
-      {
-        "product": "Eskimo Coolers",
-        "product_zh": "水冷",
-        "spend": 0.44,
-        "target": 8,
-        "diff": -7.56,
-        "pct": 5.5,
-        "status": "under",
-        "sales": 0.0,
-        "orders": 0
-      },
-      {
-        "product": "M5 Cases",
-        "product_zh": "M5機殼",
-        "spend": 12.54,
-        "target": 30,
-        "diff": -17.46,
-        "pct": 41.8,
-        "status": "under",
-        "sales": 109.9,
-        "orders": 1
-      },
-      {
-        "product": "Generic KW",
-        "product_zh": "通用關鍵字",
-        "spend": 16.54,
-        "target": 40,
-        "diff": -23.46,
-        "pct": 41.3,
-        "status": "under",
-        "sales": 149.9,
-        "orders": 1
-      },
-      {
-        "product": "M8 Case",
-        "product_zh": "M8機殼",
-        "spend": 1.93,
-        "target": 4,
-        "diff": -2.07,
-        "pct": 48.2,
-        "status": "under",
-        "sales": 0.0,
-        "orders": 0
-      },
-      {
-        "product": "M4 Case",
-        "product_zh": "M4機殼",
-        "spend": 5.13,
-        "target": 4,
-        "diff": 1.13,
-        "pct": 128.2,
-        "status": "over",
-        "sales": 0.0,
-        "orders": 0
-      },
-      {
-        "product": "M2 ARK",
-        "product_zh": "M2機殼",
-        "spend": 0.22,
-        "target": 2,
-        "diff": -1.78,
-        "pct": 11.0,
-        "status": "under",
-        "sales": 0.0,
-        "orders": 0
-      },
-      {
-        "product": "Other",
-        "product_zh": "其他",
-        "spend": 21.44,
-        "target": 50,
-        "diff": -28.56,
-        "pct": 42.9,
-        "status": "under",
-        "sales": 19.9,
-        "orders": 1
-      }
-    ]
-  },
   "Brain Tea": {
     "brand": "Brain Tea",
-    "timestamp": "2026-03-11 09:03",
+    "timestamp": "2026-03-11 14:46",
     "report_date": "2026-03-10",
-    "total_spend": 1.24,
+    "total_spend": 4.96,
     "total_target": 23,
-    "total_pct": 5.4,
+    "total_pct": 21.6,
     "products": [
       {
         "product": "Focus Tea",
         "product_zh": "專注記憶茶",
-        "spend": 1.24,
+        "spend": 4.34,
         "target": 19,
-        "diff": -17.76,
-        "pct": 6.5,
+        "diff": -14.66,
+        "pct": 22.8,
         "status": "under",
         "sales": 27.69,
         "orders": 1
@@ -195,10 +21,10 @@
       {
         "product": "Yerba Mate",
         "product_zh": "瑪黛茶",
-        "spend": 0.0,
+        "spend": 0.62,
         "target": 3,
-        "diff": -3.0,
-        "pct": 0.0,
+        "diff": -2.38,
+        "pct": 20.7,
         "status": "under",
         "sales": 0.0,
         "orders": 0
@@ -218,7 +44,7 @@
   },
   "Flux US": {
     "brand": "Flux US",
-    "timestamp": "2026-03-11 09:04",
+    "timestamp": "2026-03-11 14:49",
     "report_date": "2026-03-10",
     "total_spend": 20.39,
     "total_target": 21,
@@ -250,7 +76,7 @@
   },
   "Flux CA": {
     "brand": "Flux CA",
-    "timestamp": "2026-03-11 09:05",
+    "timestamp": "2026-03-11 14:52",
     "report_date": "2026-03-10",
     "total_spend": 11.33,
     "total_target": 12,
@@ -282,30 +108,30 @@
   },
   "DAIKEN": {
     "brand": "DAIKEN",
-    "timestamp": "2026-03-11 09:06",
+    "timestamp": "2026-03-11 14:54",
     "report_date": "2026-03-10",
-    "total_spend": 137.06,
-    "total_target": 780,
-    "total_pct": 17.6,
+    "total_spend": 386.5,
+    "total_target": 988,
+    "total_pct": 39.1,
     "products": [
       {
         "product": "Kids Fish Oil",
         "product_zh": "兒童魚油軟糖",
-        "spend": 72.53,
-        "target": 400,
-        "diff": -327.47,
-        "pct": 18.1,
+        "spend": 223.88,
+        "target": 402,
+        "diff": -178.12,
+        "pct": 55.7,
         "status": "under",
-        "sales": 65.97,
-        "orders": 3
+        "sales": 82.96,
+        "orders": 4
       },
       {
         "product": "Nattokinase",
         "product_zh": "納豆激酶",
-        "spend": 3.44,
-        "target": 90,
-        "diff": -86.56,
-        "pct": 3.8,
+        "spend": 8.39,
+        "target": 123,
+        "diff": -114.61,
+        "pct": 6.8,
         "status": "under",
         "sales": 0.0,
         "orders": 0
@@ -313,10 +139,10 @@
       {
         "product": "Maca",
         "product_zh": "瑪卡",
-        "spend": 20.18,
-        "target": 130,
-        "diff": -109.82,
-        "pct": 15.5,
+        "spend": 42.38,
+        "target": 224,
+        "diff": -181.62,
+        "pct": 18.9,
         "status": "under",
         "sales": 0.0,
         "orders": 0
@@ -324,10 +150,10 @@
       {
         "product": "Bitter Melon",
         "product_zh": "苦瓜酵素",
-        "spend": 23.66,
-        "target": 100,
-        "diff": -76.34,
-        "pct": 23.7,
+        "spend": 70.37,
+        "target": 130,
+        "diff": -59.63,
+        "pct": 54.1,
         "status": "under",
         "sales": 0.0,
         "orders": 0
@@ -335,10 +161,10 @@
       {
         "product": "Premium Fish Oil",
         "product_zh": "頂級魚油",
-        "spend": 0.0,
+        "spend": 4.56,
         "target": 30,
-        "diff": -30.0,
-        "pct": 0.0,
+        "diff": -25.44,
+        "pct": 15.2,
         "status": "under",
         "sales": 0.0,
         "orders": 0
@@ -346,21 +172,21 @@
       {
         "product": "Lutein",
         "product_zh": "葉黃素",
-        "spend": 10.71,
+        "spend": 25.44,
         "target": 20,
-        "diff": -9.29,
-        "pct": 53.6,
-        "status": "under",
+        "diff": 5.44,
+        "pct": 127.2,
+        "status": "over",
         "sales": 0.0,
         "orders": 0
       },
       {
         "product": "Vitamins",
         "product_zh": "維生素",
-        "spend": 6.54,
-        "target": 10,
-        "diff": -3.46,
-        "pct": 65.4,
+        "spend": 11.48,
+        "target": 59,
+        "diff": -47.52,
+        "pct": 19.5,
         "status": "under",
         "sales": 0.0,
         "orders": 0
