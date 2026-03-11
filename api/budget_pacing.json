@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-03-11 09:53",
+  "timestamp": "2026-03-11 10:48",
   "report_date": "2026-03-10",
-  "total_spend": 195.59,
-  "total_target": 780,
-  "total_pct": 25.1,
+  "total_spend": 224.09,
+  "total_target": 988,
+  "total_pct": 22.7,
   "products": [
     {
       "product": "Kids Fish Oil",
       "product_zh": "兒童魚油軟糖",
-      "spend": 88.66,
-      "target": 400,
-      "diff": -311.34,
-      "pct": 22.2,
+      "spend": 104.61,
+      "target": 402,
+      "diff": -297.39,
+      "pct": 26.0,
       "status": "under",
       "sales": 65.97,
       "orders": 3
@@ -20,9 +20,9 @@
       "product": "Nattokinase",
       "product_zh": "納豆激酶",
       "spend": 5.27,
-      "target": 90,
-      "diff": -84.73,
-      "pct": 5.9,
+      "target": 123,
+      "diff": -117.73,
+      "pct": 4.3,
       "status": "under",
       "sales": 0.0,
       "orders": 0
@@ -30,10 +30,10 @@
     {
       "product": "Maca",
       "product_zh": "瑪卡",
-      "spend": 21.24,
-      "target": 130,
-      "diff": -108.76,
-      "pct": 16.3,
+      "spend": 22.38,
+      "target": 224,
+      "diff": -201.62,
+      "pct": 10.0,
       "status": "under",
       "sales": 0.0,
       "orders": 0
@@ -41,10 +41,10 @@
     {
       "product": "Bitter Melon",
       "product_zh": "苦瓜酵素",
-      "spend": 30.25,
-      "target": 100,
-      "diff": -69.75,
-      "pct": 30.2,
+      "spend": 36.1,
+      "target": 130,
+      "diff": -93.9,
+      "pct": 27.8,
       "status": "under",
       "sales": 0.0,
       "orders": 0
@@ -52,10 +52,10 @@
     {
       "product": "Premium Fish Oil",
       "product_zh": "頂級魚油",
-      "spend": 0.0,
+      "spend": 2.28,
       "target": 30,
-      "diff": -30.0,
-      "pct": 0.0,
+      "diff": -27.72,
+      "pct": 7.6,
       "status": "under",
       "sales": 0.0,
       "orders": 0
@@ -74,11 +74,11 @@
     {
       "product": "Vitamins",
       "product_zh": "維生素",
-      "spend": 8.2,
-      "target": 10,
-      "diff": -1.8,
-      "pct": 82.0,
-      "status": "on_track",
+      "spend": 11.48,
+      "target": 59,
+      "diff": -47.52,
+      "pct": 19.5,
+      "status": "under",
       "sales": 0.0,
       "orders": 0
     }
