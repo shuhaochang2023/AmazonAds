@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-03-11 11:13",
+  "timestamp": "2026-03-11 11:24",
   "report_date": "2026-03-10",
-  "total_spend": 238.1,
+  "total_spend": 252.41,
   "total_target": 988,
-  "total_pct": 24.1,
+  "total_pct": 25.5,
   "products": [
     {
       "product": "Kids Fish Oil",
       "product_zh": "兒童魚油軟糖",
-      "spend": 110.23,
+      "spend": 122.31,
       "target": 402,
-      "diff": -291.77,
-      "pct": 27.4,
+      "diff": -279.69,
+      "pct": 30.4,
       "status": "under",
       "sales": 65.97,
       "orders": 3
@@ -41,10 +41,10 @@
     {
       "product": "Bitter Melon",
       "product_zh": "苦瓜酵素",
-      "spend": 40.93,
+      "spend": 43.16,
       "target": 130,
-      "diff": -89.07,
-      "pct": 31.5,
+      "diff": -86.84,
+      "pct": 33.2,
       "status": "under",
       "sales": 0.0,
       "orders": 0
