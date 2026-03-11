@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-03-11 13:21",
+  "timestamp": "2026-03-11 13:32",
   "report_date": "2026-03-10",
-  "total_spend": 354.36,
+  "total_spend": 378.4,
   "total_target": 780,
-  "total_pct": 45.4,
+  "total_pct": 48.5,
   "products": [
     {
       "product": "Kids Fish Oil",
       "product_zh": "兒童魚油軟糖",
-      "spend": 178.69,
+      "spend": 195.31,
       "target": 400,
-      "diff": -221.31,
-      "pct": 44.7,
+      "diff": -204.69,
+      "pct": 48.8,
       "status": "under",
       "sales": 82.96,
       "orders": 4
@@ -30,10 +30,10 @@
     {
       "product": "Maca",
       "product_zh": "瑪卡",
-      "spend": 33.67,
+      "spend": 35.4,
       "target": 130,
-      "diff": -96.33,
-      "pct": 25.9,
+      "diff": -94.6,
+      "pct": 27.2,
       "status": "under",
       "sales": 0.0,
       "orders": 0
@@ -41,10 +41,10 @@
     {
       "product": "Bitter Melon",
       "product_zh": "苦瓜酵素",
-      "spend": 63.01,
+      "spend": 66.1,
       "target": 100,
-      "diff": -36.99,
-      "pct": 63.0,
+      "diff": -33.9,
+      "pct": 66.1,
       "status": "under",
       "sales": 0.0,
       "orders": 0
@@ -83,5 +83,5 @@
       "orders": 0
     }
   ],
-  "other_spend": 35.74
+  "other_spend": 38.34
 }
