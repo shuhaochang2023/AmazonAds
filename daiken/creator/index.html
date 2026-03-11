@@ -19,17 +19,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17
 /* Hero */
 .hero{background:linear-gradient(135deg,#0f2942,#1e3a5f);color:#fff;padding:44px 28px 38px;position:relative;overflow:hidden;}
 .hero::after{content:'';position:absolute;top:0;right:0;bottom:0;width:40%;background:url('img/p5_1_900x882.jpeg') center/contain no-repeat;opacity:.1;pointer-events:none;}
-.hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;}
+.hero-inner{max-width:1000px;margin:0 auto;position:relative;z-index:1;}
 .hero h1{font-family:var(--display);font-size:34px;font-weight:900;line-height:1.25;margin-bottom:10px;}
 .hero h1 span{color:#93c5fd;}
 .hero p{font-size:16px;color:rgba(255,255,255,.7);max-width:640px;}
 
-.wrap{max-width:900px;margin:0 auto;padding:28px 20px;}
+.wrap{max-width:1000px;margin:0 auto;padding:28px 20px;}
 
 /* Product top */
 .product-top{display:flex;gap:24px;align-items:center;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
-.product-top img{width:220px;border-radius:10px;flex-shrink:0;}
-@media(max-width:700px){.product-top{flex-direction:column;}.product-top img{width:100%;max-width:280px;}}
+.product-top img{width:280px;border-radius:10px;flex-shrink:0;}
+@media(max-width:700px){.product-top{flex-direction:column;}.product-top img{width:100%;max-width:320px;}}
 .product-top-info h2{font-family:var(--display);font-size:22px;font-weight:800;margin-bottom:6px;}
 .product-top-info p{font-size:15px;color:var(--text2);}
 .product-top-info .tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;margin:8px 4px 0 0;}
@@ -42,19 +42,19 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17
 .card h3{font-family:var(--display);font-size:20px;font-weight:800;margin-bottom:14px;}
 .card h3 small{font-size:14px;color:var(--text3);font-weight:400;}
 
-/* Image — always full width, fixed aspect */
-.img-full{width:100%;height:260px;object-fit:cover;border-radius:10px;display:block;margin-bottom:16px;border:1px solid var(--border);}
-@media(max-width:600px){.img-full{height:200px;}}
+/* Image — full width, natural height, no cropping */
+.img-full{width:100%;max-height:500px;object-fit:contain;border-radius:10px;display:block;margin-bottom:16px;border:1px solid var(--border);background:var(--bg3);}
 
 /* 2-col images */
 .img-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
 @media(max-width:600px){.img-row{grid-template-columns:1fr;}}
-.img-row img{width:100%;height:220px;object-fit:cover;border-radius:10px;border:1px solid var(--border);}
+.img-row img{width:100%;height:auto;max-height:320px;object-fit:contain;border-radius:10px;border:1px solid var(--border);background:var(--bg3);}
 
 /* 3-col images */
 .img-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;}
-@media(max-width:700px){.img-row3{grid-template-columns:1fr;}}
-.img-row3 img{width:100%;height:200px;object-fit:cover;border-radius:10px;border:1px solid var(--border);}
+@media(max-width:700px){.img-row3{grid-template-columns:1fr 1fr;}}
+@media(max-width:500px){.img-row3{grid-template-columns:1fr;}}
+.img-row3 img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:10px;border:1px solid var(--border);}
 
 /* Quote block */
 .quote{background:var(--bg3);border-left:3px solid var(--blue);padding:14px 18px;border-radius:0 8px 8px 0;margin:12px 0;font-size:16px;font-style:italic;color:var(--text);}
@@ -240,7 +240,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17
   <div class="ver-desc">Casual unboxing from a parent who found something that actually works for their picky eater.</div>
 
   <div class="scene">
-    <img class="img-full" src="img/p7_1_704x384.jpeg" alt="Picky eater — toddler plate with rejected food" style="border-radius:12px 12px 0 0;margin:0;border:0;">
+    <img class="img-full" src="img/p7_1_704x384.jpeg" alt="Picky eater — toddler plate with rejected food" style="border-radius:12px 12px 0 0;margin:0;border:0;max-height:400px;object-fit:contain;background:#f0f4f8;width:100%;">
     <div class="scene-body">
       <span class="scene-time blue">0:00 – 0:08</span>
       <span class="scene-title">Opening Hook</span>
@@ -253,7 +253,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17
   </div>
 
   <div class="scene">
-    <img class="img-full" src="img/p8_1_845x461.jpeg" alt="Opening Daiken box — 300mg Omega-3s Norwegian Sourced" style="border-radius:12px 12px 0 0;margin:0;border:0;">
+    <img class="img-full" src="img/p8_1_845x461.jpeg" alt="Opening Daiken box — 300mg Omega-3s Norwegian Sourced" style="border-radius:12px 12px 0 0;margin:0;border:0;max-height:400px;object-fit:contain;background:#f0f4f8;width:100%;">
     <div class="scene-body">
       <span class="scene-time blue">0:08 – 0:25</span>
       <span class="scene-title">The Unboxing</span>
@@ -267,7 +267,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17
   </div>
 
   <div class="scene">
-    <img class="img-full" src="img/p6_1_1127x615.jpeg" alt="Mom showing blister pack gummies to baby" style="border-radius:12px 12px 0 0;margin:0;border:0;">
+    <img class="img-full" src="img/p6_1_1127x615.jpeg" alt="Mom showing blister pack gummies to baby" style="border-radius:12px 12px 0 0;margin:0;border:0;max-height:400px;object-fit:contain;background:#f0f4f8;width:100%;">
     <div class="scene-body">
       <span class="scene-time blue">0:25 – 0:40</span>
       <span class="scene-title">First Impressions & Smell Test</span>
@@ -282,7 +282,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17
   </div>
 
   <div class="scene">
-    <img class="img-full" src="img/p8_2_704x384.jpeg" alt="Toddler eating orange gummy — no sugar, no fishy burps" style="border-radius:12px 12px 0 0;margin:0;border:0;">
+    <img class="img-full" src="img/p8_2_704x384.jpeg" alt="Toddler eating orange gummy — no sugar, no fishy burps" style="border-radius:12px 12px 0 0;margin:0;border:0;max-height:400px;object-fit:contain;background:#f0f4f8;width:100%;">
     <div class="scene-body">
       <span class="scene-time blue">0:40 – 0:52</span>
       <span class="scene-title">The Kid Test <span class="req">CHILD REQUIRED</span></span>
@@ -297,7 +297,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17
 
   <!-- Client point 5: More features in closing, competitive comparison -->
   <div class="scene">
-    <img class="img-full" src="img/p8_3_704x384.jpeg" alt="Creator smiling holding blister pack" style="border-radius:12px 12px 0 0;margin:0;border:0;">
+    <img class="img-full" src="img/p8_3_704x384.jpeg" alt="Creator smiling holding blister pack" style="border-radius:12px 12px 0 0;margin:0;border:0;max-height:400px;object-fit:contain;background:#f0f4f8;width:100%;">
     <div class="scene-body">
       <span class="scene-time blue">0:52 – 1:00</span>
       <span class="scene-title">Why It's Worth It + CTA</span>
@@ -331,7 +331,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17
   <div class="ver-desc">Ingredient-focused. You're the parent who reads every label. Show viewers you checked so they don't have to.</div>
 
   <div class="scene">
-    <img class="img-full" src="img/p7_2_704x384.jpeg" alt="Parent in kitchen looking concerned" style="border-radius:12px 12px 0 0;margin:0;border:0;">
+    <img class="img-full" src="img/p7_2_704x384.jpeg" alt="Parent in kitchen looking concerned" style="border-radius:12px 12px 0 0;margin:0;border:0;max-height:400px;object-fit:contain;background:#f0f4f8;width:100%;">
     <div class="scene-body">
       <span class="scene-time green">0:00 – 0:08</span>
       <span class="scene-title">Opening Hook</span>
@@ -344,7 +344,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17
   </div>
 
   <div class="scene">
-    <img class="img-full" src="img/p5_1_900x882.jpeg" alt="Daiken box with blister packs and orange gummies" style="border-radius:12px 12px 0 0;margin:0;border:0;">
+    <img class="img-full" src="img/p5_1_900x882.jpeg" alt="Daiken box with blister packs and orange gummies" style="border-radius:12px 12px 0 0;margin:0;border:0;max-height:400px;object-fit:contain;background:#f0f4f8;width:100%;">
     <div class="scene-body">
       <span class="scene-time green">0:08 – 0:30</span>
       <span class="scene-title">The Unboxing & Label Deep-Dive</span>
@@ -362,7 +362,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17
   </div>
 
   <div class="scene">
-    <img class="img-full" src="img/p5_3_763x721.jpeg" alt="Girl laughing and eating gummy" style="border-radius:12px 12px 0 0;margin:0;border:0;">
+    <img class="img-full" src="img/p5_3_763x721.jpeg" alt="Girl laughing and eating gummy" style="border-radius:12px 12px 0 0;margin:0;border:0;max-height:400px;object-fit:contain;background:#f0f4f8;width:100%;">
     <div class="scene-body">
       <span class="scene-time green">0:30 – 0:45</span>
       <span class="scene-title">The Sensory Check <span class="req">CHILD REQUIRED</span></span>
@@ -378,7 +378,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17
 
   <!-- Client point 5: expanded features in closing -->
   <div class="scene">
-    <img class="img-full" src="img/p7_3_704x384.jpeg" alt="Creator holding Daiken box smiling — Peace of Mind Bridge" style="border-radius:12px 12px 0 0;margin:0;border:0;">
+    <img class="img-full" src="img/p7_3_704x384.jpeg" alt="Creator holding Daiken box smiling — Peace of Mind Bridge" style="border-radius:12px 12px 0 0;margin:0;border:0;max-height:400px;object-fit:contain;background:#f0f4f8;width:100%;">
     <div class="scene-body">
       <span class="scene-time green">0:45 – 1:00</span>
       <span class="scene-title">The Verdict + CTA</span>
