@@ -249,14 +249,16 @@ def aggregate_spend(report_rows):
 
 
 def build_pacing_data(cats):
-    """Compare MTD spend to MTD targets (daily budget × days elapsed)."""
+    """Compare MTD spend to MTD targets + calculate today's catch-up target."""
     now = datetime.now()
     days_elapsed = (now - timedelta(days=1)).day  # through yesterday
-    days_in_month = 31 if now.month == 3 else 30  # simplify
+    days_in_month = 31 if now.month == 3 else 30
+    days_remaining = days_in_month - days_elapsed  # includes today
     products = []
     total_spend = 0
     total_mtd_target = 0
     total_month_target = 0
+    total_today_target = 0
     for product, daily_target in BUDGET_TARGETS.items():
         data = cats.get(product, {})
         spend = round(data.get('spend', 0), 2)
@@ -265,12 +267,21 @@ def build_pacing_data(cats):
         month_target = round(daily_target * days_in_month, 2)
         total_mtd_target += mtd_target
         total_month_target += month_target
-        diff = round(spend - mtd_target, 2)
-        pct = round(spend / mtd_target * 100, 1) if mtd_target > 0 else 0
+
+        # MTD pacing
+        mtd_diff = round(spend - mtd_target, 2)
+        mtd_pct = round(spend / mtd_target * 100, 1) if mtd_target > 0 else 0
+
+        # Today's catch-up: daily_target + spread the gap over remaining days
+        gap = mtd_target - spend  # positive = underspent
+        catchup_per_day = round(gap / days_remaining, 2) if days_remaining > 0 else 0
+        today_target = round(daily_target + max(catchup_per_day, 0), 2)  # only catch up, don't reduce below daily
+        total_today_target += today_target
+
         status = 'on_track'
-        if pct > 120:
+        if mtd_pct > 120:
             status = 'over'
-        elif pct < 80:
+        elif mtd_pct < 80:
             status = 'under'
         products.append({
             'product': product,
@@ -278,8 +289,11 @@ def build_pacing_data(cats):
             'spend': spend,
             'target': mtd_target,
             'month_target': month_target,
-            'diff': diff,
-            'pct': pct,
+            'mtd_diff': mtd_diff,
+            'mtd_pct': mtd_pct,
+            'daily_target': daily_target,
+            'today_target': today_target,
+            'catchup': round(max(catchup_per_day, 0), 2),
             'status': status,
             'sales': round(data.get('sales', 0), 2),
             'orders': int(data.get('orders', 0)),
@@ -292,9 +306,11 @@ def build_pacing_data(cats):
         'report_date': now.strftime('%Y-%m-%d'),
         'days_elapsed': days_elapsed,
         'days_in_month': days_in_month,
+        'days_remaining': days_remaining,
         'total_spend': round(total_spend + other_spend, 2),
         'total_target': round(total_mtd_target, 2),
         'total_month_target': round(total_month_target, 2),
+        'total_today_target': round(total_today_target, 2),
         'total_pct': round((total_spend + other_spend) / total_mtd_target * 100, 1) if total_mtd_target else 0,
         'products': products,
         'other_spend': other_spend,
@@ -310,31 +326,37 @@ def inject_dashboard(pacing):
     days_elapsed = pacing.get('days_elapsed', 10)
     days_in_month = pacing.get('days_in_month', 31)
 
-    # Build compact product rows
+    # Build today's catch-up product rows
     rows_html = ''
+    total_today = pacing.get('total_today_target', 0)
+    rows_html += f'''<div style="font-family:var(--mono);font-size:10px;font-weight:700;color:var(--text);margin:8px 0 4px;border-bottom:1px solid var(--border);padding-bottom:4px">TODAY\'S TARGET 今日目標 (daily + catch-up) = ${total_today:,.0f}</div>'''
     for p in pacing['products']:
-        if p['status'] == 'on_track':
-            bar_bg = 'linear-gradient(90deg,#16a34a,#22c55e)'
-            c = '#16a34a'
-        elif p['status'] == 'over':
+        catchup = p.get('catchup', 0)
+        today_tgt = p.get('today_target', p.get('daily_target', 0))
+        daily_tgt = p.get('daily_target', 0)
+
+        # Color based on whether product needs catch-up
+        if catchup > 0:
             bar_bg = 'linear-gradient(90deg,#dc2626,#f87171)'
             c = '#dc2626'
+            badge = f'<span style="font-size:8px;color:#dc2626;font-weight:700">+${catchup:.0f}</span>'
         else:
-            bar_bg = 'linear-gradient(90deg,#d97706,#fbbf24)'
-            c = '#d97706'
+            bar_bg = 'linear-gradient(90deg,#16a34a,#22c55e)'
+            c = '#16a34a'
+            badge = '<span style="font-size:8px;color:#16a34a;font-weight:700">OK</span>'
 
-        bar_pct = min(p['pct'], 100)
-        sign = '+' if p['diff'] >= 0 else ''
+        # Bar shows today's target relative to max target for scale
+        bar_pct = min(today_tgt / max(t.get('today_target', 1) for t in pacing['products']) * 100, 100) if today_tgt > 0 else 0
 
-        rows_html += f'''<div style="display:flex;align-items:center;gap:8px;padding:4px 0">
+        rows_html += f'''<div style="display:flex;align-items:center;gap:6px;padding:3px 0">
   <div style="width:62px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden">{p['product_zh']}</div>
   <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
     <div style="height:100%;border-radius:3px;background:{bar_bg};width:{bar_pct}%;position:relative;overflow:hidden">
       <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
     </div>
   </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:{c};text-align:right">{p['pct']:.0f}%</div>
-  <div style="width:70px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">${p['spend']:,.0f}/${p['target']:,.0f}</div>
+  <div style="width:28px;text-align:right">{badge}</div>
+  <div style="width:100px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">${daily_tgt:.0f}+${catchup:.0f}=<strong style="color:var(--text)">${today_tgt:.0f}</strong></div>
 </div>'''
 
     # Total
@@ -443,15 +465,14 @@ def main():
     print(f'Saved: {PACING_JSON}')
 
     # Print summary
-    print(f'\nMTD through day {pacing["days_elapsed"]}/{pacing["days_in_month"]}')
-    print(f'{"Product":<20} {"MTD Spend":>10} {"MTD Tgt":>10} {"Pct":>8} {"Gap":>10} {"Status"}')
-    print('-' * 72)
+    print(f'\nMTD through day {pacing["days_elapsed"]}/{pacing["days_in_month"]} | {pacing["days_remaining"]} days remaining')
+    print(f'{"Product":<20} {"MTD Spend":>10} {"MTD Tgt":>10} {"Pct":>6} {"Daily":>8} {"Catch":>8} {"Today":>8}')
+    print('-' * 80)
     for p in pacing['products']:
-        sign = '+' if p['diff'] >= 0 else ''
-        print(f'{p["product"]:<20} ${p["spend"]:>8,.0f} ${p["target"]:>8,.0f} {p["pct"]:>7.0f}% {sign}${p["diff"]:>7,.0f}  {p["status"]}')
-    print('-' * 72)
-    print(f'{"TOTAL":<20} ${pacing["total_spend"]:>8,.0f} ${pacing["total_target"]:>8,.0f} {pacing["total_pct"]:>7.0f}%')
-    print(f'Month target: ${pacing["total_month_target"]:,.0f}')
+        print(f'{p["product"]:<20} ${p["spend"]:>8,.0f} ${p["target"]:>8,.0f} {p["mtd_pct"]:>5.0f}% ${p["daily_target"]:>6,.0f} +${p["catchup"]:>5,.0f} ${p["today_target"]:>6,.0f}')
+    print('-' * 80)
+    print(f'{"TOTAL":<20} ${pacing["total_spend"]:>8,.0f} ${pacing["total_target"]:>8,.0f} {pacing["total_pct"]:>5.0f}%')
+    print(f'Today\'s total target: ${pacing["total_today_target"]:,.0f} (daily ${sum(BUDGET_TARGETS.values()):,.0f} + catch-up)')
 
     # Update dashboard
     inject_dashboard(pacing)
