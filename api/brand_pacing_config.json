@@ -1,0 +1,95 @@
+{
+  "DBJ": {
+    "profile_id": "3565954576012304",
+    "dashboard": "dbj/index.html",
+    "total_target": 40,
+    "tacos_target": 15,
+    "products": {
+      "Hangers":       {"target": 5,  "zh": "衣架"},
+      "Wire Shelving": {"target": 6,  "zh": "鐵架"},
+      "Storage Racks": {"target": 5,  "zh": "收納架"},
+      "Rolling Carts": {"target": 2,  "zh": "推車"},
+      "Broom Holder":  {"target": 1,  "zh": "掃把架"},
+      "Other":         {"target": 21, "zh": "其他"}
+    },
+    "categorize_rules": [
+      {"match": ["shelv", "wire"], "cat": "Wire Shelving"},
+      {"match": ["hanger", "sweater", "bendable"], "cat": "Hangers"},
+      {"match": ["cart", "rolling", "10d"], "cat": "Rolling Carts"},
+      {"match": ["laptop"], "cat": "Laptop Stands"},
+      {"match": ["shoe"], "cat": "Shoe Rack"},
+      {"match": ["broom"], "cat": "Broom Holder"},
+      {"match": ["shower", "caddy"], "cat": "Shower Caddy"},
+      {"match": ["rack", "cloth", "dry", "bathroom"], "cat": "Storage Racks"}
+    ]
+  },
+  "GEO": {
+    "profile_id": "3947387233604911",
+    "dashboard": "geo/index.html",
+    "total_target": 153,
+    "tacos_target": 15,
+    "products": {
+      "Squama Fans":    {"target": 15, "zh": "風扇"},
+      "Eskimo Coolers": {"target": 8,  "zh": "水冷"},
+      "M5 Cases":       {"target": 30, "zh": "M5機殼"},
+      "Generic KW":     {"target": 40, "zh": "通用關鍵字"},
+      "M8 Case":        {"target": 4,  "zh": "M8機殼"},
+      "M4 Case":        {"target": 4,  "zh": "M4機殼"},
+      "M2 ARK":         {"target": 2,  "zh": "M2機殼"},
+      "Other":          {"target": 50, "zh": "其他"}
+    },
+    "categorize_rules": [
+      {"match": ["m5", "b0df7", "b0dgm"], "cat": "M5 Cases"},
+      {"match": ["m4", "king arthur", "b0ckwq"], "cat": "M4 Case"},
+      {"match": ["m8", "b09x1"], "cat": "M8 Case"},
+      {"match": ["m6", "b09x6"], "cat": "M6 Case"},
+      {"match": ["m2", "ark", "b0ckwt"], "cat": "M2 ARK"},
+      {"match": ["eskimo", "aio", "b0dhx", "b0dkw"], "cat": "Eskimo Coolers"},
+      {"match": ["squama", "fan", "2503", "2505", "3805"], "cat": "Squama Fans"},
+      {"match": ["computer case", "pc case", "atx", "mid tower", "hyte", "corsair", "b0g1m"], "cat": "Generic KW"}
+    ]
+  },
+  "Brain Tea": {
+    "profile_id": "2695717242300933",
+    "dashboard": "brain-tea/index.html",
+    "total_target": 23,
+    "tacos_target": 15,
+    "products": {
+      "Focus Tea":  {"target": 19, "zh": "專注記憶茶"},
+      "Yerba Mate": {"target": 3,  "zh": "瑪黛茶"},
+      "Other":      {"target": 1,  "zh": "其他"}
+    },
+    "categorize_rules": [
+      {"match": ["yerba", "mate", "b0crzr", "b0dktk", "b0fd2n"], "cat": "Yerba Mate"},
+      {"match": ["focus", "brain", "herbal", "b0824"], "cat": "Focus Tea"}
+    ]
+  },
+  "Flux US": {
+    "profile_id": "3255856020251415",
+    "dashboard": "flux/index.html",
+    "total_target": 21,
+    "tacos_target": 30,
+    "products": {
+      "Sunglasses": {"target": 15, "zh": "太陽眼鏡"},
+      "Straps":     {"target": 6,  "zh": "眼鏡繩"}
+    },
+    "categorize_rules": [
+      {"match": ["strap", "lanyard", "holder", "retainer", "80days"], "cat": "Straps"}
+    ],
+    "default_cat": "Sunglasses"
+  },
+  "Flux CA": {
+    "profile_id": "599373744640869",
+    "dashboard": "flux/index.html",
+    "total_target": 12,
+    "tacos_target": 30,
+    "products": {
+      "Straps":     {"target": 5,  "zh": "眼鏡繩"},
+      "Sunglasses": {"target": 7,  "zh": "太陽眼鏡"}
+    },
+    "categorize_rules": [
+      {"match": ["strap", "lanyard", "holder", "retainer", "80days"], "cat": "Straps"}
+    ],
+    "default_cat": "Sunglasses"
+  }
+}
