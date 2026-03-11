@@ -23,14 +23,14 @@ PROFILE_ID = '1243647931853395'  # DAIKEN US
 
 BUDGET_TARGETS = {
     'Kids Fish Oil':    400,
-    'Nattokinase':       90,
-    'Maca':             130,
-    'Bitter Melon':     100,
+    'Nattokinase':       30,
+    'Maca':             160,
+    'Bitter Melon':     130,
     'Premium Fish Oil':  30,
     'Lutein':            20,
     'Vitamins':          10,
 }
-TOTAL_TARGET = sum(BUDGET_TARGETS.values())  # $780 (client original targets)
+TOTAL_TARGET = sum(BUDGET_TARGETS.values())  # $780 (Option D targets, effective 2026-03-12)
 
 PRODUCT_ZH = {
     'Kids Fish Oil':   '兒童魚油軟糖',
