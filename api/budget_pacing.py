@@ -302,8 +302,8 @@ def inject_dashboard(pacing):
         today_spd = p['today_spend']
         fill = min(p['fill_pct'], 100)
 
-        # Green fill, red at 90%+
-        if p['fill_pct'] >= 90:
+        # Green fill, red at 95%+
+        if p['fill_pct'] >= 95:
             bar_bg = '#dc2626'
             c = '#dc2626'
         elif p['fill_pct'] >= 60:
@@ -346,13 +346,13 @@ def inject_dashboard(pacing):
   </summary>
   <div style="padding:2px 18px 14px">
     <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-bottom:4px;max-width:520px">
-      bar = daily budget + yesterday&#39;s unspent · <span style="color:#16a34a">green</span> = spending · <span style="color:#dc2626">red = 90%+ AUTO-PAUSE</span>
+      bar = daily budget + yesterday&#39;s unspent · <span style="color:#16a34a">green</span> = spending · <span style="color:#dc2626">red = 95%+ AUTO-PAUSE</span>
     </div>
     <div style="max-width:520px">
 {rows_html}
     </div>
     <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:4px;border-top:1px solid var(--border);padding-top:3px;max-width:520px">
-      &#x1F6D1; 90%+ auto-pause all campaigns · resume 15:00 TW daily
+      &#x1F6D1; 95%+ auto-pause all campaigns · resume 15:00 TW daily
     </div>
   </div>
 </details>

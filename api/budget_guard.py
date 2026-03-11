@@ -21,7 +21,7 @@ GUARD_STATE = ROOT / 'api' / 'budget_guard_state.json'
 PACING_JSON = ROOT / 'api' / 'budget_pacing.json'
 
 PROFILE_ID = '1243647931853395'  # DAIKEN US
-PAUSE_THRESHOLD = 90  # pause at 90% MTD pacing
+PAUSE_THRESHOLD = 95  # pause at 95% daily pacing
 RESUME_HOUR_TW = 15   # resume at 15:00 Taiwan time (UTC+8)
 
 
