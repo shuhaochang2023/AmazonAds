@@ -656,14 +656,21 @@ function buildQuadTab() {
     <div class="kpi-card"><div class="kpi-label">🔴 Cut</div><div class="kpi-value kpi-red">${qCut.length}</div></div>`;
 
 const qDefs=[
-    {title:'cut',color:'#dc2626',items:qCut,action:'調降售價 $0.50\n建立 Coupon 折扣\n設定 Prime 限時特賣'},
-    {title:'Question',color:'#d97706',items:qQuestion,action:'降低 CPC 出價\n暫停 TACOS ≥85% 關鍵字'},
-    {title:'potential',color:'#2563eb',items:qPotential,action:'增加 SP / SB / SD 廣告\n使用低 CPC 出價\n建立 Lookalike 受眾活動\n相似 KW 根詞 · 競品 ASIN · AMC 受眾'},
-    {title:'star',color:'#16a34a',items:qStar,action:'複製現有 SP 活動\n提高預算 30%'},
+    {title:'🔴 需止血 Cut',color:'#dc2626',bg:'rgba(220,38,38,.06)',items:qCut,action:'調降售價 · Coupon · Prime 特賣'},
+    {title:'⚠️ 待觀察 Question',color:'#d97706',bg:'rgba(217,119,6,.06)',items:qQuestion,action:'降低 CPC · 暫停高 TACOS 關鍵字'},
+    {title:'💤 潛力產品 Potential',color:'#2563eb',bg:'rgba(37,99,235,.06)',items:qPotential,action:'增加 SP/SB/SD · 低 CPC · Lookalike · 競品 ASIN'},
+    {title:'⭐ 明星產品 Star',color:'#16a34a',bg:'rgba(22,163,74,.06)',items:qStar,action:'複製 SP 活動 · 預算 +30%'},
   ];
-  $('qCards').innerHTML=qDefs.map(q=>`<div class="q-card" style="border-color:${q.color}33"><div class="q-card-title" style="color:${q.color}">${q.title}</div><div class="q-card-body">${q.action.split('\\n').join('<br>')}
-    <br><br>${q.items.map(([pid,p])=>`<span style="display:inline-block;margin:2px 3px;padding:2px 8px;background:${p.color}22;border:1px solid ${p.color}44;border-radius:3px;font-size:10px;color:${p.color};font-family:var(--mono)">${zhShort(pid)}</span>`).join('')}
-    ${q.items.length===0?'<span class="muted">None</span>':''}</div>
+  $('qCards').innerHTML=qDefs.map(q=>`<div style="background:${q.bg};border:1px solid ${q.color}22;border-radius:10px;padding:16px;margin-bottom:10px">
+    <div style="font-family:var(--display);font-size:15px;font-weight:800;color:${q.color};margin-bottom:8px">${q.title}</div>
+    <div style="font-size:12px;color:#475569;margin-bottom:12px">${q.action}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">${q.items.map(([pid,p])=>{
+      return `<div style="background:#fff;border:1px solid ${q.color}33;border-radius:6px;padding:5px 10px">
+        <span style="font-size:12px;font-weight:700;color:${q.color};font-family:var(--display)">${zhShort(pid)}</span>
+        <span style="font-size:10px;color:#94a3b8;margin-left:4px;font-family:var(--mono)">${fmt(p.total_sales,0)}</span>
+        <span style="font-size:10px;color:#94a3b8;font-family:var(--mono)">· ${pct(p.tacos_4w)}</span>
+      </div>`;
+    }).join('')}${q.items.length===0?'<span style="color:#94a3b8;font-size:12px">暫無產品</span>':''}</div>
   </div>`).join('');
 
   // Canvas
@@ -672,43 +679,39 @@ const qDefs=[
   const CW=canvas.width,CH=canvas.height;
   ctx.clearRect(0,0,CW,CH);
   const MX=CW/2,MY=CH/2;
-  function drawBox(x,y,w,h,bg,title,subtitle,items,tc){
+  const quadColors={cut:'#dc2626',question:'#d97706',potential:'#2563eb',star:'#16a34a'};
+  const quadBgs={cut:'rgba(220,38,38,.05)',question:'rgba(217,119,6,.05)',potential:'rgba(37,99,235,.05)',star:'rgba(22,163,74,.05)'};
+  function drawBox(x,y,w,h,qKey,title,subtitle,items){
+    const tc=quadColors[qKey],bg=quadBgs[qKey];
     ctx.fillStyle=bg;ctx.fillRect(x+1,y+1,w-2,h-2);
-    ctx.fillStyle=tc;ctx.font='bold 20px Inter,sans-serif';ctx.textAlign='left';
-    ctx.fillText(title,x+18,y+34);
-    ctx.fillStyle='#64748b';ctx.font='10px Outfit,sans-serif';
-    const lines=subtitle.split('\\n');
-    lines.forEach((l,i)=>ctx.fillText(l,x+18,y+54+i*15));
-    let cx2=x+18,cy2=y+54+lines.length*15+18;
-    ctx.font='bold 10px JetBrains Mono,monospace';
-    items.forEach(([pid,p])=>{
+    ctx.fillStyle=tc;ctx.font='bold 18px Inter,sans-serif';ctx.textAlign='left';
+    ctx.fillText(title,x+18,y+32);
+    ctx.fillStyle='#64748b';ctx.font='11px Outfit,sans-serif';
+    const lines=subtitle.split('\n');
+    lines.forEach((l,i)=>ctx.fillText(l,x+18,y+50+i*15));
+    let cx2=x+18,cy2=y+50+lines.length*15+16;
+    ctx.font='bold 11px Inter,sans-serif';
+    items.forEach(([pid])=>{
       const lbl=zhShort(pid);
-      const tw=ctx.measureText(lbl).width+14;
-      if(cx2+tw>x+w-10){cx2=x+18;cy2+=20;}
-      ctx.fillStyle=p.color+'2a';
-      ctx.beginPath();ctx.roundRect(cx2,cy2-13,tw,18,3);ctx.fill();
-      ctx.fillStyle=p.color;ctx.fillText(lbl,cx2+7,cy2);
-      cx2+=tw+5;
+      const tw=ctx.measureText(lbl).width+16;
+      if(cx2+tw>x+w-10){cx2=x+18;cy2+=22;}
+      ctx.fillStyle='#ffffff';
+      ctx.beginPath();ctx.roundRect(cx2,cy2-14,tw,20,4);ctx.fill();
+      ctx.strokeStyle=tc+'55';ctx.lineWidth=1;ctx.stroke();
+      ctx.fillStyle=tc;ctx.fillText(lbl,cx2+8,cy2+1);
+      cx2+=tw+6;
     });
   }
-  drawBox(0,0,MX,MY,'rgba(220,38,38,.05)','cut','調降售價 $0.50\n建立 Coupon\n設定 Prime 特賣',qCut,'#dc2626');
-  drawBox(MX,0,MX,MY,'rgba(217,119,6,.05)','Question','降低 CPC\n暫停 ≥85% TACOS KW',qQuestion,'#d97706');
-  drawBox(0,MY,MX,MY,'rgba(37,99,235,.05)','potential','增加 SP/SB/SD · 低 CPC\nLookalike 受眾 · 競品 ASIN\nAMC 相似受眾',qPotential,'#2563eb');
-  drawBox(MX,MY,MX,MY,'rgba(22,163,74,.05)','star','複製 SP 活動\n預算 +30%',qStar,'#16a34a');
-  ctx.strokeStyle='#2563eb';ctx.lineWidth=1.5;
+  drawBox(0,0,MX,MY,'cut','🔴 需止血 Cut','調降售價 · Coupon\nPrime 特賣',qCut);
+  drawBox(MX,0,MX,MY,'question','⚠️ 待觀察 Question','降低 CPC\n暫停高 TACOS KW',qQuestion);
+  drawBox(0,MY,MX,MY,'potential','💤 潛力 Potential','增加 SP/SB/SD · 低 CPC\nLookalike · 競品 ASIN',qPotential);
+  drawBox(MX,MY,MX,MY,'star','⭐ 明星 Star','複製 SP 活動\n預算 +30%',qStar);
+  ctx.strokeStyle='#cbd5e1';ctx.lineWidth=1;
   ctx.beginPath();ctx.moveTo(MX,0);ctx.lineTo(MX,CH);ctx.stroke();
   ctx.beginPath();ctx.moveTo(0,MY);ctx.lineTo(CW,MY);ctx.stroke();
-  ctx.fillStyle='#2563eb';ctx.font='bold 13px Inter,sans-serif';ctx.textAlign='center';
-  ctx.fillText('Flux CA · Feb–Mar 2026',CW/2,18);
   ctx.fillStyle='#94a3b8';ctx.font='11px JetBrains Mono,monospace';ctx.textAlign='left';
   ctx.fillText('TACOS ↑',6,MY-8);
-  ctx.fillStyle='#2563eb';ctx.font='bold 20px JetBrains Mono,monospace';ctx.textAlign='right';
-  ctx.fillText('70',MX-8,MY-6);
-  ctx.fillStyle='#64748b';ctx.font='12px JetBrains Mono,monospace';
-  ctx.fillText('0',MX-8,CH-8);
   ctx.textAlign='right';ctx.fillText('Sales →',CW-6,CH-8);
-  ctx.textAlign='left';ctx.fillStyle='#64748b';ctx.font='10px Outfit,sans-serif';
-  ctx.fillText('Bid $2–$2.5',8,CH-8);
 
   window._quad_med = med;
 }
