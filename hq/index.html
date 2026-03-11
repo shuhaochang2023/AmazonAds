@@ -1,194 +1,435 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Amazon Ads Reports</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<title>HQ Cockpit — Amazon Autopilot</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Inter',sans-serif;background:#f1f5f9;min-height:100vh;padding:48px 24px;}
-  .wrap{max-width:720px;margin:0 auto;}
-  .logo{font-size:12px;font-weight:800;color:#2563eb;letter-spacing:.08em;text-transform:uppercase;margin-bottom:36px;}
-  h1{font-size:28px;font-weight:800;color:#0f172a;margin-bottom:6px;}
-  .sub{font-size:14px;color:#64748b;margin-bottom:36px;}
-  .section-label{font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:.08em;text-transform:uppercase;margin:28px 0 10px;}
-  .cards{display:flex;flex-direction:column;gap:8px;}
-  .card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px 20px;text-decoration:none;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.04);display:block;}
-  .card:hover{border-color:#2563eb;box-shadow:0 4px 16px rgba(37,99,235,.10);transform:translateY(-1px);}
-  .card.pending{opacity:.55;cursor:default;pointer-events:none;}
-  .card-top{display:flex;align-items:center;justify-content:space-between;}
-  .card-left{display:flex;align-items:center;gap:14px;}
-  .dot{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
-  .card-name{font-size:15px;font-weight:700;color:#0f172a;}
-  .card-meta{font-size:11.5px;color:#94a3b8;margin-top:2px;font-family:'JetBrains Mono',monospace;}
-  .badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;margin-left:8px;vertical-align:middle;}
-  .badge-live{background:#dcfce7;color:#16a34a;}
-  .badge-soon{background:#f1f5f9;color:#94a3b8;}
-  .arrow{color:#cbd5e1;font-size:16px;}
-  .status-bar{margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;display:flex;align-items:center;gap:8px;}
-  .status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-  .status-dot.active{background:#16a34a;animation:pulse 1.5s ease-in-out infinite;}
-  .status-dot.idle{background:#d97706;}
-  .status-dot.pending{background:#94a3b8;}
-  .status-text{font-family:'JetBrains Mono',monospace;font-size:10px;color:#64748b;line-height:1.4;}
-  .status-label{font-weight:700;font-size:9px;padding:1px 5px;border-radius:2px;margin-right:4px;letter-spacing:.03em;}
-  .label-active{background:rgba(22,163,74,.1);color:#16a34a;}
-  .label-idle{background:rgba(217,119,6,.1);color:#d97706;}
-  .label-pacing{background:rgba(37,99,235,.1);color:#2563eb;}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-  .footer{margin-top:48px;font-size:11px;color:#cbd5e1;text-align:center;}
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0b1120;--surface:#111827;--border:#1e293b;--text:#e2e8f0;--dim:#64748b;--accent:#3b82f6;
+  --green:#22c55e;--yellow:#eab308;--red:#ef4444;--orange:#f97316;--cyan:#06b6d4;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px;}
+.cockpit{max-width:1200px;margin:0 auto;}
+
+/* Header */
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.header-left{display:flex;align-items:center;gap:12px;}
+.hq-badge{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;background:var(--accent);color:#fff;padding:3px 8px;border-radius:4px;letter-spacing:.05em;}
+.hq-title{font-size:20px;font-weight:800;color:#fff;}
+.hq-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);}
+.header-right{text-align:right;}
+.date{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);}
+.pulse-live{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--green);font-weight:600;}
+.pulse-live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* Scorecard Row */
+.scorecard{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px;}
+.score-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-align:center;}
+.score-card .label{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+.score-card .value{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:800;color:#fff;}
+.score-card .sub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-top:4px;}
+.score-card.green .value{color:var(--green);}
+.score-card.yellow .value{color:var(--yellow);}
+.score-card.red .value{color:var(--red);}
+
+/* Two Column Layout */
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+@media(max-width:800px){.columns{grid-template-columns:1fr;}.scorecard{grid-template-columns:repeat(3,1fr);}}
+
+/* Panel */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.panel-header{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.panel-title{font-size:11px;font-weight:700;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;}
+.panel-body{padding:12px 16px;}
+
+/* Health Table */
+.health-table{width:100%;border-collapse:collapse;}
+.health-table th{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;color:var(--dim);text-align:left;padding:6px 8px;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.health-table td{font-family:'JetBrains Mono',monospace;font-size:11px;padding:8px 8px;border-bottom:1px solid rgba(30,41,59,.5);vertical-align:middle;}
+.health-table tr:last-child td{border-bottom:none;}
+.health-table a{color:var(--accent);text-decoration:none;font-weight:600;}
+.health-table a:hover{text-decoration:underline;}
+.tacos-bar{display:inline-block;height:4px;border-radius:2px;min-width:8px;vertical-align:middle;margin-right:6px;}
+.status-pill{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;letter-spacing:.03em;white-space:nowrap;}
+.pill-green{background:rgba(34,197,94,.15);color:var(--green);}
+.pill-yellow{background:rgba(234,179,8,.15);color:var(--yellow);}
+.pill-red{background:rgba(239,68,68,.15);color:var(--red);}
+.pill-blue{background:rgba(59,130,246,.15);color:var(--accent);}
+.pill-gray{background:rgba(100,116,139,.15);color:var(--dim);}
+
+/* Action Items */
+.action-list{list-style:none;}
+.action-item{padding:10px 0;border-bottom:1px solid rgba(30,41,59,.5);display:flex;gap:10px;align-items:flex-start;}
+.action-item:last-child{border-bottom:none;}
+.action-priority{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:2px;}
+.p1{background:rgba(239,68,68,.15);color:var(--red);}
+.p2{background:rgba(234,179,8,.15);color:var(--yellow);}
+.p3{background:rgba(59,130,246,.15);color:var(--accent);}
+.action-content{flex:1;}
+.action-brand{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;color:var(--cyan);margin-bottom:2px;}
+.action-text{font-size:12px;color:var(--text);line-height:1.4;}
+.action-why{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-top:2px;}
+
+/* Brand nav */
+.brand-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+.brand-chip{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;padding:5px 12px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);text-decoration:none;transition:all .15s;}
+.brand-chip:hover{border-color:var(--accent);color:var(--accent);}
+.brand-chip .chip-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:6px;}
+
+/* Bid Enforcement */
+.enforce-bar{display:flex;align-items:center;gap:12px;padding:10px 16px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.15);border-radius:8px;margin-bottom:20px;}
+.enforce-bar .icon{font-size:14px;}
+.enforce-bar .text{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--green);line-height:1.4;}
+.enforce-bar .text strong{color:#fff;}
+
+/* Footer */
+.footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--border);text-align:center;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="logo">⚡ Amazon Ads Reports</div>
-  <h1>廣告績效看板</h1>
-  <p class="sub">點擊品牌查看最新週報 · 每週自動更新</p>
+<div class="cockpit">
 
-  <div class="section-label">Active</div>
-  <div class="cards">
-
-    <a class="card" href="../daiken/">
-      <div class="card-top">
-        <div class="card-left">
-          <div class="dot" style="background:#2563eb"></div>
-          <div>
-            <div class="card-name">DAIKEN <span class="badge badge-live">LIVE</span></div>
-            <div class="card-meta">US + JP Market · Feb–Mar 2026 · 7 products · 21 ASINs</div>
-          </div>
-        </div>
-        <span class="arrow">→</span>
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <span class="hq-badge">HQ</span>
+      <div>
+        <div class="hq-title">Cockpit</div>
+        <div class="hq-sub">Amazon Autopilot Command Center</div>
       </div>
-      <div class="status-bar">
-        <div class="status-dot active"></div>
-        <div class="status-text">
-          <span class="status-label label-pacing">PACING</span>Budget tracking live · $153/$780 (20%) · cron 08:00+14:30<br>
-          <span class="status-label label-active">3/10</span>Budget Reallocation Option C 全產品線預算重分配 · 392 rows · Basket Cross-Sell 兒童魚油 154 ASINs
-        </div>
-      </div>
-    </a>
-
-    <a class="card" href="../geo/">
-      <div class="card-top">
-        <div class="card-left">
-          <div class="dot" style="background:#0891b2"></div>
-          <div>
-            <div class="card-name">Geometric Future <span class="badge badge-live">LIVE</span></div>
-            <div class="card-meta">US Market · Feb–Mar 2026 · PC cases · 4 products</div>
-          </div>
-        </div>
-        <span class="arrow">→</span>
-      </div>
-      <div class="status-bar">
-        <div class="status-dot active"></div>
-        <div class="status-text">
-          <span class="status-label label-active">3/11</span>B2B 企業客戶 SP 廣告上線 Amazon Business Exclusive Campaigns<br>
-          <span class="status-label label-active">3/10</span>Creator Connection 網紅合作 + API quadrant action items executed
-        </div>
-      </div>
-    </a>
-
-    <a class="card" href="../brain-tea/">
-      <div class="card-top">
-        <div class="card-left">
-          <div class="dot" style="background:#059669"></div>
-          <div>
-            <div class="card-name">Brain Tea <span class="badge badge-live">LIVE</span></div>
-            <div class="card-meta">US Market · Feb–Mar 2026 · supplements</div>
-          </div>
-        </div>
-        <span class="arrow">→</span>
-      </div>
-      <div class="status-bar">
-        <div class="status-dot idle"></div>
-        <div class="status-text">
-          <span class="status-label label-idle">IDLE</span>Dashboard upgraded · awaiting new weekly data + campaign actions
-        </div>
-      </div>
-    </a>
-
+    </div>
+    <div class="header-right">
+      <div class="pulse-live">SYSTEMS LIVE</div>
+      <div class="date">2026-03-11 · TUE</div>
+    </div>
   </div>
 
-  <div class="section-label">Coming Soon</div>
-  <div class="cards">
-    <a class="card active" href="../dbj/">
-      <div class="card-top">
-        <div class="card-left">
-          <div class="dot" style="background:#b45309"></div>
-          <div>
-            <div class="card-name">DBJ <span class="badge badge-live">LIVE</span></div>
-            <div class="card-meta">US Market · Feb–Mar 2026 · bags · W1–W6</div>
-          </div>
-        </div>
-        <span class="arrow">→</span>
-      </div>
-      <div class="status-bar">
-        <div class="status-dot idle"></div>
-        <div class="status-text">
-          <span class="status-label label-active">3/10</span>W6 data + Market Basket Analysis + Search Query strategy recs<br>
-          <span class="status-label label-idle">IDLE</span>Awaiting client approval on 5 strategy action items
-        </div>
-      </div>
-    </a>
-    <a class="card pending" href="../kijo/">
-      <div class="card-top">
-        <div class="card-left">
-          <div class="dot" style="background:#be185d"></div>
-          <div>
-            <div class="card-name">KIJO <span class="badge badge-soon">即將上線</span></div>
-            <div class="card-meta">US Market</div>
-          </div>
-        </div>
-        <span class="arrow">→</span>
-      </div>
-      <div class="status-bar">
-        <div class="status-dot pending"></div>
-        <div class="status-text"><span class="status-label label-idle">PENDING</span>Onboarding — awaiting campaign setup</div>
-      </div>
-    </a>
-    <a class="card" href="../apal/">
-      <div class="card-top">
-        <div class="card-left">
-          <div class="dot" style="background:#047857"></div>
-          <div>
-            <div class="card-name">APAL <span class="badge badge-live">LIVE</span></div>
-            <div class="card-meta">Social Listening · YouTube Comment Analysis</div>
-          </div>
-        </div>
-        <span class="arrow">→</span>
-      </div>
-      <div class="status-bar">
-        <div class="status-dot idle"></div>
-        <div class="status-text"><span class="status-label label-idle">IDLE</span>Monitoring mode — no ad campaigns</div>
-      </div>
-    </a>
+  <!-- Bid Enforcement Banner -->
+  <div class="enforce-bar">
+    <div class="icon">&#9889;</div>
+    <div class="text">
+      <strong>BID CEILING ENFORCED</strong> — 23,347 bids capped via API across 7 profiles · 0 failures · 12 profiles audited · 96,964 total bids scanned
+    </div>
   </div>
 
-  <div class="section-label">Multi-Market</div>
-  <div class="cards">
-    <a class="card" href="../flux/">
-      <div class="card-top">
-        <div class="card-left">
-          <div class="dot" style="background:#ea580c"></div>
-          <div>
-            <div class="card-name">Flux <span class="badge badge-live">LIVE</span></div>
-            <div class="card-meta">🇦🇺 AU · 🇬🇧 UK · 🇩🇪 DE · 🇺🇸 US · 🇨🇦 CA</div>
-          </div>
-        </div>
-        <span class="arrow">→</span>
-      </div>
-      <div class="status-bar">
-        <div class="status-dot active"></div>
-        <div class="status-text">
-          <span class="status-label label-active">3/10</span>AU SB attribution audit + 38 broad campaign cleanup plan<br>
-          <span class="status-label label-idle">IDLE</span>UK/DE/US/CA — awaiting next week data refresh
-        </div>
-      </div>
-    </a>
+  <!-- Brand Quick Nav -->
+  <div class="brand-nav">
+    <a class="brand-chip" href="../daiken/"><span class="chip-dot" style="background:#3b82f6"></span>DAIKEN</a>
+    <a class="brand-chip" href="../geo/"><span class="chip-dot" style="background:#06b6d4"></span>GEO</a>
+    <a class="brand-chip" href="../brain-tea/"><span class="chip-dot" style="background:#22c55e"></span>Brain Tea</a>
+    <a class="brand-chip" href="../dbj/"><span class="chip-dot" style="background:#f97316"></span>DBJ</a>
+    <a class="brand-chip" href="../flux/"><span class="chip-dot" style="background:#ef4444"></span>Flux</a>
+    <a class="brand-chip" href="../apal/"><span class="chip-dot" style="background:#047857"></span>APAL</a>
+    <a class="brand-chip" href="../kijo/"><span class="chip-dot" style="background:#94a3b8"></span>KIJO</a>
   </div>
 
-  <div class="footer">Powered by Amazon Autopilot · SNIPER Mastermind</div>
+  <!-- Scorecard -->
+  <div class="scorecard">
+    <div class="score-card">
+      <div class="label">Brands Active</div>
+      <div class="value">5</div>
+      <div class="sub">+ 2 pending</div>
+    </div>
+    <div class="score-card">
+      <div class="label">Markets</div>
+      <div class="value">9</div>
+      <div class="sub">US CA AU UK DE MX</div>
+    </div>
+    <div class="score-card green">
+      <div class="label">Campaigns</div>
+      <div class="value">12.6K</div>
+      <div class="sub">all brands combined</div>
+    </div>
+    <div class="score-card yellow">
+      <div class="label">Action Items</div>
+      <div class="value">15</div>
+      <div class="sub">4 urgent · 6 this week</div>
+    </div>
+    <div class="score-card green">
+      <div class="label">Bids Enforced</div>
+      <div class="value">23.3K</div>
+      <div class="sub">0 failures today</div>
+    </div>
+  </div>
+
+  <!-- Two Columns -->
+  <div class="columns">
+
+    <!-- Left: Account Health -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Account Health 帳戶健康</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);">W5 data</div>
+      </div>
+      <div class="panel-body" style="padding:0;">
+        <table class="health-table">
+          <thead>
+            <tr><th>Brand</th><th>Market</th><th>TACOS</th><th>Target</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="../daiken/">DAIKEN</a></td>
+              <td>US</td>
+              <td><span class="tacos-bar" style="width:70px;background:var(--red);"></span>~70%</td>
+              <td>70%</td>
+              <td><span class="status-pill pill-yellow">AT RISK</span></td>
+            </tr>
+            <tr>
+              <td><a href="../dbj/">DBJ</a></td>
+              <td>US</td>
+              <td><span class="tacos-bar" style="width:16px;background:var(--yellow);"></span>16%</td>
+              <td>15%</td>
+              <td><span class="status-pill pill-yellow">NEAR</span></td>
+            </tr>
+            <tr>
+              <td><a href="../geo/">GEO</a></td>
+              <td>US</td>
+              <td><span class="tacos-bar" style="width:10px;background:var(--green);"></span>&lt;10%</td>
+              <td>15%</td>
+              <td><span class="status-pill pill-green">EXCELLENT</span></td>
+            </tr>
+            <tr>
+              <td><a href="../brain-tea/">Brain Tea</a></td>
+              <td>US</td>
+              <td><span class="tacos-bar" style="width:8px;background:var(--green);"></span>7.7%</td>
+              <td>15%</td>
+              <td><span class="status-pill pill-green">EXCELLENT</span></td>
+            </tr>
+            <tr>
+              <td><a href="../flux/">Flux</a></td>
+              <td>AU</td>
+              <td><span class="tacos-bar" style="width:30px;background:var(--yellow);"></span>~30%</td>
+              <td>30%</td>
+              <td><span class="status-pill pill-blue">WATCH</span></td>
+            </tr>
+            <tr>
+              <td><a href="../flux/">Flux</a></td>
+              <td>UK</td>
+              <td><span class="tacos-bar" style="width:35px;background:var(--red);"></span>&gt;30%</td>
+              <td>30%</td>
+              <td><span class="status-pill pill-red">OVER</span></td>
+            </tr>
+            <tr>
+              <td><a href="../flux/">Flux</a></td>
+              <td>DE</td>
+              <td><span class="tacos-bar" style="width:24px;background:var(--green);"></span>~24%</td>
+              <td>30%</td>
+              <td><span class="status-pill pill-green">GOOD</span></td>
+            </tr>
+            <tr>
+              <td><a href="../flux/">Flux</a></td>
+              <td>US</td>
+              <td><span class="tacos-bar" style="width:25px;background:var(--green);"></span>&lt;30%</td>
+              <td>30%</td>
+              <td><span class="status-pill pill-green">CLEAN</span></td>
+            </tr>
+            <tr>
+              <td><a href="../flux/">Flux</a></td>
+              <td>CA</td>
+              <td><span class="tacos-bar" style="width:25px;background:var(--green);"></span>&lt;30%</td>
+              <td>30%</td>
+              <td><span class="status-pill pill-green">CLEAN</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Right: Today's Actions -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Today's Actions 今日待辦</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);">P1=urgent P2=this week P3=prep</div>
+      </div>
+      <div class="panel-body" style="padding:8px 16px;">
+        <ul class="action-list">
+          <li class="action-item">
+            <span class="action-priority p1">P1</span>
+            <div class="action-content">
+              <div class="action-brand">FLUX UK</div>
+              <div class="action-text">Monitor Rebalance V2 — 13 new campaigns + 133 paused</div>
+              <div class="action-why">65% SP spend was zero-order waste · massive reallocation live</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <span class="action-priority p1">P1</span>
+            <div class="action-content">
+              <div class="action-brand">FLUX DE</div>
+              <div class="action-text">Avento €3,757 W5 explosion — monitor €208/day spring warmup</div>
+              <div class="action-why">Biggest growth moment across all brands · ride the wave</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <span class="action-priority p1">P1</span>
+            <div class="action-content">
+              <div class="action-brand">DAIKEN US</div>
+              <div class="action-text">Kids Fish Oil stop-bleeding — verify bid caps, TACOS 124%</div>
+              <div class="action-why">-$4,527 over 5 weeks · budget cut 51.9% on 3/10</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <span class="action-priority p1">P1</span>
+            <div class="action-content">
+              <div class="action-brand">GEO US</div>
+              <div class="action-text">Finalize SBV strategy + launch AMC audiences (Option C)</div>
+              <div class="action-why">3 in-progress items blocking next growth phase</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <span class="action-priority p2">P2</span>
+            <div class="action-content">
+              <div class="action-brand">FLUX AU</div>
+              <div class="action-text">48h check — 6,727 campaigns quadrant-adjusted + 14K bids capped</div>
+              <div class="action-why">Largest campaign count · verify Star lift after enforcement</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <span class="action-priority p2">P2</span>
+            <div class="action-content">
+              <div class="action-brand">DBJ US</div>
+              <div class="action-text">Execute Market Basket Cross-Sell (13 defense + 11 conquest)</div>
+              <div class="action-why">5 strategy items idle · client waiting for execution</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <span class="action-priority p2">P2</span>
+            <div class="action-content">
+              <div class="action-brand">DBJ US</div>
+              <div class="action-text">Stale inventory price drops — 4 SKUs (17-24 days no sales)</div>
+              <div class="action-why">Revenue at risk · $1/week reduction protocol</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <span class="action-priority p2">P2</span>
+            <div class="action-content">
+              <div class="action-brand">BRAIN TEA US</div>
+              <div class="action-text">Scale Focus Tea +30% budget · lower Yerba Mate bids</div>
+              <div class="action-why">Star under-invested · Question needs tightening · sunset Loose Leaf</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <span class="action-priority p3">P3</span>
+            <div class="action-content">
+              <div class="action-brand">ALL BRANDS</div>
+              <div class="action-text">W6 data import (3/8–3/14) due by 3/16</div>
+              <div class="action-why">Weekly reporting cadence · all brands need refresh</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <span class="action-priority p3">P3</span>
+            <div class="action-content">
+              <div class="action-brand">FLUX UK/DE</div>
+              <div class="action-text">Spring Deal ~3/25 — campaigns warming up now</div>
+              <div class="action-why">Deal traffic surge coming · need campaigns primed and budgets ready</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /columns -->
+
+  <!-- Full width: Brand Status Cards -->
+  <div class="panel" style="margin-bottom:16px;">
+    <div class="panel-header">
+      <div class="panel-title">Brand Status 品牌總覽</div>
+    </div>
+    <div class="panel-body" style="padding:0;">
+      <table class="health-table">
+        <thead>
+          <tr><th>Brand</th><th>Latest Action</th><th>Campaigns</th><th>Next Step</th><th>Phase</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="../daiken/">DAIKEN</a></td>
+            <td>3/10 Budget Realloc C · 392 rows · 100 paused</td>
+            <td>9,868</td>
+            <td>Fish Oil止血 · Nattokinase加碼 · Vine</td>
+            <td><span class="status-pill pill-yellow">OPTIMIZING</span></td>
+          </tr>
+          <tr>
+            <td><a href="../geo/">GEO</a></td>
+            <td>3/11 B2B launched · Creator Phase 2 · Quadrant</td>
+            <td>4,503</td>
+            <td>SBV video · AMC audiences · Spring Deal</td>
+            <td><span class="status-pill pill-green">GROWING</span></td>
+          </tr>
+          <tr>
+            <td><a href="../brain-tea/">Brain Tea</a></td>
+            <td>Dashboard upgraded · 7.7% TACOS</td>
+            <td>6,134</td>
+            <td>Scale Focus Tea +30% · Sunset Loose Leaf</td>
+            <td><span class="status-pill pill-blue">SCALE UP</span></td>
+          </tr>
+          <tr>
+            <td><a href="../dbj/">DBJ</a></td>
+            <td>3/10 API automation · 1,136 unified · W6 data</td>
+            <td>13,064</td>
+            <td>Cross-sell · Stale SKUs · KW scale-up</td>
+            <td><span class="status-pill pill-yellow">WAITING</span></td>
+          </tr>
+          <tr>
+            <td><a href="../flux/">Flux AU</a></td>
+            <td>3/10 Quadrant opt · 6,727 campaigns</td>
+            <td>6,727</td>
+            <td>48h monitor · bid caps verified</td>
+            <td><span class="status-pill pill-blue">MONITORING</span></td>
+          </tr>
+          <tr>
+            <td><a href="../flux/">Flux UK</a></td>
+            <td>3/10 Rebalance V2 · Spring Deal warmup</td>
+            <td>1,825</td>
+            <td>48h verify · 13 growth campaigns</td>
+            <td><span class="status-pill pill-red">FIXING</span></td>
+          </tr>
+          <tr>
+            <td><a href="../flux/">Flux DE</a></td>
+            <td>3/10 Spring Deal · Avento €3.7K surge</td>
+            <td>2,142</td>
+            <td>Ride Avento wave · €208/day warmup</td>
+            <td><span class="status-pill pill-green">SURGING</span></td>
+          </tr>
+          <tr>
+            <td><a href="../flux/">Flux US</a></td>
+            <td>3/10 Quadrant opt · SP cleanup</td>
+            <td>770</td>
+            <td>Standard monitoring</td>
+            <td><span class="status-pill pill-green">STABLE</span></td>
+          </tr>
+          <tr>
+            <td><a href="../flux/">Flux CA</a></td>
+            <td>3/10 Quadrant opt · SP cleanup</td>
+            <td>1,201</td>
+            <td>Standard monitoring</td>
+            <td><span class="status-pill pill-green">STABLE</span></td>
+          </tr>
+          <tr>
+            <td><a href="../apal/">APAL</a></td>
+            <td>Social Listening · YouTube analysis</td>
+            <td>—</td>
+            <td>Monitoring mode</td>
+            <td><span class="status-pill pill-gray">MONITOR</span></td>
+          </tr>
+          <tr>
+            <td><a href="../kijo/">KIJO</a></td>
+            <td>—</td>
+            <td>—</td>
+            <td>Onboarding</td>
+            <td><span class="status-pill pill-gray">PENDING</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    HQ Cockpit · Amazon Autopilot · SNIPER Mastermind · Last scan: 2026-03-11 07:50
+  </div>
+
 </div>
 </body>
 </html>
