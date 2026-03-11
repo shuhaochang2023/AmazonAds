@@ -81,6 +81,13 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .brand-chip:hover{border-color:var(--accent);color:var(--accent);}
 .brand-chip .chip-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;}
 
+/* Dropdown panels */
+details.panel{border-radius:10px;}
+details.panel>summary{list-style:none;}
+details.panel>summary::-webkit-details-marker{display:none;}
+details.panel>summary .dd-arrow{display:inline-block;font-size:10px;margin-right:6px;transition:transform .2s;color:var(--dim);}
+details.panel[open]>summary .dd-arrow{transform:rotate(90deg);}
+
 /* Bid Enforcement */
 .enforce-bar{display:flex;align-items:center;gap:12px;padding:12px 18px;background:rgba(22,163,74,.06);border:1px solid rgba(22,163,74,.15);border-radius:8px;margin-bottom:20px;}
 .enforce-bar .icon{font-size:16px;}
@@ -189,180 +196,176 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
     </div>
   </div>
 
-  <!-- Two Columns -->
-  <div class="columns">
-
-    <!-- Left: Account Health -->
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title">Account Health 帳戶健康</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">W5 data</div>
-      </div>
-      <div class="panel-body" style="padding:0;">
-        <table class="health-table">
-          <thead>
-            <tr><th>Brand 品牌</th><th>Market 市場</th><th>TACOS</th><th>Target 目標</th><th>Status 狀態</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><a href="../daiken/">DAIKEN</a></td>
-              <td>US</td>
-              <td><span class="tacos-bar" style="width:70px;background:var(--red);"></span>~70%</td>
-              <td>70%</td>
-              <td><span class="status-pill pill-yellow">AT RISK</span></td>
-            </tr>
-            <tr>
-              <td><a href="../dbj/">DBJ</a></td>
-              <td>US</td>
-              <td><span class="tacos-bar" style="width:16px;background:var(--yellow);"></span>16%</td>
-              <td>15%</td>
-              <td><span class="status-pill pill-yellow">NEAR</span></td>
-            </tr>
-            <tr>
-              <td><a href="../geo/">GEO</a></td>
-              <td>US</td>
-              <td><span class="tacos-bar" style="width:10px;background:var(--green);"></span>&lt;10%</td>
-              <td>15%</td>
-              <td><span class="status-pill pill-green">EXCELLENT</span></td>
-            </tr>
-            <tr>
-              <td><a href="../brain-tea/">Brain Tea</a></td>
-              <td>US</td>
-              <td><span class="tacos-bar" style="width:8px;background:var(--green);"></span>7.7%</td>
-              <td>15%</td>
-              <td><span class="status-pill pill-green">EXCELLENT</span></td>
-            </tr>
-            <tr>
-              <td><a href="../flux/">Flux</a></td>
-              <td>AU</td>
-              <td><span class="tacos-bar" style="width:30px;background:var(--yellow);"></span>~30%</td>
-              <td>30%</td>
-              <td><span class="status-pill pill-blue">WATCH</span></td>
-            </tr>
-            <tr>
-              <td><a href="../flux/">Flux</a></td>
-              <td>UK</td>
-              <td><span class="tacos-bar" style="width:35px;background:var(--red);"></span>&gt;30%</td>
-              <td>30%</td>
-              <td><span class="status-pill pill-red">OVER</span></td>
-            </tr>
-            <tr>
-              <td><a href="../flux/">Flux</a></td>
-              <td>DE</td>
-              <td><span class="tacos-bar" style="width:24px;background:var(--green);"></span>~24%</td>
-              <td>30%</td>
-              <td><span class="status-pill pill-green">GOOD</span></td>
-            </tr>
-            <tr>
-              <td><a href="../flux/">Flux</a></td>
-              <td>US</td>
-              <td><span class="tacos-bar" style="width:25px;background:var(--green);"></span>&lt;30%</td>
-              <td>30%</td>
-              <td><span class="status-pill pill-green">CLEAN</span></td>
-            </tr>
-            <tr>
-              <td><a href="../flux/">Flux</a></td>
-              <td>CA</td>
-              <td><span class="tacos-bar" style="width:25px;background:var(--green);"></span>&lt;30%</td>
-              <td>30%</td>
-              <td><span class="status-pill pill-green">CLEAN</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <!-- Account Health -->
+  <details class="panel" open style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> Account Health 帳戶健康</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">W5 data · 9 accounts</div>
+    </summary>
+    <div class="panel-body" style="padding:0;">
+      <table class="health-table">
+        <thead>
+          <tr><th>Brand 品牌</th><th>Market 市場</th><th>TACOS</th><th>Target 目標</th><th>Status 狀態</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="../daiken/">DAIKEN</a></td>
+            <td>US</td>
+            <td><span class="tacos-bar" style="width:70px;background:var(--red);"></span>~70%</td>
+            <td>70%</td>
+            <td><span class="status-pill pill-yellow">AT RISK</span></td>
+          </tr>
+          <tr>
+            <td><a href="../dbj/">DBJ</a></td>
+            <td>US</td>
+            <td><span class="tacos-bar" style="width:16px;background:var(--yellow);"></span>16%</td>
+            <td>15%</td>
+            <td><span class="status-pill pill-yellow">NEAR</span></td>
+          </tr>
+          <tr>
+            <td><a href="../geo/">GEO</a></td>
+            <td>US</td>
+            <td><span class="tacos-bar" style="width:10px;background:var(--green);"></span>&lt;10%</td>
+            <td>15%</td>
+            <td><span class="status-pill pill-green">EXCELLENT</span></td>
+          </tr>
+          <tr>
+            <td><a href="../brain-tea/">Brain Tea</a></td>
+            <td>US</td>
+            <td><span class="tacos-bar" style="width:8px;background:var(--green);"></span>7.7%</td>
+            <td>15%</td>
+            <td><span class="status-pill pill-green">EXCELLENT</span></td>
+          </tr>
+          <tr>
+            <td><a href="../flux/">Flux</a></td>
+            <td>AU</td>
+            <td><span class="tacos-bar" style="width:30px;background:var(--yellow);"></span>~30%</td>
+            <td>30%</td>
+            <td><span class="status-pill pill-blue">WATCH</span></td>
+          </tr>
+          <tr>
+            <td><a href="../flux/">Flux</a></td>
+            <td>UK</td>
+            <td><span class="tacos-bar" style="width:35px;background:var(--red);"></span>&gt;30%</td>
+            <td>30%</td>
+            <td><span class="status-pill pill-red">OVER</span></td>
+          </tr>
+          <tr>
+            <td><a href="../flux/">Flux</a></td>
+            <td>DE</td>
+            <td><span class="tacos-bar" style="width:24px;background:var(--green);"></span>~24%</td>
+            <td>30%</td>
+            <td><span class="status-pill pill-green">GOOD</span></td>
+          </tr>
+          <tr>
+            <td><a href="../flux/">Flux</a></td>
+            <td>US</td>
+            <td><span class="tacos-bar" style="width:25px;background:var(--green);"></span>&lt;30%</td>
+            <td>30%</td>
+            <td><span class="status-pill pill-green">CLEAN</span></td>
+          </tr>
+          <tr>
+            <td><a href="../flux/">Flux</a></td>
+            <td>CA</td>
+            <td><span class="tacos-bar" style="width:25px;background:var(--green);"></span>&lt;30%</td>
+            <td>30%</td>
+            <td><span class="status-pill pill-green">CLEAN</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </details>
 
-    <!-- Right: Today's Actions -->
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title">Today's Actions 今日待辦</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">P1=urgent P2=this week P3=prep</div>
-      </div>
-      <div class="panel-body" style="padding:8px 16px;">
-        <ul class="action-list">
-          <li class="action-item done">
-            <span class="action-priority p1">P1</span>
-            <div class="action-content">
-              <div class="action-brand">FLUX ALL 5 MARKETS<span class="done-badge">DONE 13:15</span></div>
-              <div class="action-text">Quadrant optimization executed — 1,925 Star +30% · 996 Question -20% · 441 Cut -50%<br>象限優化已執行 — 1,925 明星+30% · 996 待觀察-20% · 441 止血-50%</div>
-              <div class="action-why">4,348 API operations across AU/US/CA/UK/DE · 2 minor errors<br>跨 AU/US/CA/UK/DE 共 4,348 筆 API 操作 · 2 個小錯誤</div>
-            </div>
-          </li>
-          <li class="action-item done">
-            <span class="action-priority p1">P1</span>
-            <div class="action-content">
-              <div class="action-brand">DAIKEN US<span class="done-badge">DONE 10:48</span></div>
-              <div class="action-text">Budget pacing targets updated — post Option C ($780→$988) · hourly cron set<br>預算追蹤目標已更新 — 重分配後（$780→$988）· 已設定每小時排程</div>
-              <div class="action-why">Bid ceiling guard verified CLEAN · 0 violations across 4,834 KW + 5,046 targets<br>出價上限防護驗證通過 · 4,834 關鍵字 + 5,046 目標零違規</div>
-            </div>
-          </li>
-          <li class="action-item done">
-            <span class="action-priority p1">P1</span>
-            <div class="action-content">
-              <div class="action-brand">GEO US<span class="done-badge">DONE 13:17</span></div>
-              <div class="action-text">Quadrant actions executed — 913 Star campaigns +30% budget via API<br>象限操作已執行 — 913 個明星活動透過 API 加碼 30% 預算</div>
-              <div class="action-why">M5 Case $41K sales 10% TACOS · Eskimo Pro $6.4K 2.9% TACOS · both scaling up<br>M5 機殼 $41K 銷售 10% TACOS · Eskimo Pro $6.4K 2.9% TACOS · 雙雙擴大</div>
-            </div>
-          </li>
-          <li class="action-item done">
-            <span class="action-priority p2">P2</span>
-            <div class="action-content">
-              <div class="action-brand">BRAIN TEA US<span class="done-badge">DONE 13:15</span></div>
-              <div class="action-text">Herbal Tea budget reduced — 73 campaigns $1.30→$1.00 · saves $21.90/day<br>草本茶預算已縮減 — 73 個活動 $1.30→$1.00 · 每日省 $21.90</div>
-              <div class="action-why">Frees budget for Focus Tea scaling · 7.7% TACOS maintained<br>釋放預算供 Focus Tea 加碼 · 維持 7.7% TACOS</div>
-            </div>
-          </li>
-          <li class="action-item done">
-            <span class="action-priority p1">P1</span>
-            <div class="action-content">
-              <div class="action-brand">ALL 8 BRANDS<span class="done-badge">DONE 12:34</span></div>
-              <div class="action-text">Bid Ceiling Guard — 96,964 bids scanned · all 8 brands CLEAN<br>出價上限防護 — 96,964 筆出價已掃描 · 全部 8 品牌通過</div>
-              <div class="action-why">DAIKEN · DBJ · GEO · Flux AU/US/CA/UK/DE · 0 violations<br>大健 · DBJ · GEO · Flux 五市場 · 零違規</div>
-            </div>
-          </li>
-          <li class="action-item">
-            <span class="action-priority p2">P2</span>
-            <div class="action-content">
-              <div class="action-brand">DBJ US</div>
-              <div class="action-text">Execute Market Basket Cross-Sell (13 defense + 11 conquest)<br>執行購物籃交叉銷售（13 防禦 + 11 攻擊）</div>
-              <div class="action-why">5 strategy items idle · client waiting for execution<br>5 項策略待執行 · 客戶等待中</div>
-            </div>
-          </li>
-          <li class="action-item">
-            <span class="action-priority p2">P2</span>
-            <div class="action-content">
-              <div class="action-brand">DBJ US</div>
-              <div class="action-text">Stale inventory price drops — 4 SKUs (17-24 days no sales)<br>滯銷庫存降價 — 4 個 SKU（17-24 天無銷售）</div>
-              <div class="action-why">Revenue at risk · $1/week reduction protocol<br>營收風險 · 每週降 $1 協議</div>
-            </div>
-          </li>
-          <li class="action-item">
-            <span class="action-priority p3">P3</span>
-            <div class="action-content">
-              <div class="action-brand">ALL BRANDS</div>
-              <div class="action-text">W6 data import (3/8–3/14) due by 3/16<br>W6 數據匯入（3/8–3/14）截止 3/16</div>
-              <div class="action-why">Weekly reporting cadence · all brands need refresh<br>每週報告節奏 · 全品牌需更新</div>
-            </div>
-          </li>
-          <li class="action-item">
-            <span class="action-priority p3">P3</span>
-            <div class="action-content">
-              <div class="action-brand">FLUX UK/DE</div>
-              <div class="action-text">Spring Deal ~3/25 — campaigns warming up now<br>春季促銷 ~3/25 — 活動預熱中</div>
-              <div class="action-why">Deal traffic surge coming · need campaigns primed and budgets ready<br>促銷流量即將湧入 · 活動需就緒、預算需到位</div>
-            </div>
-          </li>
-        </ul>
-      </div>
+  <!-- Today's Actions -->
+  <details class="panel" open style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> Today's Actions 今日待辦</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">5 done · 4 remaining · P1=urgent P2=this week P3=prep</div>
+    </summary>
+    <div class="panel-body" style="padding:8px 16px;">
+      <ul class="action-list">
+        <li class="action-item done">
+          <span class="action-priority p1">P1</span>
+          <div class="action-content">
+            <div class="action-brand">FLUX ALL 5 MARKETS<span class="done-badge">DONE 13:15</span></div>
+            <div class="action-text">Quadrant optimization executed — 1,925 Star +30% · 996 Question -20% · 441 Cut -50%<br>象限優化已執行 — 1,925 明星+30% · 996 待觀察-20% · 441 止血-50%</div>
+            <div class="action-why">4,348 API operations across AU/US/CA/UK/DE · 2 minor errors<br>跨 AU/US/CA/UK/DE 共 4,348 筆 API 操作 · 2 個小錯誤</div>
+          </div>
+        </li>
+        <li class="action-item done">
+          <span class="action-priority p1">P1</span>
+          <div class="action-content">
+            <div class="action-brand">DAIKEN US<span class="done-badge">DONE 10:48</span></div>
+            <div class="action-text">Budget pacing targets updated — post Option C ($780→$988) · hourly cron set<br>預算追蹤目標已更新 — 重分配後（$780→$988）· 已設定每小時排程</div>
+            <div class="action-why">Bid ceiling guard verified CLEAN · 0 violations across 4,834 KW + 5,046 targets<br>出價上限防護驗證通過 · 4,834 關鍵字 + 5,046 目標零違規</div>
+          </div>
+        </li>
+        <li class="action-item done">
+          <span class="action-priority p1">P1</span>
+          <div class="action-content">
+            <div class="action-brand">GEO US<span class="done-badge">DONE 13:17</span></div>
+            <div class="action-text">Quadrant actions executed — 913 Star campaigns +30% budget via API<br>象限操作已執行 — 913 個明星活動透過 API 加碼 30% 預算</div>
+            <div class="action-why">M5 Case $41K sales 10% TACOS · Eskimo Pro $6.4K 2.9% TACOS · both scaling up<br>M5 機殼 $41K 銷售 10% TACOS · Eskimo Pro $6.4K 2.9% TACOS · 雙雙擴大</div>
+          </div>
+        </li>
+        <li class="action-item done">
+          <span class="action-priority p2">P2</span>
+          <div class="action-content">
+            <div class="action-brand">BRAIN TEA US<span class="done-badge">DONE 13:15</span></div>
+            <div class="action-text">Herbal Tea budget reduced — 73 campaigns $1.30→$1.00 · saves $21.90/day<br>草本茶預算已縮減 — 73 個活動 $1.30→$1.00 · 每日省 $21.90</div>
+            <div class="action-why">Frees budget for Focus Tea scaling · 7.7% TACOS maintained<br>釋放預算供 Focus Tea 加碼 · 維持 7.7% TACOS</div>
+          </div>
+        </li>
+        <li class="action-item done">
+          <span class="action-priority p1">P1</span>
+          <div class="action-content">
+            <div class="action-brand">ALL 8 BRANDS<span class="done-badge">DONE 12:34</span></div>
+            <div class="action-text">Bid Ceiling Guard — 96,964 bids scanned · all 8 brands CLEAN<br>出價上限防護 — 96,964 筆出價已掃描 · 全部 8 品牌通過</div>
+            <div class="action-why">DAIKEN · DBJ · GEO · Flux AU/US/CA/UK/DE · 0 violations<br>大健 · DBJ · GEO · Flux 五市場 · 零違規</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <span class="action-priority p2">P2</span>
+          <div class="action-content">
+            <div class="action-brand">DBJ US</div>
+            <div class="action-text">Execute Market Basket Cross-Sell (13 defense + 11 conquest)<br>執行購物籃交叉銷售（13 防禦 + 11 攻擊）</div>
+            <div class="action-why">5 strategy items idle · client waiting for execution<br>5 項策略待執行 · 客戶等待中</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <span class="action-priority p2">P2</span>
+          <div class="action-content">
+            <div class="action-brand">DBJ US</div>
+            <div class="action-text">Stale inventory price drops — 4 SKUs (17-24 days no sales)<br>滯銷庫存降價 — 4 個 SKU（17-24 天無銷售）</div>
+            <div class="action-why">Revenue at risk · $1/week reduction protocol<br>營收風險 · 每週降 $1 協議</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <span class="action-priority p3">P3</span>
+          <div class="action-content">
+            <div class="action-brand">ALL BRANDS</div>
+            <div class="action-text">W6 data import (3/8–3/14) due by 3/16<br>W6 數據匯入（3/8–3/14）截止 3/16</div>
+            <div class="action-why">Weekly reporting cadence · all brands need refresh<br>每週報告節奏 · 全品牌需更新</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <span class="action-priority p3">P3</span>
+          <div class="action-content">
+            <div class="action-brand">FLUX UK/DE</div>
+            <div class="action-text">Spring Deal ~3/25 — campaigns warming up now<br>春季促銷 ~3/25 — 活動預熱中</div>
+            <div class="action-why">Deal traffic surge coming · need campaigns primed and budgets ready<br>促銷流量即將湧入 · 活動需就緒、預算需到位</div>
+          </div>
+        </li>
+      </ul>
     </div>
+  </details>
 
-  </div><!-- /columns -->
-
-  <!-- Full width: Brand Status Cards -->
-  <div class="panel" style="margin-bottom:16px;">
-    <div class="panel-header">
-      <div class="panel-title">Brand Status 品牌總覽</div>
-    </div>
+  <!-- Brand Status -->
+  <details class="panel" open style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> Brand Status 品牌總覽</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">11 brands</div>
+    </summary>
     <div class="panel-body" style="padding:0;">
       <table class="health-table">
         <thead>
@@ -449,14 +452,14 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
         </tbody>
       </table>
     </div>
-  </div>
+  </details>
 
-  <!-- Morning Ops Log -->
-  <div class="morning-log">
-    <div class="panel-header">
-      <div class="panel-title">Operations Log 今日操作紀錄</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);font-weight:600;">2026-03-11 morning session</div>
-    </div>
+  <!-- Operations Log -->
+  <details class="panel morning-log" style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> Operations Log 今日操作紀錄</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);font-weight:600;">2026-03-11 · 6 entries</div>
+    </summary>
     <div class="panel-body">
       <div class="log-entry">
         <div class="log-time">09:52</div>
@@ -489,14 +492,14 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
         <div class="log-text">Quadrant optimization: 913 Star campaigns +30% budget (M5 Case $41K, Eskimo Pro $6.4K, S2503 Fan $3K)<br><small>象限優化：913 個明星活動加碼 30%（M5 機殼 $41K · Eskimo Pro $6.4K · S2503 風扇 $3K）</small></div>
       </div>
     </div>
-  </div>
+  </details>
 
   <!-- Scheduled Automation -->
-  <div class="panel" style="margin-top:16px;margin-bottom:16px;">
-    <div class="panel-header">
-      <div class="panel-title">Scheduled Automation 排程自動化</div>
+  <details class="panel" style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> Scheduled Automation 排程自動化</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);font-weight:600;">4 active crons</div>
-    </div>
+    </summary>
     <div class="panel-body" style="padding:0;">
       <table class="cron-table">
         <thead>
@@ -542,14 +545,14 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
         </tbody>
       </table>
     </div>
-  </div>
+  </details>
 
   <!-- Risk & Safety -->
-  <div class="panel" style="margin-bottom:16px;">
-    <div class="panel-header">
-      <div class="panel-title">Risk & Safety 風控安全機制</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">on-demand 隨時待命</div>
-    </div>
+  <details class="panel" style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> Risk & Safety 風控安全機制</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">4 guards · on-demand 隨時待命</div>
+    </summary>
     <div class="panel-body" style="padding:0;">
       <table class="cron-table">
         <thead>
@@ -595,13 +598,14 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
         </tbody>
       </table>
     </div>
-  </div>
+  </details>
 
-  <!-- Operational Reminders -->
-  <div class="panel" style="margin-bottom:16px;margin-top:16px;">
-    <div class="panel-header">
-      <div class="panel-title">Operational Rhythm 營運節奏</div>
-    </div>
+  <!-- Operational Rhythm -->
+  <details class="panel" style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> Operational Rhythm 營運節奏</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">6 cadences</div>
+    </summary>
     <div class="panel-body" style="padding:0;">
       <table class="cron-table">
         <thead>
@@ -647,7 +651,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
         </tbody>
       </table>
     </div>
-  </div>
+  </details>
 
   <div class="footer">
     HQ · Amazon Autopilot · SNIPER Mastermind · Last scan: 2026-03-11 13:30
