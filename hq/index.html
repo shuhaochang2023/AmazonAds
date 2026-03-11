@@ -87,6 +87,24 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .enforce-bar .text{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);line-height:1.4;}
 .enforce-bar .text strong{color:var(--text);}
 
+/* Scheduled Tasks */
+.cron-table{width:100%;border-collapse:collapse;}
+.cron-table th{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--dim);text-align:left;padding:8px 10px;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.cron-table td{font-size:13px;padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.cron-table tr:last-child td{border-bottom:none;}
+.cron-schedule{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);font-weight:600;}
+.cron-name{font-weight:600;color:var(--text);}
+.cron-desc{font-size:12px;color:var(--dim);margin-top:2px;}
+.cron-scope{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);}
+.freq-pill{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;white-space:nowrap;}
+.freq-high{background:rgba(220,38,38,.08);color:var(--red);}
+.freq-med{background:rgba(202,138,4,.08);color:var(--yellow);}
+.freq-low{background:rgba(59,130,246,.08);color:var(--accent);}
+.freq-daily{background:rgba(22,163,74,.08);color:var(--green);}
+.cron-status{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;}
+.cron-active{color:var(--green);}
+.cron-manual{color:var(--dim);}
+
 /* Footer */
 .footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--border);text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);}
 </style>
@@ -112,7 +130,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   <div class="enforce-bar">
     <div class="icon">&#9889;</div>
     <div class="text">
-      <strong>BID CEILING ENFORCED</strong> — 23,347 bids capped via API across 7 profiles · 0 failures · 12 profiles audited · 96,964 total bids scanned
+      <strong>BID CEILING ENFORCED 出價上限已執行</strong> — 23,347 bids capped via API across 7 profiles · 0 failures · 12 profiles audited · 96,964 total bids scanned<br>透過 API 封頂 23,347 筆出價 · 7 個 Profile · 0 失敗 · 12 個 Profile 已審計 · 共掃描 96,964 筆出價
     </div>
   </div>
 
@@ -130,29 +148,29 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   <!-- Scorecard -->
   <div class="scorecard">
     <div class="score-card">
-      <div class="label">Brands Active</div>
+      <div class="label">Brands Active 活躍品牌</div>
       <div class="value">5</div>
-      <div class="sub">+ 2 pending</div>
+      <div class="sub">+ 2 pending 待上線</div>
     </div>
     <div class="score-card">
-      <div class="label">Markets</div>
+      <div class="label">Markets 市場</div>
       <div class="value">9</div>
       <div class="sub">US CA AU UK DE MX</div>
     </div>
     <div class="score-card green">
-      <div class="label">Campaigns</div>
+      <div class="label">Campaigns 廣告活動</div>
       <div class="value">12.6K</div>
-      <div class="sub">all brands combined</div>
+      <div class="sub">all brands combined 全品牌合計</div>
     </div>
     <div class="score-card yellow">
-      <div class="label">Action Items</div>
+      <div class="label">Action Items 待辦事項</div>
       <div class="value">15</div>
-      <div class="sub">4 urgent · 6 this week</div>
+      <div class="sub">4 urgent 緊急 · 6 this week 本週</div>
     </div>
     <div class="score-card green">
-      <div class="label">Bids Enforced</div>
+      <div class="label">Bids Enforced 已封頂出價</div>
       <div class="value">23.3K</div>
-      <div class="sub">0 failures today</div>
+      <div class="sub">0 failures today 今日零失敗</div>
     </div>
   </div>
 
@@ -168,7 +186,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
       <div class="panel-body" style="padding:0;">
         <table class="health-table">
           <thead>
-            <tr><th>Brand</th><th>Market</th><th>TACOS</th><th>Target</th><th>Status</th></tr>
+            <tr><th>Brand 品牌</th><th>Market 市場</th><th>TACOS</th><th>Target 目標</th><th>Status 狀態</th></tr>
           </thead>
           <tbody>
             <tr>
@@ -251,80 +269,80 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
             <span class="action-priority p1">P1</span>
             <div class="action-content">
               <div class="action-brand">FLUX UK</div>
-              <div class="action-text">Monitor Rebalance V2 — 13 new campaigns + 133 paused</div>
-              <div class="action-why">65% SP spend was zero-order waste · massive reallocation live</div>
+              <div class="action-text">Monitor Rebalance V2 — 13 new campaigns + 133 paused<br>監控預算重分配 V2 — 13 個新活動 + 133 個已暫停</div>
+              <div class="action-why">65% SP spend was zero-order waste · massive reallocation live<br>65% SP 花費為零訂單浪費 · 大規模重分配進行中</div>
             </div>
           </li>
           <li class="action-item">
             <span class="action-priority p1">P1</span>
             <div class="action-content">
               <div class="action-brand">FLUX DE</div>
-              <div class="action-text">Avento €3,757 W5 explosion — monitor €208/day spring warmup</div>
-              <div class="action-why">Biggest growth moment across all brands · ride the wave</div>
+              <div class="action-text">Avento €3,757 W5 explosion — monitor €208/day spring warmup<br>Avento 第五週爆發 €3,757 — 監控每日 €208 春季預熱</div>
+              <div class="action-why">Biggest growth moment across all brands · ride the wave<br>全品牌最大成長時刻 · 乘勢而上</div>
             </div>
           </li>
           <li class="action-item">
             <span class="action-priority p1">P1</span>
             <div class="action-content">
               <div class="action-brand">DAIKEN US</div>
-              <div class="action-text">Kids Fish Oil stop-bleeding — verify bid caps, TACOS 124%</div>
-              <div class="action-why">-$4,527 over 5 weeks · budget cut 51.9% on 3/10</div>
+              <div class="action-text">Kids Fish Oil stop-bleeding — verify bid caps, TACOS 124%<br>兒童魚油止血 — 驗證出價封頂，TACOS 124%</div>
+              <div class="action-why">-$4,527 over 5 weeks · budget cut 51.9% on 3/10<br>5 週虧損 $4,527 · 3/10 預算砍 51.9%</div>
             </div>
           </li>
           <li class="action-item">
             <span class="action-priority p1">P1</span>
             <div class="action-content">
               <div class="action-brand">GEO US</div>
-              <div class="action-text">Finalize SBV strategy + launch AMC audiences (Option C)</div>
-              <div class="action-why">3 in-progress items blocking next growth phase</div>
+              <div class="action-text">Finalize SBV strategy + launch AMC audiences (Option C)<br>確定 SBV 策略 + 啟動 AMC 受眾（方案 C）</div>
+              <div class="action-why">3 in-progress items blocking next growth phase<br>3 項進行中任務阻礙下一階段成長</div>
             </div>
           </li>
           <li class="action-item">
             <span class="action-priority p2">P2</span>
             <div class="action-content">
               <div class="action-brand">FLUX AU</div>
-              <div class="action-text">48h check — 6,727 campaigns quadrant-adjusted + 14K bids capped</div>
-              <div class="action-why">Largest campaign count · verify Star lift after enforcement</div>
+              <div class="action-text">48h check — 6,727 campaigns quadrant-adjusted + 14K bids capped<br>48 小時確認 — 6,727 個活動象限調整 + 14K 出價封頂</div>
+              <div class="action-why">Largest campaign count · verify Star lift after enforcement<br>最大活動數量 · 驗證封頂後明星產品提升</div>
             </div>
           </li>
           <li class="action-item">
             <span class="action-priority p2">P2</span>
             <div class="action-content">
               <div class="action-brand">DBJ US</div>
-              <div class="action-text">Execute Market Basket Cross-Sell (13 defense + 11 conquest)</div>
-              <div class="action-why">5 strategy items idle · client waiting for execution</div>
+              <div class="action-text">Execute Market Basket Cross-Sell (13 defense + 11 conquest)<br>執行購物籃交叉銷售（13 防禦 + 11 攻擊）</div>
+              <div class="action-why">5 strategy items idle · client waiting for execution<br>5 項策略待執行 · 客戶等待中</div>
             </div>
           </li>
           <li class="action-item">
             <span class="action-priority p2">P2</span>
             <div class="action-content">
               <div class="action-brand">DBJ US</div>
-              <div class="action-text">Stale inventory price drops — 4 SKUs (17-24 days no sales)</div>
-              <div class="action-why">Revenue at risk · $1/week reduction protocol</div>
+              <div class="action-text">Stale inventory price drops — 4 SKUs (17-24 days no sales)<br>滯銷庫存降價 — 4 個 SKU（17-24 天無銷售）</div>
+              <div class="action-why">Revenue at risk · $1/week reduction protocol<br>營收風險 · 每週降 $1 協議</div>
             </div>
           </li>
           <li class="action-item">
             <span class="action-priority p2">P2</span>
             <div class="action-content">
               <div class="action-brand">BRAIN TEA US</div>
-              <div class="action-text">Scale Focus Tea +30% budget · lower Yerba Mate bids</div>
-              <div class="action-why">Star under-invested · Question needs tightening · sunset Loose Leaf</div>
+              <div class="action-text">Scale Focus Tea +30% budget · lower Yerba Mate bids<br>Focus Tea 加碼 30% 預算 · 調降 Yerba Mate 出價</div>
+              <div class="action-why">Star under-invested · Question needs tightening · sunset Loose Leaf<br>明星產品投入不足 · 待觀察需收緊 · 下架散茶</div>
             </div>
           </li>
           <li class="action-item">
             <span class="action-priority p3">P3</span>
             <div class="action-content">
               <div class="action-brand">ALL BRANDS</div>
-              <div class="action-text">W6 data import (3/8–3/14) due by 3/16</div>
-              <div class="action-why">Weekly reporting cadence · all brands need refresh</div>
+              <div class="action-text">W6 data import (3/8–3/14) due by 3/16<br>W6 數據匯入（3/8–3/14）截止 3/16</div>
+              <div class="action-why">Weekly reporting cadence · all brands need refresh<br>每週報告節奏 · 全品牌需更新</div>
             </div>
           </li>
           <li class="action-item">
             <span class="action-priority p3">P3</span>
             <div class="action-content">
               <div class="action-brand">FLUX UK/DE</div>
-              <div class="action-text">Spring Deal ~3/25 — campaigns warming up now</div>
-              <div class="action-why">Deal traffic surge coming · need campaigns primed and budgets ready</div>
+              <div class="action-text">Spring Deal ~3/25 — campaigns warming up now<br>春季促銷 ~3/25 — 活動預熱中</div>
+              <div class="action-why">Deal traffic surge coming · need campaigns primed and budgets ready<br>促銷流量即將湧入 · 活動需就緒、預算需到位</div>
             </div>
           </li>
         </ul>
@@ -341,7 +359,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
     <div class="panel-body" style="padding:0;">
       <table class="health-table">
         <thead>
-          <tr><th>Brand</th><th>Latest Action</th><th>Campaigns</th><th>Next Step</th><th>Phase</th></tr>
+          <tr><th>Brand 品牌</th><th>Latest Action 最新動作</th><th>Campaigns 活動數</th><th>Next Step 下一步</th><th>Phase 階段</th></tr>
         </thead>
         <tbody>
           <tr>
@@ -420,6 +438,169 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
             <td>—</td>
             <td>Onboarding</td>
             <td><span class="status-pill pill-gray">PENDING</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Scheduled Tasks & Automation -->
+  <div class="columns" style="margin-top:16px;">
+
+    <!-- Left: Automated Cron Jobs -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Scheduled Automation 排程自動化</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);font-weight:600;">4 active crons</div>
+      </div>
+      <div class="panel-body" style="padding:0;">
+        <table class="cron-table">
+          <thead>
+            <tr><th>Task 任務</th><th>Schedule 排程</th><th>Scope 範圍</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="cron-name">Bid Ceiling Guard 出價上限防護</div>
+                <div class="cron-desc">Scan all keywords/targets · cap anomalous bids · log violations<br>掃描所有關鍵字和目標 · 封頂異常出價 · 記錄違規</div>
+              </td>
+              <td><span class="cron-schedule">*/4h</span><br><span class="freq-pill freq-high">Every 4 hours</span></td>
+              <td class="cron-scope">DAIKEN · DBJ · GEO<br>Flux AU/UK/DE/US/CA</td>
+              <td><span class="cron-status cron-active">&#9679; ACTIVE</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="cron-name">Budget Pacing AM 預算進度追蹤（早）</div>
+                <div class="cron-desc">Pull SP campaign spend via API · compare to target budgets · inject pacing widget<br>透過 API 拉取 SP 活動花費 · 對比目標預算 · 注入進度追蹤</div>
+              </td>
+              <td><span class="cron-schedule">08:00</span><br><span class="freq-pill freq-daily">Daily</span></td>
+              <td class="cron-scope">All brands 全品牌</td>
+              <td><span class="cron-status cron-active">&#9679; ACTIVE</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="cron-name">Budget Pacing PM 預算進度追蹤（午）</div>
+                <div class="cron-desc">Second daily pacing check · catch afternoon overspend<br>當日第二次進度確認 · 防止下午超支</div>
+              </td>
+              <td><span class="cron-schedule">14:30</span><br><span class="freq-pill freq-daily">Daily</span></td>
+              <td class="cron-scope">All brands 全品牌</td>
+              <td><span class="cron-status cron-active">&#9679; ACTIVE</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="cron-name">Weekly Report Gen 週報自動產出</div>
+                <div class="cron-desc">Generate HTML dashboard + Excel · commit + deploy to Cloudflare<br>產出 HTML 看板 + Excel · 提交並部署至 Cloudflare</div>
+              </td>
+              <td><span class="cron-schedule">MON 09:00</span><br><span class="freq-pill freq-low">Weekly</span></td>
+              <td class="cron-scope">DAIKEN (pilot)</td>
+              <td><span class="cron-status cron-active">&#9679; ACTIVE</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Right: Safety & Risk Management -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Risk & Safety 風控安全機制</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">on-demand 隨時待命</div>
+      </div>
+      <div class="panel-body" style="padding:0;">
+        <table class="cron-table">
+          <thead>
+            <tr><th>Guard 防護</th><th>Trigger 觸發</th><th>Rules 規則</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="cron-name">Risk Checker Agent 風控檢查代理</div>
+                <div class="cron-desc">Validates all API ops before execution · HARD blocks + SOFT warnings<br>所有 API 操作執行前驗證 · 硬性阻擋 + 軟性警告</div>
+              </td>
+              <td><span class="freq-pill freq-high">Pre-execution</span></td>
+              <td class="cron-scope">Bid +20% max · -30% max<br>Budget +50% max<br>Max 200 bids/run<br>Max 50 pauses/run</td>
+              <td><span class="cron-status cron-active">&#9679; ARMED</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="cron-name">Bid Ceiling Audit 出價上限審計</div>
+                <div class="cron-desc">Full-scale audit across all profiles and marketplaces<br>跨所有 Profile 和市場的全面審計</div>
+              </td>
+              <td><span class="freq-pill freq-med">On-demand</span></td>
+              <td class="cron-scope">23 profiles<br>96,964 bids scanned</td>
+              <td><span class="cron-status cron-manual">&#9679; READY</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="cron-name">Pause Inactive 暫停無效活動</div>
+                <div class="cron-desc">30-day lookback · pause zero-impression + zero-sales campaigns<br>回溯 30 天 · 暫停零曝光且零銷售的活動</div>
+              </td>
+              <td><span class="freq-pill freq-med">On-demand</span></td>
+              <td class="cron-scope">Per-brand trigger<br>Spend threshold check</td>
+              <td><span class="cron-status cron-manual">&#9679; READY</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="cron-name">Emergency Bid Kill 緊急出價終止</div>
+                <div class="cron-desc">Instant pause for anomalous $250+ CPC bids detected<br>偵測到異常 $250+ CPC 出價時立即暫停</div>
+              </td>
+              <td><span class="freq-pill freq-high">Alert-triggered</span></td>
+              <td class="cron-scope">All brands 全品牌<br>Hard stop override</td>
+              <td><span class="cron-status cron-active">&#9679; ARMED</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /columns -->
+
+  <!-- Operational Reminders -->
+  <div class="panel" style="margin-bottom:16px;margin-top:16px;">
+    <div class="panel-header">
+      <div class="panel-title">Operational Rhythm 營運節奏</div>
+    </div>
+    <div class="panel-body" style="padding:0;">
+      <table class="cron-table">
+        <thead>
+          <tr><th>Cadence 頻率</th><th>Task 任務</th><th>Details 細節</th><th>Owner</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="freq-pill freq-high">Every 4h</span></td>
+            <td><div class="cron-name">Bid Ceiling Guard 出價防護</div></td>
+            <td class="cron-scope">Auto · 8 brands · 96K bids scanned · 0 tolerance<br>自動 · 8 品牌 · 掃描 96K 出價 · 零容忍</td>
+            <td class="cron-scope">Cron</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-daily">2x Daily</span></td>
+            <td><div class="cron-name">Budget Pacing 預算追蹤</div></td>
+            <td class="cron-scope">08:00 + 14:30 · API pull · overspend alert<br>早晚各一次 · API 拉取 · 超支警報</td>
+            <td class="cron-scope">Cron</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-low">Weekly</span></td>
+            <td><div class="cron-name">Dashboard Refresh 看板更新</div></td>
+            <td class="cron-scope">Monday · CSV import → HTML + Excel → deploy<br>每週一 · CSV 匯入 → HTML + Excel → 部署</td>
+            <td class="cron-scope">Cron + Manual</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-low">Weekly</span></td>
+            <td><div class="cron-name">Search Term Analysis 搜尋詞分析</div></td>
+            <td class="cron-scope">Negative KW harvest · high-CVR promotion · funnel review<br>否定詞收割 · 高轉換詞提升 · 漏斗檢視</td>
+            <td class="cron-scope">Manual</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-med">Bi-weekly</span></td>
+            <td><div class="cron-name">Quadrant Review 產品象限檢視</div></td>
+            <td class="cron-scope">Star/Question/Potential/Cut re-classification · budget realloc<br>明星/待觀察/潛力/止血 重新分類 · 預算重分配</td>
+            <td class="cron-scope">Manual</td>
+          </tr>
+          <tr>
+            <td><span class="freq-pill freq-med">Monthly</span></td>
+            <td><div class="cron-name">Strategy Review 策略檢討</div></td>
+            <td class="cron-scope">TACOS trend · competitive landscape · client report<br>TACOS 趨勢 · 競爭態勢 · 客戶報告</td>
+            <td class="cron-scope">Manual</td>
           </tr>
         </tbody>
       </table>
