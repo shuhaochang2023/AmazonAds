@@ -491,116 +491,111 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
     </div>
   </div>
 
-  <!-- Scheduled Tasks & Automation -->
-  <div class="columns" style="margin-top:16px;">
-
-    <!-- Left: Automated Cron Jobs -->
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title">Scheduled Automation 排程自動化</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);font-weight:600;">4 active crons</div>
-      </div>
-      <div class="panel-body" style="padding:0;">
-        <table class="cron-table">
-          <thead>
-            <tr><th>Task 任務</th><th>Schedule 排程</th><th>Scope 範圍</th><th>Status</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="cron-name">Bid Ceiling Guard 出價上限防護</div>
-                <div class="cron-desc">Scan all keywords/targets · cap anomalous bids · log violations<br>掃描所有關鍵字和目標 · 封頂異常出價 · 記錄違規</div>
-              </td>
-              <td><span class="cron-schedule">*/4h</span><br><span class="freq-pill freq-high">Every 4 hours</span></td>
-              <td class="cron-scope">DAIKEN · DBJ · GEO<br>Flux AU/UK/DE/US/CA</td>
-              <td><span class="cron-status cron-active">&#9679; ACTIVE</span></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="cron-name">Budget Pacing AM 預算進度追蹤（早）</div>
-                <div class="cron-desc">Pull SP campaign spend via API · compare to target budgets · inject pacing widget<br>透過 API 拉取 SP 活動花費 · 對比目標預算 · 注入進度追蹤</div>
-              </td>
-              <td><span class="cron-schedule">08:00</span><br><span class="freq-pill freq-daily">Daily</span></td>
-              <td class="cron-scope">All brands 全品牌</td>
-              <td><span class="cron-status cron-active">&#9679; ACTIVE</span></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="cron-name">Budget Pacing PM 預算進度追蹤（午）</div>
-                <div class="cron-desc">Second daily pacing check · catch afternoon overspend<br>當日第二次進度確認 · 防止下午超支</div>
-              </td>
-              <td><span class="cron-schedule">14:30</span><br><span class="freq-pill freq-daily">Daily</span></td>
-              <td class="cron-scope">All brands 全品牌</td>
-              <td><span class="cron-status cron-active">&#9679; ACTIVE</span></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="cron-name">Weekly Report Gen 週報自動產出</div>
-                <div class="cron-desc">Generate HTML dashboard + Excel · commit + deploy to Cloudflare<br>產出 HTML 看板 + Excel · 提交並部署至 Cloudflare</div>
-              </td>
-              <td><span class="cron-schedule">MON 09:00</span><br><span class="freq-pill freq-low">Weekly</span></td>
-              <td class="cron-scope">DAIKEN (pilot)</td>
-              <td><span class="cron-status cron-active">&#9679; ACTIVE</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <!-- Scheduled Automation -->
+  <div class="panel" style="margin-top:16px;margin-bottom:16px;">
+    <div class="panel-header">
+      <div class="panel-title">Scheduled Automation 排程自動化</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);font-weight:600;">4 active crons</div>
     </div>
-
-    <!-- Right: Safety & Risk Management -->
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title">Risk & Safety 風控安全機制</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">on-demand 隨時待命</div>
-      </div>
-      <div class="panel-body" style="padding:0;">
-        <table class="cron-table">
-          <thead>
-            <tr><th>Guard 防護</th><th>Trigger 觸發</th><th>Rules 規則</th><th>Status</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="cron-name">Risk Checker Agent 風控檢查代理</div>
-                <div class="cron-desc">Validates all API ops before execution · HARD blocks + SOFT warnings<br>所有 API 操作執行前驗證 · 硬性阻擋 + 軟性警告</div>
-              </td>
-              <td><span class="freq-pill freq-high">Pre-execution</span></td>
-              <td class="cron-scope">Bid +20% max · -30% max<br>Budget +50% max<br>Max 200 bids/run<br>Max 50 pauses/run</td>
-              <td><span class="cron-status cron-active">&#9679; ARMED</span></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="cron-name">Bid Ceiling Audit 出價上限審計</div>
-                <div class="cron-desc">Full-scale audit across all profiles and marketplaces<br>跨所有 Profile 和市場的全面審計</div>
-              </td>
-              <td><span class="freq-pill freq-med">On-demand</span></td>
-              <td class="cron-scope">23 profiles<br>96,964 bids scanned</td>
-              <td><span class="cron-status cron-manual">&#9679; READY</span></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="cron-name">Pause Inactive 暫停無效活動</div>
-                <div class="cron-desc">30-day lookback · pause zero-impression + zero-sales campaigns<br>回溯 30 天 · 暫停零曝光且零銷售的活動</div>
-              </td>
-              <td><span class="freq-pill freq-med">On-demand</span></td>
-              <td class="cron-scope">Per-brand trigger<br>Spend threshold check</td>
-              <td><span class="cron-status cron-manual">&#9679; READY</span></td>
-            </tr>
-            <tr>
-              <td>
-                <div class="cron-name">Emergency Bid Kill 緊急出價終止</div>
-                <div class="cron-desc">Instant pause for anomalous $5 CPC bids detected<br>偵測到異常 $5 CPC 出價時立即暫停</div>
-              </td>
-              <td><span class="freq-pill freq-high">Alert-triggered</span></td>
-              <td class="cron-scope">All brands 全品牌<br>Hard stop override</td>
-              <td><span class="cron-status cron-active">&#9679; ARMED</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="panel-body" style="padding:0;">
+      <table class="cron-table">
+        <thead>
+          <tr><th>Task 任務</th><th>Schedule 排程</th><th>Scope 範圍</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="cron-name">Bid Ceiling Guard 出價上限防護</div>
+              <div class="cron-desc">Scan all keywords/targets · cap anomalous bids · log violations<br>掃描所有關鍵字和目標 · 封頂異常出價 · 記錄違規</div>
+            </td>
+            <td><span class="cron-schedule">*/4h</span><br><span class="freq-pill freq-high">Every 4 hours</span></td>
+            <td class="cron-scope">DAIKEN · DBJ · GEO<br>Flux AU/UK/DE/US/CA</td>
+            <td><span class="cron-status cron-active">&#9679; ACTIVE</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="cron-name">Budget Pacing AM 預算進度追蹤（早）</div>
+              <div class="cron-desc">Pull SP campaign spend via API · compare to target budgets · inject pacing widget<br>透過 API 拉取 SP 活動花費 · 對比目標預算 · 注入進度追蹤</div>
+            </td>
+            <td><span class="cron-schedule">08:00</span><br><span class="freq-pill freq-daily">Daily</span></td>
+            <td class="cron-scope">All brands 全品牌</td>
+            <td><span class="cron-status cron-active">&#9679; ACTIVE</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="cron-name">Budget Pacing PM 預算進度追蹤（午）</div>
+              <div class="cron-desc">Second daily pacing check · catch afternoon overspend<br>當日第二次進度確認 · 防止下午超支</div>
+            </td>
+            <td><span class="cron-schedule">14:30</span><br><span class="freq-pill freq-daily">Daily</span></td>
+            <td class="cron-scope">All brands 全品牌</td>
+            <td><span class="cron-status cron-active">&#9679; ACTIVE</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="cron-name">Weekly Report Gen 週報自動產出</div>
+              <div class="cron-desc">Generate HTML dashboard + Excel · commit + deploy to Cloudflare<br>產出 HTML 看板 + Excel · 提交並部署至 Cloudflare</div>
+            </td>
+            <td><span class="cron-schedule">MON 09:00</span><br><span class="freq-pill freq-low">Weekly</span></td>
+            <td class="cron-scope">DAIKEN (pilot)</td>
+            <td><span class="cron-status cron-active">&#9679; ACTIVE</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 
-  </div><!-- /columns -->
+  <!-- Risk & Safety -->
+  <div class="panel" style="margin-bottom:16px;">
+    <div class="panel-header">
+      <div class="panel-title">Risk & Safety 風控安全機制</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">on-demand 隨時待命</div>
+    </div>
+    <div class="panel-body" style="padding:0;">
+      <table class="cron-table">
+        <thead>
+          <tr><th>Guard 防護</th><th>Trigger 觸發</th><th>Rules 規則</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="cron-name">Risk Checker Agent 風控檢查代理</div>
+              <div class="cron-desc">Validates all API ops before execution · HARD blocks + SOFT warnings<br>所有 API 操作執行前驗證 · 硬性阻擋 + 軟性警告</div>
+            </td>
+            <td><span class="freq-pill freq-high">Pre-execution</span></td>
+            <td class="cron-scope">Bid +20% max · -30% max<br>Budget +50% max<br>Max 200 bids/run<br>Max 50 pauses/run</td>
+            <td><span class="cron-status cron-active">&#9679; ARMED</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="cron-name">Bid Ceiling Audit 出價上限審計</div>
+              <div class="cron-desc">Full-scale audit across all profiles and marketplaces<br>跨所有 Profile 和市場的全面審計</div>
+            </td>
+            <td><span class="freq-pill freq-med">On-demand</span></td>
+            <td class="cron-scope">23 profiles<br>96,964 bids scanned</td>
+            <td><span class="cron-status cron-manual">&#9679; READY</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="cron-name">Pause Inactive 暫停無效活動</div>
+              <div class="cron-desc">30-day lookback · pause zero-impression + zero-sales campaigns<br>回溯 30 天 · 暫停零曝光且零銷售的活動</div>
+            </td>
+            <td><span class="freq-pill freq-med">On-demand</span></td>
+            <td class="cron-scope">Per-brand trigger<br>Spend threshold check</td>
+            <td><span class="cron-status cron-manual">&#9679; READY</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="cron-name">Emergency Bid Kill 緊急出價終止</div>
+              <div class="cron-desc">Instant pause for anomalous $5 CPC bids detected<br>偵測到異常 $5 CPC 出價時立即暫停</div>
+            </td>
+            <td><span class="freq-pill freq-high">Alert-triggered</span></td>
+            <td class="cron-scope">All brands 全品牌<br>Hard stop override</td>
+            <td><span class="cron-status cron-active">&#9679; ARMED</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
   <!-- Operational Reminders -->
   <div class="panel" style="margin-bottom:16px;margin-top:16px;">
