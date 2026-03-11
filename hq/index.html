@@ -3,35 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HQ Cockpit — Amazon Autopilot</title>
+<title>HQ — Amazon Autopilot</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --bg:#0b1120;--surface:#111827;--border:#1e293b;--text:#e2e8f0;--dim:#64748b;--accent:#3b82f6;
-  --green:#22c55e;--yellow:#eab308;--red:#ef4444;--orange:#f97316;--cyan:#06b6d4;
+  --bg:#f1f5f9;--surface:#ffffff;--border:#e2e8f0;--text:#0f172a;--dim:#64748b;--accent:#3b82f6;
+  --green:#16a34a;--yellow:#ca8a04;--red:#dc2626;--orange:#ea580c;--cyan:#0891b2;
+  --text2:#334155;--text3:#94a3b8;
 }
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:28px;}
 .cockpit{max-width:1200px;margin:0 auto;}
 
 /* Header */
 .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--border);}
-.header-left{display:flex;align-items:center;gap:12px;}
-.hq-badge{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;background:var(--accent);color:#fff;padding:3px 8px;border-radius:4px;letter-spacing:.05em;}
-.hq-title{font-size:20px;font-weight:800;color:#fff;}
-.hq-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);}
+.header-left{display:flex;align-items:center;gap:14px;}
+.hq-badge{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;background:var(--accent);color:#fff;padding:4px 10px;border-radius:5px;letter-spacing:.05em;}
+.hq-title{font-size:26px;font-weight:800;color:var(--text);}
+.hq-sub{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);}
 .header-right{text-align:right;}
-.date{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);}
-.pulse-live{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--green);font-weight:600;}
-.pulse-live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease-in-out infinite;}
+.date{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--dim);}
+.pulse-live{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);font-weight:600;}
+.pulse-live::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
 /* Scorecard Row */
-.scorecard{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px;}
-.score-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-align:center;}
-.score-card .label{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
-.score-card .value{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:800;color:#fff;}
-.score-card .sub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-top:4px;}
+.scorecard{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px;}
+.score-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;text-align:center;}
+.score-card .label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+.score-card .value{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:800;color:var(--text);}
+.score-card .sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);margin-top:4px;}
 .score-card.green .value{color:var(--green);}
 .score-card.yellow .value{color:var(--yellow);}
 .score-card.red .value{color:var(--red);}
@@ -42,52 +43,52 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 
 /* Panel */
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
-.panel-header{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.panel-title{font-size:11px;font-weight:700;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;}
-.panel-body{padding:12px 16px;}
+.panel-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.panel-title{font-size:13px;font-weight:700;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;}
+.panel-body{padding:14px 18px;}
 
 /* Health Table */
 .health-table{width:100%;border-collapse:collapse;}
-.health-table th{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;color:var(--dim);text-align:left;padding:6px 8px;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--border);}
-.health-table td{font-family:'JetBrains Mono',monospace;font-size:11px;padding:8px 8px;border-bottom:1px solid rgba(30,41,59,.5);vertical-align:middle;}
+.health-table th{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--dim);text-align:left;padding:8px 10px;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.health-table td{font-family:'JetBrains Mono',monospace;font-size:13px;padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:middle;}
 .health-table tr:last-child td{border-bottom:none;}
 .health-table a{color:var(--accent);text-decoration:none;font-weight:600;}
 .health-table a:hover{text-decoration:underline;}
-.tacos-bar{display:inline-block;height:4px;border-radius:2px;min-width:8px;vertical-align:middle;margin-right:6px;}
-.status-pill{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;letter-spacing:.03em;white-space:nowrap;}
-.pill-green{background:rgba(34,197,94,.15);color:var(--green);}
-.pill-yellow{background:rgba(234,179,8,.15);color:var(--yellow);}
-.pill-red{background:rgba(239,68,68,.15);color:var(--red);}
-.pill-blue{background:rgba(59,130,246,.15);color:var(--accent);}
-.pill-gray{background:rgba(100,116,139,.15);color:var(--dim);}
+.tacos-bar{display:inline-block;height:5px;border-radius:2px;min-width:8px;vertical-align:middle;margin-right:6px;}
+.status-pill{font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:.03em;white-space:nowrap;}
+.pill-green{background:rgba(22,163,74,.1);color:var(--green);}
+.pill-yellow{background:rgba(202,138,4,.1);color:var(--yellow);}
+.pill-red{background:rgba(220,38,38,.1);color:var(--red);}
+.pill-blue{background:rgba(59,130,246,.1);color:var(--accent);}
+.pill-gray{background:rgba(100,116,139,.1);color:var(--dim);}
 
 /* Action Items */
 .action-list{list-style:none;}
-.action-item{padding:10px 0;border-bottom:1px solid rgba(30,41,59,.5);display:flex;gap:10px;align-items:flex-start;}
+.action-item{padding:12px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start;}
 .action-item:last-child{border-bottom:none;}
-.action-priority{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:2px;}
-.p1{background:rgba(239,68,68,.15);color:var(--red);}
-.p2{background:rgba(234,179,8,.15);color:var(--yellow);}
-.p3{background:rgba(59,130,246,.15);color:var(--accent);}
+.action-priority{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0;margin-top:2px;}
+.p1{background:rgba(220,38,38,.1);color:var(--red);}
+.p2{background:rgba(202,138,4,.1);color:var(--yellow);}
+.p3{background:rgba(59,130,246,.1);color:var(--accent);}
 .action-content{flex:1;}
-.action-brand{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;color:var(--cyan);margin-bottom:2px;}
-.action-text{font-size:12px;color:var(--text);line-height:1.4;}
-.action-why{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-top:2px;}
+.action-brand{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--cyan);margin-bottom:3px;}
+.action-text{font-size:14px;color:var(--text);line-height:1.5;}
+.action-why{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);margin-top:3px;}
 
 /* Brand nav */
 .brand-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
-.brand-chip{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;padding:5px 12px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);text-decoration:none;transition:all .15s;}
+.brand-chip{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:6px 14px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);text-decoration:none;transition:all .15s;}
 .brand-chip:hover{border-color:var(--accent);color:var(--accent);}
-.brand-chip .chip-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:6px;}
+.brand-chip .chip-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;}
 
 /* Bid Enforcement */
-.enforce-bar{display:flex;align-items:center;gap:12px;padding:10px 16px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.15);border-radius:8px;margin-bottom:20px;}
-.enforce-bar .icon{font-size:14px;}
-.enforce-bar .text{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--green);line-height:1.4;}
-.enforce-bar .text strong{color:#fff;}
+.enforce-bar{display:flex;align-items:center;gap:12px;padding:12px 18px;background:rgba(22,163,74,.06);border:1px solid rgba(22,163,74,.15);border-radius:8px;margin-bottom:20px;}
+.enforce-bar .icon{font-size:16px;}
+.enforce-bar .text{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);line-height:1.4;}
+.enforce-bar .text strong{color:var(--text);}
 
 /* Footer */
-.footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--border);text-align:center;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);}
+.footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--border);text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);}
 </style>
 </head>
 <body>
@@ -98,8 +99,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
     <div class="header-left">
       <span class="hq-badge">HQ</span>
       <div>
-        <div class="hq-title">Cockpit</div>
-        <div class="hq-sub">Amazon Autopilot Command Center</div>
+        <div class="hq-title">Amazon Autopilot</div>
       </div>
     </div>
     <div class="header-right">
@@ -163,7 +163,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">Account Health 帳戶健康</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);">W5 data</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">W5 data</div>
       </div>
       <div class="panel-body" style="padding:0;">
         <table class="health-table">
@@ -243,7 +243,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">Today's Actions 今日待辦</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);">P1=urgent P2=this week P3=prep</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">P1=urgent P2=this week P3=prep</div>
       </div>
       <div class="panel-body" style="padding:8px 16px;">
         <ul class="action-list">
@@ -427,7 +427,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   </div>
 
   <div class="footer">
-    HQ Cockpit · Amazon Autopilot · SNIPER Mastermind · Last scan: 2026-03-11 07:50
+    HQ · Amazon Autopilot · SNIPER Mastermind · Last scan: 2026-03-11 07:50
   </div>
 
 </div>
