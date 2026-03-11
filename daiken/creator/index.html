@@ -41,15 +41,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 .benefit-sub{font-size:11px;color:var(--text2);}
 
 /* Scene cards */
-.scene{display:grid;grid-template-columns:260px 1fr;gap:0;margin-bottom:16px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.scene{display:grid;grid-template-columns:280px 1fr;gap:0;margin-bottom:16px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05);}
 @media(max-width:768px){.scene{grid-template-columns:1fr;}}
-.scene-visual{padding:28px 24px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#fff;}
+.scene-visual{padding:20px 20px 16px;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;text-align:center;color:#fff;}
 .scene-visual.blue{background:linear-gradient(135deg,#1e3a5f,#2563eb);}
 .scene-visual.green{background:linear-gradient(135deg,#0d4a2e,#16a34a);}
-.scene-emoji{font-size:48px;margin-bottom:10px;}
-.scene-dir-label{font-family:var(--mono);font-size:10px;opacity:.7;margin-bottom:4px;}
-.scene-dir{font-size:14px;font-weight:600;line-height:1.4;}
-.scene-angle{margin-top:10px;font-size:10px;opacity:.6;font-family:var(--mono);}
+.scene-ref-img{width:100%;height:140px;object-fit:cover;border-radius:6px;margin-bottom:12px;border:2px solid rgba(255,255,255,.2);}
+.scene-emoji{font-size:32px;margin-bottom:6px;}
+.scene-dir-label{font-family:var(--mono);font-size:9px;opacity:.7;margin-bottom:4px;text-transform:uppercase;letter-spacing:.08em;}
+.scene-dir{font-size:12px;font-weight:600;line-height:1.4;}
+.scene-angle{margin-top:8px;font-size:10px;opacity:.6;font-family:var(--mono);}
+.scene-ref-caption{font-size:9px;opacity:.5;font-family:var(--mono);margin-top:6px;font-style:italic;}
 .scene-body{padding:24px;}
 .scene-time{font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:3px;font-weight:600;display:inline-block;}
 .scene-time.blue{background:rgba(37,99,235,.1);color:var(--accent);}
@@ -132,10 +134,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 
     <div class="scene">
       <div class="scene-visual blue">
-        <div class="scene-emoji">📦</div>
+        <img class="scene-ref-img" src="https://images.unsplash.com/photo-1613996185474-65ad40bb8b3c?w=600&auto=format&fit=crop&q=80" alt="Reference: Opening a delivery box">
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Medium shot of you holding or receiving the sealed package</div>
         <div class="scene-angle">Eye-level / slightly above</div>
+        <div class="scene-ref-caption">Reference image — yours should feature YOU + the Daiken box</div>
       </div>
       <div class="scene-body">
         <span class="scene-time blue">0:00 – 0:08</span><span class="scene-title">Opening Hook</span>
@@ -149,10 +152,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 
     <div class="scene">
       <div class="scene-visual blue">
-        <div class="scene-emoji">🎁</div>
+        <img class="scene-ref-img" src="https://images.unsplash.com/photo-1577401132921-cb39bb0adcff?w=600&auto=format&fit=crop&q=80" alt="Reference: Blister pack supplements">
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Close-up on hands opening the box. Show the packaging, then pull out blister packs. Hold a single gummy to camera.</div>
         <div class="scene-angle">Top-down + close-up combo</div>
+        <div class="scene-ref-caption">Show the blister packs like this — individually sealed</div>
       </div>
       <div class="scene-body">
         <span class="scene-time blue">0:08 – 0:25</span><span class="scene-title">The Unboxing</span>
@@ -166,10 +170,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 
     <div class="scene">
       <div class="scene-visual blue">
-        <div class="scene-emoji">👃</div>
+        <img class="scene-ref-img" src="https://images.unsplash.com/photo-1585990470300-93963c55dfaf?w=600&auto=format&fit=crop&q=80" alt="Reference: Smelling food">
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Medium shot — bring the gummy to your nose. Show genuine reaction. If your kid is there, let them smell it too.</div>
         <div class="scene-angle">Capture the surprise moment</div>
+        <div class="scene-ref-caption">The "no fishy smell" reaction is key</div>
       </div>
       <div class="scene-body">
         <span class="scene-time blue">0:25 – 0:40</span><span class="scene-title">First Impressions & Smell Test</span>
@@ -183,10 +188,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 
     <div class="scene">
       <div class="scene-visual blue">
-        <div class="scene-emoji">😋</div>
+        <img class="scene-ref-img" src="https://images.unsplash.com/photo-1477413114673-6708cad13418?w=600&auto=format&fit=crop&q=80" alt="Reference: Kid eating happily">
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Show kid trying the gummy. Capture their honest reaction — thumbs up, asking for more, big smile.</div>
         <div class="scene-angle">Kid close-up is the money shot</div>
+        <div class="scene-ref-caption">Genuine kid reactions sell — let them be natural</div>
       </div>
       <div class="scene-body">
         <span class="scene-time blue">0:40 – 0:52</span><span class="scene-title">The Kid Test / Taste Moment</span>
@@ -200,10 +206,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 
     <div class="scene">
       <div class="scene-visual blue">
-        <div class="scene-emoji">🗣️</div>
+        <img class="scene-ref-img" src="https://images.unsplash.com/photo-1691050769649-390293697deb?w=600&auto=format&fit=crop&q=80" alt="Reference: Talking to camera at home">
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Medium shot talking to camera. Product visible on table or in hand. Warm, genuine wrap-up.</div>
         <div class="scene-angle">Eye contact + clear CTA</div>
+        <div class="scene-ref-caption">Keep the product in frame during your closing</div>
       </div>
       <div class="scene-body">
         <span class="scene-time blue">0:52 – 1:00</span><span class="scene-title">Closing & Call to Action</span>
@@ -227,10 +234,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 
     <div class="scene">
       <div class="scene-visual green">
-        <div class="scene-emoji">🔍</div>
+        <img class="scene-ref-img" src="https://images.unsplash.com/photo-1613996185474-65ad40bb8b3c?w=600&auto=format&fit=crop&q=80" alt="Reference: Package on table ready to open">
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Medium shot with the sealed package in front of you. Curious, investigative energy.</div>
         <div class="scene-angle">Set the "let's find out" tone</div>
+        <div class="scene-ref-caption">Package visible, you in frame — investigative vibe</div>
       </div>
       <div class="scene-body">
         <span class="scene-time green">0:00 – 0:08</span><span class="scene-title">Opening Hook</span>
@@ -244,10 +252,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 
     <div class="scene">
       <div class="scene-visual green">
-        <div class="scene-emoji">🏷️</div>
+        <img class="scene-ref-img" src="https://images.unsplash.com/photo-1666402667676-a273d65cdc42?w=600&auto=format&fit=crop&q=80" alt="Reference: Reading nutrition label">
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Close-up on the back of the box. Zoom in on the nutrition facts panel. Point at key numbers as you read them.</div>
         <div class="scene-angle">Label should be readable on screen</div>
+        <div class="scene-ref-caption">Zoom in so viewers can read the label with you</div>
       </div>
       <div class="scene-body">
         <span class="scene-time green">0:08 – 0:30</span><span class="scene-title">The Unboxing & Label Deep-Dive</span>
@@ -265,10 +274,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 
     <div class="scene">
       <div class="scene-visual green">
-        <div class="scene-emoji">✅</div>
+        <img class="scene-ref-img" src="https://images.unsplash.com/photo-1565906278421-045546dae23a?w=600&auto=format&fit=crop&q=80" alt="Reference: Child tasting food">
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Smell test close-up, then taste test. If kid is present, capture their honest reaction — thumbs up or asking for another.</div>
         <div class="scene-angle">Real reactions only</div>
+        <div class="scene-ref-caption">Smell it first, then the taste test</div>
       </div>
       <div class="scene-body">
         <span class="scene-time green">0:30 – 0:45</span><span class="scene-title">The Sensory Check</span>
@@ -282,10 +292,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 
     <div class="scene">
       <div class="scene-visual green">
-        <div class="scene-emoji">💬</div>
+        <img class="scene-ref-img" src="https://images.unsplash.com/photo-1691050769649-390293697deb?w=600&auto=format&fit=crop&q=80" alt="Reference: Talking to camera">
         <div class="scene-dir-label">SHOT DIRECTION</div>
         <div class="scene-dir">Talking head with product visible. Honest verdict energy — like a product review from a friend.</div>
         <div class="scene-angle">Trustworthy close</div>
+        <div class="scene-ref-caption">Wrap up with product in frame — honest recommendation</div>
       </div>
       <div class="scene-body">
         <span class="scene-time green">0:45 – 1:00</span><span class="scene-title">Parent Verdict & Call to Action</span>
