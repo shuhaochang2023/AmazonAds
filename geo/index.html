@@ -48,6 +48,11 @@ tbody td:first-child{text-align:left;font-family:var(--body);font-size:13px;}
 .muted{color:var(--text3);}
 .sec-header{font-family:var(--display);font-size:13px;font-weight:700;color:var(--text2);letter-spacing:.04em;text-transform:uppercase;padding:16px 0 10px;border-bottom:1px solid var(--border);margin-bottom:12px;}
 .tacos-ok{color:var(--green);}.tacos-warn{color:var(--amber);}.tacos-bad{color:var(--red);}
+/* Details arrow rotation */
+details summary .log-arrow{transition:transform .2s;}
+details[open] summary .log-arrow{transform:rotate(90deg);}
+details summary{list-style:none;}
+details summary::-webkit-details-marker{display:none;}
 /* Parent row toggle */
 .parent-row{cursor:pointer;user-select:none;}
 .parent-row:hover td{background:rgba(15,23,42,.03);}
@@ -117,517 +122,287 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
 <!-- TAB 0 — Executive Summary -->
 <div id="t0" class="panel active">
   <div style="margin-bottom:20px">
-    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">EXECUTIVE SUMMARY · 2026 年 3 月 11 日更新</div>
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:4px;flex-wrap:wrap"><div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display)">Geometric Future · 執行摘要</div><a href="./20260308_GEO_US_Feb-Mar_2026.xlsx" download="20260308_GEO_US_Feb-Mar_2026.xlsx" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:#16a34a;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;font-family:Inter,sans-serif">⬇ Weekly Report Excel</a><a href="./GEO_ASIN_Targeting_Strategy_20260310.xlsx" download="GEO_ASIN_Targeting_Strategy_20260310.xlsx" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:#2563eb;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;font-family:Inter,sans-serif">⬇ ASIN Targeting Strategy</a></div>
-    <div style="font-size:12px;color:var(--text3)">US Market Feb–Mar 2026 週報 · 10 產品線 · SP+SD+SB · TACOS ≤10%</div>
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">EXECUTIVE SUMMARY · 2026 年 3 月 11 日 11:00 更新</div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:4px;flex-wrap:wrap">
+      <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display)">Geometric Future · 帳戶簡報</div>
+      <a href="./20260308_GEO_US_Feb-Mar_2026.xlsx" download="20260308_GEO_US_Feb-Mar_2026.xlsx" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:#16a34a;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;font-family:Inter,sans-serif">⬇ 週報 Weekly Report Excel</a>
+      <a href="./GEO_ASIN_Targeting_Strategy_20260310.xlsx" download="GEO_ASIN_Targeting_Strategy_20260310.xlsx" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:#2563eb;color:#fff;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;font-family:Inter,sans-serif">⬇ ASIN Targeting 策略表</a>
+    </div>
+    <div style="font-size:12px;color:var(--text3)">美國市場 Feb–Mar 2026 · 10 產品線 · SP + SD + SB · TACOS 目標 ≤10%</div>
   </div>
 
-  <!-- ═══ 3/11 SESSION SUMMARY ═══ -->
-  <div style="background:linear-gradient(135deg,rgba(37,99,235,.04),rgba(22,163,74,.04));border:2px solid var(--accent);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(37,99,235,.1)">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:3px 10px;border-radius:4px;font-weight:700;font-family:var(--mono)">3/11 SESSION</span>
-      <span style="font-family:var(--display);font-size:16px;font-weight:800;color:var(--accent)">今日執行成果 Today's Actions Summary</span>
-      <span style="font-size:10px;background:var(--green);color:#fff;padding:3px 8px;border-radius:4px;font-weight:700;font-family:var(--mono);margin-left:auto">+9 NEW CAMPAIGNS</span>
+  <!-- ═══ 帳戶概覽 KPI 卡片 ═══ -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px;box-shadow:0 1px 5px rgba(0,0,0,.06)">
+    <div style="background:var(--bg2);padding:18px 22px;text-align:center">
+      <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;font-family:var(--mono)">任務進度</div>
+      <div style="font-family:var(--mono);font-size:26px;font-weight:800;color:var(--accent)">8 / 10</div>
+      <div style="font-size:11px;color:var(--green);margin-top:4px;font-weight:600">已完成 80%</div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px">
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center">
-        <div style="font-family:var(--mono);font-size:22px;font-weight:800;color:var(--accent)">8 / 10</div>
-        <div style="font-size:11px;color:var(--text2);margin-top:4px">任務完成 Tasks Completed</div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center">
-        <div style="font-family:var(--mono);font-size:22px;font-weight:800;color:var(--green)">$58/day</div>
-        <div style="font-size:11px;color:var(--text2);margin-top:4px">新增廣告投資 New Daily Spend</div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center">
-        <div style="font-family:var(--mono);font-size:22px;font-weight:800;color:var(--green)">37</div>
-        <div style="font-size:11px;color:var(--text2);margin-top:4px">全部活躍 Campaigns Total Active</div>
-      </div>
+    <div style="background:var(--bg2);padding:18px 22px;text-align:center">
+      <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;font-family:var(--mono)">新增每日投資</div>
+      <div style="font-family:var(--mono);font-size:26px;font-weight:800;color:var(--green)">$58</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px">SP $43 + SD $15</div>
     </div>
-    <div style="font-size:12px;color:var(--text2);line-height:1.9">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div>
-          <strong style="color:var(--green)">今日新建 Created Today:</strong><br>
-          &nbsp;&nbsp;• <strong>B2B SP Auto × 3</strong> — Amazon Business 專屬，$15/day<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;M5F Case · Eskimo Pro · S2503 Fan 3pk<br>
-          &nbsp;&nbsp;• <strong>SD Audience Conquest × 3</strong> — 競品攔截，$15/day<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;HYTE / Corsair / Lian Li / NZXT / ARCTIC 等高端品牌<br>
-          &nbsp;&nbsp;• <strong>ASIN Targeting SP × 28</strong> — 品牌防禦 + 競品進攻，$28/day<br>
-          &nbsp;&nbsp;• <strong>Growth Hack Skills × 9</strong> — 3M 成長策略研究完成
-        </div>
-        <div>
-          <strong style="color:var(--accent)">廣告架構一覽 Campaign Architecture:</strong><br>
-          &nbsp;&nbsp;• <strong>SP Auto</strong> — 核心自動投放（含 B2B 專屬 3 組）<br>
-          &nbsp;&nbsp;• <strong>SP Manual</strong> — 搜尋詞驅動的精準投放<br>
-          &nbsp;&nbsp;• <strong>SP ASIN Targeting</strong> — 28 組品牌防禦 + 競品進攻<br>
-          &nbsp;&nbsp;• <strong>SD Audience</strong> — 3 組競品攔截 + 類別瀏覽者<br>
-          &nbsp;&nbsp;• <strong>SB / BTP</strong> — 品牌廣告 + 品牌促銷持續運行<br>
-          &nbsp;&nbsp;• <strong>SBV</strong> — 影音廣告素材準備中（#7 待完成）
-        </div>
-      </div>
+    <div style="background:var(--bg2);padding:18px 22px;text-align:center">
+      <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;font-family:var(--mono)">本週新建 Campaigns</div>
+      <div style="font-family:var(--mono);font-size:26px;font-weight:800;color:var(--green)">37</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px">SP 31 + SD 3 + B2B 3</div>
+    </div>
+    <div style="background:var(--bg2);padding:18px 22px;text-align:center">
+      <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;font-family:var(--mono)">Bid 上限</div>
+      <div style="font-family:var(--mono);font-size:26px;font-weight:800;color:var(--text)">$0.21</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px">DOWN_ONLY 策略</div>
     </div>
   </div>
 
-  <!-- ═══ GEO MASTER TASK LIST ═══ -->
-  <details open style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
-    <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
-      <span style="font-size:14px;transition:transform .2s;display:inline-block" class="log-arrow">&#9654;</span>
-      <span>待辦事項總表 GEO Master Task List</span>
-      <span style="font-size:10px;background:var(--green);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">8 / 10 完成</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Updated 3/11</span>
+  <!-- ═══ 3/11 簡報 BRIEF ═══ -->
+  <details open style="background:linear-gradient(135deg,rgba(37,99,235,.03),rgba(22,163,74,.03));border:2px solid var(--accent);border-radius:10px;margin-bottom:14px;box-shadow:0 2px 8px rgba(37,99,235,.08)">
+    <summary style="padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent)">
+      <span class="log-arrow" style="font-size:14px;display:inline-block">&#9654;</span>
+      <span>3/11 帳戶簡報 Daily Brief</span>
+      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">今日重點</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">11:00 AM</span>
     </summary>
-    <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
-
-      <!-- ── ✅ COMPLETED 已完成 ── -->
-      <div style="font-size:11px;font-weight:800;color:var(--green);font-family:var(--mono);margin:12px 0 10px;letter-spacing:.05em;text-transform:uppercase">Completed 已完成 — 8 項</div>
-
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:14px">
-        <div style="font-weight:800;color:var(--green);font-size:12px;font-family:var(--mono);margin-bottom:4px">#1 創作者聯盟行銷 Creator Connections</div>
-        <div style="color:var(--text2)">
-          &nbsp;&nbsp;• <strong>第一期（已結案）</strong>：182 位創作者接受 · 38 筆訂單 · $4,958 銷售 · 463 次點擊 · ROI 10:1<br>
-          &nbsp;&nbsp;• <strong>第二期（進行中）</strong>：142 位已接受 · $5,000 預算 · 新增水冷產品類別 · 2026/3/10 啟動<br>
-          &nbsp;&nbsp;• 活躍創作者：Adnan Reviews · Suzette Fairbank · Storm Allan · TheGunSnob 等
+    <div style="padding:4px 18px 18px;font-size:12.5px;line-height:1.9;color:var(--text2)">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px">
+        <div>
+          <div style="font-weight:800;color:var(--green);margin-bottom:6px;font-size:13px">今日已執行</div>
+          <div style="border-left:3px solid var(--green);padding-left:12px;margin-bottom:12px">
+            <strong>B2B Amazon Business 專屬 SP Campaigns × 3</strong><br>
+            M5F Case · Eskimo Pro AIO · S2503 Fan 3pk<br>
+            <code style="font-size:10px">siteRestrictions: AMAZON_BUSINESS</code> · $15/day 總投資<br>
+            鎖定 IT 部門、企業採購、系統整合商等 B2B 買家
+          </div>
+          <div style="border-left:3px solid var(--green);padding-left:12px;margin-bottom:12px">
+            <strong>SD Audience Conquest 競品攔截 × 3</strong><br>
+            鎖定 HYTE · Corsair · Lian Li · NZXT · ARCTIC · Phanteks<br>
+            36 個 target ASINs + PC Case / Fan 類別瀏覽者<br>
+            $15/day 總投資 · 攔截高端競品頁面訪客
+          </div>
+          <div style="border-left:3px solid var(--green);padding-left:12px">
+            <strong>3M Growth Hack 成長策略研究</strong><br>
+            完成 9 項 Growth Hack Skills 分析<br>
+            來源：Reddit 7 位數賣家、產業報告、電子產品案例<br>
+            <a href="javascript:void(0)" onclick="showTab('t7',document.querySelectorAll('.tab-btn')[7])" style="color:var(--accent);font-weight:600;text-decoration:none">查看完整報告 →</a>
+          </div>
         </div>
-      </div>
-
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:14px">
-        <div style="font-weight:800;color:var(--green);font-size:12px;font-family:var(--mono);margin-bottom:4px">#2 M4/M8 廣告預算精簡 Cut Quadrant Optimization</div>
-        <div style="color:var(--text2)">
-          &nbsp;&nbsp;• M4 King Arthur（TACOS 107.4%）→ 97 組 kw/target 出價降至 $0.16<br>
-          &nbsp;&nbsp;• M8 Case（TACOS 32.9%）→ 173 組 kw/target 出價降 20%<br>
-          &nbsp;&nbsp;• S2503R 120mm / S3805 Fan → 出價調至最低 $0.16<br>
-          &nbsp;&nbsp;• 執行方式：Amazon Ads API · 零錯誤 · 預計每週省 $150–200
-        </div>
-      </div>
-
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:14px">
-        <div style="font-weight:800;color:var(--green);font-size:12px;font-family:var(--mono);margin-bottom:4px">#3 風扇與水冷加碼投放 Star Budget +30%</div>
-        <div style="color:var(--text2)">
-          &nbsp;&nbsp;• M5 Case（TACOS 10.0%, $41,312 銷售）· Eskimo Pro 360（TACOS 2.9%）· S2503 140mm Fan（TACOS 4.4%）<br>
-          &nbsp;&nbsp;• 913 campaigns 預算 +30% · 三大 Star 佔帳戶總銷售 91%<br>
-          &nbsp;&nbsp;• 新建 S2503 120mm Fan SP Auto · $10/day · Campaign ID: 34479926380272
-        </div>
-      </div>
-
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:14px">
-        <div style="font-weight:800;color:var(--green);font-size:12px;font-family:var(--mono);margin-bottom:4px">#5 競品 ASIN 定位廣告 Brand Defense + Offense Conquesting</div>
-        <div style="color:var(--text2)">
-          &nbsp;&nbsp;• 品牌防禦 16 campaigns：Case ↔ AIO 互推（8）· 正反扇互推（4）· Fan Upsell（4）<br>
-          &nbsp;&nbsp;• 競品進攻 12 campaigns：搶 ARCTIC / Thermalright / be quiet! / KEDIERS 流量<br>
-          &nbsp;&nbsp;• $0.21/click · $1/day/campaign · 共 28 campaigns · 總投資 $28/day
-        </div>
-      </div>
-
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:14px">
-        <div style="font-weight:800;color:var(--green);font-size:12px;font-family:var(--mono);margin-bottom:4px">#6 購物籃交叉分析 Market Basket Analysis</div>
-        <div style="color:var(--text2)">
-          &nbsp;&nbsp;• 分析 2025 Q1–Q4 共 14 份購物籃報告<br>
-          &nbsp;&nbsp;• 最強組合：Eskimo Pro White → M5 Case White（62.1% 交叉購買率）<br>
-          &nbsp;&nbsp;• 成果已轉化為 #5 ASIN Targeting 的 28 campaigns 投放策略<br>
-          &nbsp;&nbsp;• 完整數據：<a href="./GEO_ASIN_Targeting_Strategy_20260310.xlsx" download style="color:var(--accent)">GEO_ASIN_Targeting_Strategy.xlsx</a>
-        </div>
-      </div>
-
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:14px">
-        <div style="font-weight:800;color:var(--green);font-size:12px;font-family:var(--mono);margin-bottom:4px">#8 品牌專屬促銷 Brand Tailored Promotions (BTP)</div>
-        <div style="color:var(--text2)">
-          &nbsp;&nbsp;• 自 2026/2/1 持續運行 · 面向品牌粉絲 / 回頭客 / 高意圖訪客<br>
-          &nbsp;&nbsp;• BTP 不計入廣告花費 · 純利潤驅動再行銷 · 預計持續至 Q2
-        </div>
-      </div>
-
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:14px">
-        <div style="font-weight:800;color:var(--green);font-size:12px;font-family:var(--mono);margin-bottom:4px">#9 企業客戶廣告 B2B Amazon Business Exclusive Campaigns</div>
-        <div style="color:var(--text2)">
-          &nbsp;&nbsp;• 3 組 SP Auto campaigns · siteRestrictions: AMAZON_BUSINESS（僅 B2B 買家可見）<br>
-          &nbsp;&nbsp;• M5F Case（4 ASINs）· Eskimo Pro AIO（3 ASINs）· S2503 Fan 3pk（3 ASINs）<br>
-          &nbsp;&nbsp;• $5/day × 3 = $15/day · Bid $0.21 · DOWN_ONLY · 2026/3/11 上線
-        </div>
-      </div>
-
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:14px">
-        <div style="font-weight:800;color:var(--green);font-size:12px;font-family:var(--mono);margin-bottom:4px">#4 SD 受眾競品攻略 Sponsored Display Audience Conquest Campaigns</div>
-        <div style="color:var(--text2)">
-          &nbsp;&nbsp;• 3 組 SD Audience campaigns · 鎖定高端競品 ASIN + PC Case / Fan 類別訪客<br>
-          &nbsp;&nbsp;• M5 Case：HYTE / Corsair / Lian Li / NZXT / Fractal / Phanteks（15 targets）<br>
-          &nbsp;&nbsp;• Eskimo Pro：ARCTIC / be quiet! / Thermalright / Corsair / NZXT（12 targets）<br>
-          &nbsp;&nbsp;• S2503 Fan：ARCTIC / Thermalright / ID-COOLING / Corsair / be quiet!（9 targets）<br>
-          &nbsp;&nbsp;• $5/day × 3 = $15/day · Bid $0.21 · 策略：Conquest 競品攔截 + 類別瀏覽者再行銷 · 2026/3/11 上線
-        </div>
-      </div>
-
-      <!-- ── 🔴 THIS WEEK 本週待辦 ── -->
-      <div style="font-size:11px;font-weight:800;color:var(--red);font-family:var(--mono);margin:18px 0 10px;letter-spacing:.05em;text-transform:uppercase">In Progress 執行中 — 2 項（含策略選項供討論）</div>
-
-      <div style="border-left:3px solid var(--red);padding-left:14px;margin-bottom:14px">
-        <div style="font-weight:800;color:var(--red);font-size:12px;font-family:var(--mono);margin-bottom:4px">#7 品牌影音廣告 Sponsored Brand Video (SBV) <span style="font-size:10px;background:rgba(220,38,38,.1);padding:1px 6px;border-radius:3px">IN PROGRESS</span></div>
-        <div style="color:var(--text2)">
-          &nbsp;&nbsp;• 正在建立 M5 Case SBV（旗艦產品 $41,312 銷售）+ Eskimo Pro 360 SBV<br>
-          &nbsp;&nbsp;• 影片展示透明側板 + RGB 燈效 + 420mm 水冷相容性<br>
-          &nbsp;&nbsp;• 出價 $0.21 · 15-30 秒 · 可用 Amazon Video Builder 快速產製<br>
-          &nbsp;&nbsp;• SBV 點擊率比 SP 高 2-3 倍 · 搭配 Creator Connections 影片素材<br>
-          <div style="background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.15);border-radius:6px;padding:10px;margin-top:8px;font-size:11px">
-            <strong style="color:var(--accent)">Options for Discussion 策略選項：</strong><br>
-            &nbsp;&nbsp;A) 使用 Amazon Video Builder 快速產製（最快上線，免費工具）<br>
-            &nbsp;&nbsp;B) 利用 Creator Connections 已有素材剪輯（創作者內容 + 品牌元素）<br>
-            &nbsp;&nbsp;C) A+B 組合：先用 Video Builder 立即上線，同時剪輯創作者素材第二版
+        <div>
+          <div style="font-weight:800;color:var(--accent);margin-bottom:6px;font-size:13px">廣告架構全覽</div>
+          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;line-height:2">
+            <div style="display:flex;justify-content:space-between"><span><strong>SP Auto</strong> 自動投放</span><span style="color:var(--text3);font-family:var(--mono)">含 B2B × 3</span></div>
+            <div style="display:flex;justify-content:space-between"><span><strong>SP Manual</strong> 搜尋詞精準投放</span><span style="color:var(--text3);font-family:var(--mono)">持續優化中</span></div>
+            <div style="display:flex;justify-content:space-between"><span><strong>SP ASIN Targeting</strong> 品牌防禦 + 競品進攻</span><span style="color:var(--text3);font-family:var(--mono)">28 campaigns</span></div>
+            <div style="display:flex;justify-content:space-between"><span><strong>SD Audience</strong> 競品攔截</span><span style="color:var(--text3);font-family:var(--mono)">3 campaigns</span></div>
+            <div style="display:flex;justify-content:space-between"><span><strong>SB + BTP</strong> 品牌廣告 + 促銷</span><span style="color:var(--text3);font-family:var(--mono)">運行中</span></div>
+            <div style="display:flex;justify-content:space-between;color:var(--amber)"><span><strong>SBV 影音廣告</strong></span><span style="font-family:var(--mono)">素材準備中</span></div>
+          </div>
+          <div style="margin-top:12px;font-weight:800;color:var(--amber);font-size:13px;margin-bottom:6px">待處理</div>
+          <div style="border-left:3px solid var(--amber);padding-left:12px">
+            <strong>#7 SBV</strong> — 影片素材待 Amazon Creative Studio 產製<br>
+            <strong>#10 Growth Hack</strong> — Spring Sale 3/25 排程 · 與 Amazon Manager 協作中
           </div>
         </div>
       </div>
+    </div>
+  </details>
 
-      <!-- #4 and #9 moved to Completed -->
+  <!-- ═══ 任務總表 MASTER TASK LIST ═══ -->
+  <details style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
+    <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent)">
+      <span class="log-arrow" style="font-size:14px;display:inline-block">&#9654;</span>
+      <span>任務總表 Master Task List</span>
+      <span style="font-size:10px;background:var(--green);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">8 / 10 完成</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">更新 3/11</span>
+    </summary>
+    <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
 
-      <!-- ── 🟡 ONGOING 持續進行 ── -->
-      <div style="font-size:11px;font-weight:800;color:var(--amber);font-family:var(--mono);margin:18px 0 10px;letter-spacing:.05em;text-transform:uppercase">Ongoing 持續進行 — 2 項</div>
+      <!-- ✅ 已完成 -->
+      <div style="font-size:11px;font-weight:800;color:var(--green);font-family:var(--mono);margin:12px 0 10px;letter-spacing:.05em;text-transform:uppercase">已完成 — 8 項</div>
 
-      <div style="border-left:3px solid var(--amber);padding-left:14px;margin-bottom:14px">
-        <div style="font-weight:800;color:var(--amber);font-size:12px;font-family:var(--mono);margin-bottom:4px">#10 品牌成長策略 Growth Hack 2M/3M (with Amazon Manager) <span style="font-size:10px;background:rgba(37,99,235,.1);color:var(--accent);padding:1px 6px;border-radius:3px;border:1px solid rgba(91,138,240,.3)">RESEARCHING &amp; IMPLEMENTING</span></div>
-        <div style="color:var(--text2)">
-          &nbsp;&nbsp;• Brand Store 優化 · A+ Content Premium · Lightning Deal 提名<br>
-          &nbsp;&nbsp;• Vine 新品評論（M5 Vent Case）· Spring Sale（3/25）排程<br>
-          &nbsp;&nbsp;• 每週與 Amazon Account Manager 同步 · 月度回顧<br>
-          &nbsp;&nbsp;• 已完成 9 項 Growth Hack Skills 市場研究 — 來源涵蓋 Reddit 7 位數賣家、產業報告、電子產品類別案例<br>
-          &nbsp;&nbsp;• 正在規劃與執行中：Premium A+ · Virtual Bundles · Reddit Ads · Brand Store · Lightning Deal · 競品分析<br>
-          &nbsp;&nbsp;• <a href="javascript:void(0)" onclick="showTab('t7',document.querySelectorAll('.tab-btn')[7])" style="color:var(--accent);font-weight:700;text-decoration:none;border-bottom:2px solid var(--accent)">📊 查看完整 3M Growth Hack Skills 研究報告 →</a>
+      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:10px">
+        <div style="font-weight:700;color:var(--green);font-size:11.5px;font-family:var(--mono)">#4 SD 受眾競品攻略 Sponsored Display Audience Conquest</div>
+        <div style="color:var(--text2);font-size:11.5px">3 組 SD campaigns · 36 targets · HYTE / Corsair / Lian Li / NZXT / ARCTIC 等高端競品 · $15/day · 3/11 上線</div>
+      </div>
+      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:10px">
+        <div style="font-weight:700;color:var(--green);font-size:11.5px;font-family:var(--mono)">#9 企業客戶廣告 B2B Amazon Business Exclusive</div>
+        <div style="color:var(--text2);font-size:11.5px">3 組 SP Auto · siteRestrictions: AMAZON_BUSINESS · M5F Case / Eskimo Pro / S2503 Fan · $15/day · 3/11 上線</div>
+      </div>
+      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:10px">
+        <div style="font-weight:700;color:var(--green);font-size:11.5px;font-family:var(--mono)">#1 創作者聯盟行銷 Creator Connections</div>
+        <div style="color:var(--text2);font-size:11.5px">第一期結案 ROI 10:1（182 位創作者 · 38 訂單 · $4,958 銷售）· 第二期 142 位已啟動</div>
+      </div>
+      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:10px">
+        <div style="font-weight:700;color:var(--green);font-size:11.5px;font-family:var(--mono)">#2 低效產品止血 Cut Quadrant Optimization</div>
+        <div style="color:var(--text2);font-size:11.5px">M4 / M8 / S2503R / S3805 出價壓至 $0.16 · 預計每週省 $150–200</div>
+      </div>
+      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:10px">
+        <div style="font-weight:700;color:var(--green);font-size:11.5px;font-family:var(--mono)">#3 旗艦產品加碼 Star Budget +30%</div>
+        <div style="color:var(--text2);font-size:11.5px">M5 Case · Eskimo Pro · S2503 140mm — 913 campaigns 預算 +30% · 佔帳戶 91% 銷售</div>
+      </div>
+      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:10px">
+        <div style="font-weight:700;color:var(--green);font-size:11.5px;font-family:var(--mono)">#5 ASIN Targeting 品牌防禦 + 競品進攻</div>
+        <div style="color:var(--text2);font-size:11.5px">28 campaigns（16 防禦 + 12 進攻）· $28/day · 購物籃數據驅動</div>
+      </div>
+      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:10px">
+        <div style="font-weight:700;color:var(--green);font-size:11.5px;font-family:var(--mono)">#6 購物籃分析 Market Basket Analysis</div>
+        <div style="color:var(--text2);font-size:11.5px">14 份報告 · 最佳組合：Eskimo Pro White → M5 Case White（62.1% 交叉率）· 已轉化為 #5 策略</div>
+      </div>
+      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:10px">
+        <div style="font-weight:700;color:var(--green);font-size:11.5px;font-family:var(--mono)">#8 品牌專屬促銷 Brand Tailored Promotions</div>
+        <div style="color:var(--text2);font-size:11.5px">自 2/1 持續運行 · 品牌粉絲 / 回頭客 / 高意圖訪客 · 零廣告費用再行銷</div>
+      </div>
+
+      <!-- 🔴 執行中 -->
+      <div style="font-size:11px;font-weight:800;color:var(--amber);font-family:var(--mono);margin:16px 0 10px;letter-spacing:.05em;text-transform:uppercase">執行中 — 2 項</div>
+
+      <div style="border-left:3px solid var(--amber);padding-left:14px;margin-bottom:10px">
+        <div style="font-weight:700;color:var(--amber);font-size:11.5px;font-family:var(--mono)">#7 品牌影音廣告 Sponsored Brand Video (SBV) <span style="font-size:9px;background:rgba(220,38,38,.1);padding:1px 5px;border-radius:3px;color:var(--red)">素材準備中</span></div>
+        <div style="color:var(--text2);font-size:11.5px">
+          M5 Case + Eskimo Pro 360 影片 · Amazon Creative Studio 產製中<br>
+          <div style="background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.15);border-radius:6px;padding:8px;margin-top:6px;font-size:11px">
+            <strong style="color:var(--accent)">策略選項：</strong>
+            A) Amazon Video Builder 快速產製 · B) Creator Connections 素材剪輯 · C) 兩者組合
+          </div>
+        </div>
+      </div>
+      <div style="border-left:3px solid var(--amber);padding-left:14px;margin-bottom:10px">
+        <div style="font-weight:700;color:var(--amber);font-size:11.5px;font-family:var(--mono)">#10 品牌成長策略 Growth Hack 2M/3M <span style="font-size:9px;background:rgba(37,99,235,.1);padding:1px 5px;border-radius:3px;color:var(--accent)">研究與執行中</span></div>
+        <div style="color:var(--text2);font-size:11.5px">
+          與 Amazon Account Manager 協作 · Spring Sale 3/25 排程 · 9 項 Growth Hack Skills 研究完成<br>
+          <a href="javascript:void(0)" onclick="showTab('t7',document.querySelectorAll('.tab-btn')[7])" style="color:var(--accent);font-weight:600;text-decoration:none;font-size:11px">查看 3M Growth Hack Skills 研究報告 →</a>
         </div>
       </div>
 
-      <div style="border-left:3px solid var(--amber);padding-left:14px;margin-bottom:14px">
-        <div style="font-weight:800;color:var(--amber);font-size:12px;font-family:var(--mono);margin-bottom:4px">W6 週報更新 Weekly Report Update <span style="font-size:10px;background:rgba(217,119,6,.1);color:var(--amber);padding:1px 6px;border-radius:3px">Deadline 3/16</span></div>
-        <div style="color:var(--text2)">
-          &nbsp;&nbsp;• 匯入 W6（3/8–3/14）最新 CSV · 重新計算產品象限<br>
-          &nbsp;&nbsp;• 驗證：Star 曝光提升？Cut 花費下降？Question TACOS 改善？<br>
-          &nbsp;&nbsp;• S2503 120mm Fan 新 SP Auto 初步數據 · 帳戶 TACOS 維持 ≤10%
-        </div>
+      <!-- 📅 下次更新 -->
+      <div style="font-size:11px;font-weight:800;color:var(--text3);font-family:var(--mono);margin:16px 0 10px;letter-spacing:.05em;text-transform:uppercase">下次排程</div>
+      <div style="border-left:3px solid var(--border);padding-left:14px;margin-bottom:10px">
+        <div style="font-weight:700;color:var(--text2);font-size:11.5px;font-family:var(--mono)">W6 週報更新 <span style="font-size:9px;background:rgba(217,119,6,.1);padding:1px 5px;border-radius:3px;color:var(--amber)">3/16</span></div>
+        <div style="color:var(--text2);font-size:11.5px">匯入 W6（3/8–3/14）CSV · 重新計算象限 · 驗證 B2B + SD 初步成效</div>
       </div>
 
     </div>
   </details>
 
-  <details open style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
-    <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
-      <span style="font-size:14px;transition:transform .2s;display:inline-block" class="log-arrow">&#9654;</span>
-      <span>Campaign Action Log 廣告操作紀錄</span>
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">7 entries</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/11 — SD 競品攔截廣告上線 Sponsored Display Audience Conquest</span>
+  <!-- ═══ 操作紀錄 ACTION LOG ═══ -->
+  <details style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
+    <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent)">
+      <span class="log-arrow" style="font-size:14px;display:inline-block">&#9654;</span>
+      <span>操作紀錄 Campaign Action Log</span>
+      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">7 筆</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">最新：3/11 SD 競品攔截上線</span>
     </summary>
     <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
 
-      <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-11 — SD 競品攔截廣告上線 Sponsored Display Audience Conquest</span>
-          <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
-        </div>
-        <div style="color:var(--text2)">
-          <strong>透過 Amazon Ads API 建立 3 組 SD Audience campaigns</strong>，使用 ASIN 競品定位 + 類別瀏覽者再行銷，鎖定高端 PC 散熱品牌的潛在買家進行攔截轉換。<br>
-
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
-            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy 競品 ASIN 攔截 + 類別受眾再行銷</div>
-            透過 Sponsored Display 的 audience targeting（tactic T00030），在競品商品頁面、搜尋結果及相關類別頁面向潛在買家展示 GEO 產品。瞄準高價位競品（HYTE Y70 $199、Corsair 5000T $349、Lian Li O11 $169）的瀏覽者，以 GEO 的高性價比進行轉換。同時覆蓋 PC Case 與 Fan 類別的瀏覽者，擴大品牌觸及面。
+      <!-- ── 3/11 SD Conquest ── -->
+      <details open style="margin-bottom:14px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <summary style="padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;background:rgba(37,99,235,.04);font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--accent)">
+          <span class="log-arrow" style="font-size:12px;display:inline-block">&#9654;</span>
+          3/11 — SD 競品攔截廣告上線 Sponsored Display Audience Conquest
+          <span style="font-size:9px;background:var(--accent);color:#fff;padding:1px 6px;border-radius:3px;font-weight:700;margin-left:auto">最新</span>
+        </summary>
+        <div style="padding:12px 14px;color:var(--text2)">
+          透過 Amazon Ads API 建立 3 組 SD Audience campaigns，鎖定高端 PC 散熱品牌潛在買家進行攔截轉換。<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px;margin:8px 0;font-size:11.5px">
+            <strong style="color:var(--text)">策略：</strong>透過 Sponsored Display audience targeting（tactic T00030），在競品商品頁展示 GEO 產品。瞄準 HYTE Y70 $199、Corsair 5000T $349、Lian Li O11 $169 瀏覽者，以高性價比轉換。
           </div>
-
-          <strong style="color:var(--green)">Campaign 1: M5 Case Conquest — 高端機殼攔截</strong><br>
-          &nbsp;&nbsp;• Campaign ID: <code>199387390558188</code> · AdGroup: <code>552274541927709</code><br>
-          &nbsp;&nbsp;• 4 SKUs · 15 targets：自家 ASIN + HYTE / Corsair / Lian Li / NZXT / Fractal / Phanteks + PC Case 類別<br>
-          &nbsp;&nbsp;• $5/day · Bid $0.21 · SD Audience · ENABLED<br>
-
-          <strong style="color:var(--green)">Campaign 2: Eskimo Pro Conquest — 高階水冷攔截</strong><br>
-          &nbsp;&nbsp;• Campaign ID: <code>211284448802015</code> · AdGroup: <code>469558793667215</code><br>
-          &nbsp;&nbsp;• 3 SKUs · 12 targets：自家 ASIN + ARCTIC / be quiet! / Thermalright / Corsair / NZXT / Lian Li<br>
-          &nbsp;&nbsp;• $5/day · Bid $0.21 · SD Audience · ENABLED<br>
-
-          <strong style="color:var(--green)">Campaign 3: S2503 Fan Conquest — 散熱風扇攔截</strong><br>
-          &nbsp;&nbsp;• Campaign ID: <code>39407327617122</code> · AdGroup: <code>509546018924132</code><br>
-          &nbsp;&nbsp;• 3 SKUs · 9 targets：自家 ASIN + ARCTIC / Thermalright / ID-COOLING / DS / Corsair / Lian Li / be quiet! + Fan 類別<br>
-          &nbsp;&nbsp;• $5/day · Bid $0.21 · SD Audience · ENABLED<br>
-
-          <div style="background:linear-gradient(135deg,rgba(37,99,235,.06),rgba(22,163,74,.06));border:1px solid var(--accent);border-radius:8px;padding:12px;margin:10px 0">
-            <strong style="color:var(--accent)">總投資 Total SD Conquest Investment:</strong> 3 campaigns · $15/day · 36 targets · 10 SKUs · Conquest 競品攔截策略
+          <strong style="color:var(--green)">M5 Case Conquest</strong> — ID: <code>199387390558188</code> · 4 SKUs · 15 targets · $5/day<br>
+          <strong style="color:var(--green)">Eskimo Pro Conquest</strong> — ID: <code>211284448802015</code> · 3 SKUs · 12 targets · $5/day<br>
+          <strong style="color:var(--green)">S2503 Fan Conquest</strong> — ID: <code>39407327617122</code> · 3 SKUs · 9 targets · $5/day<br>
+          <div style="background:rgba(37,99,235,.05);border-radius:6px;padding:8px 12px;margin-top:8px;font-weight:600;color:var(--accent);font-size:11.5px">
+            總計：3 campaigns · $15/day · 36 targets · 10 SKUs
           </div>
         </div>
-      </div>
+      </details>
 
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono)">2026-03-11 — B2B 企業客戶 SP 廣告上線 Amazon Business Exclusive Campaigns</span>
-        </div>
-        <div style="color:var(--text2)">
-          <strong>透過 Amazon Ads API 建立 3 組 Amazon Business 專屬 SP Auto campaigns</strong>，使用 <code>siteRestrictions: ["AMAZON_BUSINESS"]</code> 限定僅在 Amazon Business 平台展示，專攻 B2B 企業買家。<br>
-
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
-            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy B2B 企業客戶專屬廣告投放</div>
-            Amazon Business 買家包含 IT 部門、企業採購、系統整合商等高價值客戶。透過 SP campaign 的 siteRestrictions 設定，廣告僅出現在 Amazon Business 商店，與一般消費者流量完全分離。適合機殼（工作站組裝）、水冷（專業散熱）、風扇多件裝（批量採購）等產品。每個 campaign $5/day，DOWN_ONLY 策略控制成本。
+      <!-- ── 3/11 B2B ── -->
+      <details style="margin-bottom:14px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <summary style="padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;background:rgba(22,163,74,.04);font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--green)">
+          <span class="log-arrow" style="font-size:12px;display:inline-block">&#9654;</span>
+          3/11 — B2B 企業客戶 SP 廣告上線 Amazon Business Exclusive
+        </summary>
+        <div style="padding:12px 14px;color:var(--text2)">
+          透過 API 建立 3 組 Amazon Business 專屬 SP Auto campaigns，使用 <code>siteRestrictions: ["AMAZON_BUSINESS"]</code>。<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px;margin:8px 0;font-size:11.5px">
+            <strong style="color:var(--text)">策略：</strong>B2B 買家包含 IT 部門、企業採購、系統整合商。廣告僅出現在 Amazon Business 商店，與一般消費者完全分離。
           </div>
-
-          <strong style="color:var(--green)">Campaign 1: M5F Case — 工作站 / 企業組裝</strong><br>
-          &nbsp;&nbsp;• Campaign ID: <code>141206561810617</code> · 4 ASINs（Black/Grey, Green, Yellow, White）<br>
-          &nbsp;&nbsp;• SKUs: GEO-M5F-BG, GEO-M5F-BNV, GEO-M5F-BY, GEO-M5F-W<br>
-          &nbsp;&nbsp;• $5/day · Bid $0.21 · SP Auto · DOWN_ONLY · ENABLED<br>
-
-          <strong style="color:var(--green)">Campaign 2: Eskimo Pro AIO — 專業級散熱方案</strong><br>
-          &nbsp;&nbsp;• Campaign ID: <code>69783954672132</code> · 3 ASINs（360 Black, 420 Black, 420 White）<br>
-          &nbsp;&nbsp;• SKUs: GEO-EP-36B, GEO-EP-42B, GEO-EP-42W<br>
-          &nbsp;&nbsp;• $5/day · Bid $0.21 · SP Auto · DOWN_ONLY · ENABLED<br>
-
-          <strong style="color:var(--green)">Campaign 3: S2503 Fan 3-Pack — 批量採購</strong><br>
-          &nbsp;&nbsp;• Campaign ID: <code>189169908957559</code> · 3 ASINs（120mm B/W 3pk, 140mm B 3pk）<br>
-          &nbsp;&nbsp;• SKUs: GEO-S2503B-3, GEO-S2503W-3, GEO-S2503B-14T<br>
-          &nbsp;&nbsp;• $5/day · Bid $0.21 · SP Auto · DOWN_ONLY · ENABLED<br>
-
-          <div style="background:linear-gradient(135deg,rgba(37,99,235,.06),rgba(22,163,74,.06));border:1px solid var(--accent);border-radius:8px;padding:12px;margin:10px 0">
-            <strong style="color:var(--accent)">總投資 Total B2B Investment:</strong> 3 campaigns · $15/day · 10 ASINs · Amazon Business 專屬
+          <strong style="color:var(--green)">M5F Case</strong> — ID: <code>141206561810617</code> · 4 ASINs · SKU: GEO-M5F-BG/BNV/BY/W · $5/day<br>
+          <strong style="color:var(--green)">Eskimo Pro AIO</strong> — ID: <code>69783954672132</code> · 3 ASINs · SKU: GEO-EP-36B/42B/42W · $5/day<br>
+          <strong style="color:var(--green)">S2503 Fan 3pk</strong> — ID: <code>189169908957559</code> · 3 ASINs · SKU: GEO-S2503B-3/W-3/B-14T · $5/day<br>
+          <div style="background:rgba(37,99,235,.05);border-radius:6px;padding:8px 12px;margin-top:8px;font-weight:600;color:var(--accent);font-size:11.5px">
+            總計：3 campaigns · $15/day · 10 ASINs · Amazon Business 專屬
           </div>
         </div>
-      </div>
+      </details>
 
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono)">2026-03-11 — 進度確認與策略選項 Progress Review &amp; Strategy Options</span>
+      <!-- ── 3/11 Progress Review ── -->
+      <details style="margin-bottom:14px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <summary style="padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;background:rgba(22,163,74,.04);font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--green)">
+          <span class="log-arrow" style="font-size:12px;display:inline-block">&#9654;</span>
+          3/11 — 進度確認 8/10 完成 Progress Review
+        </summary>
+        <div style="padding:12px 14px;color:var(--text2)">
+          帳戶優化 10 項任務已完成 8 項，建立完整的多層廣告架構。<br>
+          <strong style="color:var(--green)">已完成 8 項：</strong>#1 Creator Connections（ROI 10:1）· #2 Cut 止血 · #3 Star +30% · #4 SD 競品攔截 · #5 ASIN Targeting 28 campaigns · #6 購物籃分析 · #8 BTP 持續運行 · #9 B2B 專屬廣告<br>
+          <strong style="color:var(--accent)">執行中 2 項：</strong>#7 SBV 影音素材準備 · #10 Growth Hack 與 Amazon Manager 協作
         </div>
-        <div style="color:var(--text2)">
-          <strong>帳戶優化進度確認</strong> — 10 項任務中已完成 8 項，其餘 2 項正在執行中，以下為各項進度與可供討論的策略方向。<br>
+      </details>
 
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
-            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy 階段性成果回顧與下一步方向</div>
-            已完成的 8 項行動為帳戶建立完整的多層廣告架構：搜尋詞優化（暫停浪費關鍵字）、象限驅動的 bid/budget 調整（1,183 項變更）、ASIN 定位策略（28 SP campaigns）、Creator Connections 第二期啟動、Brand Tailored Promotions 持續運行、B2B Amazon Business 專屬廣告（3 SP campaigns）、SD 受眾競品攔截（3 SD campaigns · 36 targets）。目前推進 SBV 影音廣告素材製作及品牌成長策略執行。
-          </div>
-
-          <strong style="color:var(--green)">已完成成果 Completed Results（8/10）</strong><br>
-          &nbsp;&nbsp;• <strong>#1 Creator Connections</strong> — 第一期結案（ROI 10:1），第二期 142 位創作者已啟動<br>
-          &nbsp;&nbsp;• <strong>#2 Cut 象限優化</strong> — M4/M8/S2503R/S3805 出價壓至最低，預計每週省 $150–200<br>
-          &nbsp;&nbsp;• <strong>#3 Star 加碼 +30%</strong> — 913 campaigns 預算提升，覆蓋帳戶 91% 銷售<br>
-          &nbsp;&nbsp;• <strong>#4 SD 競品攔截</strong> — 3 SD Audience campaigns · 36 targets · 鎖定 HYTE/Corsair/Lian Li/NZXT 等高端競品<br>
-          &nbsp;&nbsp;• <strong>#5 ASIN Targeting</strong> — 28 campaigns 上線（16 防禦 + 12 進攻），$28/day<br>
-          &nbsp;&nbsp;• <strong>#6 Market Basket</strong> — 14 份報告分析完成，數據已轉化為投放策略<br>
-          &nbsp;&nbsp;• <strong>#8 BTP</strong> — 品牌粉絲促銷持續運行，零廣告費用的再行銷<br>
-          &nbsp;&nbsp;• <strong>#9 B2B 企業投放</strong> — 3 SP Auto campaigns · Amazon Business 專屬 · $15/day<br>
-          <br>
-          <strong style="color:var(--accent)">執行中 In Progress（2/10）— 策略選項開放討論</strong><br>
-          &nbsp;&nbsp;• <strong>#7 SBV 影音廣告</strong> — 正在準備 M5 Case + Eskimo Pro 素材，可用 Video Builder 或 Creator 素材<br>
-          &nbsp;&nbsp;• <strong>#10 品牌成長</strong> — 持續與 Amazon Manager 協作，Spring Sale 3/25 排程準備中，9 項 Growth Hack Skills 研究完成
+      <!-- ── 3/10 Quadrant ── -->
+      <details style="margin-bottom:14px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <summary style="padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;background:rgba(22,163,74,.04);font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--green)">
+          <span class="log-arrow" style="font-size:12px;display:inline-block">&#9654;</span>
+          3/10 — API 象限行動方案 Quadrant-Based Optimization
+        </summary>
+        <div style="padding:12px 14px;color:var(--text2)">
+          透過 API 自動執行象限分類優化，調整 1,183 個 bid/budget 設定。<br>
+          <strong style="color:var(--green)">Star 加碼</strong> — 913 campaigns budget +30%（M5 Case · Eskimo Pro · S2503 140mm）<br>
+          <strong style="color:var(--amber)">Question 降價</strong> — 173 kw/targets bid -20%（M5 Vent · M8 Case）<br>
+          <strong style="color:var(--red)">Cut 止血</strong> — 97 kw/targets bid → $0.16（M4 · S2503R · S3805）<br>
+          <strong style="color:var(--accent)">Potential 新建</strong> — S2503 120mm SP Auto · $10/day · ID: 34479926380272
         </div>
-      </div>
+      </details>
 
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono)">2026-03-10 — API 象限行動方案執行 Quadrant-Based Action Items</span>
+      <!-- ── 3/10 ASIN Targeting ── -->
+      <details style="margin-bottom:14px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <summary style="padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;background:rgba(22,163,74,.04);font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--green)">
+          <span class="log-arrow" style="font-size:12px;display:inline-block">&#9654;</span>
+          3/10 — ASIN Targeting 品牌防禦 + 競品進攻 28 Campaigns
+        </summary>
+        <div style="padding:12px 14px;color:var(--text2)">
+          分析 Market Basket 數據（2025 Q1–Q4），建立 28 組 ASIN Targeting campaigns。<br>
+          <strong style="color:var(--green)">品牌防禦 16 campaigns：</strong>Case ↔ AIO 互推（8）· 正反扇互推（4）· Fan Upsell（4）<br>
+          <strong style="color:var(--red)">競品進攻 12 campaigns：</strong>搶 ARCTIC · Thermalright · be quiet! · KEDIERS · ASUS 流量<br>
+          $0.21/click · $1/day/campaign · 總投資 $28/day<br>
+          <a href="./GEO_ASIN_Targeting_Strategy_20260310.xlsx" download style="display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:10px;color:var(--accent);text-decoration:none;background:rgba(37,99,235,.08);padding:3px 8px;border-radius:4px;margin-top:6px">⬇ ASIN Targeting 策略表.xlsx</a>
         </div>
-        <div style="color:var(--text2)">
-          <strong>透過 Amazon Ads API 自動執行產品象限分類後的優化行動</strong>，根據 TACOS 10% 目標與中位數銷售額分析 9 個產品線，即時調整 1,183 個 bid/budget 設定。<br>
-          <strong>分類依據：</strong>TACOS ≤ 10% + 銷售 ≥ 中位數 = Star · TACOS > 10% + 高銷售 = Question · TACOS > 10% + 低銷售 = Cut · TACOS ≤ 10% + 低銷售 = Potential<br>
+      </details>
 
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
-            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy 象限驅動的自動化廣告優化</div>
-            從 Dashboard 產品績效數據動態計算象限分類，API 自動匹配 campaign ASIN → 象限，批量執行 budget 與 bid 調整。所有變更即時生效，無需 bulk file 上傳。
-          </div>
-
-          <strong style="color:var(--green)">⭐ Star 加碼投放 — 913 campaigns budget +30%</strong><br>
-          &nbsp;&nbsp;• <strong>M5 Case</strong>（TACOS 10.0%, $41,312 銷售）— 帳戶核心，預算 $1.00 → $1.30<br>
-          &nbsp;&nbsp;• <strong>Eskimo Pro 360</strong>（TACOS 2.9%, $6,444 銷售）— 最高效產品，低花費高轉換<br>
-          &nbsp;&nbsp;• <strong>S2503 140mm Fan</strong>（TACOS 4.4%, $3,077 銷售）— 風扇主力，穩定成長<br>
-
-          <strong style="color:var(--amber)">⚠️ Question 降低出價 — 173 keywords/targets bid -20%</strong><br>
-          &nbsp;&nbsp;• <strong>M5 Vent Case</strong>（TACOS 13.8%, $3,537 銷售）— bid $0.21→$0.17、$0.22→$0.18<br>
-          &nbsp;&nbsp;• <strong>M8 Case</strong>（TACOS 32.9%, $1,029 銷售）— 高花費低轉換，降低浪費<br>
-
-          <strong style="color:var(--red)">🔴 Cut 降至最低 — 97 keywords/targets bid → $0.16</strong><br>
-          &nbsp;&nbsp;• <strong>M4 King Arthur</strong>（TACOS 107.4%, $399 銷售）— 嚴重虧損，bid 壓至最低<br>
-          &nbsp;&nbsp;• <strong>S2503R 120mm Fan</strong>（TACOS 27.4%, $159 銷售）— 超過暫停線<br>
-          &nbsp;&nbsp;• <strong>S3805 Fan</strong>（TACOS 39.1%, $19 銷售）— 幾乎無銷售<br>
-
-          <strong style="color:var(--accent)">💤 Potential 新建 SP Auto — S2503 120mm Fan</strong><br>
-          &nbsp;&nbsp;• <strong>S2503 120mm Fan</strong>（TACOS 1.1%, $449 銷售）— 高效率但曝光不足<br>
-          &nbsp;&nbsp;• 新建 SP Auto campaign：$10/day · bid $0.21 · DOWN_ONLY 策略<br>
-          &nbsp;&nbsp;• ASINs: GEO-S2503B-3 (Black 3pk) + GEO-S2503W-3 (White 3pk)<br>
-          &nbsp;&nbsp;• Campaign ID: 34479926380272 · ✅ 已上線
+      <!-- ── 3/10 Search Term ── -->
+      <details style="margin-bottom:14px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <summary style="padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;background:rgba(22,163,74,.04);font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--green)">
+          <span class="log-arrow" style="font-size:12px;display:inline-block">&#9654;</span>
+          3/10 — 搜尋詞報告驅動出價調整 Search Term Bid Optimization
+        </summary>
+        <div style="padding:12px 14px;color:var(--text2)">
+          分析 SP 搜尋詞報告 3,625 筆 + 目標報告 2,486 筆 + 活動報告 3,825 筆。<br>
+          W5 帳戶績效（Mar 1–7）：Spend $1,022 · Sales $4,776 · TACOS 21.4% · 43 orders<br>
+          <strong style="color:var(--red)">暫停 30 個關鍵字</strong>（花費 >$5，零銷售）：<code>+pc +case</code> $23.08 · <code>pc box</code> $7.26 等<br>
+          <strong style="color:var(--green)">提高 5 個關鍵字 → $0.21</strong>（TACOS <10%）：<code>+case +gaming</code> 3.8% · <code>pc atx case</code> 1.9%
         </div>
-      </div>
+      </details>
 
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono)">2026-03-10 — ASIN Targeting 購物籃驅動的品牌防禦 + 競品進攻策略</span>
+      <!-- ── 3/10 Infrastructure ── -->
+      <details style="margin-bottom:14px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <summary style="padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--text2)">
+          <span class="log-arrow" style="font-size:12px;display:inline-block">&#9654;</span>
+          3/10 — API 基礎建設 Infrastructure Setup
+        </summary>
+        <div style="padding:12px 14px;color:var(--text2)">
+          建立 GEO API 工作流程 <code>api/geo_full_workflow.py</code><br>
+          實體統計：2,501 campaigns · 2,509 ad groups · 723 keywords · 3,806 targets<br>
+          Bid 範圍：$0.16–$0.21 · TACOS 目標 10% · 暫停線 25% · Profile ID: 3947387233604911
         </div>
-        <div style="color:var(--text2)">
-          <strong>分析 US Market Basket 數據</strong>（2025 Q1–Q4，14 個月份 + 4 季度報告），提取 GEO 全產品交叉購買組合。<br>
-          <strong>目標：</strong>GEO 品牌曝光不足，高轉換產品缺乏足夠 impression/clicks → 透過 ASIN 定位廣告主動出擊。<br>
-          <strong>設定：</strong>Bid $0.21 · Budget $1/campaign · 單一 ASIN 配對 → 最大化組合覆蓋率<br>
-
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
-            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy 購物籃交叉銷售 ASIN 定位</div>
-            分析 4 個季度 + 12 個月份的購物籃數據，識別 GEO 產品之間的高頻交叉購買組合（品牌防禦）以及競品 ASIN（進攻搶量）。<br>
-            <strong>品牌防禦 Brand Defense：</strong>在自家產品頁面投放互補產品廣告，促進交叉銷售（Case ↔ AIO、Fan Forward ↔ Reverse、1pk → 3pk upsell）。<br>
-            <strong>競品進攻 Offense Conquesting：</strong>在競品 AIO / Case / Fan 頁面展示 GEO 產品，搶奪競品流量。<br>
-            每個 campaign 只配對 1 個 target ASIN，可精準控制預算與績效，方便後續優化。
-          </div>
-
-          <!-- ═══ BRAND DEFENSE ═══ -->
-          <div style="margin:16px 0 8px;font-weight:800;font-size:14px;color:var(--green)">品牌防禦 Brand Defense — 16 Campaigns</div>
-          <div style="font-size:11px;color:var(--text3);margin-bottom:10px">在自家產品頁面交叉投放互補 GEO 產品，防止競品搶佔流量 + 促進加購</div>
-
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px">
-            <div style="font-weight:700;color:var(--green);margin-bottom:8px;font-size:12px">Case ↔ AIO Cooler 機殼 ↔ 水冷（8 campaigns）</div>
-            <table style="width:100%;font-size:11px;border-collapse:collapse">
-              <thead><tr style="background:var(--bg);border-bottom:1px solid var(--border)">
-                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">ADVERTISE</th>
-                <th style="text-align:center;padding:4px;font-size:9px;color:var(--text3)">→</th>
-                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">TARGET (show on this page)</th>
-                <th style="text-align:right;padding:4px 8px;font-size:9px;color:var(--text3)">COMBO %</th>
-              </tr></thead>
-              <tbody>
-                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Black</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFX3T34" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFX3T34</a> M5F Case B/Grey +Fans</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">23.2%</td></tr>
-                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Black</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFS7QTL" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFS7QTL</a> M5F Case B/Green +Fans</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">19.2%</td></tr>
-                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Black</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFW4N61" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFW4N61</a> M5F Case B/Yellow +Fans</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">15.2%</td></tr>
-                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFX3T34" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFX3T34</a> M5F Case B/Grey +Fans</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Black</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">15.4%</td></tr>
-                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFS7QTL" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFS7QTL</a> M5F Case B/Green +Fans</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Black</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">11.3%</td></tr>
-                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFW4N61" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFW4N61</a> M5F Case B/Yellow +Fans</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Black</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">26.0%</td></tr>
-                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXG3QPM" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXG3QPM</a> Eskimo Pro 420 White</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFW5G2G" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFW5G2G</a> M5F Case White +Fans</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">62.1%</td></tr>
-                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFW5G2G" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFW5G2G</a> M5F Case White +Fans</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXG3QPM" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXG3QPM</a> Eskimo Pro 420 White</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">19.6%</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px">
-            <div style="font-weight:700;color:var(--green);margin-bottom:8px;font-size:12px">Fan Forward ↔ Reverse 正反扇互推（4 campaigns）</div>
-            <table style="width:100%;font-size:11px;border-collapse:collapse">
-              <thead><tr style="background:var(--bg);border-bottom:1px solid var(--border)">
-                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">ADVERTISE</th>
-                <th style="text-align:center;padding:4px;font-size:9px;color:var(--text3)">→</th>
-                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">TARGET</th>
-                <th style="text-align:right;padding:4px 8px;font-size:9px;color:var(--text3)">COMBO %</th>
-              </tr></thead>
-              <tbody>
-                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGP1TPR5" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGP1TPR5</a> S2503R Rev 140mm 1pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGXJBKN" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGXJBKN</a> S2503 Fwd 140mm 1pk Blk</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">38.6%</td></tr>
-                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGXJBKN" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGXJBKN</a> S2503 Fwd 140mm 1pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGP1TPR5" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGP1TPR5</a> S2503R Rev 140mm 1pk Blk</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">51.5%</td></tr>
-                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGP17VXV" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGP17VXV</a> S2503R Rev 140mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGVRBX2" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGVRBX2</a> S2503 Fwd 140mm 3pk Blk</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">27.5%</td></tr>
-                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGVRBX2" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGVRBX2</a> S2503 Fwd 140mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGP17VXV" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGP17VXV</a> S2503R Rev 140mm 3pk Blk</td><td style="text-align:right;padding:3px 8px;color:var(--green);font-weight:700">28.0%</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px">
-            <div style="font-weight:700;color:var(--green);margin-bottom:8px;font-size:12px">Fan Upsell + Cross-Size 升級推薦 + 跨尺寸（4 campaigns）</div>
-            <table style="width:100%;font-size:11px;border-collapse:collapse">
-              <thead><tr style="background:var(--bg);border-bottom:1px solid var(--border)">
-                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">ADVERTISE</th>
-                <th style="text-align:center;padding:4px;font-size:9px;color:var(--text3)">→</th>
-                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">TARGET</th>
-                <th style="text-align:right;padding:4px 8px;font-size:9px;color:var(--text3)">COMBO %</th>
-              </tr></thead>
-              <tbody>
-                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGVRBX2" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGVRBX2</a> S2503 Fwd 140mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGXJBKN" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGXJBKN</a> S2503 Fwd 140mm 1pk Blk</td><td style="text-align:right;padding:3px 8px;font-weight:700">12.0%</td></tr>
-                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGP17VXV" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGP17VXV</a> S2503R Rev 140mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGP1TPR5" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGP1TPR5</a> S2503R Rev 140mm 1pk Blk</td><td style="text-align:right;padding:3px 8px;font-weight:700">23.5%</td></tr>
-                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGVRBX2" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGVRBX2</a> S2503 Fwd 140mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0B3XFZN7C" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0B3XFZN7C</a> S2503 Fwd 120mm 3pk Blk</td><td style="text-align:right;padding:3px 8px;font-weight:700">26.7%</td></tr>
-                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGP17VXV" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGP17VXV</a> S2503R Rev 140mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0CHR85N54" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0CHR85N54</a> S2503R Rev 120mm 1pk Blk</td><td style="text-align:right;padding:3px 8px;font-weight:700">20.0%</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- ═══ OFFENSE CONQUESTING ═══ -->
-          <div style="margin:20px 0 8px;font-weight:800;font-size:14px;color:var(--red)">競品進攻 Offense Conquesting — 12 Campaigns</div>
-          <div style="font-size:11px;color:var(--text3);margin-bottom:10px">在競品產品頁面展示 GEO 產品，搶佔競品買家流量（購物籃數據中出現的競品 ASINs）</div>
-
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px">
-            <div style="font-weight:700;color:var(--red);margin-bottom:8px;font-size:12px">AIO Cooler Conquesting 搶競品水冷（6 campaigns）</div>
-            <table style="width:100%;font-size:11px;border-collapse:collapse">
-              <thead><tr style="background:var(--bg);border-bottom:1px solid var(--border)">
-                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">ADVERTISE (GEO)</th>
-                <th style="text-align:center;padding:4px;font-size:9px;color:var(--text3)">→</th>
-                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">TARGET (COMPETITOR)</th>
-                <th style="text-align:right;padding:4px 8px;font-size:9px;color:var(--text3)">DATA SOURCE</th>
-              </tr></thead>
-              <tbody>
-                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DPHSLXSS" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0DPHSLXSS</a> ARCTIC LF3 Pro 420 ARGB Blk</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Q4 basket</td></tr>
-                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DPHQ1353" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0DPHQ1353</a> ARCTIC LF3 Pro 420 Blk</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Q3+Q4</td></tr>
-                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXG3QPM" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXG3QPM</a> Eskimo Pro 420 Wht</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DPHS13XW" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0DPHS13XW</a> ARCTIC LF3 Pro 420 ARGB Wht</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Q4 basket</td></tr>
-                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0CJY3DYQ3" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0CJY3DYQ3</a> be quiet! Dark Rock Pro 5</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Nov basket</td></tr>
-                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHX99JLW" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHX99JLW</a> Eskimo Pro 360 Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DWZJNH28" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0DWZJNH28</a> be quiet! Silent Loop 3 360mm</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Dec basket</td></tr>
-                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DHXCYKR6" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DHXCYKR6</a> Eskimo Pro 420 Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0CCNVFXWH" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0CCNVFXWH</a> Thermalright Aqua Elite 360</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Oct basket</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px">
-            <div style="font-weight:700;color:var(--red);margin-bottom:8px;font-size:12px">Case Conquesting 搶競品機殼（2 campaigns）</div>
-            <table style="width:100%;font-size:11px;border-collapse:collapse">
-              <thead><tr style="background:var(--bg);border-bottom:1px solid var(--border)">
-                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">ADVERTISE (GEO)</th>
-                <th style="text-align:center;padding:4px;font-size:9px;color:var(--text3)">→</th>
-                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">TARGET (COMPETITOR)</th>
-                <th style="text-align:right;padding:4px 8px;font-size:9px;color:var(--text3)">DATA SOURCE</th>
-              </tr></thead>
-              <tbody>
-                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFW5G2G" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFW5G2G</a> M5F Case White +Fans</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0B65JCS4C" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0B65JCS4C</a> KEDIERS C650 Mech Case Wht</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Dec basket</td></tr>
-                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGFS7QTL" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGFS7QTL</a> M5F Case B/Green +Fans</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DMPGQ33G" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0DMPGQ33G</a> ASUS A31 White ATX Case</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Q3 basket</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px">
-            <div style="font-weight:700;color:var(--red);margin-bottom:8px;font-size:12px">Fan Conquesting 搶競品風扇（4 campaigns）</div>
-            <table style="width:100%;font-size:11px;border-collapse:collapse">
-              <thead><tr style="background:var(--bg);border-bottom:1px solid var(--border)">
-                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">ADVERTISE (GEO)</th>
-                <th style="text-align:center;padding:4px;font-size:9px;color:var(--text3)">→</th>
-                <th style="text-align:left;padding:4px 8px;font-size:9px;color:var(--text3)">TARGET (COMPETITOR)</th>
-                <th style="text-align:right;padding:4px 8px;font-size:9px;color:var(--text3)">DATA SOURCE</th>
-              </tr></thead>
-              <tbody>
-                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0B3XFZN7C" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0B3XFZN7C</a> S2503 Fwd 120mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B07HC7P3HJ" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B07HC7P3HJ</a> ARCTIC P12 5-Pack 120mm</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Nov basket</td></tr>
-                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0DGGVRBX2" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0DGGVRBX2</a> S2503 Fwd 140mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0C743H79N" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0C743H79N</a> Thermalright TL-S12 3pk</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Nov basket</td></tr>
-                <tr><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0CHR85N54" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0CHR85N54</a> S2503R Rev 120mm 1pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0CFQ17QVQ" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0CFQ17QVQ</a> ID-COOLING AF-127 3pk</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Dec basket</td></tr>
-                <tr style="background:var(--bg)"><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0B3XFZN7C" target="_blank" style="color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px">B0B3XFZN7C</a> S2503 Fwd 120mm 3pk Blk</td><td style="text-align:center">→</td><td style="padding:3px 8px"><a href="https://www.amazon.com/dp/B0B7J5VFM8" target="_blank" style="color:var(--red);text-decoration:none;font-family:var(--mono);font-size:10px">B0B7J5VFM8</a> DS RGB Fans 120mm 6pk</td><td style="text-align:right;padding:3px 8px;font-size:9px;color:var(--text3)">Dec basket</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- SUMMARY BOX -->
-          <div style="background:linear-gradient(135deg,rgba(37,99,235,.06),rgba(22,163,74,.06));border:1px solid var(--accent);border-radius:8px;padding:14px;margin:12px 0">
-            <div style="font-weight:800;font-size:13px;color:var(--accent);margin-bottom:8px">總投資 Total Investment</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;font-size:12px">
-              <div><strong>28 campaigns</strong><br><span style="color:var(--text2)">16 Defense + 12 Offense</span></div>
-              <div><strong>$28/day max</strong><br><span style="color:var(--text2)">$1 budget × 28 campaigns</span></div>
-              <div><strong>$0.21/click</strong><br><span style="color:var(--text2)">GEO bid ceiling</span></div>
-            </div>
-          </div>
-          <a href="./GEO_ASIN_Targeting_Strategy_20260310.xlsx" download style="display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;color:var(--accent);text-decoration:none;background:rgba(37,99,235,.08);padding:4px 10px;border-radius:4px;border:1px solid rgba(37,99,235,.2);margin-top:6px">⬇ GEO_ASIN_Targeting_Strategy_20260310.xlsx</a>
-        </div>
-      </div>
-
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono)">2026-03-10 — API 首次執行：搜尋詞報告驅動的出價調整</span>
-        </div>
-        <div style="color:var(--text2)">
-          <strong>分析 SP 搜尋詞報告</strong>（3,625 筆）+ <strong>SP 目標報告</strong>（2,486 筆）+ <strong>SP 活動報告</strong>（3,825 筆）。<br>
-          <strong>W5 帳戶績效 (Mar 1–7)：</strong>Spend $1,022 · Sales $4,776 · TACOS 21.4% · 43 orders<br>
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
-            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
-            透過 Amazon Ads API 自動拉取 SP 報告（Campaign / Search Term / Targeting），根據 TACOS 規則自動分析 4,529 個關鍵字與目標的績效。暫停花費 >$5 且零轉換的浪費關鍵字，提高 TACOS &lt; 10% 的高效關鍵字出價至 $0.21 上限。取代手動 Bulk 操作，實現即時生效。
-          </div>
-          <strong style="color:var(--red)">暫停 30 個 SP 關鍵字</strong>（花費 >$5，零銷售）：<br>
-          &nbsp;&nbsp;• <code>+pc +case</code> BROAD — $23.08 花費 / 0 轉換（跨多個 campaigns）<br>
-          &nbsp;&nbsp;• <code>+pc +case</code> PHRASE — $8.08 花費 / 0 轉換<br>
-          &nbsp;&nbsp;• <code>pc case</code> BROAD — $7.33 / 0、<code>pc box</code> BROAD — $7.26 / 0<br>
-          &nbsp;&nbsp;• <code>green pc case</code> BROAD — $7.04 / 0、<code>pc case</code> BROAD — $6.71 / 0<br>
-          <strong style="color:var(--green)">提高 5 個關鍵字出價 → $0.21</strong>（TACOS &lt; 10%，效率優秀）：<br>
-          &nbsp;&nbsp;• <code>+case +gaming</code> BROAD — TACOS 3.8%（$5.70 → $149.90 銷售）<br>
-          &nbsp;&nbsp;• <code>pc atx case</code> BROAD — TACOS 1.9%（$5.25 → $269.80 銷售）<br>
-          &nbsp;&nbsp;• <code>gaming tower</code> BROAD — TACOS 0.9%（$1.44 → $159.90 銷售）
-        </div>
-      </div>
-
-      <div style="border-left:3px solid var(--text3);padding-left:14px;margin-bottom:18px">
-        <div style="font-weight:800;color:var(--text2);font-size:13px;font-family:var(--mono);margin-bottom:6px">2026-03-10 — API 基礎建設 Infrastructure Setup</div>
-        <div style="color:var(--text2)">
-          <strong>新增 API 自動化腳本</strong> <code>api/geo_full_workflow.py</code><br>
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
-            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
-            建立 GEO 完整 API 工作流程：自動拉取報告 → 列出所有實體 → 根據 TACOS 規則生成出價建議 → 確認後執行。Profile ID: 3947387233604911，SDK: python-amazon-ad-api V3 端點。
-          </div>
-          &nbsp;&nbsp;• 實體統計：2,501 campaigns · 2,509 ad groups · 723 keywords · 3,806 targets<br>
-          &nbsp;&nbsp;• Bid 範圍設定：$0.16–$0.21 · TACOS 目標 10% · 暫停線 25%<br>
-          &nbsp;&nbsp;• 執行方式：<code>python3 api/geo_full_workflow.py</code>
-        </div>
-      </div>
+      </details>
 
     </div>
   </details>
