@@ -14,16 +14,16 @@
   --mono:'JetBrains Mono',monospace;--display:'Inter',sans-serif;--body:'Outfit',sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.6;min-height:100vh;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:18px;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 
 /* Hero */
 .hero{background:linear-gradient(135deg,#0f2942 0%,#1e3a5f 50%,#2a4a6f 100%);color:#fff;padding:48px 32px 40px;position:relative;overflow:hidden;}
 .hero::after{content:'';position:absolute;top:0;right:0;bottom:0;left:0;background:url('img/p5_1_900x882.jpeg') right center/contain no-repeat;opacity:.12;pointer-events:none;}
 .hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
-.hero-brand{font-family:var(--mono);font-size:11px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;}
-.hero h1{font-family:var(--display);font-size:32px;font-weight:900;margin-bottom:8px;line-height:1.2;}
+.hero-brand{font-family:var(--mono);font-size:13px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;}
+.hero h1{font-family:var(--display);font-size:38px;font-weight:900;margin-bottom:10px;line-height:1.2;}
 .hero h1 span{color:#60a5fa;}
-.hero-sub{font-size:14px;color:rgba(255,255,255,.7);max-width:640px;line-height:1.7;}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.75);max-width:700px;line-height:1.8;}
 
 /* Main */
 .main{max-width:1100px;margin:0 auto;padding:32px;}
@@ -36,15 +36,15 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 
 /* KPI strip */
 .kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:28px;box-shadow:0 1px 5px rgba(0,0,0,.06);}
-.kpi-card{background:var(--bg2);padding:16px 20px;}
-.kpi-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;font-family:var(--mono);}
-.kpi-value{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--text);}
-.kpi-sub{font-size:11px;color:var(--text2);margin-top:2px;}
+.kpi-card{background:var(--bg2);padding:18px 22px;}
+.kpi-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;font-family:var(--mono);}
+.kpi-value{font-family:var(--mono);font-size:17px;font-weight:700;color:var(--text);}
+.kpi-sub{font-size:13px;color:var(--text2);margin-top:2px;}
 
 /* Section card */
 .section-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:28px;box-shadow:0 1px 5px rgba(0,0,0,.06);}
-.section-card-title{font-family:var(--display);font-size:17px;font-weight:700;margin-bottom:16px;color:var(--text);}
-.section-card-sub{font-size:12px;color:var(--text3);font-weight:400;}
+.section-card-title{font-family:var(--display);font-size:20px;font-weight:700;margin-bottom:16px;color:var(--text);}
+.section-card-sub{font-size:14px;color:var(--text3);font-weight:400;}
 
 /* Brand story */
 .brand-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px;}
@@ -52,23 +52,23 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 .brand-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.06);}
 .brand-card-img{width:100%;height:180px;object-fit:cover;}
 .brand-card-body{padding:20px;}
-.brand-card-title{font-family:var(--display);font-size:14px;font-weight:700;margin-bottom:8px;}
-.brand-card-text{font-size:13px;color:var(--text2);line-height:1.7;}
+.brand-card-title{font-family:var(--display);font-size:17px;font-weight:700;margin-bottom:8px;}
+.brand-card-text{font-size:15px;color:var(--text2);line-height:1.8;}
 
 /* Benefit grid */
 .benefit-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 @media(max-width:640px){.benefit-grid{grid-template-columns:1fr;}}
-.benefit{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--bg);border-radius:8px;border:1px solid var(--border);}
-.benefit-icon{font-size:22px;flex-shrink:0;}
-.benefit-title{font-weight:600;font-size:13px;}
-.benefit-sub{font-size:11px;color:var(--text2);}
+.benefit{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg);border-radius:8px;border:1px solid var(--border);}
+.benefit-icon{font-size:26px;flex-shrink:0;}
+.benefit-title{font-weight:600;font-size:15px;}
+.benefit-sub{font-size:13px;color:var(--text2);}
 
 /* Comparison table */
 .comp-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px;}
-.comp-table th{background:var(--navy);color:#fff;padding:10px 14px;text-align:left;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.05em;}
-.comp-table td{padding:10px 14px;border-bottom:1px solid var(--border);}
+.comp-table th{background:var(--navy);color:#fff;padding:12px 16px;text-align:left;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.05em;}
+.comp-table td{padding:12px 16px;border-bottom:1px solid var(--border);font-size:15px;}
 .comp-table tr:nth-child(even) td{background:var(--bg3);}
-.comp-table .feat{font-weight:600;color:var(--text);width:160px;}
+.comp-table .feat{font-weight:600;color:var(--text);width:180px;}
 .comp-table .daiken{color:var(--blue);font-weight:600;}
 .comp-table .other{color:var(--text3);}
 
@@ -76,68 +76,76 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
 .angle-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;}
 @media(max-width:768px){.angle-cards{grid-template-columns:1fr;}}
 .angle-card{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe;border-radius:10px;padding:18px;text-align:center;}
-.angle-num{font-family:var(--mono);font-size:28px;font-weight:900;color:var(--blue);line-height:1;}
-.angle-label{font-size:12px;font-weight:700;color:var(--navy);margin:6px 0 4px;}
-.angle-desc{font-size:11px;color:var(--text2);line-height:1.5;}
+.angle-num{font-family:var(--mono);font-size:32px;font-weight:900;color:var(--blue);line-height:1;}
+.angle-label{font-size:14px;font-weight:700;color:var(--navy);margin:6px 0 4px;}
+.angle-desc{font-size:14px;color:var(--text2);line-height:1.6;}
 
 /* Scene cards */
 .scene{display:grid;grid-template-columns:280px 1fr;margin-bottom:14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05);}
 @media(max-width:768px){.scene{grid-template-columns:1fr;}}
 .scene-img{width:100%;height:100%;min-height:200px;object-fit:cover;display:block;}
 .scene-body{padding:22px;}
-.scene-time{font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:3px;font-weight:600;display:inline-block;}
+.scene-time{font-family:var(--mono);font-size:13px;padding:4px 10px;border-radius:4px;font-weight:600;display:inline-block;}
 .scene-time.blue{background:rgba(37,99,235,.1);color:var(--blue);}
 .scene-time.green{background:rgba(22,163,74,.1);color:var(--green);}
-.scene-title{font-family:var(--display);font-size:16px;font-weight:700;display:inline;margin-left:10px;}
-.scene-text{font-size:14px;color:var(--text2);line-height:1.8;margin-top:10px;}
+.scene-title{font-family:var(--display);font-size:19px;font-weight:700;display:inline;margin-left:10px;}
+.scene-text{font-size:16px;color:var(--text2);line-height:1.85;margin-top:12px;}
 .hl-blue{color:var(--blue);font-weight:600;}
 .hl-green{color:var(--green);font-weight:600;}
 .hl-amber{color:var(--amber);font-weight:600;}
-.scene-quote{background:var(--bg3);border-left:3px solid var(--blue);padding:10px 14px;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:var(--text);font-style:italic;}
+.scene-quote{background:var(--bg3);border-left:3px solid var(--blue);padding:14px 18px;border-radius:0 6px 6px 0;margin:12px 0;font-size:16px;color:var(--text);font-style:italic;}
 .scene-quote.gq{border-left-color:var(--green);}
 
 /* Version header */
 .version-header{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
 .version-badge{color:#fff;font-family:var(--mono);font-size:11px;font-weight:700;padding:4px 14px;border-radius:4px;letter-spacing:.05em;}
-.version-title{font-family:var(--display);font-size:22px;font-weight:800;color:var(--text);}
-.version-desc{font-size:13px;color:var(--text2);margin-bottom:20px;max-width:700px;}
+.version-title{font-family:var(--display);font-size:26px;font-weight:800;color:var(--text);}
+.version-desc{font-size:16px;color:var(--text2);margin-bottom:20px;max-width:700px;}
 
 /* Packaging note */
 .pkg-note{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#fefce8,#fef9c3);border:1px solid #fde68a;border-radius:10px;padding:18px 22px;margin-bottom:28px;}
 @media(max-width:640px){.pkg-note{flex-direction:column;text-align:center;}}
 .pkg-note-icon{font-size:32px;flex-shrink:0;}
-.pkg-note-text{font-size:13px;color:#92400e;line-height:1.6;}
+.pkg-note-text{font-size:15px;color:#92400e;line-height:1.7;}
 .pkg-note-text strong{color:#78350f;}
 
 /* Compliance */
 .compliance{background:linear-gradient(135deg,#fef2f2,#fee2e2);border:1px solid #fecaca;border-radius:10px;padding:24px;margin-bottom:28px;}
-.compliance-title{font-family:var(--display);font-size:15px;font-weight:700;color:var(--red);margin-bottom:14px;}
+.compliance-title{font-family:var(--display);font-size:18px;font-weight:700;color:var(--red);margin-bottom:14px;}
 .safe-lang,.unsafe-lang{margin-bottom:14px;}
-.safe-lang-title{font-size:12px;font-weight:700;color:var(--green);margin-bottom:6px;font-family:var(--mono);}
-.unsafe-lang-title{font-size:12px;font-weight:700;color:var(--red);margin-bottom:6px;font-family:var(--mono);}
-.lang-item{font-size:13px;color:var(--text2);padding:3px 0;display:flex;align-items:center;gap:8px;}
+.safe-lang-title{font-size:14px;font-weight:700;color:var(--green);margin-bottom:6px;font-family:var(--mono);}
+.unsafe-lang-title{font-size:14px;font-weight:700;color:var(--red);margin-bottom:6px;font-family:var(--mono);}
+.lang-item{font-size:15px;color:var(--text2);padding:4px 0;display:flex;align-items:center;gap:8px;}
 
 /* Do's / Don'ts */
 .rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px;}
 @media(max-width:768px){.rules-grid{grid-template-columns:1fr;}}
 .rules-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
-.rules-title{font-family:var(--display);font-size:16px;font-weight:700;margin-bottom:16px;}
-.rule{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;}
-.rule-icon{font-size:14px;flex-shrink:0;margin-top:2px;}
+.rules-title{font-family:var(--display);font-size:19px;font-weight:700;margin-bottom:16px;}
+.rule{display:flex;align-items:flex-start;gap:10px;font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:12px;}
+.rule-icon{font-size:16px;flex-shrink:0;margin-top:3px;}
 
 /* Divider */
 .divider{height:1px;background:var(--border);margin:36px 0;}
 
 /* Footer */
-.footer{text-align:center;font-size:11px;color:var(--text3);font-family:var(--mono);padding:20px 0 40px;}
+.footer{text-align:center;font-size:13px;color:var(--text3);font-family:var(--mono);padding:20px 0 40px;}
+
+/* Product link bar */
+.product-link{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe;border-radius:10px;padding:16px 22px;margin-bottom:28px;flex-wrap:wrap;}
+.product-link a{color:var(--blue);font-weight:600;font-size:15px;word-break:break-all;}
+.product-link-label{font-size:13px;font-weight:700;color:var(--navy);font-family:var(--mono);white-space:nowrap;}
+
+/* Requirement badge */
+.req-badge{display:inline-block;background:var(--red);color:#fff;font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:.05em;vertical-align:middle;margin-left:6px;}
 
 /* Storyboard gallery */
 .story-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
 @media(max-width:768px){.story-gallery{grid-template-columns:1fr;}}
 .story-thumb{border-radius:8px;overflow:hidden;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.08);}
 .story-thumb img{width:100%;height:180px;object-fit:cover;display:block;}
-.story-thumb-label{padding:10px 12px;font-size:11px;font-weight:600;color:var(--text);background:var(--bg2);}
-.story-thumb-sub{font-size:10px;color:var(--text3);font-weight:400;}
+.story-thumb-label{padding:12px 14px;font-size:13px;font-weight:600;color:var(--text);background:var(--bg2);}
+.story-thumb-sub{font-size:12px;color:var(--text3);font-weight:400;}
 
 @media print{
   .rules-grid,.section-card,.scene{break-inside:avoid;page-break-inside:avoid;}
@@ -171,6 +179,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
         <div class="kpi-card"><div class="kpi-label">Target</div><div class="kpi-value">Ages 3–5</div><div class="kpi-sub">Picky eater parents</div></div>
       </div>
     </div>
+  </div>
+
+  <!-- Product Link -->
+  <div class="product-link">
+    <span class="product-link-label">PRODUCT LISTING:</span>
+    <a href="https://www.amazon.com/dp/B0DQ7RFMY3" target="_blank">amazon.com/dp/B0DQ7RFMY3</a>
+    <span style="font-size:13px;color:var(--text3)">&#8226; Reference the listing for packaging visuals and customer reviews</span>
   </div>
 
   <!-- Brand Story -->
@@ -251,7 +266,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
       <div class="benefit"><span class="benefit-icon">&#x1F34A;</span><div><div class="benefit-title">Tropical Fruit Flavor</div><div class="benefit-sub">No fishy taste, no fishy smell, no fishy burps</div></div></div>
       <div class="benefit"><span class="benefit-icon">&#x2600;&#xFE0F;</span><div><div class="benefit-title">Vitamin D3 Included</div><div class="benefit-sub">180 IU per gummy — most fish oils don't include this</div></div></div>
       <div class="benefit"><span class="benefit-icon">&#x1F48A;</span><div><div class="benefit-title">Individual Blister Packs</div><div class="benefit-sub">Sealed fresh, no oxidation — unlike open bottles</div></div></div>
-      <div class="benefit"><span class="benefit-icon">&#x1F476;</span><div><div class="benefit-title">Ages 3+ / Picky Eaters</div><div class="benefit-sub">1–3 gummies daily with a meal (do not exceed 3)</div></div></div>
+      <div class="benefit"><span class="benefit-icon">&#x1F476;</span><div><div class="benefit-title">Ages 3+ / Picky Eaters</div><div class="benefit-sub">1–3 gummies per day, taken during any meal (do not exceed 3)</div></div></div>
       <div class="benefit"><span class="benefit-icon">&#x1F3C6;</span><div><div class="benefit-title">Est. 1961 · Award-Winning</div><div class="benefit-sub">Monde Selection Grand Gold 2021 & 2022</div></div></div>
     </div>
   </div>
@@ -303,16 +318,21 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
       <div class="version-badge" style="background:var(--blue)">VERSION A</div>
       <div class="version-title">The Parent Discovery</div>
     </div>
-    <div class="version-desc">Focus on the relatable parent struggle — you've been searching for a fish oil your picky kid will actually take. This is your honest discovery moment.</div>
+    <div class="version-desc">Start from a real parenting pain point — NOT "I was looking for fish oil." Most parents of 3-year-olds don't start there. Start from the struggle, then naturally discover the product.</div>
 
     <div class="scene">
       <img class="scene-img" src="img/p7_1_704x384.jpeg" alt="Picky eater plate">
       <div class="scene-body">
-        <span class="scene-time blue">0:00 – 0:08</span><span class="scene-title">Opening Hook</span>
+        <span class="scene-time blue">0:00 – 0:08</span><span class="scene-title">Opening Hook — Start From the Pain Point</span>
         <div class="scene-text">
-          Start holding or receiving the package. Set the scene — you're a parent who's been trying to find a fish oil your kid will actually take.<br><br>
-          Open with something relatable about picky eaters or the struggle of getting nutrients into a child who refuses vegetables. Your audience is the parent who worries their <strong>3-to-5-year-old</strong> isn't getting enough DHA for their growing brain.<br><br>
-          <span class="hl-blue">Speak directly to that feeling. Keep it casual, like talking to a friend.</span>
+          Start from a <strong>real parenting scenario</strong>, not "I was looking for a fish oil." Most parents of toddlers don't start there — they start from a daily struggle.<br><br>
+          <strong>Pick one of these hooks (or similar):</strong><br><br>
+          <div class="scene-quote">"My kid refuses to eat fish. Getting omega-3 into them is basically impossible."</div>
+          <div class="scene-quote">"My toddler survives on pasta and crackers... so I started looking for an easier way to add omega-3."</div>
+          <div class="scene-quote">"Every dinner feels like a negotiation. My kid eats three bites and runs."</div>
+          <div class="scene-quote">"My kid probably gets more screen time than I'd like... so I try to support eye health where I can."</div>
+          <div class="scene-quote">"We've tried so many kids vitamins — too sour, too hard, too big. These are the first ones my toddler actually likes."</div>
+          <span class="hl-blue">Start from the real scenario, then naturally lead into discovering the product. Don't open with "fish oil" — open with the feeling.</span>
         </div>
       </div>
     </div>
@@ -342,7 +362,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
           <strong>Absorption:</strong> "And it's rTG form from Norway — the premium form that actually gets absorbed. Most cheaper brands use a form your body can't absorb as well."<br><br>
           <strong>Vitamin D bonus:</strong> "It also has Vitamin D3 built in — most fish oil gummies don't include that at all."<br><br>
           <strong>Smell test:</strong> Smell the gummy on camera. React honestly — confirm no fishy smell. Mention it's zero sugar, sweetened naturally.<br><br>
-          If your child is present, let them see or smell it — genuine reactions are powerful.
+          Let your child see and smell it on camera — genuine kid reactions are what sells. <span class="req-badge">REQUIRED</span>
         </div>
       </div>
     </div>
@@ -350,10 +370,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
     <div class="scene">
       <img class="scene-img" src="img/p8_2_704x384.jpeg" alt="Kid eating Daiken gummy — no sugar, no fishy burps">
       <div class="scene-body">
-        <span class="scene-time blue">0:40 – 0:52</span><span class="scene-title">The Kid Test / Taste Moment</span>
+        <span class="scene-time blue">0:40 – 0:52</span><span class="scene-title">The Kid Test / Taste Moment <span class="req-badge">CHILD REQUIRED</span></span>
         <div class="scene-text">
-          Show your child trying the gummy (or taste it yourself).<br><br>
-          &#8226; Capture the genuine reaction — do they like the tropical fruit flavor? Do they ask for more?<br>
+          Show your child trying the gummy on camera. This is a requirement, not optional.<br><br>
+          &#8226; Capture their genuine reaction — do they like the tropical fruit flavor? Do they ask for more?<br>
           &#8226; Comment on the soft chew texture — not hard or chalky<br>
           &#8226; Share your relief: <em>"Finally found something with real clinical-grade nutrition that my kid actually wants to eat"</em>
         </div>
@@ -369,7 +389,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
           <div class="scene-quote">"Yes, there are bigger, cheaper bottles out there — but check what you're actually getting per gummy. Most are low-concentration. With Daiken, one gummy gives your kid 300mg omega-3 in a form their body actually absorbs. You're not wasting gummies."</div>
           <strong>Stack the extras:</strong> rTG Norwegian fish oil + Vitamin D3 + zero sugar + individually sealed fresh<br><br>
           &#8226; Daiken has been making supplements since 1961, won Monde Selection Grand Gold — not a random new brand<br>
-          &#8226; Dosage: 1–3 gummies daily with a meal<br>
+          &#8226; Dosage: 1–3 gummies per day, taken during any meal<br>
           &#8226; Clear call to action — check the link<br>
           &#8226; <span class="hl-blue">"If your kid is a picky eater and you worry about the nutrition gap, this is the bridge."</span>
         </div>
@@ -393,8 +413,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
         <span class="scene-time green">0:00 – 0:08</span><span class="scene-title">Opening Hook</span>
         <div class="scene-text">
           Start with the sealed package in front of you. Frame yourself as the parent who reads every label.<br><br>
-          <div class="scene-quote gq">"I check every ingredient before my kids get anything, so let's see what's actually in these fish oil gummies."</div>
-          <span class="hl-green">Position yourself as the parent who does their homework, for parents who do the same.</span>
+          <strong>Hook options:</strong>
+          <div class="scene-quote gq">"I check every ingredient before my kids get anything, so let's see what's actually in these."</div>
+          <div class="scene-quote gq">"My toddler barely eats vegetables, so I've been looking into what supplements actually deliver — let's check this one."</div>
+          <span class="hl-green">Position yourself as the parent who does their homework. Start from curiosity, not from "fish oil."</span>
         </div>
       </div>
     </div>
@@ -424,9 +446,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
           Shift from facts to the real-world test.<br><br>
           &#8226; Smell the gummy on camera — react honestly. Confirm no fish smell. This is make-or-break for parents who've tried other fish oils.<br>
           &#8226; Note the tropical fruit scent<br>
-          &#8226; Taste it yourself OR have your child try it<br>
+          &#8226; Have your child try it on camera <span class="req-badge">REQUIRED</span> — you can taste it too<br>
           &#8226; Comment on texture (soft chew, not hard or chalky) and flavor (tropical, pleasant, no aftertaste)<br>
-          &#8226; If your child tries it, capture the honest reaction — even a thumbs up or asking for more is powerful
+          &#8226; Capture the honest kid reaction — even a thumbs up or asking for more is powerful
         </div>
       </div>
     </div>
@@ -441,7 +463,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
           <strong>Stack the wins:</strong> rTG Norwegian fish oil + Vitamin D3 (most don't have it) + zero sugar + blister-packed for freshness<br><br>
           &#8226; "Daiken has been around since 1961 and won the Monde Selection Grand Gold Award — I trust what's actually in this"<br>
           &#8226; Frame as peace of mind: <em>"I feel good giving this to my kids because I actually checked what's inside"</em><br>
-          &#8226; Dosage: 1–3 gummies daily with a meal<br>
+          &#8226; Dosage: 1–3 gummies per day, taken during any meal<br>
           &#8226; Clear CTA — check the link, worth trying for your picky eater<br>
           &#8226; <span class="hl-green">"This is what I'd recommend to a friend."</span>
         </div>
@@ -482,7 +504,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15
       <div class="rule"><span class="rule-icon" style="color:var(--green)">&#10003;</span>Explain the rTG absorption advantage in simple terms</div>
       <div class="rule"><span class="rule-icon" style="color:var(--green)">&#10003;</span>Lead with concentration: 300mg per ONE gummy vs competitors' low-dose big bottles</div>
       <div class="rule"><span class="rule-icon" style="color:var(--green)">&#10003;</span>Show packaging naturally as-is, including Chinese text</div>
-      <div class="rule"><span class="rule-icon" style="color:var(--green)">&#10003;</span>Include your child's genuine reaction if possible</div>
+      <div class="rule"><span class="rule-icon" style="color:var(--green)">&#10003;</span>Your child MUST appear in the video — genuine kid reactions are required</div>
       <div class="rule"><span class="rule-icon" style="color:var(--green)">&#10003;</span>Mention the brand story (since 1961, quality awards)</div>
       <div class="rule"><span class="rule-icon" style="color:var(--green)">&#10003;</span>Film in natural light, home setting (kitchen, living room)</div>
       <div class="rule"><span class="rule-icon" style="color:var(--green)">&#10003;</span>End with a clear call to action</div>
