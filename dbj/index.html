@@ -143,10 +143,75 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
       <span style="font-size:14px;transition:transform .2s;display:inline-block" class="log-arrow">&#9654;</span>
       <span>Campaign Action Log 廣告操作紀錄</span>
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">2 entries</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/10 — API 自動化升級與出價策略統一</span>
+      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">4 entries</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/12 — 交叉銷售廣告建立 + TACOS 優化</span>
     </summary>
     <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
+
+      <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-12 — TACOS OPTIMIZATION 帳號 TACOS 優化</span>
+          <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">NEW</span>
+        </div>
+        <div style="color:var(--text2)">
+          分析 30 天 API 數據，識別並暫停<strong>零營收與超標廣告活動</strong>，預期 TACOS 從 16% 降至 ~14.5%。<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy · 零營收廣告止血 + 超標暫停</div>
+            帳號 TACOS 16% 超過目標 15%，主因為 29 個零營收廣告持續消耗預算（每月 $345 浪費），以及 4 個 TACOS &gt;25% 暫停線的廣告。暫停這 33 個低效活動後，預算重新分配至高效產品線（Hangers 7.2% TACOS、Wire Shelving Star 象限），預計 2-3 週內降至 14.5-15%。
+          </div>
+          <strong style="color:var(--red)">動作 1：暫停 29 個零營收 campaigns（$345/月浪費消除）</strong><br>
+          &nbsp;&nbsp;• Standing Shelf Units B094XBLMGH：6 campaigns（$125 浪費）<br>
+          &nbsp;&nbsp;• Standing Shelf Units B094X854R4：3 campaigns（$67 浪費）<br>
+          &nbsp;&nbsp;• Wire Shelving Hot Money Makers：3 campaigns（$67 浪費）<br>
+          &nbsp;&nbsp;• Standing Dry Racks：2 campaigns（$30 浪費）<br>
+          &nbsp;&nbsp;• Storage Drawer Carts：3 campaigns（$35 浪費）<br>
+          &nbsp;&nbsp;• 其他：12 campaigns（$21 浪費）<br>
+          <strong style="color:var(--amber)">動作 2：暫停 4 個 TACOS &gt;25% 超標 campaigns</strong><br>
+          &nbsp;&nbsp;• Broom Holder Phrase Match：TACOS 43%（$50 spend / $116 sales）<br>
+          &nbsp;&nbsp;• Storage Cart A1 Bulk Auto：TACOS 36%（$25 / $68）<br>
+          &nbsp;&nbsp;• Shelf B08ZXJR1DP Bulk Auto：TACOS 33%（$36 / $108）<br>
+          &nbsp;&nbsp;• Utility Cart Bulk Auto：TACOS 32%（$11 / $34）<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">預期效果 Expected Impact</div>
+            33 個低效 campaigns 暫停 → 每月節省 ~$467<br>
+            預算重新集中於 Star 象限（Hangers、Wire Shelving）<br>
+            預計帳號 TACOS：<strong style="color:var(--green)">16.0% → ~14.5%</strong>（2-3 週內）
+          </div>
+        </div>
+      </div>
+
+      <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-12 — MARKET BASKET CROSS-SELL 購物籃交叉銷售廣告建立</span>
+          <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">NEW</span>
+        </div>
+        <div style="color:var(--text2)">
+          基於 4 季度 Market Basket Analysis，建立 <strong>23 個 SP Product Targeting 新廣告活動</strong>。<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy · 品牌防禦 + 競品攻略 + 再行銷配對</div>
+            三層投放策略：(1) 品牌防禦 — 在自家產品頁面投放其他 DBJ 產品，防止競品搶走買家；(2) 競品攻略 — 在競品 Shelf Liner、Hanger、Shelving 頁面投放 DBJ 產品；(3) 再行銷配對 — 跨品類交叉投放提升客單價。低成本精準投放：Bid $0.55 / Budget $1/天 / Dynamic bids - down only。
+          </div>
+          <strong style="color:var(--green)">品牌防禦 Brand Defense（8 campaigns）：</strong><br>
+          &nbsp;&nbsp;• Hanger 互投 4 組：Blue 4pk ↔ Black 10pk ↔ MultiColor ↔ Blue 10pk<br>
+          &nbsp;&nbsp;• Shelving 升級路徑 4 組：3T ↔ 4T ↔ 5T Chrome/Black<br>
+          <strong style="color:var(--green)">競品攻略 Competitor Conquest（7 campaigns）：</strong><br>
+          &nbsp;&nbsp;• Shelf Liner 攻略 ×3：Sterling + GORILLA GRIP + Slendor + BRIAN &amp; DANY → 層架產品<br>
+          &nbsp;&nbsp;• Hanger 攻略 ×2：HOUSE DAY + Nature Smile + Foshine + 8 others → 衣架產品<br>
+          &nbsp;&nbsp;• Shelving 攻略 ×2：Amazon Basics + Safco → 層架產品<br>
+          <strong style="color:var(--green)">再行銷配對 Remarketing Pairs（8 campaigns）：</strong><br>
+          &nbsp;&nbsp;• Wire Shelving → Storage Cart（2 組）<br>
+          &nbsp;&nbsp;• Dryer Rack ↔ Hangers（3 組）<br>
+          &nbsp;&nbsp;• Storage Cart → Utility Cart（2 組）<br>
+          &nbsp;&nbsp;• Broom Holder → Shelf Units（1 組）<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">Bulk 檔案 File Details</div>
+            檔案：<code>clients/dbj/bulk-output/DBJ_MarketBasket_CrossSell_TACOS_Optimize.xlsx</code><br>
+            Sheet 1：SP PT Cross-Sell Create（136 rows, 23 campaigns）<br>
+            Sheet 2：SP Pause Optimize（33 campaigns to pause）<br>
+            上傳步驟：Amazon Ads Console → Bulk Operations → Upload
+          </div>
+        </div>
+      </div>
 
       <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:18px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
