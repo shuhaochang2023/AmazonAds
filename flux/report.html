@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flux — 五國市場會議報告 2026-03-12</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#f1f5f9;--surface:#ffffff;--border:#e2e8f0;--text:#0f172a;--dim:#64748b;--accent:#2563eb;
+  --green:#16a34a;--yellow:#ca8a04;--red:#dc2626;--orange:#ea580c;--cyan:#0891b2;--purple:#7c3aed;
+  --text2:#334155;--text3:#94a3b8;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:28px 20px;}
+.report{max-width:1100px;margin:0 auto;}
+
+/* Header */
+.rpt-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;padding-bottom:18px;border-bottom:2px solid var(--border);}
+.rpt-header-left{display:flex;align-items:center;gap:14px;}
+.rpt-badge{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;background:var(--accent);color:#fff;padding:5px 12px;border-radius:5px;letter-spacing:.06em;}
+.rpt-title{font-size:22px;font-weight:800;color:var(--text);line-height:1.3;}
+.rpt-sub{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);margin-top:2px;}
+.rpt-date{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);text-align:right;line-height:1.6;}
+.rpt-back{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);text-decoration:none;font-weight:600;margin-top:6px;padding:4px 10px;border:1px solid var(--accent);border-radius:4px;transition:all .15s;}
+.rpt-back:hover{background:var(--accent);color:#fff;}
+
+/* Section */
+.section{margin-bottom:20px;}
+.section-head{font-size:15px;font-weight:800;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.section-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;background:var(--accent);color:#fff;padding:3px 9px;border-radius:4px;}
+
+/* Panel */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;}
+.panel-header{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.panel-title{font-size:13px;font-weight:700;color:var(--dim);letter-spacing:.06em;text-transform:uppercase;}
+.panel-body{padding:14px 18px;}
+
+/* Tables */
+.rpt-table{width:100%;border-collapse:collapse;}
+.rpt-table th{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--dim);text-align:left;padding:9px 10px;letter-spacing:.04em;border-bottom:2px solid var(--border);white-space:nowrap;}
+.rpt-table td{font-size:13px;padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+.rpt-table tr:last-child td{border-bottom:none;}
+.rpt-table .mono{font-family:'JetBrains Mono',monospace;font-size:12px;}
+
+/* Pills */
+.pill{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:.03em;white-space:nowrap;display:inline-block;}
+.pill-green{background:rgba(22,163,74,.1);color:var(--green);}
+.pill-yellow{background:rgba(202,138,4,.1);color:var(--yellow);}
+.pill-red{background:rgba(220,38,38,.1);color:var(--red);}
+.pill-blue{background:rgba(37,99,235,.1);color:var(--accent);}
+.pill-cyan{background:rgba(8,145,178,.1);color:var(--cyan);}
+.pill-orange{background:rgba(234,88,12,.1);color:var(--orange);}
+.pill-gray{background:rgba(100,116,139,.1);color:var(--dim);}
+
+/* Action cards */
+.action-card{border-left:4px solid var(--accent);background:rgba(37,99,235,.03);border-radius:0 8px 8px 0;padding:14px 18px;margin-bottom:10px;}
+.action-card.green{border-left-color:var(--green);background:rgba(22,163,74,.03);}
+.action-card.orange{border-left-color:var(--orange);background:rgba(234,88,12,.03);}
+.action-card .ac-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.action-card .ac-title{font-size:14px;font-weight:700;color:var(--text);}
+.action-card .ac-date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);}
+.action-card .ac-body{font-size:13px;color:var(--text2);line-height:1.7;}
+.action-card .ac-body strong{color:var(--text);}
+.ac-detail{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);margin-top:4px;}
+
+/* BCG grid */
+.bcg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+@media(max-width:700px){.bcg-grid{grid-template-columns:1fr;}}
+.bcg-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.bcg-card .bcg-head{padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+.bcg-card .bcg-flag{font-size:18px;}
+.bcg-card .bcg-market{font-size:14px;font-weight:700;}
+.bcg-card .bcg-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);margin-left:auto;}
+
+/* Spring Deal */
+.deal-live{display:inline-flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);font-weight:700;}
+.deal-live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* Priority tags */
+.ptag{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;margin-right:6px;}
+.ptag-p1{background:rgba(220,38,38,.1);color:var(--red);}
+.ptag-p2{background:rgba(202,138,4,.1);color:var(--yellow);}
+.ptag-p3{background:rgba(37,99,235,.1);color:var(--accent);}
+
+/* Footer */
+.rpt-footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--border);text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);}
+
+/* Print */
+@media print{
+  body{background:#fff;padding:12px;}
+  .rpt-back{display:none;}
+  .panel,.bcg-card,.action-card{break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+<div class="report">
+
+  <!-- Header -->
+  <div class="rpt-header">
+    <div class="rpt-header-left">
+      <span class="rpt-badge">REPORT</span>
+      <div>
+        <div class="rpt-title">Flux 五國市場總整理</div>
+        <div class="rpt-sub">客戶會議簡報 Client Meeting Brief</div>
+      </div>
+    </div>
+    <div class="rpt-date">
+      2026-03-12 · WED<br>
+      報告期間 W1–W5 (Feb 1 – Mar 7)<br>
+      TACOS 目標 Target: ≤30%<br>
+      <a class="rpt-back" href="./">← 返回 Dashboard</a>
+    </div>
+  </div>
+
+  <!-- ═══════ 一、帳戶總覽 ═══════ -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">一</span>帳戶總覽 Account Overview</div>
+    <div class="panel">
+      <div class="panel-body" style="padding:0;">
+        <table class="rpt-table">
+          <thead>
+            <tr><th>市場 Market</th><th>5W 總營收 Sales</th><th>5W 總廣告費 Ad Spend</th><th>帳戶 TACOS</th><th>狀態 Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:700">&#x1F1E6;&#x1F1FA; AU</td>
+              <td class="mono">A$9,654</td>
+              <td class="mono">A$5,259</td>
+              <td class="mono" style="color:var(--red);font-weight:700">54.4%</td>
+              <td><span class="pill pill-yellow">OVER 超標</span></td>
+            </tr>
+            <tr>
+              <td style="font-weight:700">&#x1F1EC;&#x1F1E7; UK</td>
+              <td class="mono">&pound;11,308</td>
+              <td class="mono">&pound;3,108</td>
+              <td class="mono" style="color:var(--green);font-weight:700">27.5%</td>
+              <td><span class="pill pill-green">ON TARGET 達標</span></td>
+            </tr>
+            <tr>
+              <td style="font-weight:700">&#x1F1E9;&#x1F1EA; DE</td>
+              <td class="mono">&euro;18,179+</td>
+              <td class="mono">—</td>
+              <td class="mono" style="color:var(--yellow);font-weight:700">~30%</td>
+              <td><span class="pill pill-blue">NEAR 接近達標</span></td>
+            </tr>
+            <tr>
+              <td style="font-weight:700">&#x1F1FA;&#x1F1F8; US</td>
+              <td class="mono">$4,076</td>
+              <td class="mono">$1,598</td>
+              <td class="mono" style="color:var(--orange);font-weight:700">39.2%</td>
+              <td><span class="pill pill-yellow">OVER 超標</span></td>
+            </tr>
+            <tr>
+              <td style="font-weight:700">&#x1F1E8;&#x1F1E6; CA</td>
+              <td class="mono">C$4,676</td>
+              <td class="mono">C$2,681</td>
+              <td class="mono" style="color:var(--red);font-weight:700">57.3%</td>
+              <td><span class="pill pill-red">CRITICAL 嚴重超標</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-body" style="font-size:13px;line-height:1.8;color:var(--text2);">
+        <strong style="color:var(--text);">重點 Key Takeaways:</strong><br>
+        &bull; UK 是表現最好的市場，TACOS 27.5% 已達標<br>
+        &bull; DE 市場 Avento 在 W5 爆發性成長（&euro;3,757 單週），正值太陽眼鏡季節旺季<br>
+        &bull; CA 市場 TACOS 57.3% 過高，主因是 Avento 的 115.4% TACOS 拖累<br>
+        &bull; AU 市場需持續優化 SPORTECH、Flux 戶外偏光鏡等高 TACOS 產品
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ 二、行動紀錄 ═══════ -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">二</span>行動紀錄 Action Records</div>
+
+    <div class="action-card">
+      <div class="ac-head">
+        <span class="ac-title">象限策略優化 Quadrant Optimization（全市場）</span>
+        <span class="ac-date">2026-03-10</span>
+      </div>
+      <div class="ac-body">
+        透過 Amazon Ads API 自動化執行三層策略 — Star 加碼 / Question 降 bid / Cut 止血
+      </div>
+      <div style="margin-top:10px;overflow-x:auto;">
+        <table class="rpt-table" style="min-width:500px;">
+          <thead><tr><th>市場</th><th>調整數 Campaigns</th><th>Star +30%</th><th>Question -20%</th><th>Cut -50%</th></tr></thead>
+          <tbody>
+            <tr><td>AU</td><td class="mono">6,727</td><td class="mono">508</td><td class="mono">186</td><td class="mono">50</td></tr>
+            <tr><td>UK</td><td class="mono">1,825</td><td class="mono">455</td><td class="mono">131</td><td class="mono">74</td></tr>
+            <tr><td>DE</td><td class="mono">2,142</td><td class="mono">797</td><td class="mono">436</td><td class="mono">368</td></tr>
+            <tr><td>US</td><td class="mono">770</td><td class="mono">65</td><td class="mono">176</td><td class="mono">—</td></tr>
+            <tr><td>CA</td><td class="mono">1,201</td><td class="mono">100</td><td class="mono">67</td><td class="mono">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="action-card green">
+      <div class="ac-head">
+        <span class="ac-title">Spring Deal 預熱廣告上線（UK + DE）</span>
+        <span class="ac-date">2026-03-10</span>
+      </div>
+      <div class="ac-body">
+        <strong>UK 春季特賣預熱：</strong>上線 7 支新 SP 廣告（Avento、Jet II、Verano、Dynamic）<br>
+        Auto + Manual 雙軌策略，預建關鍵字排名 · 每日預算 &pound;95/day<br>
+        <div class="ac-detail">UK_SP_SpringDeal_20260310.xlsx（61 rows）</div>
+        <br>
+        <strong>DE 春季特賣預熱：</strong>上線 5 支新 SP 廣告（Avento、Sportech、Jet II）<br>
+        德英雙語關鍵字部署 · 每日預算 &euro;208/day<br>
+        <div class="ac-detail">DE_SP_SpringDeal_20260310.xlsx（43 rows）</div>
+      </div>
+    </div>
+
+    <div class="action-card green">
+      <div class="ac-head">
+        <span class="ac-title">UK 搜尋詞報告驅動的預算重分配 Rebalance V2</span>
+        <span class="ac-date">2026-03-10</span>
+      </div>
+      <div class="ac-body">
+        分析 <strong>4,282 筆 SP</strong> + <strong>2,760 筆 SB</strong> 搜尋詞<br>
+        發現 65.2% SP 花費（&pound;2,088）浪費在零訂單搜尋詞上<br>
+        暫停 133 支低效 SP 廣告，釋放 ~&pound;67/day 浪費預算<br>
+        新上線 13 支成長型廣告，&pound;224/day，使用驗證過的高轉換關鍵字
+        <div class="ac-detail">UK_SP_GrowthRebalance_20260310_0721.xlsx（276 rows）</div>
+      </div>
+    </div>
+
+    <div class="action-card orange">
+      <div class="ac-head">
+        <span class="ac-title">US/CA SP 廣告清理 + SB 調整</span>
+        <span class="ac-date">2026-03-09</span>
+      </div>
+      <div class="ac-body">
+        <strong>US:</strong> 暫停低效 SP 廣告，SB bid/budget 優化<br>
+        <strong>CA:</strong> 暫停低效 SP 廣告，SB 精準優化
+        <div class="ac-detail">US_SP_Cleanup / US_SB_Actions / CA_SP_Cleanup / CA_SB_Actions</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ 三、BCG 象限分析 ═══════ -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">三</span>執行概況 — 各市場 BCG 象限分析</div>
+
+    <div class="bcg-grid">
+      <!-- AU -->
+      <div class="bcg-card">
+        <div class="bcg-head">
+          <span class="bcg-flag">&#x1F1E6;&#x1F1FA;</span>
+          <span class="bcg-market">AU 市場</span>
+          <span class="bcg-sub">TACOS 54.4%</span>
+        </div>
+        <div style="padding:0;">
+          <table class="rpt-table">
+            <thead><tr><th>象限</th><th>產品 Products</th><th>TACOS</th><th>行動</th></tr></thead>
+            <tbody>
+              <tr><td><span class="pill pill-green">Star</span></td><td>80Days 尼龍眼鏡繩</td><td class="mono">25.1%</td><td>預算+30%</td></tr>
+              <tr><td><span class="pill pill-yellow">Question</span></td><td>AVENTO (34%) · BOWRIDER (34.9%) · VENTURA (35%)</td><td class="mono">34–35%</td><td>CPC -20%</td></tr>
+              <tr><td><span class="pill pill-red">Cut</span></td><td>方框墨鏡 (70%) · SPORTECH (87.3%) · 戶外偏光鏡 (139.4%)</td><td class="mono">70–139%</td><td>止血降價</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- UK -->
+      <div class="bcg-card">
+        <div class="bcg-head">
+          <span class="bcg-flag">&#x1F1EC;&#x1F1E7;</span>
+          <span class="bcg-market">UK 市場</span>
+          <span class="bcg-sub" style="color:var(--green)">BEST 最佳</span>
+        </div>
+        <div style="padding:0;">
+          <table class="rpt-table">
+            <thead><tr><th>象限</th><th>產品 Products</th><th>TACOS</th><th>行動</th></tr></thead>
+            <tbody>
+              <tr><td><span class="pill pill-green">Star</span></td><td>AVENTO (22.2%) · VERANO (21.0%)</td><td class="mono">21–22%</td><td>預算+30%</td></tr>
+              <tr><td><span class="pill pill-yellow">Question</span></td><td>眼鏡繩 (34.7%) · SPORTECH (40.7%) · 飛行員 (69.6%) · JET II (52.7%)</td><td class="mono">35–70%</td><td>CPC -20%</td></tr>
+              <tr><td><span class="pill pill-red">Cut</span></td><td>圓框復古 (50.3%) · 橢圓女款 (101.6%)</td><td class="mono">50–102%</td><td>降價+優惠券</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- DE -->
+      <div class="bcg-card">
+        <div class="bcg-head">
+          <span class="bcg-flag">&#x1F1E9;&#x1F1EA;</span>
+          <span class="bcg-market">DE 市場</span>
+          <span class="bcg-sub" style="color:var(--orange)">季節爆發</span>
+        </div>
+        <div style="padding:0;">
+          <table class="rpt-table">
+            <thead><tr><th>象限</th><th>產品 Products</th><th>TACOS</th><th>行動</th></tr></thead>
+            <tbody>
+              <tr><td><span class="pill pill-green">Star</span></td><td>VERANO (29.2%) · SPORTECH (26.0%) · 飛行員 (6.5%)</td><td class="mono">6.5–29%</td><td>預算+30%</td></tr>
+              <tr><td><span class="pill pill-yellow">Question</span></td><td>AVENTO (30.4%) · 眼鏡繩 (30.7%)</td><td class="mono">30–31%</td><td>CPC -20%</td></tr>
+              <tr><td><span class="pill pill-red">Cut</span></td><td>VENTURA · DYNAMIC (78.7%)</td><td class="mono">高</td><td>bid -50%</td></tr>
+            </tbody>
+          </table>
+          <div style="padding:8px 10px;font-size:12px;color:var(--orange);font-weight:600;background:rgba(234,88,12,.04);">
+            Avento W5 單週 &euro;3,757（44 units）— 太陽眼鏡季節需求爆發中
+          </div>
+        </div>
+      </div>
+
+      <!-- US -->
+      <div class="bcg-card">
+        <div class="bcg-head">
+          <span class="bcg-flag">&#x1F1FA;&#x1F1F8;</span>
+          <span class="bcg-market">US 市場</span>
+          <span class="bcg-sub">TACOS 39.2%</span>
+        </div>
+        <div style="padding:0;">
+          <table class="rpt-table">
+            <thead><tr><th>象限</th><th>產品 Products</th><th>TACOS</th><th>行動</th></tr></thead>
+            <tbody>
+              <tr><td><span class="pill pill-green">Star</span></td><td>SPORTECH (6.3%) · AVENTO (21.7%)</td><td class="mono">6–22%</td><td>預算+30%</td></tr>
+              <tr><td><span class="pill pill-yellow">Question</span></td><td>尼龍眼鏡繩 (62.9%)</td><td class="mono">62.9%</td><td>CPC -20%</td></tr>
+              <tr><td><span class="pill pill-red">Cut</span></td><td>SPORTECH2 (128.7%)</td><td class="mono">128.7%</td><td>降價+優惠券</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- CA full width -->
+    <div class="bcg-card" style="margin-bottom:14px;">
+      <div class="bcg-head">
+        <span class="bcg-flag">&#x1F1E8;&#x1F1E6;</span>
+        <span class="bcg-market">CA 市場</span>
+        <span class="bcg-sub" style="color:var(--red)">最需關注 CRITICAL</span>
+      </div>
+      <div style="padding:0;">
+        <table class="rpt-table">
+          <thead><tr><th>象限</th><th>產品 Products</th><th>TACOS</th><th>行動</th></tr></thead>
+          <tbody>
+            <tr><td><span class="pill pill-green">Star</span></td><td>鋼絲眼鏡繩 (0.0%)</td><td class="mono">0%</td><td>預算+30%，建立 SB/SD</td></tr>
+            <tr><td><span class="pill pill-yellow">Question</span></td><td>尼龍眼鏡繩 (36.5%)</td><td class="mono">36.5%</td><td>CPC -20%，精準控制</td></tr>
+            <tr><td><span class="pill pill-red">Cut</span></td><td>AVENTO (115.4%) · VERANO New (140.2%)</td><td class="mono">115–140%</td><td>緊急暫停+降價</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ 四、Spring Sales ═══════ -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">四</span>Spring Sales 現況</div>
+
+    <div class="bcg-grid">
+      <!-- UK Spring -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">&#x1F1EC;&#x1F1E7; UK — <span class="deal-live">LIVE 已啟動</span></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">目標 &pound;2,550+/wk</div>
+        </div>
+        <div class="panel-body" style="padding:0;">
+          <table class="rpt-table">
+            <thead><tr><th>產品</th><th>W5 日均</th><th>Deal 目標</th><th>漲幅</th><th>TACOS 目標</th></tr></thead>
+            <tbody>
+              <tr><td>AVENTO</td><td class="mono">&pound;38/day</td><td class="mono">&pound;57/day</td><td class="mono" style="color:var(--green)">+50%</td><td class="mono">&le;25%</td></tr>
+              <tr><td>JET II</td><td class="mono">&pound;12/day</td><td class="mono">&pound;18/day</td><td class="mono" style="color:var(--green)">+50%</td><td class="mono">&le;40%</td></tr>
+              <tr><td>VERANO</td><td class="mono">&pound;6/day</td><td class="mono">&pound;12/day</td><td class="mono" style="color:var(--green)">+100%</td><td class="mono">&le;25%</td></tr>
+              <tr><td>DYNAMIC</td><td class="mono">&pound;6/day</td><td class="mono">&pound;8/day</td><td class="mono" style="color:var(--green)">+33%</td><td class="mono">&le;45%</td></tr>
+              <tr style="font-weight:700;background:rgba(37,99,235,.03)"><td>合計</td><td class="mono">&pound;56/day</td><td class="mono">&pound;95/day</td><td class="mono" style="color:var(--accent)">+70%</td><td>—</td></tr>
+            </tbody>
+          </table>
+          <div style="padding:8px 12px;font-size:12px;color:var(--red);font-weight:600;background:rgba(220,38,38,.04);">
+            Kill Switch: 任一產品 Day 4 TACOS &gt; 55% 即停止
+          </div>
+        </div>
+      </div>
+
+      <!-- DE Spring -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">&#x1F1E9;&#x1F1EA; DE — <span class="deal-live">LIVE 已啟動</span></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">目標 &euro;5,700+/wk</div>
+        </div>
+        <div class="panel-body" style="padding:0;">
+          <table class="rpt-table">
+            <thead><tr><th>產品</th><th>W5 日均</th><th>Deal 目標</th><th>漲幅</th><th>TACOS 目標</th></tr></thead>
+            <tbody>
+              <tr><td>AVENTO</td><td class="mono">&euro;126/day</td><td class="mono">&euro;176/day</td><td class="mono" style="color:var(--green)">+40%</td><td class="mono">&le;28%</td></tr>
+              <tr><td>SPORTECH</td><td class="mono">&euro;14/day</td><td class="mono">&euro;22/day</td><td class="mono" style="color:var(--green)">+55%</td><td class="mono">&le;30%</td></tr>
+              <tr><td>JET II</td><td class="mono">&euro;2/day</td><td class="mono">&euro;10/day</td><td class="mono" style="color:var(--green)">+400%</td><td class="mono">&le;40%</td></tr>
+              <tr style="font-weight:700;background:rgba(37,99,235,.03)"><td>合計</td><td class="mono">&euro;142/day</td><td class="mono">&euro;208/day</td><td class="mono" style="color:var(--accent)">+46%</td><td>—</td></tr>
+            </tbody>
+          </table>
+          <div style="padding:8px 12px;font-size:12px;color:var(--red);font-weight:600;background:rgba(220,38,38,.04);">
+            Kill Switch: 任一產品 Day 4 TACOS &gt; 50% 即停止
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pending markets -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">AU / US / CA — 待申請 PENDING</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red);font-weight:600;">截止 3/16</div>
+      </div>
+      <div class="panel-body" style="font-size:13px;line-height:1.8;color:var(--text2);">
+        需 2 週前置時間申請 3/25 Spring Sale Deal，各市場 Star 象限產品優先：<br>
+        &bull; <strong>AU:</strong> 80Days 眼鏡繩（最佳效率）<br>
+        &bull; <strong>US:</strong> SPORTECH、AVENTO<br>
+        &bull; <strong>CA:</strong> 鋼絲眼鏡繩
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ 五、後續規劃 ═══════ -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">五</span>後續規劃 Next Steps（3/12–3/16）</div>
+
+    <div class="panel">
+      <div class="panel-body" style="padding:10px 18px;">
+        <div style="margin-bottom:16px;">
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:8px;"><span class="ptag ptag-p1">P1</span>立即執行（3/12–3/13）</div>
+          <div style="font-size:13px;color:var(--text2);line-height:2;">
+            1. <strong>CA AVENTO 止血</strong> — 暫停 ACOS &ge;85% 的關鍵字，bid 降至上限，評估降價<br>
+            2. <strong>AU SPORTECH / 戶外偏光鏡止血</strong> — TACOS 87–139% 不可持續<br>
+            3. <strong>US SPORTECH2 止血</strong> — 128.7% TACOS，降價+優惠券+bid cap<br>
+            4. <strong>監控 UK/DE Spring Deal 預熱效果</strong> — 48 小時後檢查曝光與訂單
+          </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <div style="font-size:13px;font-weight:700;color:var(--yellow);margin-bottom:8px;"><span class="ptag ptag-p2">P2</span>本週完成（3/13–3/14）</div>
+          <div style="font-size:13px;color:var(--text2);line-height:2;">
+            5. <strong>全市場 Question 產品 CPC 優化</strong> — ACOS &ge;85% 關鍵字 bid -20%<br>
+            6. <strong>UK/DE Deal 週每日追蹤</strong> — Day 3 超標即啟動 Kill Switch<br>
+            7. <strong>Star 產品擴展 SB/SD 覆蓋</strong> — Sponsored Brands + SD Retargeting
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:8px;"><span class="ptag ptag-p3">P3</span>週末前完成（3/14–3/16）</div>
+          <div style="font-size:13px;color:var(--text2);line-height:2;">
+            8. <strong>AU/US/CA Spring Sale 申請</strong> — 截止 3/16，選定 Star 產品提交 Deal<br>
+            9. <strong>W6 數據更新</strong> — Mar 8–14 數據匯入，更新各市場 Dashboard<br>
+            10. <strong>Potential 產品測試</strong> — 低量高效產品開啟 SP Auto $10/day 30 天測試
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ 六、Dashboard 連結 ═══════ -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">六</span>各市場 Dashboard 連結</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a href="./" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:8px 16px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--accent);text-decoration:none;transition:all .15s;">&#x1F4CA; 總覽 Overview</a>
+      <a href="./au.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:8px 16px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);text-decoration:none;transition:all .15s;">&#x1F1E6;&#x1F1FA; AU</a>
+      <a href="./uk.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:8px 16px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);text-decoration:none;transition:all .15s;">&#x1F1EC;&#x1F1E7; UK</a>
+      <a href="./de.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:8px 16px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);text-decoration:none;transition:all .15s;">&#x1F1E9;&#x1F1EA; DE</a>
+      <a href="./us.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:8px 16px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);text-decoration:none;transition:all .15s;">&#x1F1FA;&#x1F1F8; US</a>
+      <a href="./ca.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:8px 16px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);text-decoration:none;transition:all .15s;">&#x1F1E8;&#x1F1E6; CA</a>
+    </div>
+  </div>
+
+  <div class="rpt-footer">
+    Flux 五國市場總整理 · 2026-03-12 09:00 AEST · Amazon Autopilot
+  </div>
+
+</div>
+</body>
+</html>
