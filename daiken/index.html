@@ -135,7 +135,7 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
 <!-- TAB 0 — Executive Summary -->
 <div id="t0" class="panel active">
   <div style="margin-bottom:20px">
-    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">EXECUTIVE SUMMARY · 2026 年 3 月 11 日更新</div>
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">EXECUTIVE SUMMARY · 2026 年 3 月 12 日更新</div>
     <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">DAIKEN 大研生醫 · 執行摘要</div>
     <div style="font-size:12px;color:var(--text3)">US 市場 Feb–Mar 2026 週報 + Japan 市場 DSP 年度計畫 · 7 產品線 · 21 個 ASIN</div>
   </div>
@@ -144,15 +144,65 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
       <span style="font-size:14px;transition:transform .2s;display:inline-block">&#9654;</span>
       <span>Campaign Action Log 廣告操作紀錄</span>
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">5 entries</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/10 — 全產品線預算重新分配 Option C</span>
+      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">7 entries</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/12 — 苦瓜廣告重整 $100/day + 全帳戶出價安全檢查</span>
     </summary>
     <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
 
       <details open style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:14px">
         <summary style="cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-10 — BUDGET REALLOCATION OPTION C 全產品線預算重新分配</span>
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-12 — 苦瓜廣告結構重整 BITTER MELON $100/DAY RESTRUCTURE（API 執行）</span>
           <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
+        </summary>
+        <div style="color:var(--text2)">
+          <strong style="color:var(--accent)">客戶反映苦瓜轉換率偏低</strong> — 7/260 clicks = 2.69% CVR（品類平均 8-12%），搜尋詞報告分析後發現 $1,558 可辨識浪費（佔花費 49%）。透過 Amazon Ads API 直接執行重整。<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
+            三步走策略：(1) 檢漏止血 — 暫停 21 個互相競爭的 Bulk Auto campaigns，僅保留 1 個 Auto 探索 + 1 個 Manual campaign；(2) 好的加碼 — 保留 campaign 調整預算；(3) 衝刺 — 從歷史搜尋詞報告提取有轉換的關鍵字和 ASIN，建立 3 個精準新 campaign。
+          </div>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">新架構 New Structure — $100/day</div>
+            <strong>檢漏保留（$40/day）：</strong><br>
+            &nbsp;&nbsp;• Bulk Auto 2.27 — $10/day（探索引擎，每週 harvest 好詞到 Exact campaigns）<br>
+            &nbsp;&nbsp;• SPM B0CPSQYJK4 BX — $30/day（既有 manual campaign）<br><br>
+            <strong style="color:var(--green)">衝刺新建（$60/day）：</strong><br>
+            &nbsp;&nbsp;• <strong>Core Exact</strong> — $25/day，5 個核心苦瓜詞（bitter melon capsules 等），bid $2.50-3.50<br>
+            &nbsp;&nbsp;• <strong>Combo Exact</strong> — $20/day，8 個高意圖複方詞（chromium bitter melon、karela capsules 等），bid $2.00-2.50<br>
+            &nbsp;&nbsp;• <strong>Product Targeting</strong> — $15/day，3 個歷史有轉換的競品 ASIN，bid $1.50-2.00
+          </div>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">同步執行 Additional Actions</div>
+            &nbsp;&nbsp;• <strong>Negative Keywords：</strong>14 個無效詞 × 5 campaigns = 70 筆否定關鍵字（cinnamon, zinc, bitter orange 等）<br>
+            &nbsp;&nbsp;• <strong>預算目標：</strong>Bitter Melon $130 → $100/day，全帳戶目標 $780 → $750/day
+          </div>
+          &nbsp;&nbsp;• <strong>暫停：</strong>21 campaigns paused（全部 Bulk Auto bid tests）<br>
+          &nbsp;&nbsp;• <strong>預期改善：</strong>CVR 2.69% → 6-8%，浪費 -74%，ACOS 158% → 70-90%<br>
+          &nbsp;&nbsp;• <strong>Review Date：</strong>2026-03-19（7 天後檢視成效）
+        </div>
+      </details>
+
+      <details style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:14px">
+        <summary style="cursor:pointer;list-style:none;font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono);margin-bottom:6px">2026-03-12 — BID SAFETY CHECK 全帳戶出價安全檢查（API 執行）</summary>
+        <div style="color:var(--text2)">
+          <strong style="color:var(--green)">全帳戶 Placement Boost 超標修正</strong> — 掃描 385 個啟用中 campaign + 4,847 個關鍵字 + 5,049 個商品定位 + 2,728 個廣告群組。<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">發現問題 Findings</div>
+            14 個 campaign 的 Placement Boost 過高，導致實際出價超過 $5 bid cap：<br>
+            &nbsp;&nbsp;• Multivitamin Auto Term/ASIN — 600% top → 實際 $14.00（<strong style="color:var(--red)">超標 180%</strong>）<br>
+            &nbsp;&nbsp;• Multivitamin Manual Term CVR — 500% top → 實際 $8.70（<strong style="color:var(--red)">超標 74%</strong>）<br>
+            &nbsp;&nbsp;• Maca Spanish Kws — 303% top → 實際 $8.06（<strong style="color:var(--red)">超標 61%</strong>）<br>
+            &nbsp;&nbsp;• Lutein Manual ASIN — 300% product → 實際 $7.16（<strong style="color:var(--red)">超標 43%</strong>）<br>
+            &nbsp;&nbsp;• + 10 more campaigns with 100-200% boost
+          </div>
+          &nbsp;&nbsp;• <strong>修正：</strong>14 campaigns 全部壓到 50% 以內，確保實際出價不超過 $5 cap<br>
+          &nbsp;&nbsp;• <strong>結果：</strong>14/14 成功，0 errors<br>
+          &nbsp;&nbsp;• <strong>Keywords at $5.00：</strong>發現 5 個關鍵字剛好在 cap 邊緣（lutein、natto、daiken powder、iron），持續監控
+        </div>
+      </details>
+
+      <details style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:14px">
+        <summary style="cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono)">2026-03-10 — BUDGET REALLOCATION OPTION C 全產品線預算重新分配</span>
         </summary>
         <div style="color:var(--text2)">
           <strong style="color:var(--accent)">392 筆批量預算調整</strong> — 根據各產品線績效數據全面重新分配預算與暫停低效廣告。<br>
@@ -279,19 +329,21 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   
   
   
+  
+  
   <!-- HOURLY PACING WIDGET — auto-generated by hourly_pacing.py -->
 <style>
 @keyframes pacingPulse { 0%,100%{opacity:1} 50%{opacity:.3} }
-@keyframes energyGlow { 0%{box-shadow:0 0 4px #22c55e40} 50%{box-shadow:0 0 12px #22c55e80} 100%{box-shadow:0 0 4px #22c55e40} }
+@keyframes energyGlow { 0%{box-shadow:0 0 4px #ef444440} 50%{box-shadow:0 0 12px #ef444480} 100%{box-shadow:0 0 4px #ef444440} }
 </style>
 <details id="hourly-pacing-widget" open style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,.08)">
   <summary style="padding:10px 18px;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--accent);list-style:none">
     <span style="font-size:12px">&#9889;</span>
     <span>Hourly Pacing 每小時預算追蹤</span>
-    <span style="display:inline-flex;align-items:center;gap:4px;font-size:7px;font-weight:700;color:#16a34a;background:#16a34a15;border:1px solid #16a34a40;padding:1px 6px;border-radius:3px">
-      <span style="display:inline-block;width:4px;height:4px;border-radius:50%;background:#16a34a;animation:pacingPulse 1.5s ease-in-out infinite"></span>ON PACE
+    <span style="display:inline-flex;align-items:center;gap:4px;font-size:7px;font-weight:700;color:#dc2626;background:#dc262615;border:1px solid #dc262640;padding:1px 6px;border-radius:3px">
+      <span style="display:inline-block;width:4px;height:4px;border-radius:50%;background:#dc2626;animation:pacingPulse 1.5s ease-in-out infinite"></span>FAR BEHIND
     </span>
-    <span style="font-size:10px;color:var(--text3);font-weight:500;margin-left:auto">$725 / $780 (93%) · 14:00 TW</span>
+    <span style="font-size:10px;color:var(--text3);font-weight:500;margin-left:auto">$0 / $750 (0%) · 15:00 TW</span>
   </summary>
   <div style="padding:6px 18px 16px">
 
@@ -300,13 +352,13 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
 
       <!-- Circular Gauge -->
       <div style="flex-shrink:0;position:relative;width:88px;height:88px">
-        <div style="width:88px;height:88px;border-radius:50%;background:conic-gradient(#22c55e 0deg 335deg, rgba(220,38,38,0.25) 335deg 345deg, #e2e8f0 345deg 360deg);-webkit-mask:radial-gradient(circle,transparent 58%,black 59%);mask:radial-gradient(circle,transparent 58%,black 59%);transform:rotate(-90deg);animation:energyGlow 2s ease-in-out infinite"></div>
+        <div style="width:88px;height:88px;border-radius:50%;background:conic-gradient(#ef4444 0deg 0deg, #4ade80 0deg 0deg, #e2e8f0 0deg 360deg);-webkit-mask:radial-gradient(circle,transparent 58%,black 59%);mask:radial-gradient(circle,transparent 58%,black 59%);transform:rotate(-90deg);animation:energyGlow 2s ease-in-out infinite"></div>
         <!-- Time needle -->
-        <div style="position:absolute;top:50%;left:50%;width:2px;height:42px;background:var(--accent);transform-origin:bottom center;transform:translate(-50%,-100%) rotate(345.00000000000006deg);border-radius:1px;opacity:0.7;z-index:3"></div>
+        <div style="position:absolute;top:50%;left:50%;width:2px;height:42px;background:var(--accent);transform-origin:bottom center;transform:translate(-50%,-100%) rotate(0.0deg);border-radius:1px;opacity:0.7;z-index:3"></div>
         <div style="position:absolute;top:50%;left:50%;width:6px;height:6px;border-radius:50%;background:var(--accent);transform:translate(-50%,-50%);z-index:4"></div>
         <!-- Center text -->
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
-          <div style="font-family:var(--mono);font-size:16px;font-weight:800;color:#16a34a">0.97x</div>
+          <div style="font-family:var(--mono);font-size:16px;font-weight:800;color:#dc2626">0.00x</div>
           <div style="font-family:var(--mono);font-size:7px;color:var(--text3);margin-top:1px">pace</div>
         </div>
       </div>
@@ -318,20 +370,20 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
           <!-- Hour tick marks -->
           <div style="position:absolute;left:0.0%;top:0;width:1px;height:100%;background:var(--text3);opacity:0.5;z-index:2"><span style="position:absolute;top:calc(100% + 2px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:7px;color:var(--text3);white-space:nowrap">15</span></div><div style="position:absolute;left:4.166666666666666%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:8.333333333333332%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:12.5%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:16.666666666666664%;top:0;width:1px;height:100%;background:var(--text3);opacity:0.5;z-index:2"><span style="position:absolute;top:calc(100% + 2px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:7px;color:var(--text3);white-space:nowrap">19</span></div><div style="position:absolute;left:20.833333333333336%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:25.0%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:29.166666666666668%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:33.33333333333333%;top:0;width:1px;height:100%;background:var(--text3);opacity:0.5;z-index:2"><span style="position:absolute;top:calc(100% + 2px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:7px;color:var(--text3);white-space:nowrap">23</span></div><div style="position:absolute;left:37.5%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:41.66666666666667%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:45.83333333333333%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:50.0%;top:0;width:1px;height:100%;background:var(--text3);opacity:0.5;z-index:2"><span style="position:absolute;top:calc(100% + 2px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:7px;color:var(--text3);white-space:nowrap">03</span></div><div style="position:absolute;left:54.166666666666664%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:58.333333333333336%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:62.5%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:66.66666666666666%;top:0;width:1px;height:100%;background:var(--text3);opacity:0.5;z-index:2"><span style="position:absolute;top:calc(100% + 2px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:7px;color:var(--text3);white-space:nowrap">07</span></div><div style="position:absolute;left:70.83333333333334%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:75.0%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:79.16666666666666%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:83.33333333333334%;top:0;width:1px;height:100%;background:var(--text3);opacity:0.5;z-index:2"><span style="position:absolute;top:calc(100% + 2px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:7px;color:var(--text3);white-space:nowrap">11</span></div><div style="position:absolute;left:87.5%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:91.66666666666666%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:95.83333333333334%;top:0;width:1px;height:60%;background:var(--text3);opacity:0.2;z-index:2"></div><div style="position:absolute;left:100.0%;top:0;width:1px;height:100%;background:var(--text3);opacity:0.5;z-index:2"></div>
           <!-- Green energy fill -->
-          <div style="position:absolute;top:0;left:0;bottom:0;width:92.9448717948718%;border-radius:5px;background:linear-gradient(90deg,#22c55e,#22c55ecc);z-index:1;transition:width 0.8s ease-out;overflow:hidden">
+          <div style="position:absolute;top:0;left:0;bottom:0;width:0.0%;border-radius:5px;background:linear-gradient(90deg,#ef4444,#ef4444cc);z-index:1;transition:width 0.8s ease-out;overflow:hidden">
             <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.35) 0%,transparent 50%,rgba(0,0,0,0.05) 100%);border-radius:5px"></div>
             <!-- Leading edge glow -->
             <div style="position:absolute;top:0;right:0;bottom:0;width:8px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.6));border-radius:0 5px 5px 0"></div>
           </div>
           <!-- Time cursor (where we SHOULD be) -->
-          <div style="position:absolute;left:95.83333333333334%;top:-4px;bottom:-4px;width:2px;background:var(--accent);z-index:4;border-radius:1px">
+          <div style="position:absolute;left:0.0%;top:-4px;bottom:-4px;width:2px;background:var(--accent);z-index:4;border-radius:1px">
             <div style="position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--accent)"></div>
           </div>
           <!-- Snapshot dots -->
-          <div style="position:absolute;left:58.333333333333336%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#d97706;z-index:5;transform:translateX(-50%)" title="05:00 TW — $335 (34%)"></div><div style="position:absolute;left:66.66666666666666%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#d97706;z-index:5;transform:translateX(-50%)" title="06:59 TW — $403 (41%)"></div><div style="position:absolute;left:69.58333333333333%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#d97706;z-index:5;transform:translateX(-50%)" title="07:44 TW — $445 (57%)"></div><div style="position:absolute;left:70.83333333333334%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#d97706;z-index:5;transform:translateX(-50%)" title="08:00 TW — $447 (57%)"></div><div style="position:absolute;left:75.0%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#16a34a;z-index:5;transform:translateX(-50%)" title="09:01 TW — $501 (64%)"></div><div style="position:absolute;left:79.16666666666666%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#16a34a;z-index:5;transform:translateX(-50%)" title="10:01 TW — $546 (70%)"></div><div style="position:absolute;left:83.33333333333334%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#16a34a;z-index:5;transform:translateX(-50%)" title="11:00 TW — $591 (76%)"></div><div style="position:absolute;left:87.5%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#16a34a;z-index:5;transform:translateX(-50%)" title="12:00 TW — $650 (83%)"></div><div style="position:absolute;left:91.66666666666666%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#16a34a;z-index:5;transform:translateX(-50%)" title="13:03 TW — $698 (90%)"></div><div style="position:absolute;left:95.83333333333334%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#16a34a;z-index:5;transform:translateX(-50%)" title="14:00 TW — $725 (93%)"></div>
+          <div style="position:absolute;left:0.0%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#16a34a;z-index:5;transform:translateX(-50%)" title="15:00 TW — $0 (0%)"></div>
           <!-- Center label -->
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:3;pointer-events:none">
-            <span style="font-family:var(--mono);font-size:10px;font-weight:800;color:var(--text);text-shadow:0 0 4px rgba(255,255,255,0.9)">$725 / $780</span>
+            <span style="font-family:var(--mono);font-size:10px;font-weight:800;color:var(--text);text-shadow:0 0 4px rgba(255,255,255,0.9)">$0 / $750</span>
           </div>
         </div>
 
@@ -339,21 +391,21 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
         <div style="display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:9px">
           <div style="display:flex;align-items:center;gap:4px">
             <span style="color:var(--text3)">Day elapsed</span>
-            <span style="font-weight:700;color:var(--accent)">96%</span>
-            <span style="color:var(--text3)">(23.0h)</span>
+            <span style="font-weight:700;color:var(--accent)">0%</span>
+            <span style="color:var(--text3)">(0.0h)</span>
           </div>
           <div style="display:flex;align-items:center;gap:4px">
             <span style="color:var(--text3)">Spent</span>
-            <span style="font-weight:700;color:#16a34a">93%</span>
+            <span style="font-weight:700;color:#dc2626">0%</span>
           </div>
           <div style="display:flex;align-items:center;gap:4px">
             <span style="color:var(--text3)">Gap</span>
-            <span style="font-weight:700;color:#dc2626">−$23</span>
+            <span style="font-weight:700;color:#16a34a">+$0</span>
           </div>
           <div style="display:flex;align-items:center;gap:4px">
             <span style="color:var(--text3)">Need</span>
-            <span style="font-weight:700;color:var(--text)">$55/hr</span>
-            <span style="color:var(--text3)">× 1h</span>
+            <span style="font-weight:700;color:var(--text)">$32/hr</span>
+            <span style="color:var(--text3)">× 24h</span>
           </div>
         </div>
       </div>
@@ -362,207 +414,115 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <!-- Product mini-bars -->
     <div style="border-top:1px solid var(--border);padding-top:8px;max-width:560px">
       <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-bottom:4px">
-        <span style="color:var(--accent)">&#9474;</span> = time cursor (96%) · bar = spend vs target · updates hourly
+        <span style="color:var(--accent)">&#9474;</span> = time cursor (0%) · bar = spend vs target · updates hourly
       </div>
       <div style="display:flex;align-items:center;gap:6px;padding:2px 0">
   <div style="width:50px;font-size:8px;font-weight:600;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="Kids Fish Oil">兒童魚油軟糖</div>
   <div style="flex:1;position:relative;height:16px;background:#f1f5f9;border-radius:3px;overflow:visible;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#22c55e,#4ade80);width:100%;transition:width 0.5s;position:relative;overflow:hidden">
+    <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#ef4444,#ef4444);width:0.0%;transition:width 0.5s;position:relative;overflow:hidden">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.3),transparent);border-radius:2px"></div>
     </div>
-    <div style="position:absolute;left:95.83333333333334%;top:-1px;bottom:-1px;width:1.5px;background:var(--accent);opacity:0.6;z-index:3"></div>
+    <div style="position:absolute;left:0.0%;top:-1px;bottom:-1px;width:1.5px;background:var(--accent);opacity:0.6;z-index:3"></div>
     <div style="position:absolute;top:0;left:4px;right:4px;bottom:0;display:flex;align-items:center;justify-content:space-between;pointer-events:none">
-      <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:#fff">$494</span>
+      <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:var(--text)">$0</span>
       <span style="font-family:var(--mono);font-size:7px;color:var(--text3)">$400</span>
     </div>
   </div>
-  <div style="width:32px;font-family:var(--mono);font-size:8px;font-weight:700;color:#22c55e;text-align:right">123%</div>
+  <div style="width:32px;font-family:var(--mono);font-size:8px;font-weight:700;color:#ef4444;text-align:right">0%</div>
   <div style="width:48px;font-family:var(--mono);font-size:7px;color:#9ca3af;text-align:right" title="Yesterday carryover 昨日結轉">+$176</div>
 </div><div style="display:flex;align-items:center;gap:6px;padding:2px 0">
   <div style="width:50px;font-size:8px;font-weight:600;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="Nattokinase">納豆激酶</div>
   <div style="flex:1;position:relative;height:16px;background:#f1f5f9;border-radius:3px;overflow:visible;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#ef4444,#ef4444);width:42.0%;transition:width 0.5s;position:relative;overflow:hidden">
+    <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#ef4444,#ef4444);width:0.0%;transition:width 0.5s;position:relative;overflow:hidden">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.3),transparent);border-radius:2px"></div>
     </div>
-    <div style="position:absolute;left:95.83333333333334%;top:-1px;bottom:-1px;width:1.5px;background:var(--accent);opacity:0.6;z-index:3"></div>
+    <div style="position:absolute;left:0.0%;top:-1px;bottom:-1px;width:1.5px;background:var(--accent);opacity:0.6;z-index:3"></div>
     <div style="position:absolute;top:0;left:4px;right:4px;bottom:0;display:flex;align-items:center;justify-content:space-between;pointer-events:none">
-      <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:#fff">$13</span>
+      <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:var(--text)">$0</span>
       <span style="font-family:var(--mono);font-size:7px;color:var(--text3)">$30</span>
     </div>
   </div>
-  <div style="width:32px;font-family:var(--mono);font-size:8px;font-weight:700;color:#ef4444;text-align:right">42%</div>
+  <div style="width:32px;font-family:var(--mono);font-size:8px;font-weight:700;color:#ef4444;text-align:right">0%</div>
   <div style="width:48px;font-family:var(--mono);font-size:7px;color:#9ca3af;text-align:right" title="Yesterday carryover 昨日結轉">+$22</div>
 </div><div style="display:flex;align-items:center;gap:6px;padding:2px 0">
   <div style="width:50px;font-size:8px;font-weight:600;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="Maca">瑪卡</div>
   <div style="flex:1;position:relative;height:16px;background:#f1f5f9;border-radius:3px;overflow:visible;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#ef4444,#ef4444);width:27.59375%;transition:width 0.5s;position:relative;overflow:hidden">
+    <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#ef4444,#ef4444);width:0.0%;transition:width 0.5s;position:relative;overflow:hidden">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.3),transparent);border-radius:2px"></div>
     </div>
-    <div style="position:absolute;left:95.83333333333334%;top:-1px;bottom:-1px;width:1.5px;background:var(--accent);opacity:0.6;z-index:3"></div>
+    <div style="position:absolute;left:0.0%;top:-1px;bottom:-1px;width:1.5px;background:var(--accent);opacity:0.6;z-index:3"></div>
     <div style="position:absolute;top:0;left:4px;right:4px;bottom:0;display:flex;align-items:center;justify-content:space-between;pointer-events:none">
-      <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:var(--text)">$44</span>
+      <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:var(--text)">$0</span>
       <span style="font-family:var(--mono);font-size:7px;color:var(--text3)">$160</span>
     </div>
   </div>
-  <div style="width:32px;font-family:var(--mono);font-size:8px;font-weight:700;color:#ef4444;text-align:right">28%</div>
+  <div style="width:32px;font-family:var(--mono);font-size:8px;font-weight:700;color:#ef4444;text-align:right">0%</div>
   <div style="width:48px;font-family:var(--mono);font-size:7px;color:#9ca3af;text-align:right" title="Yesterday carryover 昨日結轉">+$119</div>
 </div><div style="display:flex;align-items:center;gap:6px;padding:2px 0">
   <div style="width:50px;font-size:8px;font-weight:600;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="Bitter Melon">苦瓜酵素</div>
   <div style="flex:1;position:relative;height:16px;background:#f1f5f9;border-radius:3px;overflow:visible;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#22c55e,#4ade80);width:85.64615384615385%;transition:width 0.5s;position:relative;overflow:hidden">
+    <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#ef4444,#ef4444);width:0.0%;transition:width 0.5s;position:relative;overflow:hidden">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.3),transparent);border-radius:2px"></div>
     </div>
-    <div style="position:absolute;left:95.83333333333334%;top:-1px;bottom:-1px;width:1.5px;background:var(--accent);opacity:0.6;z-index:3"></div>
+    <div style="position:absolute;left:0.0%;top:-1px;bottom:-1px;width:1.5px;background:var(--accent);opacity:0.6;z-index:3"></div>
     <div style="position:absolute;top:0;left:4px;right:4px;bottom:0;display:flex;align-items:center;justify-content:space-between;pointer-events:none">
-      <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:#fff">$111</span>
-      <span style="font-family:var(--mono);font-size:7px;color:var(--text3)">$130</span>
+      <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:var(--text)">$0</span>
+      <span style="font-family:var(--mono);font-size:7px;color:var(--text3)">$100</span>
     </div>
   </div>
-  <div style="width:32px;font-family:var(--mono);font-size:8px;font-weight:700;color:#22c55e;text-align:right">86%</div>
+  <div style="width:32px;font-family:var(--mono);font-size:8px;font-weight:700;color:#ef4444;text-align:right">0%</div>
   <div style="width:48px;font-family:var(--mono);font-size:7px;color:#9ca3af;text-align:right" title="Yesterday carryover 昨日結轉">+$60</div>
 </div><div style="display:flex;align-items:center;gap:6px;padding:2px 0">
   <div style="width:50px;font-size:8px;font-weight:600;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="Premium Fish Oil">頂級魚油</div>
   <div style="flex:1;position:relative;height:16px;background:#f1f5f9;border-radius:3px;overflow:visible;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#ef4444,#ef4444);width:30.4%;transition:width 0.5s;position:relative;overflow:hidden">
+    <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#ef4444,#ef4444);width:0.0%;transition:width 0.5s;position:relative;overflow:hidden">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.3),transparent);border-radius:2px"></div>
     </div>
-    <div style="position:absolute;left:95.83333333333334%;top:-1px;bottom:-1px;width:1.5px;background:var(--accent);opacity:0.6;z-index:3"></div>
+    <div style="position:absolute;left:0.0%;top:-1px;bottom:-1px;width:1.5px;background:var(--accent);opacity:0.6;z-index:3"></div>
     <div style="position:absolute;top:0;left:4px;right:4px;bottom:0;display:flex;align-items:center;justify-content:space-between;pointer-events:none">
-      <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:var(--text)">$9</span>
+      <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:var(--text)">$0</span>
       <span style="font-family:var(--mono);font-size:7px;color:var(--text3)">$30</span>
     </div>
   </div>
-  <div style="width:32px;font-family:var(--mono);font-size:8px;font-weight:700;color:#ef4444;text-align:right">30%</div>
+  <div style="width:32px;font-family:var(--mono);font-size:8px;font-weight:700;color:#ef4444;text-align:right">0%</div>
   <div style="width:48px;font-family:var(--mono);font-size:7px;color:#9ca3af;text-align:right" title="Yesterday carryover 昨日結轉">+$25</div>
 </div><div style="display:flex;align-items:center;gap:6px;padding:2px 0">
   <div style="width:50px;font-size:8px;font-weight:600;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="Lutein">葉黃素</div>
   <div style="flex:1;position:relative;height:16px;background:#f1f5f9;border-radius:3px;overflow:visible;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#22c55e,#4ade80);width:100%;transition:width 0.5s;position:relative;overflow:hidden">
+    <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#ef4444,#ef4444);width:0.0%;transition:width 0.5s;position:relative;overflow:hidden">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.3),transparent);border-radius:2px"></div>
     </div>
-    <div style="position:absolute;left:95.83333333333334%;top:-1px;bottom:-1px;width:1.5px;background:var(--accent);opacity:0.6;z-index:3"></div>
+    <div style="position:absolute;left:0.0%;top:-1px;bottom:-1px;width:1.5px;background:var(--accent);opacity:0.6;z-index:3"></div>
     <div style="position:absolute;top:0;left:4px;right:4px;bottom:0;display:flex;align-items:center;justify-content:space-between;pointer-events:none">
-      <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:#fff">$33</span>
+      <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:var(--text)">$0</span>
       <span style="font-family:var(--mono);font-size:7px;color:var(--text3)">$20</span>
     </div>
   </div>
-  <div style="width:32px;font-family:var(--mono);font-size:8px;font-weight:700;color:#22c55e;text-align:right">164%</div>
+  <div style="width:32px;font-family:var(--mono);font-size:8px;font-weight:700;color:#ef4444;text-align:right">0%</div>
   <div style="width:48px;font-family:var(--mono);font-size:7px;color:#9ca3af;text-align:right" title="Yesterday carryover 昨日結轉">—</div>
 </div><div style="display:flex;align-items:center;gap:6px;padding:2px 0">
   <div style="width:50px;font-size:8px;font-weight:600;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="Vitamins">維生素</div>
   <div style="flex:1;position:relative;height:16px;background:#f1f5f9;border-radius:3px;overflow:visible;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#22c55e,#4ade80);width:100%;transition:width 0.5s;position:relative;overflow:hidden">
+    <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,#ef4444,#ef4444);width:0.0%;transition:width 0.5s;position:relative;overflow:hidden">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.3),transparent);border-radius:2px"></div>
     </div>
-    <div style="position:absolute;left:95.83333333333334%;top:-1px;bottom:-1px;width:1.5px;background:var(--accent);opacity:0.6;z-index:3"></div>
+    <div style="position:absolute;left:0.0%;top:-1px;bottom:-1px;width:1.5px;background:var(--accent);opacity:0.6;z-index:3"></div>
     <div style="position:absolute;top:0;left:4px;right:4px;bottom:0;display:flex;align-items:center;justify-content:space-between;pointer-events:none">
-      <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:#fff">$21</span>
+      <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:var(--text)">$0</span>
       <span style="font-family:var(--mono);font-size:7px;color:var(--text3)">$10</span>
     </div>
   </div>
-  <div style="width:32px;font-family:var(--mono);font-size:8px;font-weight:700;color:#22c55e;text-align:right">211%</div>
+  <div style="width:32px;font-family:var(--mono);font-size:8px;font-weight:700;color:#ef4444;text-align:right">0%</div>
   <div style="width:48px;font-family:var(--mono);font-size:7px;color:#9ca3af;text-align:right" title="Yesterday carryover 昨日結轉">—</div>
 </div>
     </div>
 
     <div style="font-family:var(--mono);font-size:7px;color:var(--text3);margin-top:6px;border-top:1px solid var(--border);padding-top:4px">
-      ON PACE 進度正常 · pace 0.97x · Option D $780/day + carryover · 95%+ auto-pause → resume 15:00 TW · next update 15:00 TW
+      FAR BEHIND 嚴重落後 · pace 0.00x · Option D revised $750/day + carryover · 95%+ auto-pause → resume 15:00 TW · next update 16:00 TW
     </div>
   </div>
 </details>
 <!-- /HOURLY PACING WIDGET -->
-
-  <!-- BUDGET PACING WIDGET — auto-generated by budget_pacing_all.py -->
-<style>
-@keyframes pacingShimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
-@keyframes pacingPulse { 0%,100%{opacity:1} 50%{opacity:.35} }
-</style>
-<details id="budget-pacing-widget" style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
-  <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
-    <span style="font-size:14px;transition:transform .2s;display:inline-block">&#9654;</span>
-    <span>Budget Pacing 預算執行追蹤</span>
-    <span style="display:inline-flex;align-items:center;gap:4px;font-size:8px;font-weight:700;color:#16a34a;background:rgba(22,163,74,.1);border:1px solid rgba(34,197,94,.25);padding:2px 6px;border-radius:3px">
-      <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#16a34a;animation:pacingPulse 1.5s ease-in-out infinite"></span>LIVE
-    </span>
-    <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">$725 / $1,001 (72%) · 2026-03-11</span>
-  </summary>
-  <div style="padding:4px 18px 18px">
-    <div style="position:relative;height:22px;background:var(--bg);border-radius:6px;overflow:hidden;border:1px solid var(--border);margin-bottom:4px;max-width:520px">
-      <div style="height:100%;border-radius:5px;background:linear-gradient(90deg,#d97706,#fbbf24);width:72.4%;position:relative;overflow:hidden">
-        <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:pacingShimmer 2.5s infinite"></div>
-      </div>
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center">
-        <span style="font-family:var(--mono);font-size:11px;font-weight:800;color:var(--text);text-shadow:0 0 3px rgba(255,255,255,.9)">$725 / $1,001 (72%)</span>
-      </div>
-    </div>
-    <div style="font-family:var(--mono);font-size:9px;color:var(--text3);text-align:right;margin-bottom:10px;max-width:520px">gap: $-276 · carryover +$221 遞延 · updated 2026-03-12 14:55 · cron 08:00 + 14:30</div>
-    <div style="max-width:520px"><div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:62px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden">兒童魚油軟糖</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#16a34a,#22c55e);width:96.3%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div><div style="position:absolute;top:0;bottom:0;left:78.02289972106814%;width:1px;background:rgba(8,145,178,.5)" title="Base target $400"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#16a34a;text-align:right">96%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">$494/$513 <span style="color:#0891b2;font-size:9px" title="昨日未花完遞延">+$113</span></div>
-</div><div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:62px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden">納豆激酶</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:32.3%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div><div style="position:absolute;top:0;bottom:0;left:76.92307692307693%;width:1px;background:rgba(8,145,178,.5)" title="Base target $30"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">32%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">$13/$39 <span style="color:#0891b2;font-size:9px" title="昨日未花完遞延">+$9</span></div>
-</div><div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:62px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden">瑪卡</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:21.2%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div><div style="position:absolute;top:0;bottom:0;left:76.92307692307693%;width:1px;background:rgba(8,145,178,.5)" title="Base target $160"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">21%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">$44/$208 <span style="color:#0891b2;font-size:9px" title="昨日未花完遞延">+$48</span></div>
-</div><div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:62px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden">苦瓜酵素</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:65.9%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div><div style="position:absolute;top:0;bottom:0;left:76.92307692307693%;width:1px;background:rgba(8,145,178,.5)" title="Base target $130"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">66%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">$111/$169 <span style="color:#0891b2;font-size:9px" title="昨日未花完遞延">+$39</span></div>
-</div><div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:62px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden">頂級魚油</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:23.4%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div><div style="position:absolute;top:0;bottom:0;left:76.92307692307693%;width:1px;background:rgba(8,145,178,.5)" title="Base target $30"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">23%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">$9/$39 <span style="color:#0891b2;font-size:9px" title="昨日未花完遞延">+$9</span></div>
-</div><div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:62px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden">葉黃素</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#dc2626,#f87171);width:100%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#dc2626;text-align:right">164%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">$33/$20</div>
-</div><div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:62px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden">維生素</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#dc2626,#f87171);width:100%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div><div style="position:absolute;top:0;bottom:0;left:76.92307692307693%;width:1px;background:rgba(8,145,178,.5)" title="Base target $10"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#dc2626;text-align:right">162%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">$21/$13 <span style="color:#0891b2;font-size:9px" title="昨日未花完遞延">+$3</span></div>
-</div></div>
-  </div>
-</details>
-<!-- /BUDGET PACING WIDGET -->
 
   <!-- Overall Account KPIs -->
   <div class="kpi-strip" style="margin-bottom:20px" id="kpi-exec"></div>
