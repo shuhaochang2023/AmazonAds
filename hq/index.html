@@ -335,10 +335,19 @@ details.panel[open]>summary .dd-arrow{transform:rotate(90deg);}
   <details class="panel" open style="margin-bottom:12px;">
     <summary class="panel-header" style="cursor:pointer;list-style:none;">
       <div class="panel-title"><span class="dd-arrow">&#9654;</span> Today's Actions 今日待辦</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">10 done · 2 remaining · P1=urgent P2=this week P3=prep</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">11 done · 4 remaining · P1=urgent P2=this week P3=prep</div>
     </summary>
     <div class="panel-body" style="padding:8px 16px;">
       <ul class="action-list">
+        <!-- 3/12 Flux AU Rename (TODAY) -->
+        <li class="action-item done">
+          <span class="action-priority p1">P1</span>
+          <div class="action-content">
+            <div class="action-brand">FLUX AU<span class="done-badge">DONE 3/12 API</span></div>
+            <div class="action-text">Campaign rename — 7,451 campaigns renamed to standard naming convention · 300 unmatched cleaned · 192 wrong-parent ads paused<br>活動重命名 — 7,451 個活動重新命名 · 300 個未匹配已清理 · 192 個錯誤 ASIN 廣告已暫停</div>
+            <div class="action-why">Client request · {MKT}_{Brand}_{Product}_{ASIN}_SP_{MatchType}_{Seq} · 3 portfolios assigned (Sunglasses/Strap/Accessories)<br>客戶要求 · 標準命名規範 · 3 個作品集已分配</div>
+          </div>
+        </li>
         <!-- 3/12 DBJ Actions (TODAY) -->
         <li class="action-item done">
           <span class="action-priority p1">P1</span>
@@ -423,6 +432,22 @@ details.panel[open]>summary .dd-arrow{transform:rotate(90deg);}
         </li>
         <!-- Remaining -->
         <li class="action-item">
+          <span class="action-priority p1">P1</span>
+          <div class="action-content">
+            <div class="action-brand">FLUX UK/DE/US/CA</div>
+            <div class="action-text">Campaign rename — 4 remaining markets (AU done, UK/DE/US/CA pending)<br>活動重命名 — 剩餘 4 個市場（AU 已完成，UK/DE/US/CA 待處理）</div>
+            <div class="action-why">Client request · same naming convention as AU · parent-by-parent execution<br>客戶要求 · 同 AU 命名規範 · 逐 parent 執行</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <span class="action-priority p2">P2</span>
+          <div class="action-content">
+            <div class="action-brand">FLUX US/CA</div>
+            <div class="action-text">Create portfolios — US and CA need 3 portfolios each (Sunglasses/Strap/Accessories)<br>建立作品集 — US 和 CA 各需要 3 個作品集</div>
+            <div class="action-why">Must create manually in Amazon Ads Console before portfolio assignment<br>需在 Amazon Ads Console 手動建立</div>
+          </div>
+        </li>
+        <li class="action-item">
           <span class="action-priority p3">P3</span>
           <div class="action-content">
             <div class="action-brand">ALL BRANDS</div>
@@ -482,12 +507,12 @@ details.panel[open]>summary .dd-arrow{transform:rotate(90deg);}
             <td>W6 data import · Monitor new campaigns 48h · AMC Phase 2</td>
             <td><span class="status-pill pill-green">SCALING</span></td>
           </tr>
-          <tr>
+          <tr style="background:rgba(249,115,22,.04);">
             <td><a href="../flux/">Flux AU</a></td>
-            <td>3/11 Quadrant API: 508 Star +30% · 186 Q -20% · 50 Cut -50%</td>
-            <td>6,727</td>
-            <td>48h monitor Star lift · verify spend shift</td>
-            <td><span class="status-pill pill-green">OPTIMIZED</span></td>
+            <td><strong style="color:var(--orange)">3/12</strong> 7,451 campaigns renamed · 300 unmatched cleaned · 192 wrong ads paused · 3 portfolios</td>
+            <td>7,451</td>
+            <td>Rename UK/DE/US/CA · verify portfolio assignment</td>
+            <td><span class="status-pill pill-green">RENAMED</span></td>
           </tr>
           <tr>
             <td><a href="../flux/">Flux UK</a></td>
@@ -540,11 +565,16 @@ details.panel[open]>summary .dd-arrow{transform:rotate(90deg);}
   <details class="panel morning-log" open style="margin-bottom:12px;">
     <summary class="panel-header" style="cursor:pointer;list-style:none;">
       <div class="panel-title"><span class="dd-arrow">&#9654;</span> Operations Log 操作紀錄</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);font-weight:600;">2026-03-12 · 4 entries + 3/11 history</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);font-weight:600;">2026-03-12 · 5 entries + 3/11 history</div>
     </summary>
     <div class="panel-body">
       <!-- 3/12 entries -->
       <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--orange);padding:6px 0 4px;border-bottom:1px solid var(--border);letter-spacing:.08em">2026-03-12 WED</div>
+      <div class="log-entry">
+        <div class="log-time">PM</div>
+        <div class="log-brand" style="color:var(--orange)">FLUX AU</div>
+        <div class="log-text">Campaign rename: 7,451 matched + 300 unmatched = 7,751 total renamed · 192 wrong-parent product ads paused · 3 portfolios (Sunglasses/Strap/Accessories) assigned · naming: {MKT}_{Brand}_{Product}_{ASIN}_SP_{MatchType}_{Seq}<br><small>活動重命名：7,451 已匹配 + 300 未匹配 = 7,751 總計重命名 · 192 錯誤 ASIN 暫停 · 3 作品集已分配</small></div>
+      </div>
       <div class="log-entry">
         <div class="log-time">AM</div>
         <div class="log-brand" style="color:var(--orange)">DBJ</div>
