@@ -124,15 +124,33 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
       <span style="font-size:14px;transition:transform .2s;display:inline-block" class="log-arrow">&#9654;</span>
       <span>Campaign Action Log 廣告操作紀錄</span>
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">2 entries</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/10 — QUADRANT OPTIMIZATION 象限策略優化執行</span>
+      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">3 entries</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/12 — CAMPAIGN RENAME 活動重命名完成</span>
     </summary>
     <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
 
       <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-10 — QUADRANT OPTIMIZATION 象限策略優化執行</span>
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-12 — CAMPAIGN RENAME 活動重命名完成</span>
           <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
+        </div>
+        <div style="color:var(--text2)">
+          <strong style="color:var(--green)">透過 Amazon Ads API 完成 AU 市場全部活動重命名</strong> — 7,751 個廣告活動統一命名規範，192 個錯誤 ASIN 廣告已暫停，3 個作品集已分配。<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
+            統一命名規範提升廣告管理效率，便於快速識別品牌、產品、ASIN 和匹配類型。格式：<code style="font-size:11px;background:rgba(37,99,235,.08);padding:2px 6px;border-radius:3px">{MKT}_{Brand}_{Product}_{ASIN}_SP_{MatchType}_{Seq}</code>
+          </div>
+          &nbsp;&nbsp;• <strong style="color:var(--green)">Phase 1 — 已匹配活動：</strong>7,451 個含 ASIN 的活動，按 13 個 parent 逐一重命名，<strong>0 errors</strong><br>
+          &nbsp;&nbsp;• <strong style="color:var(--amber)">Phase 2 — 未匹配活動：</strong>300 個無 ASIN 名稱的活動，透過 API 拉取 Product Ads 確認所屬 parent，<strong>192 個錯誤 ASIN 廣告已暫停</strong><br>
+          &nbsp;&nbsp;• <strong style="color:var(--accent)">作品集分配 Portfolio：</strong>Sunglasses (Flux 品牌) · Strap (80Days 錶帶) · Accessories (80Days 配件) — 全部活動已分配至正確作品集<br>
+          &nbsp;&nbsp;• <strong>下一步 Next Steps：</strong>UK、DE、US、CA 市場依同樣流程執行重命名<br>
+          <a href="./Flux_AU_Portfolio_Structure_20260312.xlsx" download style="display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;color:var(--accent);text-decoration:none;background:rgba(37,99,235,.08);padding:4px 10px;border-radius:4px;border:1px solid rgba(37,99,235,.2);margin-top:6px">⬇ Flux_AU_Portfolio_Structure_20260312.xlsx <span style="color:var(--text3);font-size:10px">5 markets · 6 sheets</span></a>
+        </div>
+      </div>
+
+      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono)">2026-03-10 — QUADRANT OPTIMIZATION 象限策略優化執行</span>
         </div>
         <div style="color:var(--text2)">
           <strong style="color:var(--green)">透過 Amazon Ads API 自動執行象限策略優化</strong> — 針對 AU 市場 6,727 個啟用中廣告活動進行精準調整。<br>
