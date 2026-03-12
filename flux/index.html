@@ -3,63 +3,756 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Flux — Multi-Market Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Flux HQ — Amazon Autopilot</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Inter',sans-serif;background:#f1f5f9;}
-  .mkt-bar{
-    display:flex;align-items:center;gap:0;
-    background:#fff;border-bottom:2px solid #e2e8f0;
-    padding:0 24px;height:48px;position:sticky;top:0;z-index:200;
-    box-shadow:0 1px 4px rgba(0,0,0,.06);
-  }
-  .mkt-bar .brand{
-    font-size:15px;font-weight:800;color:#2563eb;letter-spacing:.04em;
-    margin-right:24px;white-space:nowrap;
-  }
-  .mkt-btn{
-    border:none;background:none;cursor:pointer;
-    font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
-    color:#64748b;padding:12px 18px;position:relative;
-    transition:color .15s;white-space:nowrap;
-  }
-  .mkt-btn:hover{color:#0f172a;}
-  .mkt-btn.active{color:#2563eb;}
-  .mkt-btn.active::after{
-    content:'';position:absolute;bottom:-2px;left:12px;right:12px;
-    height:3px;background:#2563eb;border-radius:3px 3px 0 0;
-  }
-  iframe{
-    width:100%;height:calc(100vh - 48px);border:none;
-  }
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#f1f5f9;--surface:#ffffff;--border:#e2e8f0;--text:#0f172a;--dim:#64748b;
+  --accent:#2563eb;--green:#16a34a;--yellow:#ca8a04;--red:#dc2626;--orange:#ea580c;--cyan:#0891b2;
+  --text2:#334155;--text3:#94a3b8;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* Top Bar */
+.top-bar{
+  display:flex;align-items:center;gap:0;
+  background:#fff;border-bottom:2px solid var(--border);
+  padding:0 24px;height:48px;position:sticky;top:0;z-index:200;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
+}
+.top-bar .brand{font-size:15px;font-weight:800;color:var(--accent);letter-spacing:.04em;margin-right:24px;white-space:nowrap;}
+.mkt-btn{
+  border:none;background:none;cursor:pointer;
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
+  color:var(--dim);padding:12px 18px;position:relative;transition:color .15s;white-space:nowrap;
+}
+.mkt-btn:hover{color:var(--text);}
+.mkt-btn.active{color:var(--accent);}
+.mkt-btn.active::after{content:'';position:absolute;bottom:-2px;left:12px;right:12px;height:3px;background:var(--accent);border-radius:3px 3px 0 0;}
+
+/* HQ Content */
+.cockpit{max-width:1200px;margin:0 auto;padding:28px;}
+
+/* Header */
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.header-left{display:flex;align-items:center;gap:14px;}
+.hq-badge{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;background:var(--accent);color:#fff;padding:4px 10px;border-radius:5px;letter-spacing:.05em;}
+.hq-title{font-size:26px;font-weight:800;color:var(--text);}
+.header-right{text-align:right;}
+.date{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--dim);}
+.pulse-live{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);font-weight:600;}
+.pulse-live::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* Scorecard */
+.scorecard{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px;}
+.score-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;text-align:center;}
+.score-card .label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+.score-card .value{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:800;color:var(--text);}
+.score-card .sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);margin-top:4px;}
+.score-card.green .value{color:var(--green);}
+.score-card.yellow .value{color:var(--yellow);}
+.score-card.red .value{color:var(--red);}
+
+/* Market Nav Chips */
+.mkt-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+.mkt-chip{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;padding:6px 14px;border-radius:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);text-decoration:none;transition:all .15s;cursor:pointer;}
+.mkt-chip:hover{border-color:var(--accent);color:var(--accent);}
+.mkt-chip .chip-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;}
+.mkt-chip .flag{margin-right:4px;}
+
+/* Panels */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.panel-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.panel-title{font-size:13px;font-weight:700;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;}
+.panel-body{padding:14px 18px;}
+details.panel{border-radius:10px;}
+details.panel>summary{list-style:none;}
+details.panel>summary::-webkit-details-marker{display:none;}
+details.panel>summary .dd-arrow{display:inline-block;font-size:10px;margin-right:6px;transition:transform .2s;color:var(--dim);}
+details.panel[open]>summary .dd-arrow{transform:rotate(90deg);}
+
+/* Tables */
+.health-table{width:100%;border-collapse:collapse;}
+.health-table th{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--dim);text-align:left;padding:8px 10px;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.health-table td{font-family:'JetBrains Mono',monospace;font-size:13px;padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.health-table tr:last-child td{border-bottom:none;}
+.health-table a{color:var(--accent);text-decoration:none;font-weight:600;}
+.health-table a:hover{text-decoration:underline;}
+.tacos-bar{display:inline-block;height:5px;border-radius:2px;min-width:8px;vertical-align:middle;margin-right:6px;}
+.status-pill{font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:.03em;white-space:nowrap;}
+.pill-green{background:rgba(22,163,74,.1);color:var(--green);}
+.pill-yellow{background:rgba(202,138,4,.1);color:var(--yellow);}
+.pill-red{background:rgba(220,38,38,.1);color:var(--red);}
+.pill-blue{background:rgba(59,130,246,.1);color:var(--accent);}
+.pill-gray{background:rgba(100,116,139,.1);color:var(--dim);}
+
+/* Action Items */
+.action-list{list-style:none;}
+.action-item{padding:12px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start;}
+.action-item:last-child{border-bottom:none;}
+.action-priority{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0;margin-top:2px;}
+.p1{background:rgba(220,38,38,.1);color:var(--red);}
+.p2{background:rgba(202,138,4,.1);color:var(--yellow);}
+.p3{background:rgba(59,130,246,.1);color:var(--accent);}
+.action-content{flex:1;}
+.action-brand{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--cyan);margin-bottom:3px;}
+.action-text{font-size:14px;color:var(--text);line-height:1.5;}
+.action-why{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);margin-top:3px;}
+.action-item.done{opacity:.45;}
+.action-item.done .action-text{text-decoration:line-through;}
+.done-badge{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;background:rgba(22,163,74,.1);color:var(--green);border:1px solid rgba(34,197,94,.25);margin-left:8px;vertical-align:middle;}
+
+/* Operations Log */
+.log-entry{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+.log-entry:last-child{border-bottom:none;}
+.log-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);white-space:nowrap;min-width:44px;margin-top:2px;}
+.log-brand{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--cyan);min-width:50px;margin-top:2px;}
+.log-text{font-size:13px;color:var(--text);line-height:1.5;}
+.log-text small{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);}
+
+/* Spring Deal Banner */
+.spring-bar{display:flex;align-items:center;gap:12px;padding:12px 18px;background:rgba(37,99,235,.05);border:1px solid rgba(37,99,235,.15);border-radius:8px;margin-bottom:20px;}
+.spring-bar .icon{font-size:16px;}
+.spring-bar .text{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);line-height:1.4;}
+.spring-bar .text strong{color:var(--text);}
+
+/* Product Cards */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:12px;}
+.product-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;}
+.product-card .p-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.product-card .p-market{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);margin-bottom:6px;}
+.product-card .p-sales{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:800;margin-bottom:2px;}
+.product-card .p-tacos{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;}
+
+/* Cron Table */
+.cron-table{width:100%;border-collapse:collapse;}
+.cron-table th{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--dim);text-align:left;padding:8px 10px;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.cron-table td{font-size:13px;padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.cron-table tr:last-child td{border-bottom:none;}
+.cron-schedule{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);font-weight:600;}
+.cron-name{font-weight:600;color:var(--text);}
+.cron-desc{font-size:12px;color:var(--dim);margin-top:2px;}
+.freq-pill{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;white-space:nowrap;}
+.freq-high{background:rgba(220,38,38,.08);color:var(--red);}
+.freq-daily{background:rgba(22,163,74,.08);color:var(--green);}
+.freq-low{background:rgba(59,130,246,.08);color:var(--accent);}
+
+/* Footer */
+.footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--border);text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);}
+
+/* Iframe Markets */
+iframe{width:100%;height:calc(100vh - 48px);border:none;display:none;}
+
+@media(max-width:800px){
+  .scorecard{grid-template-columns:repeat(3,1fr);}
+  .cockpit{padding:16px;}
+  .product-grid{grid-template-columns:1fr 1fr;}
+}
 </style>
 </head>
 <body>
-<div class="mkt-bar">
-  <div class="brand">⚡ Flux</div>
-    <button class="mkt-btn active" onclick="switchMkt('summary',this)">📋 Global Summary</button>
-    <button class="mkt-btn" onclick="switchMkt('au',this)">🇦🇺 AU</button>
-    <button class="mkt-btn" onclick="switchMkt('uk',this)">🇬🇧 UK</button>
-    <button class="mkt-btn" onclick="switchMkt('de',this)">🇩🇪 DE</button>
-    <button class="mkt-btn" onclick="switchMkt('us',this)">🇺🇸 US</button>
-    <button class="mkt-btn" onclick="switchMkt('ca',this)">🇨🇦 CA</button>
-    <button class="mkt-btn" onclick="switchMkt('report',this)">📊 會議報告</button>
+
+<!-- ═══ TOP NAV BAR ═══ -->
+<div class="top-bar">
+  <div class="brand">&#9889; Flux</div>
+  <button class="mkt-btn active" onclick="switchView('hq',this)">&#x1F3E0; HQ</button>
+  <button class="mkt-btn" onclick="switchView('au',this)">&#x1F1E6;&#x1F1FA; AU</button>
+  <button class="mkt-btn" onclick="switchView('uk',this)">&#x1F1EC;&#x1F1E7; UK</button>
+  <button class="mkt-btn" onclick="switchView('de',this)">&#x1F1E9;&#x1F1EA; DE</button>
+  <button class="mkt-btn" onclick="switchView('us',this)">&#x1F1FA;&#x1F1F8; US</button>
+  <button class="mkt-btn" onclick="switchView('ca',this)">&#x1F1E8;&#x1F1E6; CA</button>
+  <button class="mkt-btn" onclick="switchView('summary',this)">&#x1F4CB; Summary</button>
+  <button class="mkt-btn" onclick="switchView('report',this)">&#x1F4CA; 會議報告</button>
 </div>
-  <iframe id="fr-summary" src="./summary.html" style="display:block" frameborder="0"></iframe>
-  <iframe id="fr-au" src="./au.html" style="display:none" frameborder="0"></iframe>
-  <iframe id="fr-uk" src="./uk.html" style="display:none" frameborder="0"></iframe>
-  <iframe id="fr-de" src="./de.html" style="display:none" frameborder="0"></iframe>
-  <iframe id="fr-us" src="./us.html" style="display:none" frameborder="0"></iframe>
-  <iframe id="fr-ca" src="./ca.html" style="display:none" frameborder="0"></iframe>
-  <iframe id="fr-report" src="./report.html" style="display:none" frameborder="0"></iframe>
+
+<!-- ═══ HQ COCKPIT VIEW ═══ -->
+<div id="view-hq">
+<div class="cockpit">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <span class="hq-badge">FLUX HQ</span>
+      <div>
+        <div class="hq-title">Flux Sunglasses — Command Center</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="pulse-live">5 MARKETS LIVE</div>
+      <div class="date">2026-03-12 · WED</div>
+    </div>
+  </div>
+
+  <!-- Spring Deal Banner -->
+  <div class="spring-bar">
+    <div class="icon">&#x1F33B;</div>
+    <div class="text">
+      <strong>SPRING DEAL PREP ~3/25 春季促銷準備</strong> — UK 7 campaigns @ £95/day LIVE · DE 5 campaigns @ €208/day LIVE · UK V2 Rebalance 13 campaigns @ £224/day LIVE<br>英國 7 組 @ £95/日已上線 · 德國 5 組 @ €208/日已上線 · 英國 V2 重新平衡 13 組 @ £224/日已上線
+    </div>
+  </div>
+
+  <!-- Market Quick Nav -->
+  <div class="mkt-nav">
+    <span class="mkt-chip" onclick="switchView('au',document.querySelectorAll('.mkt-btn')[1])"><span class="chip-dot" style="background:var(--yellow)"></span>AU · 43.2%</span>
+    <span class="mkt-chip" onclick="switchView('uk',document.querySelectorAll('.mkt-btn')[2])"><span class="chip-dot" style="background:var(--yellow)"></span>UK · 34.9%</span>
+    <span class="mkt-chip" onclick="switchView('de',document.querySelectorAll('.mkt-btn')[3])"><span class="chip-dot" style="background:var(--green)"></span>DE · 26.8%</span>
+    <span class="mkt-chip" onclick="switchView('us',document.querySelectorAll('.mkt-btn')[4])"><span class="chip-dot" style="background:var(--red)"></span>US · 44.4%</span>
+    <span class="mkt-chip" onclick="switchView('ca',document.querySelectorAll('.mkt-btn')[5])"><span class="chip-dot" style="background:var(--yellow)"></span>CA · 34.1%</span>
+    <a class="mkt-chip" href="./summary.html" style="margin-left:auto;"><span class="chip-dot" style="background:var(--accent)"></span>Global Summary</a>
+  </div>
+
+  <!-- Scorecard -->
+  <div class="scorecard">
+    <div class="score-card">
+      <div class="label">Markets 市場</div>
+      <div class="value">5</div>
+      <div class="sub">AU UK DE US CA</div>
+    </div>
+    <div class="score-card">
+      <div class="label">Campaigns 廣告活動</div>
+      <div class="value">12.7K</div>
+      <div class="sub">across all markets 全市場合計</div>
+    </div>
+    <div class="score-card yellow">
+      <div class="label">Global TACOS</div>
+      <div class="value">~35%</div>
+      <div class="sub">target ≤30% 目標</div>
+    </div>
+    <div class="score-card green">
+      <div class="label">Units Sold 銷量</div>
+      <div class="value">~1,969</div>
+      <div class="sub">5-week total (W1–W5)</div>
+    </div>
+    <div class="score-card green">
+      <div class="label">API Ops 3/11 API操作</div>
+      <div class="value">4,348</div>
+      <div class="sub">quadrant optimization 象限優化</div>
+    </div>
+  </div>
+
+  <!-- Market Health -->
+  <details class="panel" open style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> Market Health 市場健康</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">W5 data · 5 markets</div>
+    </summary>
+    <div class="panel-body" style="padding:0;">
+      <table class="health-table">
+        <thead>
+          <tr><th>Market 市場</th><th>Sales 銷售</th><th>Ad Spend 廣告費</th><th>TACOS</th><th>Units 件數</th><th>Campaigns</th><th>Status 狀態</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="#" onclick="switchView('de',document.querySelectorAll('.mkt-btn')[3]);return false;">&#x1F1E9;&#x1F1EA; DE</a></td>
+            <td>$15,488</td>
+            <td>$4,143</td>
+            <td><span class="tacos-bar" style="width:27px;background:var(--green);"></span>26.8%</td>
+            <td>676</td>
+            <td>2,142</td>
+            <td><span class="status-pill pill-green">ON TARGET</span></td>
+          </tr>
+          <tr>
+            <td><a href="#" onclick="switchView('uk',document.querySelectorAll('.mkt-btn')[2]);return false;">&#x1F1EC;&#x1F1E7; UK</a></td>
+            <td>£11,686</td>
+            <td>£4,077</td>
+            <td><span class="tacos-bar" style="width:35px;background:var(--yellow);"></span>34.9%</td>
+            <td>615</td>
+            <td>1,825</td>
+            <td><span class="status-pill pill-yellow">SLIGHTLY OVER</span></td>
+          </tr>
+          <tr>
+            <td><a href="#" onclick="switchView('au',document.querySelectorAll('.mkt-btn')[1]);return false;">&#x1F1E6;&#x1F1FA; AU</a></td>
+            <td>A$9,712</td>
+            <td>A$4,196</td>
+            <td><span class="tacos-bar" style="width:43px;background:var(--yellow);"></span>43.2%</td>
+            <td>282</td>
+            <td>6,727</td>
+            <td><span class="status-pill pill-yellow">OVER TARGET</span></td>
+          </tr>
+          <tr>
+            <td><a href="#" onclick="switchView('ca',document.querySelectorAll('.mkt-btn')[5]);return false;">&#x1F1E8;&#x1F1E6; CA</a></td>
+            <td>CA$3,731</td>
+            <td>CA$1,271</td>
+            <td><span class="tacos-bar" style="width:34px;background:var(--yellow);"></span>34.1%</td>
+            <td>224</td>
+            <td>1,201</td>
+            <td><span class="status-pill pill-yellow">SLIGHTLY OVER</span></td>
+          </tr>
+          <tr>
+            <td><a href="#" onclick="switchView('us',document.querySelectorAll('.mkt-btn')[4]);return false;">&#x1F1FA;&#x1F1F8; US</a></td>
+            <td>$3,675</td>
+            <td>$1,630</td>
+            <td><span class="tacos-bar" style="width:44px;background:var(--red);"></span>44.4%</td>
+            <td>172</td>
+            <td>770</td>
+            <td><span class="status-pill pill-red">CRITICAL</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <!-- Spring Sales Status -->
+  <details class="panel" open style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> &#x1F33B; Spring Sales Campaign 春季促銷活動</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);font-weight:600;">~3/25 target · 3 live · 2 not yet · checkpoint Mar 26</div>
+    </summary>
+    <div class="panel-body" style="padding:0;">
+      <table class="health-table">
+        <thead>
+          <tr><th>Market 市場</th><th>Campaign 活動</th><th>Budget/Day 日預算</th><th>Products 產品</th><th>Status 狀態</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>&#x1F1EC;&#x1F1E7; UK</td>
+            <td>Spring Deal warm-up<br><small style="color:var(--dim)">春季促銷預熱</small></td>
+            <td style="font-weight:700;">£95/day</td>
+            <td>Avento · Jet II · Verano · Dynamic</td>
+            <td><span class="status-pill pill-green">&#x1F7E2; LIVE</span></td>
+          </tr>
+          <tr>
+            <td>&#x1F1EC;&#x1F1E7; UK</td>
+            <td>Growth Rebalance V2<br><small style="color:var(--dim)">搜尋詞驅動成長重分配</small></td>
+            <td style="font-weight:700;">£224/day</td>
+            <td>13 campaigns · proven winners</td>
+            <td><span class="status-pill pill-green">&#x1F7E2; LIVE</span></td>
+          </tr>
+          <tr>
+            <td>&#x1F1E9;&#x1F1EA; DE</td>
+            <td>Spring Deal warm-up<br><small style="color:var(--dim)">春季促銷預熱</small></td>
+            <td style="font-weight:700;">€208/day</td>
+            <td>Avento · Sportech · Jet II</td>
+            <td><span class="status-pill pill-green">&#x1F7E2; LIVE</span></td>
+          </tr>
+          <tr style="opacity:.6;">
+            <td>&#x1F1E6;&#x1F1FA; AU</td>
+            <td style="color:var(--dim);">—</td>
+            <td style="color:var(--dim);">—</td>
+            <td style="color:var(--dim);">Pending bleeder cleanup<br><small>等待出血產品清理</small></td>
+            <td><span class="status-pill pill-yellow">&#x1F7E1; NOT YET</span></td>
+          </tr>
+          <tr style="opacity:.6;">
+            <td>&#x1F1FA;&#x1F1F8; US</td>
+            <td style="color:var(--dim);">—</td>
+            <td style="color:var(--dim);">—</td>
+            <td style="color:var(--dim);">Market needs reset first<br><small>市場需先修復</small></td>
+            <td><span class="status-pill pill-red">&#x1F534; NOT YET</span></td>
+          </tr>
+          <tr style="opacity:.6;">
+            <td>&#x1F1E8;&#x1F1E6; CA</td>
+            <td style="color:var(--dim);">—</td>
+            <td style="color:var(--dim);">—</td>
+            <td style="color:var(--dim);">Maintain only<br><small>僅維持</small></td>
+            <td><span class="status-pill pill-yellow">&#x1F7E1; NOT YET</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="padding:12px 18px;border-top:1px solid var(--border);display:flex;gap:20px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:280px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;">Decision Rules 決策規則</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.7;">
+            Spring TACOS &lt;35% → scale 2x for summer 春促 TACOS &lt;35% → 夏季加倍<br>
+            Spring TACOS &gt;45% → tighten before summer 春促 TACOS &gt;45% → 夏季前收緊
+          </div>
+        </div>
+        <div style="flex:1;min-width:280px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;">Checkpoints 檢查點</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.7;">
+            <strong style="color:var(--text);">Mar 26</strong> — 2 weeks data · go/no-go for summer budgets<br>
+            <strong style="color:var(--dim);">Apr 9</strong> — mid-check · <strong style="color:var(--dim);">Apr 23</strong> — final summer commit
+          </div>
+        </div>
+        <div style="flex:0 0 auto;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;">Total Daily 每日總投放</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:800;color:var(--green);">£527/day</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);">UK £319 + DE €208</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Top Products -->
+  <details class="panel" open style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> Product Spotlight 產品聚焦</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">winners & bleeders</div>
+    </summary>
+    <div class="panel-body">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--green);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;">&#9733; Winners 贏家</div>
+      <div class="product-grid">
+        <div class="product-card" style="border-top:3px solid var(--green);">
+          <div class="p-name">Avento</div>
+          <div class="p-market">&#x1F1E9;&#x1F1EA; DE · Flagship</div>
+          <div class="p-sales" style="color:var(--green);">$9,406</div>
+          <div class="p-tacos" style="color:var(--green);">18.7% TACOS</div>
+        </div>
+        <div class="product-card" style="border-top:3px solid var(--green);">
+          <div class="p-name">Avento</div>
+          <div class="p-market">&#x1F1EC;&#x1F1E7; UK · Growing</div>
+          <div class="p-sales" style="color:var(--green);">£4,188</div>
+          <div class="p-tacos" style="color:var(--green);">22.2% TACOS</div>
+        </div>
+        <div class="product-card" style="border-top:3px solid var(--green);">
+          <div class="p-name">80Days Strap</div>
+          <div class="p-market">&#x1F1E6;&#x1F1FA; AU · Profit Engine</div>
+          <div class="p-sales" style="color:var(--green);">A$2,096</div>
+          <div class="p-tacos" style="color:var(--green);">25.1% TACOS</div>
+        </div>
+        <div class="product-card" style="border-top:3px solid var(--green);">
+          <div class="p-name">Soleado</div>
+          <div class="p-market">&#x1F1FA;&#x1F1F8; US · Organic Star</div>
+          <div class="p-sales" style="color:var(--green);">$840</div>
+          <div class="p-tacos" style="color:var(--green);">0% TACOS</div>
+        </div>
+      </div>
+
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--red);letter-spacing:.08em;text-transform:uppercase;margin:16px 0 8px;">&#x26A0; Bleeders 出血產品</div>
+      <div class="product-grid">
+        <div class="product-card" style="border-top:3px solid var(--red);">
+          <div class="p-name">New Verano</div>
+          <div class="p-market">&#x1F1E8;&#x1F1E6; CA · PAUSE</div>
+          <div class="p-sales" style="color:var(--red);">CA$45</div>
+          <div class="p-tacos" style="color:var(--red);">315% TACOS</div>
+        </div>
+        <div class="product-card" style="border-top:3px solid var(--red);">
+          <div class="p-name">Unisex Polarized</div>
+          <div class="p-market">&#x1F1E6;&#x1F1FA; AU · PAUSE</div>
+          <div class="p-sales" style="color:var(--red);">A$546</div>
+          <div class="p-tacos" style="color:var(--red);">139.4% TACOS</div>
+        </div>
+        <div class="product-card" style="border-top:3px solid var(--red);">
+          <div class="p-name">Sportech Multi</div>
+          <div class="p-market">&#x1F1FA;&#x1F1F8; US · PAUSE</div>
+          <div class="p-sales" style="color:var(--red);">$405</div>
+          <div class="p-tacos" style="color:var(--red);">128.7% TACOS</div>
+        </div>
+        <div class="product-card" style="border-top:3px solid var(--red);">
+          <div class="p-name">Pilot</div>
+          <div class="p-market">&#x1F1EC;&#x1F1E7; UK · REDUCE</div>
+          <div class="p-sales" style="color:var(--red);">£1,097</div>
+          <div class="p-tacos" style="color:var(--red);">69.6% TACOS</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Quadrant API Results -->
+  <details class="panel" open style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> Latest Quadrant Optimization 最新象限優化</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);font-weight:600;">3/11 · 4,348 API ops · 2 errors</div>
+    </summary>
+    <div class="panel-body" style="padding:0;">
+      <table class="health-table">
+        <thead>
+          <tr><th>Market</th><th>&#9733; Star +30%</th><th>&#10067; Question -20%</th><th>&#9986; Cut -50%</th><th>Total Ops</th><th>Phase</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>&#x1F1E6;&#x1F1FA; AU</td>
+            <td style="color:var(--green);font-weight:700;">508</td>
+            <td style="color:var(--yellow);">186</td>
+            <td style="color:var(--red);">50</td>
+            <td>744</td>
+            <td><span class="status-pill pill-green">OPTIMIZED</span></td>
+          </tr>
+          <tr>
+            <td>&#x1F1E9;&#x1F1EA; DE</td>
+            <td style="color:var(--green);font-weight:700;">797</td>
+            <td style="color:var(--yellow);">436</td>
+            <td style="color:var(--red);">317</td>
+            <td>1,550</td>
+            <td><span class="status-pill pill-green">SURGING</span></td>
+          </tr>
+          <tr>
+            <td>&#x1F1EC;&#x1F1E7; UK</td>
+            <td style="color:var(--green);font-weight:700;">455</td>
+            <td style="color:var(--yellow);">131</td>
+            <td style="color:var(--red);">74</td>
+            <td>660</td>
+            <td><span class="status-pill pill-blue">OPTIMIZED</span></td>
+          </tr>
+          <tr>
+            <td>&#x1F1FA;&#x1F1F8; US</td>
+            <td style="color:var(--green);font-weight:700;">65</td>
+            <td style="color:var(--yellow);">176</td>
+            <td style="color:var(--dim);">—</td>
+            <td>241</td>
+            <td><span class="status-pill pill-green">OPTIMIZED</span></td>
+          </tr>
+          <tr>
+            <td>&#x1F1E8;&#x1F1E6; CA</td>
+            <td style="color:var(--green);font-weight:700;">100</td>
+            <td style="color:var(--yellow);">67</td>
+            <td style="color:var(--dim);">—</td>
+            <td>167</td>
+            <td><span class="status-pill pill-green">OPTIMIZED</span></td>
+          </tr>
+          <tr style="background:var(--bg);font-weight:700;">
+            <td>TOTAL</td>
+            <td style="color:var(--green);">1,925</td>
+            <td style="color:var(--yellow);">996</td>
+            <td style="color:var(--red);">441</td>
+            <td>3,362</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <!-- Today's Actions -->
+  <details class="panel" open style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> Actions 待辦事項</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">P1=urgent · P2=this week · P3=prep</div>
+    </summary>
+    <div class="panel-body" style="padding:8px 16px;">
+      <ul class="action-list">
+        <li class="action-item done">
+          <span class="action-priority p1">P1</span>
+          <div class="action-content">
+            <div class="action-brand">ALL 5 MARKETS<span class="done-badge">DONE 3/11 13:15</span></div>
+            <div class="action-text">Quadrant optimization — 1,925 Star +30% · 996 Question -20% · 441 Cut -50%<br>象限優化 — 1,925 明星+30% · 996 待觀察-20% · 441 止血-50%</div>
+            <div class="action-why">4,348 API operations · 2 minor errors · all markets covered</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <span class="action-priority p1">P1</span>
+          <div class="action-content">
+            <div class="action-brand">AU · UK · US · CA</div>
+            <div class="action-text">Pause bleeders — AU Unisex Polarized · US Sportech Multi · CA New Verano · CA Verano · UK Oval<br>暫停出血產品 — 5 個產品跨 4 市場</div>
+            <div class="action-why">Est. savings ~$1,200–1,500/week globally 每週可省</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <span class="action-priority p1">P1</span>
+          <div class="action-content">
+            <div class="action-brand">AU · UK</div>
+            <div class="action-text">Reduce bids — AU Sportech -20% · UK Pilot -25% · US Nylon Strap -30%<br>降低出價 — 澳洲 Sportech -20% · 英國 Pilot -25% · 美國 Nylon Strap -30%</div>
+            <div class="action-why">Above 45% TACOS threshold for 2+ weeks</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <span class="action-priority p2">P2</span>
+          <div class="action-content">
+            <div class="action-brand">DE · UK</div>
+            <div class="action-text">Scale winners — DE Avento +40% budget · UK Verano £88→£150 · UK Dynamic £25→£50<br>擴大贏家 — 德國 Avento 加碼40% · 英國 Verano/Dynamic 加碼</div>
+            <div class="action-why">TACOS well under target · room to scale</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <span class="action-priority p2">P2</span>
+          <div class="action-content">
+            <div class="action-brand">US</div>
+            <div class="action-text">Investigate US sales collapse — $1,843 (W1) → $114 (W5)<br>調查美國銷售崩塌 — 從 $1,843 暴跌至 $114</div>
+            <div class="action-why">Check listing health, Buy Box, pricing, inventory 檢查上架健康度</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <span class="action-priority p2">P2</span>
+          <div class="action-content">
+            <div class="action-brand">UK</div>
+            <div class="action-text">Monitor V2 Rebalance early signals — 13 new campaigns @ £224/day<br>監控 V2 重新平衡早期信號 — 13 組新活動</div>
+            <div class="action-why">Search term driven into proven winners · 48h check</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <span class="action-priority p3">P3</span>
+          <div class="action-content">
+            <div class="action-brand">UK · DE</div>
+            <div class="action-text">Spring Deal ~3/25 — campaigns live and warming up<br>春季促銷 ~3/25 — 活動已上線預熱中</div>
+            <div class="action-why">UK £95/day + DE €208/day · checkpoint Mar 26</div>
+          </div>
+        </li>
+        <li class="action-item">
+          <span class="action-priority p3">P3</span>
+          <div class="action-content">
+            <div class="action-brand">ALL MARKETS</div>
+            <div class="action-text">W6 data import (3/8–3/14) due by 3/16<br>W6 數據匯入截止 3/16</div>
+            <div class="action-why">Weekly reporting cadence · all 5 markets need refresh</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- Operations Log -->
+  <details class="panel" style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> Operations Log 操作紀錄</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);font-weight:600;">Mar 9–11 · 8 entries</div>
+    </summary>
+    <div class="panel-body">
+      <div class="log-entry">
+        <div class="log-time">3/11</div>
+        <div class="log-brand">ALL</div>
+        <div class="log-text">Quadrant optimization across 5 markets: 1,925 Star +30% · 996 Question -20% · 441 Cut -50%<br><small>五市場象限優化：1,925 明星加碼 · 996 待觀察降價 · 441 止血砍半</small></div>
+      </div>
+      <div class="log-entry">
+        <div class="log-time">3/11</div>
+        <div class="log-brand">ALL</div>
+        <div class="log-text">Bid Ceiling Guard: 5 Flux markets scanned — ALL CLEAN, 0 violations<br><small>出價上限防護：Flux 五市場掃描 — 全部通過，零違規</small></div>
+      </div>
+      <div class="log-entry">
+        <div class="log-time">3/10</div>
+        <div class="log-brand">UK</div>
+        <div class="log-text">Growth Rebalance V2: 13 new campaigns @ £224/day · search term driven into proven winners<br><small>成長重新平衡 V2：13 組新活動 · 搜尋詞驅動投入已驗證贏家</small></div>
+      </div>
+      <div class="log-entry">
+        <div class="log-time">3/10</div>
+        <div class="log-brand">UK</div>
+        <div class="log-text">Spring Deal warm-up: 7 campaigns @ £95/day<br><small>春季促銷預熱：7 組活動</small></div>
+      </div>
+      <div class="log-entry">
+        <div class="log-time">3/10</div>
+        <div class="log-brand">DE</div>
+        <div class="log-text">Spring Deal warm-up: 5 campaigns @ €208/day<br><small>春季促銷預熱：5 組活動</small></div>
+      </div>
+      <div class="log-entry">
+        <div class="log-time">3/10</div>
+        <div class="log-brand">UK</div>
+        <div class="log-text">Paused 133 low-performing SP campaigns · saves ~£67/day<br><small>暫停 133 個低效 SP 活動 · 每日省 ~£67</small></div>
+      </div>
+      <div class="log-entry">
+        <div class="log-time">3/9</div>
+        <div class="log-brand">US · CA</div>
+        <div class="log-text">SP cleanup + SB bid adjustments across both markets<br><small>美國 + 加拿大 SP 清理及 SB 出價調整</small></div>
+      </div>
+      <div class="log-entry">
+        <div class="log-time">3/9</div>
+        <div class="log-brand">AU</div>
+        <div class="log-text">Fixed SB attribution bug — 38 BROAD campaigns misattributing sunglasses spend to straps<br><small>修正 SB 歸因錯誤 — 38 個廣泛匹配活動錯誤歸因</small></div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Summer Strategy Snapshot -->
+  <details class="panel" style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> Summer Strategy 夏季策略</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">3 pillars · checkpoints every 2 weeks</div>
+    </summary>
+    <div class="panel-body" style="padding:0;">
+      <table class="health-table">
+        <thead>
+          <tr><th>Market</th><th>Current %</th><th>Summer %</th><th>Rationale 理由</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>&#x1F1E9;&#x1F1EA; DE</td>
+            <td>~27%</td>
+            <td style="color:var(--green);font-weight:700;">35%</td>
+            <td>Best TACOS · W5 breakout 最佳表現</td>
+          </tr>
+          <tr>
+            <td>&#x1F1EC;&#x1F1E7; UK</td>
+            <td>~27%</td>
+            <td style="color:var(--green);font-weight:700;">30%</td>
+            <td>Largest volume · rebalance in progress 銷量最大</td>
+          </tr>
+          <tr>
+            <td>&#x1F1E6;&#x1F1FA; AU</td>
+            <td>~27%</td>
+            <td style="color:var(--yellow);font-weight:700;">20%</td>
+            <td>Trim fat · scale straps 砍肥肉 · 推眼鏡繩</td>
+          </tr>
+          <tr>
+            <td>&#x1F1FA;&#x1F1F8; US</td>
+            <td>~11%</td>
+            <td style="color:var(--red);font-weight:700;">10%</td>
+            <td>Fix first · scale later 先修復再說</td>
+          </tr>
+          <tr>
+            <td>&#x1F1E8;&#x1F1E6; CA</td>
+            <td>~8%</td>
+            <td style="color:var(--yellow);font-weight:700;">5%</td>
+            <td>Maintain only 僅維持</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="padding:12px 18px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);border-top:1px solid var(--border);">
+        Checkpoints 檢查點: Mar 26 · Apr 9 · Apr 23 · TACOS ≤30% guardrail · Products &gt;45% for 2+ weeks → PAUSE<br>
+        Strategy: Concentrate 60% budget → DE + UK · Avento (flagship) + Straps (profit) = ~65% global sales
+      </div>
+    </div>
+  </details>
+
+  <!-- Scheduled Automation -->
+  <details class="panel" style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> Flux Automation Flux 自動化</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);font-weight:600;">3 active tasks</div>
+    </summary>
+    <div class="panel-body" style="padding:0;">
+      <table class="cron-table">
+        <thead>
+          <tr><th>Task 任務</th><th>Schedule</th><th>Scope</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="cron-name">Bid Ceiling Guard 出價上限防護</div>
+              <div class="cron-desc">Scan all Flux KW/targets · cap anomalous bids</div>
+            </td>
+            <td><span class="cron-schedule">*/4h</span> <span class="freq-pill freq-high">Every 4h</span></td>
+            <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">AU/UK/DE/US/CA</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="cron-name">Budget Pacing 預算追蹤</div>
+              <div class="cron-desc">API pull · compare to target · inject widget</div>
+            </td>
+            <td><span class="cron-schedule">08:00 + 14:30</span> <span class="freq-pill freq-daily">2x Daily</span></td>
+            <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">AU/UK/DE/US/CA</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="cron-name">Quadrant Review 象限檢視</div>
+              <div class="cron-desc">Star/Question/Potential/Cut reclassification</div>
+            </td>
+            <td><span class="cron-schedule">Bi-weekly</span> <span class="freq-pill freq-low">Manual</span></td>
+            <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">All products</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="footer">
+    Flux HQ · Amazon Autopilot · 80Days · Last update: 2026-03-12
+  </div>
+
+</div>
+</div>
+
+<!-- ═══ MARKET IFRAMES ═══ -->
+<iframe id="fr-au" src="./au.html"></iframe>
+<iframe id="fr-uk" src="./uk.html"></iframe>
+<iframe id="fr-de" src="./de.html"></iframe>
+<iframe id="fr-us" src="./us.html"></iframe>
+<iframe id="fr-ca" src="./ca.html"></iframe>
+<iframe id="fr-summary" src="./summary.html"></iframe>
+<iframe id="fr-report" src="./report.html"></iframe>
 
 <script>
-function switchMkt(mkt, btn) {
+function switchView(view, btn) {
+  // Update nav buttons
   document.querySelectorAll('.mkt-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
+
+  // Hide everything
+  document.getElementById('view-hq').style.display = 'none';
   document.querySelectorAll('iframe').forEach(f => f.style.display = 'none');
-  document.getElementById('fr-' + mkt).style.display = 'block';
+
+  if (view === 'hq') {
+    document.getElementById('view-hq').style.display = 'block';
+  } else {
+    document.getElementById('fr-' + view).style.display = 'block';
+  }
 }
 </script>
 </body>
