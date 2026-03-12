@@ -143,10 +143,53 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
       <span style="font-size:14px;transition:transform .2s;display:inline-block" class="log-arrow">&#9654;</span>
       <span>Campaign Action Log 廣告操作紀錄</span>
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">5 entries</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/12 — Exact Match + SD 再行銷 + TACOS 優化</span>
+      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">7 entries</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/12 — Cross-Sell API + SD 再行銷 + Exact Match + TACOS 優化</span>
     </summary>
     <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
+
+      <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-12 — CROSS-SELL + PAUSE VIA API 交叉銷售建立 + 低效暫停</span>
+          <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">NEW</span>
+        </div>
+        <div style="color:var(--text2)">
+          透過 Amazon Ads API 建立 <strong>23 個 SP Product Targeting 廣告活動</strong>（67 個 ASIN 投放目標），並暫停 <strong>33 個低效活動</strong>（每月節省 $345）。<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy · 購物籃分析驅動的三層投放 + 低效止血</div>
+            基於 4 季度 Market Basket Analysis 和 30 天搜尋詞數據，同時建立新廣告（攻）與暫停低效活動（守）。三層策略：品牌防禦（在自家產品頁互相投放）、競品攻略（在競品頁面搶客）、跨品類交叉銷售（提升客單價）。所有操作透過 API 自動化完成，V3 Targeting 使用 <code>ASIN_SAME_AS</code> expression。
+          </div>
+          <strong style="color:var(--green)">23 campaigns 建立（67 ASIN targets · Bid $0.55 / Budget $1/天）：</strong><br>
+          &nbsp;&nbsp;• <strong>品牌防禦 Defense（8 campaigns）：</strong>Hanger 互投 4 組 + Shelf 升級路徑 4 組<br>
+          &nbsp;&nbsp;• <strong>競品攻略 Conquest（7 campaigns）：</strong>Liner 攻略 ×3 + Hanger 競品 ×2（11 ASINs 含 HOUSE DAY / Nature Smile）+ Shelving 競品 ×2<br>
+          &nbsp;&nbsp;• <strong>交叉銷售 Cross-Sell（8 campaigns）：</strong>Shelf→Cart ×2 · Dryer↔Hanger ×3 · Cart→Utility ×2 · Broom→Shelf ×1<br>
+          <strong style="color:var(--red)">33 campaigns 暫停（每月節省 $345）：</strong><br>
+          &nbsp;&nbsp;• 29 零營收：Standing Shelf Units 6 組 · Wire Shelving 3 組 · Storage Cart 5 組 · 其他 15 組<br>
+          &nbsp;&nbsp;• 4 高 TACOS &gt;25%：Broom Holder 43% · Cart A1 36% · Shelf 33% · Utility Cart 32%<br>
+          <strong>Scripts：</strong><code>api/dbj_create_crosssell_and_pause.py</code> + <code>api/dbj_fix_targets_and_pause.py</code>
+        </div>
+      </div>
+
+      <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-12 — SD RETARGETING 高單價受眾再行銷建立</span>
+          <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">NEW</span>
+        </div>
+        <div style="color:var(--text2)">
+          透過 Amazon Ads API 建立 <strong>11 個 SD Retargeting 廣告活動</strong>，鎖定 In-Market + Lifestyle 受眾投放 $65+ 高單價產品。<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy · 高單價商品受眾精準觸及</div>
+            DBJ 11 款 $65~$183 高單價產品（層架、桌子、推車、晾衣架）利潤高但轉換路徑長。透過 SD 受眾定位廣告，在 Amazon 站內外向正在瀏覽同類商品的消費者展示廣告，縮短購買決策時間。選用 9 個 In-Market + 2 個 Lifestyle 受眾，覆蓋家庭收納、車庫、辦公、洗衣等使用場景。
+          </div>
+          <strong style="color:var(--green)">11 campaigns · 9 IM + 2 LS audiences · Bid $0.55 / Budget $2/天：</strong><br>
+          &nbsp;&nbsp;• <strong>Shelving $108-$116（3 campaigns × 4 ASINs）：</strong>Home Storage · Garage Shelves · Closet Storage<br>
+          &nbsp;&nbsp;• <strong>Laptop Desk $73-$144（3 campaigns × 3 ASINs）：</strong>Home Office Desks · Office Furniture · Office Desks<br>
+          &nbsp;&nbsp;• <strong>Storage Cart $70（2 campaigns × 3 ASINs）：</strong>Home Storage · Home Furniture<br>
+          &nbsp;&nbsp;• <strong>Dryer Rack $65（1 campaign × 1 ASIN）：</strong>Laundry<br>
+          &nbsp;&nbsp;• <strong>All High-Ticket Lifestyle（2 campaigns × 5 ASINs）：</strong>Home Improvement · Home &amp; Garden<br>
+          <strong>Script：</strong><code>api/dbj_create_sd_retargeting.py</code> · 受眾 expression：<code>[{"type":"audience","value":[{"type":"audienceSameAs","value":"&lt;id&gt;"}]}]</code>
+        </div>
+      </div>
 
       <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
@@ -171,8 +214,8 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
 
       <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-12 — TACOS OPTIMIZATION 帳號 TACOS 優化</span>
-          <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">NEW</span>
+          <span style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono)">2026-03-12 — TACOS OPTIMIZATION 帳號 TACOS 優化（已透過 API 執行）</span>
+          <span style="font-size:10px;background:var(--green);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">DONE</span>
         </div>
         <div style="color:var(--text2)">
           分析 30 天 API 數據，識別並暫停<strong>零營收與超標廣告活動</strong>，預期 TACOS 從 16% 降至 ~14.5%。<br>
@@ -203,8 +246,8 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
 
       <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-12 — MARKET BASKET CROSS-SELL 購物籃交叉銷售廣告建立</span>
-          <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">NEW</span>
+          <span style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono)">2026-03-12 — MARKET BASKET CROSS-SELL 購物籃交叉銷售廣告（已透過 API 執行）</span>
+          <span style="font-size:10px;background:var(--green);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">DONE</span>
         </div>
         <div style="color:var(--text2)">
           基於 4 季度 Market Basket Analysis，建立 <strong>23 個 SP Product Targeting 新廣告活動</strong>。<br>
@@ -225,11 +268,10 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
           &nbsp;&nbsp;• Storage Cart → Utility Cart（2 組）<br>
           &nbsp;&nbsp;• Broom Holder → Shelf Units（1 組）<br>
           <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
-            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">Bulk 檔案 File Details</div>
-            檔案：<code>clients/dbj/bulk-output/DBJ_MarketBasket_CrossSell_TACOS_Optimize.xlsx</code><br>
-            Sheet 1：SP PT Cross-Sell Create（136 rows, 23 campaigns）<br>
-            Sheet 2：SP Pause Optimize（33 campaigns to pause）<br>
-            上傳步驟：Amazon Ads Console → Bulk Operations → Upload
+            <div style="font-weight:700;margin-bottom:8px;color:var(--green)">已透過 API 全部建立 Executed via API</div>
+            23 campaigns + 67 ASIN targets 全部透過 API 建立完成（非 bulk 上傳）<br>
+            33 campaigns 全部透過 API 暫停完成<br>
+            Scripts：<code>api/dbj_create_crosssell_and_pause.py</code> + <code>api/dbj_fix_targets_and_pause.py</code>
           </div>
         </div>
       </div>
