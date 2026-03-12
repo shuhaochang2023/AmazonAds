@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flux · Global Executive Summary — March 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f1f5f9;--bg2:#ffffff;--bg3:#f8fafc;
+  --border:#e2e8f0;--border2:#cbd5e1;
+  --text:#0f172a;--text2:#475569;--text3:#94a3b8;
+  --accent:#2563eb;--green:#16a34a;--amber:#d97706;--red:#dc2626;
+  --mono:'JetBrains Mono',monospace;--display:'Inter',sans-serif;--body:'Outfit',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.6;min-height:100vh;}
+
+/* Header bar */
+.page-header{background:var(--bg2);border-bottom:1px solid var(--border);padding:20px 32px;position:relative;}
+.page-header-inner{max-width:1600px;margin:0 auto;position:relative;}
+.page-title{font-family:var(--display);font-size:22px;font-weight:800;color:var(--text);}
+.page-subtitle{font-size:12px;color:var(--text2);margin-top:4px;font-family:var(--mono);}
+
+/* Language toggle */
+.lang-toggle{position:absolute;top:50%;right:0;transform:translateY(-50%);display:flex;gap:0;border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.lang-btn{padding:6px 14px;font-size:11px;font-family:var(--mono);font-weight:600;border:none;cursor:pointer;background:var(--bg2);color:var(--text2);transition:all .15s;}
+.lang-btn.active{background:var(--accent);color:#fff;}
+
+/* Sticky KPI bar */
+.sticky-kpi{position:sticky;top:0;z-index:50;padding:16px 32px;background:rgba(241,245,249,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);}
+.kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.06);max-width:1600px;margin:0 auto;}
+.kpi-card{background:var(--bg2);padding:18px 22px;}
+.kpi-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;font-family:var(--mono);}
+.kpi-value{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--text);}
+.kpi-sub{font-size:11px;color:var(--text2);margin-top:3px;}
+.kpi-green{color:var(--green);}.kpi-amber{color:var(--amber);}.kpi-red{color:var(--red);}
+
+/* Main content */
+.content{max-width:1600px;margin:0 auto;padding:24px 32px 48px;}
+
+/* Collapsible sections */
+.t0-section{margin-bottom:16px;}
+.collapse-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:10px 10px 0 0;cursor:pointer;user-select:none;transition:background .15s;}
+.collapse-header:hover{background:var(--bg3);}
+.collapse-title{font-family:var(--display);font-size:14px;font-weight:700;color:var(--text);}
+.collapse-icon{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--accent);width:24px;text-align:center;}
+.collapse-body{overflow:hidden;transition:max-height .35s ease, opacity .25s ease;background:var(--bg2);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:0 20px;}
+.collapse-body-inner{padding:16px 0;}
+
+/* Tables */
+.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border);box-shadow:0 1px 5px rgba(0,0,0,.05);}
+table{width:100%;border-collapse:collapse;min-width:600px;}
+thead th{background:var(--bg3);color:var(--text3);font-size:9px;text-transform:uppercase;letter-spacing:.1em;padding:7px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--border);font-family:var(--mono);font-weight:600;}
+thead th:first-child{text-align:left;}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:rgba(15,23,42,.025);}
+tbody td{padding:6px 10px;text-align:right;font-family:var(--mono);font-size:11.5px;vertical-align:middle;}
+tbody td:first-child{text-align:left;font-family:var(--body);font-size:13px;}
+
+/* TACOS gauge bars */
+.gauge-wrap{display:flex;align-items:center;gap:8px;}
+.gauge-bar{height:8px;border-radius:4px;background:var(--bg3);width:120px;overflow:hidden;border:1px solid var(--border);}
+.gauge-fill{height:100%;border-radius:4px;transition:width .4s ease;}
+.gauge-fill.g-green{background:var(--green);}
+.gauge-fill.g-amber{background:var(--amber);}
+.gauge-fill.g-red{background:var(--red);}
+.gauge-label{font-family:var(--mono);font-size:11px;font-weight:600;min-width:50px;}
+
+/* TACOS color classes */
+.tacos-ok{color:var(--green);}.tacos-warn{color:var(--amber);}.tacos-bad{color:var(--red);}
+
+/* Status badges */
+.status-badge{font-size:9px;font-family:var(--mono);padding:3px 8px;border-radius:3px;font-weight:700;white-space:nowrap;display:inline-block;}
+.status-green{background:rgba(22,163,74,.12);color:var(--green);border:1px solid rgba(31,219,138,.3);}
+.status-amber{background:rgba(217,119,6,.1);color:var(--amber);border:1px solid rgba(245,166,35,.3);}
+.status-red{background:rgba(220,38,38,.1);color:var(--red);border:1px solid rgba(240,75,75,.3);}
+.status-blue{background:rgba(37,99,235,.1);color:var(--accent);border:1px solid rgba(91,138,240,.3);}
+
+/* Activity log entries */
+.activity-entry{padding:12px 16px;border-left:3px solid var(--accent);margin-bottom:8px;background:var(--bg3);border-radius:0 8px 8px 0;font-size:13px;line-height:1.6;}
+.activity-entry.action{border-left-color:var(--green);}
+.activity-entry.latest{border-left-color:var(--accent);}
+
+/* Recommendation / priority cards */
+.rec-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:10px;}
+.rec-card-title{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.rec-badge{font-size:9px;font-family:var(--mono);padding:3px 8px;border-radius:3px;font-weight:700;}
+.rec-badge.p-red{background:rgba(220,38,38,.1);color:var(--red);border:1px solid rgba(240,75,75,.3);}
+.rec-badge.p-blue{background:rgba(37,99,235,.1);color:var(--accent);border:1px solid rgba(91,138,240,.3);}
+.rec-badge.p-amber{background:rgba(217,119,6,.1);color:var(--amber);border:1px solid rgba(245,166,35,.3);}
+.rec-badge.p-green{background:rgba(22,163,74,.12);color:var(--green);border:1px solid rgba(31,219,138,.3);}
+.rec-text{font-size:13px;color:var(--text2);line-height:1.6;}
+
+/* Winner / Bleeder cards */
+.product-group{margin-bottom:16px;}
+.product-group-header{font-family:var(--display);font-size:13px;font-weight:700;color:var(--text2);letter-spacing:.04em;text-transform:uppercase;padding:10px 0 8px;display:flex;align-items:center;gap:8px;}
+.winner-table{border-left:3px solid var(--green);}
+.bleeder-table{border-left:3px solid var(--red);}
+
+/* Pillar cards */
+.pillar-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:12px;border-top:3px solid var(--accent);}
+.pillar-title{font-family:var(--display);font-size:15px;font-weight:700;margin-bottom:8px;color:var(--text);}
+.pillar-body{font-size:13px;color:var(--text2);line-height:1.7;}
+
+/* Summary text blocks */
+.summary-text{font-size:13px;color:var(--text2);line-height:1.7;margin-top:12px;padding:12px 16px;background:var(--bg3);border-radius:8px;border:1px solid var(--border);}
+
+/* Footer */
+.page-footer{text-align:center;padding:24px 32px;font-size:11px;color:var(--text3);font-family:var(--mono);border-top:1px solid var(--border);}
+
+/* Responsive */
+@media(max-width:768px){
+  .page-header{padding:16px 16px;}
+  .sticky-kpi{padding:12px 16px;}
+  .content{padding:16px 16px 32px;}
+  .kpi-strip{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));}
+  .kpi-card{padding:12px 14px;}
+  .kpi-value{font-size:16px;}
+  .collapse-header{padding:12px 14px;}
+  .collapse-body{padding:0 14px;}
+  .lang-toggle{position:static;transform:none;margin-top:10px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-title">FLUX GLOBAL — Executive Summary Report</div>
+    <div class="page-subtitle">March 12, 2026 · All Markets · Prepared for 80Days</div>
+    <div class="lang-toggle">
+      <button id="langBtnEN" class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button id="langBtnZH" class="lang-btn" onclick="setLang('zh')">中文</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STICKY KPI STRIP ═══ -->
+<div class="sticky-kpi">
+  <div class="kpi-strip">
+    <div class="kpi-card">
+      <div class="kpi-label">Markets Active</div>
+      <div class="kpi-value">5</div>
+      <div class="kpi-sub">DE, UK, AU, CA, US</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Global Units</div>
+      <div class="kpi-value">~1,969</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Best Market</div>
+      <div class="kpi-value kpi-green">DE 26.8%</div>
+      <div class="kpi-sub" style="margin-top:6px;">
+        <div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-green" style="width:26.8%"></div></div></div>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Critical Market</div>
+      <div class="kpi-value kpi-red">US 44.4%</div>
+      <div class="kpi-sub" style="margin-top:6px;">
+        <div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-red" style="width:44.4%"></div></div></div>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">TACOS Target</div>
+      <div class="kpi-value kpi-green">≤30%</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MAIN CONTENT ═══ -->
+<div class="content">
+
+  <!-- ═══ SECTION 1: Global Performance Snapshot ═══ -->
+  <div class="t0-section">
+    <div class="collapse-header" onclick="toggleCollapse(this)">
+      <span class="collapse-title">
+        <span class="lang-en">Global Performance — 5-Week Overview</span>
+        <span class="lang-zh">全球績效 — 5週總覽</span>
+      </span>
+      <span class="collapse-icon">−</span>
+    </div>
+    <div class="collapse-body">
+      <div class="collapse-body-inner">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="text-align:left">Market</th>
+                <th>Sales</th>
+                <th>Ad Spend</th>
+                <th>TACOS</th>
+                <th>Units</th>
+                <th style="min-width:160px">Gauge</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>🇩🇪 DE</td>
+                <td>$15,488</td>
+                <td>$4,143</td>
+                <td class="tacos-ok">26.8%</td>
+                <td>676</td>
+                <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-green" style="width:26.8%"></div></div><span class="gauge-label tacos-ok">26.8%</span></div></td>
+                <td><span class="status-badge status-green">ON TARGET</span></td>
+              </tr>
+              <tr>
+                <td>🇬🇧 UK</td>
+                <td>£11,686</td>
+                <td>£4,077</td>
+                <td class="tacos-warn">34.9%</td>
+                <td>615</td>
+                <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-amber" style="width:34.9%"></div></div><span class="gauge-label tacos-warn">34.9%</span></div></td>
+                <td><span class="status-badge status-amber">SLIGHTLY OVER</span></td>
+              </tr>
+              <tr>
+                <td>🇦🇺 AU</td>
+                <td>A$9,712</td>
+                <td>A$4,196</td>
+                <td class="tacos-warn">43.2%</td>
+                <td>282</td>
+                <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-amber" style="width:43.2%"></div></div><span class="gauge-label tacos-warn">43.2%</span></div></td>
+                <td><span class="status-badge status-amber">OVER TARGET</span></td>
+              </tr>
+              <tr>
+                <td>🇨🇦 CA</td>
+                <td>CA$3,731</td>
+                <td>CA$1,271</td>
+                <td class="tacos-warn">34.1%</td>
+                <td>224</td>
+                <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-amber" style="width:34.1%"></div></div><span class="gauge-label tacos-warn">34.1%</span></div></td>
+                <td><span class="status-badge status-amber">SLIGHTLY OVER</span></td>
+              </tr>
+              <tr>
+                <td>🇺🇸 US</td>
+                <td>$3,675</td>
+                <td>$1,630</td>
+                <td class="tacos-bad">44.4%</td>
+                <td>172</td>
+                <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-red" style="width:44.4%"></div></div><span class="gauge-label tacos-bad">44.4%</span></div></td>
+                <td><span class="status-badge status-red">CRITICAL</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="summary-text">
+          <div class="lang-en">DE is the star market with 26.8% TACOS and a W5 breakout ($5,490 at 8.5%). UK has strongest unit volume (615). US needs urgent intervention — sales collapsed from $1,843 (W1) to $114 (W5).</div>
+          <div class="lang-zh">德國是明星市場，TACOS 26.8%，W5爆發($5,490，僅8.5%)。英國銷量最大(615件)。美國需緊急介入——銷售從$1,843(W1)暴跌至$114(W5)。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 2: Product Category Performance ═══ -->
+  <div class="t0-section">
+    <div class="collapse-header" onclick="toggleCollapse(this)">
+      <span class="collapse-title">
+        <span class="lang-en">Product Performance — Winners vs Bleeders</span>
+        <span class="lang-zh">產品績效 — 贏家 vs 出血產品</span>
+      </span>
+      <span class="collapse-icon">−</span>
+    </div>
+    <div class="collapse-body">
+      <div class="collapse-body-inner">
+
+        <!-- Winners -->
+        <div class="product-group">
+          <div class="product-group-header"><span class="status-badge status-green">WINNERS</span></div>
+          <div class="table-wrap winner-table">
+            <table>
+              <thead>
+                <tr>
+                  <th style="text-align:left">Product</th>
+                  <th>Market</th>
+                  <th>Sales</th>
+                  <th>TACOS</th>
+                  <th style="min-width:160px">Gauge</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Avento</td>
+                  <td>DE</td>
+                  <td>$9,406</td>
+                  <td class="tacos-ok">18.7%</td>
+                  <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-green" style="width:18.7%"></div></div><span class="gauge-label tacos-ok">18.7%</span></div></td>
+                </tr>
+                <tr>
+                  <td>Avento</td>
+                  <td>UK</td>
+                  <td>£4,188</td>
+                  <td class="tacos-ok">22.2%</td>
+                  <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-green" style="width:22.2%"></div></div><span class="gauge-label tacos-ok">22.2%</span></div></td>
+                </tr>
+                <tr>
+                  <td>80Days Strap</td>
+                  <td>AU</td>
+                  <td>A$2,096</td>
+                  <td class="tacos-ok">25.1%</td>
+                  <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-green" style="width:25.1%"></div></div><span class="gauge-label tacos-ok">25.1%</span></div></td>
+                </tr>
+                <tr>
+                  <td>Verano</td>
+                  <td>UK</td>
+                  <td>£421</td>
+                  <td class="tacos-ok">21.0%</td>
+                  <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-green" style="width:21%"></div></div><span class="gauge-label tacos-ok">21.0%</span></div></td>
+                </tr>
+                <tr>
+                  <td>Dynamic</td>
+                  <td>UK</td>
+                  <td>£210</td>
+                  <td class="tacos-ok">11.7%</td>
+                  <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-green" style="width:11.7%"></div></div><span class="gauge-label tacos-ok">11.7%</span></div></td>
+                </tr>
+                <tr>
+                  <td>Soleado</td>
+                  <td>US</td>
+                  <td>$840</td>
+                  <td class="tacos-ok">0%</td>
+                  <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-green" style="width:0%"></div></div><span class="gauge-label tacos-ok">0%</span></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Bleeders -->
+        <div class="product-group">
+          <div class="product-group-header"><span class="status-badge status-red">BLEEDERS</span></div>
+          <div class="table-wrap bleeder-table">
+            <table>
+              <thead>
+                <tr>
+                  <th style="text-align:left">Product</th>
+                  <th>Market</th>
+                  <th>Sales</th>
+                  <th>Spend</th>
+                  <th>TACOS</th>
+                  <th style="min-width:160px">Gauge</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>New Verano</td>
+                  <td>CA</td>
+                  <td>CA$45</td>
+                  <td>CA$140</td>
+                  <td class="tacos-bad">315%</td>
+                  <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-red" style="width:100%"></div></div><span class="gauge-label tacos-bad">315%</span></div></td>
+                  <td><span class="status-badge status-red">PAUSE</span></td>
+                </tr>
+                <tr>
+                  <td>Unisex Polarized</td>
+                  <td>AU</td>
+                  <td>A$546</td>
+                  <td>A$761</td>
+                  <td class="tacos-bad">139.4%</td>
+                  <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-red" style="width:100%"></div></div><span class="gauge-label tacos-bad">139.4%</span></div></td>
+                  <td><span class="status-badge status-red">PAUSE</span></td>
+                </tr>
+                <tr>
+                  <td>Sportech Multi</td>
+                  <td>US</td>
+                  <td>$405</td>
+                  <td>$521</td>
+                  <td class="tacos-bad">128.7%</td>
+                  <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-red" style="width:100%"></div></div><span class="gauge-label tacos-bad">128.7%</span></div></td>
+                  <td><span class="status-badge status-red">PAUSE</span></td>
+                </tr>
+                <tr>
+                  <td>Oval</td>
+                  <td>UK</td>
+                  <td>£240</td>
+                  <td>£244</td>
+                  <td class="tacos-bad">101.6%</td>
+                  <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-red" style="width:100%"></div></div><span class="gauge-label tacos-bad">101.6%</span></div></td>
+                  <td><span class="status-badge status-red">PAUSE</span></td>
+                </tr>
+                <tr>
+                  <td>Verano</td>
+                  <td>CA</td>
+                  <td>CA$109</td>
+                  <td>CA$109</td>
+                  <td class="tacos-bad">99.7%</td>
+                  <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-red" style="width:99.7%"></div></div><span class="gauge-label tacos-bad">99.7%</span></div></td>
+                  <td><span class="status-badge status-red">PAUSE</span></td>
+                </tr>
+                <tr>
+                  <td>Sportech</td>
+                  <td>AU</td>
+                  <td>A$474</td>
+                  <td>A$414</td>
+                  <td class="tacos-bad">87.3%</td>
+                  <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-red" style="width:87.3%"></div></div><span class="gauge-label tacos-bad">87.3%</span></div></td>
+                  <td><span class="status-badge status-amber">REDUCE</span></td>
+                </tr>
+                <tr>
+                  <td>Pilot</td>
+                  <td>UK</td>
+                  <td>£1,097</td>
+                  <td>£764</td>
+                  <td class="tacos-bad">69.6%</td>
+                  <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-red" style="width:69.6%"></div></div><span class="gauge-label tacos-bad">69.6%</span></div></td>
+                  <td><span class="status-badge status-amber">REDUCE</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="summary-text">
+          <div class="lang-en">Estimated weekly savings from pausing bleeders: ~$1,200–1,500 globally</div>
+          <div class="lang-zh">暫停出血產品預估每週可節省：全球約$1,200–1,500</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 3: Activity Log ═══ -->
+  <div class="t0-section">
+    <div class="collapse-header" onclick="toggleCollapse(this)">
+      <span class="collapse-title">
+        <span class="lang-en">Activity Log — March 9–10, 2026</span>
+        <span class="lang-zh">活動日誌 — 2026年3月9-10日</span>
+      </span>
+      <span class="collapse-icon">−</span>
+    </div>
+    <div class="collapse-body">
+      <div class="collapse-body-inner">
+        <div class="activity-entry latest">
+          <div class="lang-en"><strong>UK</strong> — Paused 133 low-performing SP campaigns. Saves ~£67/day.</div>
+          <div class="lang-zh"><strong>英國</strong> — 暫停133個低效SP廣告系列。每日節省~£67。</div>
+        </div>
+        <div class="activity-entry action">
+          <div class="lang-en"><strong>UK</strong> — Created 13 growth campaigns (V2) @ £224/day. Search term driven into proven winners.</div>
+          <div class="lang-zh"><strong>英國</strong> — 建立13個成長廣告系列(V2) @ £224/日。搜尋詞驅動投入已驗證贏家。</div>
+        </div>
+        <div class="activity-entry action">
+          <div class="lang-en"><strong>UK</strong> — Spring Deal warm-up: 7 campaigns @ £95/day.</div>
+          <div class="lang-zh"><strong>英國</strong> — 春季促銷預熱：7個廣告系列 @ £95/日。</div>
+        </div>
+        <div class="activity-entry action">
+          <div class="lang-en"><strong>DE</strong> — Spring Deal warm-up: 5 campaigns @ €208/day.</div>
+          <div class="lang-zh"><strong>德國</strong> — 春季促銷預熱：5個廣告系列 @ €208/日。</div>
+        </div>
+        <div class="activity-entry action">
+          <div class="lang-en"><strong>US</strong> — SP cleanup + SB bid adjustments.</div>
+          <div class="lang-zh"><strong>美國</strong> — SP清理 + SB出價調整。</div>
+        </div>
+        <div class="activity-entry action">
+          <div class="lang-en"><strong>CA</strong> — SP cleanup + SB actions.</div>
+          <div class="lang-zh"><strong>加拿大</strong> — SP清理 + SB動作。</div>
+        </div>
+        <div class="activity-entry latest">
+          <div class="lang-en"><strong>AU</strong> — Fixed SB attribution bug. 38 BROAD campaigns misattributing sunglasses spend to straps.</div>
+          <div class="lang-zh"><strong>澳洲</strong> — 修正SB歸因錯誤。38個廣泛SB廣告系列錯誤將太陽眼鏡支出歸因至眼鏡繩。</div>
+        </div>
+        <div class="activity-entry action">
+          <div class="lang-en"><strong>ALL</strong> — Dashboard + Excel regenerated for all 5 markets. Executive Summary tabs added.</div>
+          <div class="lang-zh"><strong>全部</strong> — 儀表板+Excel已為所有5個市場重新產出。已新增Executive Summary標籤。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 4: Spring Sales Campaign Status ═══ -->
+  <div class="t0-section">
+    <div class="collapse-header" onclick="toggleCollapse(this)">
+      <span class="collapse-title">
+        <span class="lang-en">Spring Sales Campaign Status</span>
+        <span class="lang-zh">春季促銷活動狀態</span>
+      </span>
+      <span class="collapse-icon">−</span>
+    </div>
+    <div class="collapse-body">
+      <div class="collapse-body-inner">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="text-align:left">Market</th>
+                <th style="text-align:left">Campaign</th>
+                <th>Budget/Day</th>
+                <th style="text-align:left">Products</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>🇬🇧 UK</td>
+                <td style="text-align:left;font-family:var(--body);font-size:13px;">Spring Deal warm-up</td>
+                <td>£95/day</td>
+                <td style="text-align:left;font-family:var(--body);font-size:12px;">Avento, Jet II, Verano, Dynamic</td>
+                <td><span class="status-badge status-green">🟢 LIVE</span></td>
+              </tr>
+              <tr>
+                <td>🇩🇪 DE</td>
+                <td style="text-align:left;font-family:var(--body);font-size:13px;">Spring Deal warm-up</td>
+                <td>€208/day</td>
+                <td style="text-align:left;font-family:var(--body);font-size:12px;">Avento, Sportech, Jet II</td>
+                <td><span class="status-badge status-green">🟢 LIVE</span></td>
+              </tr>
+              <tr>
+                <td>🇬🇧 UK</td>
+                <td style="text-align:left;font-family:var(--body);font-size:13px;">Growth Rebalance V2</td>
+                <td>£224/day</td>
+                <td style="text-align:left;font-family:var(--body);font-size:12px;">13 campaigns on proven winners</td>
+                <td><span class="status-badge status-green">🟢 LIVE</span></td>
+              </tr>
+              <tr>
+                <td>🇦🇺 AU</td>
+                <td style="text-align:left;font-family:var(--body);font-size:13px;color:var(--text3);">—</td>
+                <td style="color:var(--text3);">—</td>
+                <td style="text-align:left;font-family:var(--body);font-size:12px;color:var(--text3);">Pending bleeder cleanup</td>
+                <td><span class="status-badge status-amber">🟡 NOT YET</span></td>
+              </tr>
+              <tr>
+                <td>🇺🇸 US</td>
+                <td style="text-align:left;font-family:var(--body);font-size:13px;color:var(--text3);">—</td>
+                <td style="color:var(--text3);">—</td>
+                <td style="text-align:left;font-family:var(--body);font-size:12px;color:var(--text3);">Market needs reset first</td>
+                <td><span class="status-badge status-red">🔴 NOT YET</span></td>
+              </tr>
+              <tr>
+                <td>🇨🇦 CA</td>
+                <td style="text-align:left;font-family:var(--body);font-size:13px;color:var(--text3);">—</td>
+                <td style="color:var(--text3);">—</td>
+                <td style="text-align:left;font-family:var(--body);font-size:12px;color:var(--text3);">Maintain only</td>
+                <td><span class="status-badge status-amber">🟡 NOT YET</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="summary-text">
+          <div class="lang-en"><strong>Checkpoint: March 26</strong> — 2 weeks of data before committing summer budgets. If spring campaigns hit &lt;35% TACOS → scale 2x. If &gt;45% → tighten before summer.</div>
+          <div class="lang-zh"><strong>檢查點：3月26日</strong> — 2週數據後再決定夏季預算。春促TACOS &lt;35% → 加倍擴展。&gt;45% → 夏季前收緊。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 5: Next Week's Plan ═══ -->
+  <div class="t0-section">
+    <div class="collapse-header" onclick="toggleCollapse(this)">
+      <span class="collapse-title">
+        <span class="lang-en">Next Week's Plan — March 13–19</span>
+        <span class="lang-zh">下週計劃 — 3月13-19日</span>
+      </span>
+      <span class="collapse-icon">−</span>
+    </div>
+    <div class="collapse-body">
+      <div class="collapse-body-inner">
+
+        <div class="rec-card">
+          <div class="rec-card-title">
+            <span class="rec-badge p-red">P1 · BY MAR 14</span>
+          </div>
+          <div class="rec-text">
+            <div class="lang-en">Pause bleeders globally (AU Unisex Polarized, US Sportech Multi, CA New Verano, CA Verano, UK Oval). Reduce bids: AU Sportech -20%, UK Pilot -25%, US Nylon Strap -30%. Manually pause UK SB bleeders.</div>
+            <div class="lang-zh">全球暫停出血產品(澳洲Unisex Polarized、美國Sportech Multi、加拿大New Verano、加拿大Verano、英國Oval)。降低出價：澳洲Sportech -20%、英國Pilot -25%、美國Nylon Strap -30%。手動暫停英國SB出血廣告。</div>
+          </div>
+        </div>
+
+        <div class="rec-card">
+          <div class="rec-card-title">
+            <span class="rec-badge p-blue">P2 · BY MAR 16</span>
+          </div>
+          <div class="rec-text">
+            <div class="lang-en">Scale winners: DE Avento +40% budget, UK Verano £88→£150, UK Dynamic £25→£50, AU Straps +30%.</div>
+            <div class="lang-zh">擴大贏家：德國Avento預算+40%、英國Verano £88→£150、英國Dynamic £25→£50、澳洲眼鏡繩+30%。</div>
+          </div>
+        </div>
+
+        <div class="rec-card">
+          <div class="rec-card-title">
+            <span class="rec-badge p-amber">P3 · BY MAR 17</span>
+          </div>
+          <div class="rec-text">
+            <div class="lang-en">Investigate US sales collapse — check listing health, Buy Box, pricing, inventory. Investigate CA strap W5 decline. Monitor UK Rebalance V2 early signals.</div>
+            <div class="lang-zh">調查美國銷售崩塌——檢查listing健康度、Buy Box、定價、庫存。調查加拿大眼鏡繩W5下滑。監控英國重新平衡V2早期信號。</div>
+          </div>
+        </div>
+
+        <div class="rec-card">
+          <div class="rec-card-title">
+            <span class="rec-badge p-green">P4 · BY MAR 19</span>
+          </div>
+          <div class="rec-text">
+            <div class="lang-en">Pull W6 data (Mar 8-14). Update all dashboards. Prepare March 26 checkpoint brief for spring deal go/no-go.</div>
+            <div class="lang-zh">拉取W6數據(3月8-14日)。更新所有儀表板。準備3月26日檢查點簡報——春促決策。</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 6: Client Goal & Summer Strategy ═══ -->
+  <div class="t0-section">
+    <div class="collapse-header" onclick="toggleCollapse(this)">
+      <span class="collapse-title">
+        <span class="lang-en">Summer 2026 Strategy — Scale Without Breaking the Bank</span>
+        <span class="lang-zh">2026夏季策略 — 擴展不超支</span>
+      </span>
+      <span class="collapse-icon">−</span>
+    </div>
+    <div class="collapse-body">
+      <div class="collapse-body-inner">
+
+        <!-- 3 Pillar cards -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-bottom:16px;">
+          <div class="pillar-card">
+            <div class="pillar-title">
+              <span class="lang-en">Concentrate, Don't Spray</span>
+              <span class="lang-zh">集中火力，不要撒網</span>
+            </div>
+            <div class="pillar-body">
+              <div class="lang-en">60% of global budget → DE + UK (proven ROI). AU maintains. US/CA on hold. Focus: Avento (flagship) + Straps (profit engine) = ~65% of global sales.</div>
+              <div class="lang-zh">全球預算60% → 德國+英國(已驗證ROI)。澳洲維持。美國/加拿大暫緩。重點：Avento(旗艦) + 眼鏡繩(利潤引擎) = 約65%全球營收。</div>
+            </div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-title">
+              <span class="lang-en">Search Term Driven</span>
+              <span class="lang-zh">搜尋詞驅動</span>
+            </div>
+            <div class="pillar-body">
+              <div class="lang-en">UK V2 rebalance proved it: 4,282 search term rows found £67/day waste + £224/day opportunity. Every market gets audit before summer increase. Exact match on converting terms > broad discovery.</div>
+              <div class="lang-zh">英國V2重新平衡已驗證：4,282筆搜尋詞發現每日£67浪費+£224機會。每個市場夏季增加前須完成審計。精確匹配轉換詞 > 廣泛探索。</div>
+            </div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-title">
+              <span class="lang-en">Hard Guardrails, Fast Kills</span>
+              <span class="lang-zh">硬性護欄，快速止損</span>
+            </div>
+            <div class="pillar-body">
+              <div class="lang-en">TACOS 30% guardrail — products above 45% for 2+ weeks get paused. 2-week checkpoints (Mar 26, Apr 9, Apr 23). Per-market daily caps — no runaway spend.</div>
+              <div class="lang-zh">TACOS 30%護欄——產品超過45%達2週以上即暫停。2週檢查點(3/26、4/9、4/23)。各市場每日上限——杜絕失控支出。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Budget Allocation Table -->
+        <div class="product-group-header" style="margin-top:8px;">
+          <span class="lang-en">Budget Allocation</span>
+          <span class="lang-zh">預算分配</span>
+        </div>
+        <div class="table-wrap" style="margin-bottom:16px;">
+          <table style="min-width:400px;">
+            <thead>
+              <tr>
+                <th style="text-align:left">Market</th>
+                <th>Current</th>
+                <th>Proposed Summer</th>
+                <th style="text-align:left">Rationale</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>🇩🇪 DE</td>
+                <td>~27%</td>
+                <td class="tacos-ok">35%</td>
+                <td style="text-align:left;font-family:var(--body);font-size:12px;">Best TACOS, W5 breakout</td>
+              </tr>
+              <tr>
+                <td>🇬🇧 UK</td>
+                <td>~27%</td>
+                <td class="tacos-ok">30%</td>
+                <td style="text-align:left;font-family:var(--body);font-size:12px;">Largest volume, rebalance in progress</td>
+              </tr>
+              <tr>
+                <td>🇦🇺 AU</td>
+                <td>~27%</td>
+                <td class="tacos-warn">20%</td>
+                <td style="text-align:left;font-family:var(--body);font-size:12px;">Trim fat, scale straps</td>
+              </tr>
+              <tr>
+                <td>🇺🇸 US</td>
+                <td>~11%</td>
+                <td class="tacos-bad">10%</td>
+                <td style="text-align:left;font-family:var(--body);font-size:12px;">Fix first, scale later</td>
+              </tr>
+              <tr>
+                <td>🇨🇦 CA</td>
+                <td>~8%</td>
+                <td class="tacos-warn">5%</td>
+                <td style="text-align:left;font-family:var(--body);font-size:12px;">Maintain only</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- KPI Targets Table -->
+        <div class="product-group-header">
+          <span class="lang-en">KPI Targets</span>
+          <span class="lang-zh">KPI 目標</span>
+        </div>
+        <div class="table-wrap">
+          <table style="min-width:400px;">
+            <thead>
+              <tr>
+                <th style="text-align:left">Metric</th>
+                <th>Current</th>
+                <th>Summer Target</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Global TACOS</td>
+                <td class="tacos-warn">~35%</td>
+                <td class="tacos-ok">≤30%</td>
+              </tr>
+              <tr>
+                <td>DE TACOS</td>
+                <td class="tacos-ok">26.8%</td>
+                <td class="tacos-ok">≤25%</td>
+              </tr>
+              <tr>
+                <td>UK TACOS</td>
+                <td class="tacos-warn">34.9%</td>
+                <td class="tacos-ok">≤30%</td>
+              </tr>
+              <tr>
+                <td>Monthly bleeder waste</td>
+                <td class="tacos-bad">~$5-6K</td>
+                <td class="tacos-ok">≤$1K</td>
+              </tr>
+              <tr>
+                <td>Organic ratio</td>
+                <td>~60-70%</td>
+                <td class="tacos-ok">≥65%</td>
+              </tr>
+              <tr>
+                <td>Spring deal ROAS</td>
+                <td style="color:var(--text3);">TBD</td>
+                <td class="tacos-ok">&gt;3x</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<div class="page-footer">
+  Report generated March 12, 2026 · Data period: Feb 1 – Mar 7, 2026 · Flux / 80Days
+</div>
+
+<script>
+// ═══ Language Toggle ═══
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  const isZh = lang === 'zh';
+  document.querySelectorAll('.lang-en').forEach(el => el.style.display = isZh ? 'none' : '');
+  document.querySelectorAll('.lang-zh').forEach(el => el.style.display = isZh ? '' : 'none');
+  document.getElementById('langBtnEN').classList.toggle('active', !isZh);
+  document.getElementById('langBtnZH').classList.toggle('active', isZh);
+}
+
+// ═══ Collapsible sections ═══
+function toggleCollapse(header) {
+  const body = header.nextElementSibling;
+  const icon = header.querySelector('.collapse-icon');
+  const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+  if (isOpen) {
+    body.style.maxHeight = '0px';
+    body.style.opacity = '0';
+    icon.textContent = '+';
+  } else {
+    body.style.maxHeight = body.scrollHeight + 'px';
+    body.style.opacity = '1';
+    icon.textContent = '−';
+  }
+}
+
+// ═══ INIT ═══
+// All sections open by default
+document.querySelectorAll('.collapse-body').forEach(b => {
+  b.style.maxHeight = b.scrollHeight + 'px';
+  b.style.opacity = '1';
+});
+// Hide ZH by default
+document.querySelectorAll('.lang-zh').forEach(el => el.style.display = 'none');
+</script>
+</body>
+</html>

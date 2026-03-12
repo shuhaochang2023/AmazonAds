@@ -69,13 +69,6 @@ tbody td:first-child{text-align:left;font-family:var(--body);font-size:13px;}
 .action-task input[type=checkbox]{margin-top:2px;accent-color:var(--accent);width:14px;height:14px;flex-shrink:0;}
 .action-task.done{opacity:.35;}
 .action-task.done .task-text{text-decoration:line-through;}
-.action-task{flex-wrap:wrap;}
-.feedback-toggle{font-size:10px;color:var(--accent);cursor:pointer;background:none;border:1px solid var(--accent);border-radius:3px;padding:1px 6px;margin-left:auto;flex-shrink:0;font-family:var(--mono);opacity:.7;transition:opacity .15s;}.feedback-toggle:hover{opacity:1;}
-.feedback-area{width:100%;margin-top:6px;display:none;}
-.feedback-area.open{display:block;}
-.feedback-area textarea{width:100%;min-height:48px;padding:8px 10px;border:1px solid var(--border2);border-radius:5px;font-family:var(--body);font-size:12px;color:var(--text);background:#fff;resize:vertical;line-height:1.5;}
-.feedback-area textarea::placeholder{color:var(--text3);font-size:11px;}
-.feedback-area textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(37,99,235,.12);}
 .task-text{font-size:12.5px;color:var(--text2);line-height:1.5;}
 .task-type{font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:2px;background:var(--bg);color:var(--text3);border:1px solid var(--border2);flex-shrink:0;margin-top:2px;}
 .q-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;}
@@ -94,6 +87,48 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
 #childTable tbody td.col-freeze{background:var(--bg2);}
 #childTable .parent-row td.col-freeze{background:inherit;}
 #childTable tfoot td.col-freeze{background:var(--bg3);}
+
+/* Collapsible sections */
+.collapse-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:10px 10px 0 0;cursor:pointer;user-select:none;transition:background .15s;}
+.collapse-header:hover{background:var(--bg3);}
+.collapse-title{font-family:var(--display);font-size:14px;font-weight:700;color:var(--text);}
+.collapse-icon{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--accent);width:24px;text-align:center;}
+.collapse-body{overflow:hidden;transition:max-height .35s ease, opacity .25s ease;background:var(--bg2);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:0 20px;}
+.collapse-body-inner{padding:16px 0;}
+
+/* TACOS gauge bars */
+.gauge-wrap{display:flex;align-items:center;gap:8px;}
+.gauge-bar{height:8px;border-radius:4px;background:var(--bg3);width:120px;overflow:hidden;border:1px solid var(--border);}
+.gauge-fill{height:100%;border-radius:4px;transition:width .4s ease;}
+.gauge-fill.g-green{background:var(--green);}
+.gauge-fill.g-amber{background:var(--amber);}
+.gauge-fill.g-red{background:var(--red);}
+.gauge-label{font-family:var(--mono);font-size:11px;font-weight:600;min-width:50px;}
+
+/* Language toggle */
+.lang-toggle{position:absolute;top:16px;right:0;display:flex;gap:0;border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.lang-btn{padding:6px 14px;font-size:11px;font-family:var(--mono);font-weight:600;border:none;cursor:pointer;background:var(--bg2);color:var(--text2);transition:all .15s;}
+.lang-btn.active{background:var(--accent);color:#fff;}
+
+/* Sticky KPI bar */
+.sticky-kpi{position:sticky;top:54px;z-index:50;margin:-32px -32px 20px -32px;padding:16px 32px;background:rgba(241,245,249,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);}
+
+/* Activity log entries */
+.activity-entry{padding:12px 16px;border-left:3px solid var(--accent);margin-bottom:8px;background:var(--bg3);border-radius:0 8px 8px 0;font-size:13px;line-height:1.6;}
+.activity-entry.action{border-left-color:var(--green);}
+.activity-entry.latest{border-left-color:var(--accent);}
+
+/* Recommendation cards */
+.rec-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:10px;}
+.rec-card-title{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.rec-badge{font-size:9px;font-family:var(--mono);padding:3px 8px;border-radius:3px;font-weight:700;}
+.rec-badge.now{background:rgba(220,38,38,.1);color:var(--red);border:1px solid rgba(240,75,75,.3);}
+.rec-badge.week{background:rgba(37,99,235,.1);color:var(--accent);border:1px solid rgba(91,138,240,.3);}
+.rec-badge.maintain{background:rgba(22,163,74,.12);color:var(--green);border:1px solid rgba(31,219,138,.3);}
+.rec-text{font-size:13px;color:var(--text2);line-height:1.6;}
+
+/* Section spacing */
+.t0-section{margin-bottom:16px;}
 </style>
 </head>
 <body>
@@ -101,7 +136,7 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   <div class="nav-inner">
   <div class="nav-brand">Flux <span class="market-tag">CA</span></div>
   <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('t0',this)">📋 總覽</button>
+    <button class="tab-btn active" onclick="showTab('t0',this)">📋 Executive Summary</button>
     <button class="tab-btn" onclick="showTab('t1',this)">📊 銷售 &amp; 廣告佔比</button>
     <button class="tab-btn" onclick="showTab('t2',this)">📅 週對週數據</button>
     <button class="tab-btn" onclick="showTab('t3',this)">📈 WoW 變化</button>
@@ -112,259 +147,253 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   </div>
 </nav>
 
-<!-- TAB 0 — Executive Summary -->
+<!-- TAB 0: EXECUTIVE SUMMARY -->
 <div id="t0" class="panel active">
-  <div style="margin-bottom:20px">
-    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">EXECUTIVE SUMMARY · 2026 年 3 月 9 日更新</div>
-    <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">Flux 🇨🇦 CA · 執行摘要</div>
-    <div style="font-size:12px;color:var(--text3)">CA Market Feb–Mar 2026 週報 · SP+SD+SB · TACOS ≤30%</div>
+
+  <!-- Header with language toggle -->
+  <div style="position:relative;margin-bottom:8px;">
+    <div style="font-family:var(--display);font-size:22px;font-weight:800;color:var(--text);">Executive Summary — Client Meeting Brief</div>
+    <div style="font-size:12px;color:var(--text2);margin-top:4px;font-family:var(--mono);">March 12, 2026 · Flux CA Market · Prepared for 80Days</div>
+    <div class="lang-toggle">
+      <button id="langBtn" class="lang-btn active" onclick="toggleLang()">EN</button>
+    </div>
   </div>
 
-  <details style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
-    <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
-      <span style="font-size:14px;transition:transform .2s;display:inline-block" class="log-arrow">&#9654;</span>
-      <span>Campaign Action Log 廣告操作紀錄</span>
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">3 entries</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/10 — QUADRANT OPTIMIZATION 象限策略優化執行</span>
-    </summary>
-    <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
-
-      <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-10 — QUADRANT OPTIMIZATION 象限策略優化執行</span>
-          <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
-        </div>
-        <div style="color:var(--text2)">
-          <strong style="color:var(--green)">透過 Amazon Ads API 自動執行象限策略優化</strong> — 針對 CA 市場 1,201 個啟用中廣告活動進行精準調整。<br>
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
-            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
-            根據象限分析結果，透過 API 批次執行雙層策略：(1) 加碼投資 Star 產品，加速加拿大市場的贏家產品成長；(2) 精細調降 Question 產品出價，在較小市場中更精準地控制花費效率。
+  <!-- Sticky KPI strip -->
+  <div class="sticky-kpi">
+    <div class="kpi-strip" style="margin-bottom:0;">
+      <div class="kpi-card">
+        <div class="kpi-label">Total Sales</div>
+        <div class="kpi-value">CA$3,731</div>
+        <div class="kpi-sub">224 units</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total Ad Spend</div>
+        <div class="kpi-value">CA$1,271</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Account TACOS</div>
+        <div class="kpi-value kpi-amber">34.1%</div>
+        <div class="kpi-sub" style="margin-top:6px;">
+          <div class="gauge-wrap">
+            <div class="gauge-bar"><div class="gauge-fill g-amber" style="width:34.1%"></div></div>
           </div>
-          &nbsp;&nbsp;• <strong style="color:var(--green)">⭐ Star — 加碼贏家：</strong>Wire Strap、Dynamic 表現優異，<strong>100 個廣告活動預算提升 +30%</strong>，擴大高效產品覆蓋面<br>
-          &nbsp;&nbsp;• <strong style="color:var(--amber)">⚠️ Question — 效率優化：</strong>Nylon Strap、Avento 出價精細調降，<strong>67 個關鍵字/投放目標 bid -20%</strong>，逐步收斂至目標 TACOS<br>
-          &nbsp;&nbsp;• <strong>下一步 Next Steps：</strong>48 小時後檢查 Star 產品曝光量變化、Question 產品 ACOS 是否有效下降<br>
         </div>
       </div>
+      <div class="kpi-card">
+        <div class="kpi-label">TACOS Target</div>
+        <div class="kpi-value kpi-green">&le;30%</div>
+      </div>
+    </div>
+  </div>
 
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono)">2026-03-09 — CA SP CLEANUP 加拿大 SP 廣告清理</span>
+  <!-- Section 1: Market Status -->
+  <div class="t0-section">
+    <div class="collapse-header" onclick="toggleCollapse(this)">
+      <span class="collapse-title">
+        <span class="lang-en">CA Market Status — 5-Week Overview</span>
+        <span class="lang-zh">加拿大市場狀態 — 5週總覽</span>
+      </span>
+      <span class="collapse-icon">&minus;</span>
+    </div>
+    <div class="collapse-body">
+      <div class="collapse-body-inner">
+        <div class="lang-en">
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;">
+            <li class="activity-entry latest">CA market generated CA$3,731 in sales (224 units) over 5 weeks with CA$1,271 in ad spend</li>
+            <li class="activity-entry latest">Account TACOS at 34.1% — slightly above 30% target (AMBER)</li>
+            <li class="activity-entry latest">TACOS trending: W1 30.3% &rarr; W2 32.4% &rarr; W3 42.1% &rarr; W4 31.1% &rarr; W5 61.0%</li>
+            <li class="activity-entry action">Key: W5 showed sharp decline in main strap product (CA$780 W1 &rarr; CA$343 W5) while spend stayed flat</li>
+          </ul>
         </div>
-        <div style="color:var(--text2)">
-          <strong style="color:var(--red)">暫停低效 SP 廣告活動</strong> — 根據搜尋詞報告與 bulk 數據分析，清理零銷售與高 ACOS 的 SP campaigns。<br>
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
-            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
-            分析 CA 市場 SP 搜尋詞報告與 bulk 下載數據。加拿大市場規模較小，需要更嚴格的預算控管。暫停所有零銷售且持續花費的廣告活動，將預算集中到已驗證的高轉換產品與關鍵字上。
+        <div class="lang-zh">
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;">
+            <li class="activity-entry latest">加拿大市場5週營收 CA$3,731 (224件)，廣告支出 CA$1,271</li>
+            <li class="activity-entry latest">帳戶TACOS 34.1% — 略高於30%目標 (琥珀色)</li>
+            <li class="activity-entry latest">TACOS趨勢：W1 30.3% &rarr; W2 32.4% &rarr; W3 42.1% &rarr; W4 31.1% &rarr; W5 61.0%</li>
+            <li class="activity-entry action">關鍵：W5主力眼鏡繩產品營收大幅下滑 (CA$780 W1 &rarr; CA$343 W5)，但支出持平</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Product Performance -->
+  <div class="t0-section">
+    <div class="collapse-header" onclick="toggleCollapse(this)">
+      <span class="collapse-title">
+        <span class="lang-en">Product Performance Highlights</span>
+        <span class="lang-zh">產品績效重點</span>
+      </span>
+      <span class="collapse-icon">&minus;</span>
+    </div>
+    <div class="collapse-body">
+      <div class="collapse-body-inner">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="text-align:left">Product</th>
+                <th>Sales</th>
+                <th>Spend</th>
+                <th>TACOS</th>
+                <th style="min-width:140px">Gauge</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Nylon Strap</td>
+                <td>CA$2,907</td>
+                <td>CA$1,062</td>
+                <td class="tacos-warn">36.5%</td>
+                <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-amber" style="width:36.5%"></div></div><span class="gauge-label tacos-warn">36.5%</span></div></td>
+              </tr>
+              <tr>
+                <td>80Days Wire Strap</td>
+                <td>CA$432</td>
+                <td>CA$0</td>
+                <td class="tacos-ok">0%</td>
+                <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-green" style="width:0%"></div></div><span class="gauge-label tacos-ok">0%</span></div></td>
+              </tr>
+              <tr>
+                <td>Flux Avento</td>
+                <td>CA$120</td>
+                <td>CA$39</td>
+                <td class="tacos-warn">32.6%</td>
+                <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-amber" style="width:32.6%"></div></div><span class="gauge-label tacos-warn">32.6%</span></div></td>
+              </tr>
+              <tr>
+                <td>Flux Dynamic</td>
+                <td>CA$119</td>
+                <td>CA$1</td>
+                <td class="tacos-ok">0.7%</td>
+                <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-green" style="width:0.7%"></div></div><span class="gauge-label tacos-ok">0.7%</span></div></td>
+              </tr>
+              <tr>
+                <td>Flux Verano</td>
+                <td>CA$109</td>
+                <td>CA$109</td>
+                <td class="tacos-bad">99.7%</td>
+                <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-red" style="width:99.7%"></div></div><span class="gauge-label tacos-bad">99.7%</span></div></td>
+              </tr>
+              <tr>
+                <td>New Verano</td>
+                <td>CA$45</td>
+                <td>CA$140</td>
+                <td class="tacos-bad">315%</td>
+                <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-red" style="width:100%"></div></div><span class="gauge-label tacos-bad">315%</span></div></td>
+              </tr>
+              <tr>
+                <td>80Days Geometric</td>
+                <td>CA$35</td>
+                <td>CA$59</td>
+                <td class="tacos-bad">172%</td>
+                <td><div class="gauge-wrap"><div class="gauge-bar"><div class="gauge-fill g-red" style="width:100%"></div></div><span class="gauge-label tacos-bad">172%</span></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Actions Completed -->
+  <div class="t0-section">
+    <div class="collapse-header" onclick="toggleCollapse(this)">
+      <span class="collapse-title">
+        <span class="lang-en">Actions Completed — Week of March 9-10</span>
+        <span class="lang-zh">本週已完成行動 — 3月9-10日</span>
+      </span>
+      <span class="collapse-icon">&minus;</span>
+    </div>
+    <div class="collapse-body">
+      <div class="collapse-body-inner">
+        <div class="lang-en">
+          <div class="activity-entry latest" style="margin-bottom:8px;">Paused low-performing CA SP campaigns</div>
+          <div class="activity-entry action">SB actions applied</div>
+        </div>
+        <div class="lang-zh">
+          <div class="activity-entry latest" style="margin-bottom:8px;">已暫停低效加拿大SP廣告系列</div>
+          <div class="activity-entry action">已執行SB調整</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Strategy -->
+  <div class="t0-section">
+    <div class="collapse-header" onclick="toggleCollapse(this)">
+      <span class="collapse-title">
+        <span class="lang-en">CA Market — Strategy Analysis</span>
+        <span class="lang-zh">加拿大市場 — 策略分析</span>
+      </span>
+      <span class="collapse-icon">&minus;</span>
+    </div>
+    <div class="collapse-body">
+      <div class="collapse-body-inner">
+        <div class="lang-en">
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;">
+            <li class="activity-entry latest">CA is a strap-dependent market — Nylon Strap = 78% of all sales</li>
+            <li class="activity-entry action">New Verano is burning cash: CA$140 spent for CA$44.50 sales (315% TACOS) — pause immediately</li>
+            <li class="activity-entry latest">Verano: 99.7% TACOS — losing money on every sale</li>
+            <li class="activity-entry action">Wire Strap (CA$432 organic) shows potential — consider small ad test to accelerate</li>
+          </ul>
+        </div>
+        <div class="lang-zh">
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;">
+            <li class="activity-entry latest">加拿大是眼鏡繩依賴市場 — Nylon Strap = 78%總營收</li>
+            <li class="activity-entry action">New Verano正在燒錢：CA$140支出僅CA$44.50營收 (315% TACOS) — 立即暫停</li>
+            <li class="activity-entry latest">Verano: 99.7% TACOS — 每筆銷售都在虧損</li>
+            <li class="activity-entry action">Wire Strap (CA$432自然流量)顯示潛力 — 考慮小型廣告測試加速成長</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Recommendations -->
+  <div class="t0-section">
+    <div class="collapse-header" onclick="toggleCollapse(this)">
+      <span class="collapse-title">
+        <span class="lang-en">Recommendations for Discussion</span>
+        <span class="lang-zh">建議討論事項</span>
+      </span>
+      <span class="collapse-icon">&minus;</span>
+    </div>
+    <div class="collapse-body">
+      <div class="collapse-body-inner">
+        <div class="rec-card">
+          <div class="rec-card-title">
+            <span class="rec-badge now">IMMEDIATE</span>
           </div>
-          &nbsp;&nbsp;• <strong>資料來源：</strong>CA SP Search Term Report + CA Bulk 下載（489KB）<br>
-          &nbsp;&nbsp;• <strong>操作：</strong>暫停零銷售 / 高 ACOS 的 SP campaigns，釋放無效預算<br>
-          &nbsp;&nbsp;• <strong>目標：</strong>CA 市場 TACOS ≤30%，小市場更需精準投放<br>
-          <a href="./CA_SP_Cleanup_20260309.xlsx" download style="display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;color:var(--accent);text-decoration:none;background:rgba(37,99,235,.08);padding:4px 10px;border-radius:4px;border:1px solid rgba(37,99,235,.2);margin-top:6px">⬇ CA_SP_Cleanup_20260309.xlsx</a>
+          <div class="rec-text">
+            <div class="lang-en">Pause New Verano (CA$140 spend, 1 sale) and Verano (CA$109 spend, 99.7% TACOS).</div>
+            <div class="lang-zh">立即 — 暫停New Verano (CA$140支出，1筆銷售) 和 Verano (CA$109支出，99.7% TACOS)。</div>
+          </div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-card-title">
+            <span class="rec-badge week">THIS WEEK</span>
+          </div>
+          <div class="rec-text">
+            <div class="lang-en">Tighten Nylon Strap bids — W5 TACOS jumped to 61.0%. Reduce bids 15% and monitor.</div>
+            <div class="lang-zh">本週 — 收緊Nylon Strap出價 — W5 TACOS跳升至61.0%。降低出價15%並監控。</div>
+          </div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-card-title">
+            <span class="rec-badge maintain">MAINTAIN</span>
+          </div>
+          <div class="rec-text">
+            <div class="lang-en">CA is not a scale market for summer. Keep efficient, focus budget on DE and UK instead.</div>
+            <div class="lang-zh">維持 — 加拿大不是夏季擴展市場。保持效率，將預算集中在德國和英國。</div>
+          </div>
         </div>
       </div>
-
-      <div style="border-left:3px solid var(--green);padding-left:14px">
-        <div style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono);margin-bottom:6px">2026-03-09 — CA SB ACTIONS 加拿大品牌廣告調整</div>
-        <div style="color:var(--text2)">
-          <strong>SB 品牌廣告出價與預算調整</strong> — 優化加拿大市場 Sponsored Brands 廣告效率。<br>
-          &nbsp;&nbsp;• <strong>操作：</strong>調整 SB 出價與預算 — 高效活動維持，低效活動暫停或降價<br>
-          &nbsp;&nbsp;• <strong>目標：</strong>提升品牌曝光 ROI，加拿大市場以效率優先<br>
-          <a href="./CA_SB_Actions_20260309.xlsx" download style="display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;color:var(--accent);text-decoration:none;background:rgba(37,99,235,.08);padding:4px 10px;border-radius:4px;border:1px solid rgba(37,99,235,.2);margin-top:6px">⬇ CA_SB_Actions_20260309.xlsx</a>
-        </div>
-      </div>
-
-    </div>
-  </details>
-
-  
-  
-<!-- BUDGET PACING WIDGET — auto-generated by flux_budget_pacing.py -->
-<style>
-@keyframes pacingShimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
-@keyframes pacingPulse { 0%,100%{opacity:1} 50%{opacity:.35} }
-</style>
-<details id="budget-pacing-widget" style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
-  <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
-    <span style="font-size:14px;transition:transform .2s;display:inline-block">&#9654;</span>
-    <span>Budget Pacing 預算執行追蹤</span>
-    <span style="display:inline-flex;align-items:center;gap:4px;font-size:8px;font-weight:700;color:#16a34a;background:rgba(22,163,74,.1);border:1px solid rgba(34,197,94,.25);padding:2px 6px;border-radius:3px">
-      <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#16a34a;animation:pacingPulse 1.5s ease-in-out infinite"></span>LIVE
-    </span>
-    <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">C$120 / C$1,584 (8%) · MTD Mar</span>
-  </summary>
-  <div style="padding:4px 18px 18px">
-
-    <!-- Info line -->
-    <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-bottom:8px;max-width:520px">
-      Budget = 5-week daily avg × 31 · Actual = API MTD (Mar 1–10) · Expected pace: 32%
-    </div>
-
-    <!-- Total bar -->
-    <div style="position:relative;height:22px;background:var(--bg);border-radius:6px;overflow:hidden;border:1px solid var(--border);margin-bottom:4px;max-width:520px">
-      <div style="height:100%;border-radius:5px;background:linear-gradient(90deg,#d97706,#fbbf24);width:8%;position:relative;overflow:hidden">
-        <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:pacingShimmer 2.5s infinite"></div>
-      </div>
-      <!-- Expected pace marker -->
-      <div style="position:absolute;top:0;left:32%;width:2px;height:100%;background:var(--text3);opacity:.5"></div>
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center">
-        <span style="font-family:var(--mono);font-size:11px;font-weight:800;color:var(--text);text-shadow:0 0 3px rgba(255,255,255,.9)">C$120 / C$1,584 (8%)</span>
-      </div>
-    </div>
-    <div style="font-family:var(--mono);font-size:9px;color:var(--text3);text-align:right;margin-bottom:10px;max-width:520px">gap: C$-1,464 · updated 2026-03-11 13:28</div>
-
-    <!-- Product bars -->
-    <div style="max-width:520px">
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">80Days Strap</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:1%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">1%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">C$11/C$941</div>
-</div>
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Other Sunglasses</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:32%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">32%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">C$108/C$335</div>
-</div>
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Verano/Unisex</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:0%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">0%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">C$0/C$220</div>
-</div>
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">80Days Geometric</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:0%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">0%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">C$0/C$53</div>
-</div>
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Avento</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:3%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">3%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">C$1/C$35</div>
-</div>
-    </div>
-
-  </div>
-</details>
-<!-- /BUDGET PACING WIDGET -->
-
-  <!-- Overall Account KPIs -->
-  <div class="kpi-strip" style="margin-bottom:20px" id="kpi-exec"></div>
-
-  <!-- Product Performance Overview -->
-  <div class="sec-header">全產品線績效總覽 Product Performance Overview</div>
-  <div class="table-wrap" style="margin-bottom:24px">
-    <table id="execProductTable"></table>
-  </div>
-
-  <!-- Tab Guide -->
-  <div class="sec-header">看板功能導覽 Dashboard Guide</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px">
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t1',document.querySelectorAll('.tab-btn')[1])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">📊</span>
-        <div style="font-weight:700;font-size:14px">銷售 & 廣告佔比</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        各產品營業額、廣告花費佔比圓餅圖，可切換單週 / 5 週合計。<br>
-        含子變體展開明細表（Sales / Spend / TACOS per week）。<br>
-        <strong>搭配 Excel：</strong>下載按鈕在頁面頂部
-      </div>
-    </div>
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t2',document.querySelectorAll('.tab-btn')[2])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">📅</span>
-        <div style="font-weight:700;font-size:14px">週對週數據</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        全產品 × 5 週完整交叉表：Sales / Spend / TACOS / Units / Organic。<br>
-        快速掃描哪週哪產品表現異常。<br>
-        <strong>用途：</strong>週會報告、趨勢追蹤
-      </div>
-    </div>
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t3',document.querySelectorAll('.tab-btn')[3])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">📈</span>
-        <div style="font-weight:700;font-size:14px">WoW 變化</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        週對週百分比變化熱力圖：Sales / Spend / TACOS / Units。<br>
-        綠色 = 正向變化，紅色 = 需關注。<br>
-        <strong>用途：</strong>快速定位異常波動
-      </div>
-    </div>
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t4',document.querySelectorAll('.tab-btn')[4])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">🎯</span>
-        <div style="font-weight:700;font-size:14px">產品象限</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        依 Sales × TACOS 四象限分類：⭐ Star / ⚠️ Question / 💤 Potential / 🔴 Cut。<br>
-        含視覺化象限圖與每象限建議行動。<br>
-        <strong>用途：</strong>策略決策、資源分配
-      </div>
-    </div>
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t5',document.querySelectorAll('.tab-btn')[5])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">✅</span>
-        <div style="font-weight:700;font-size:14px">行動方案</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        依象限自動產生的待辦清單，含 SP/SB/SD Bulk File 操作指引。<br>
-        可勾選完成項目追蹤進度。<br>
-        <strong>用途：</strong>每週執行 checklist
-      </div>
     </div>
   </div>
-
-  <!-- Action Items -->
-  <div class="sec-header">待辦事項 Action Items</div>
-
-  <!-- Urgent - This Week -->
-  <div style="margin-bottom:16px">
-    <div style="font-size:12px;font-weight:700;color:var(--red);font-family:var(--mono);margin-bottom:8px;letter-spacing:.05em">🔴 本週完成 DUE THIS WEEK (3/10–3/14)</div>
-    <div style="display:flex;flex-direction:column;gap:6px" id="actionThisWeek"></div>
-  </div>
-
-  <!-- Due Next Monday -->
-  <div style="margin-bottom:16px">
-    <div style="font-size:12px;font-weight:700;color:var(--amber);font-family:var(--mono);margin-bottom:8px;letter-spacing:.05em">🟡 下週一前完成 DUE BY 3/16 (一)</div>
-    <div style="display:flex;flex-direction:column;gap:6px" id="actionNextMon"></div>
-  </div>
-
-  <!-- Key Takeaways -->
-  <div class="sec-header">本週重點結論 Key Takeaways</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px" id="takeawayCards"></div>
 
 </div>
-
 
 <!-- TAB 1 -->
 <div id="t1" class="panel">
@@ -452,19 +481,7 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
 const PARENTS = {"B0FD3KCFP5": {"name": "Adjustable Eyeglass Strap – Nylon R", "short": "Adjustable Eyeglass Strap – Nylon R", "color": "#22c55e", "children": ["B0FD3PMPVC", "B0FCRLQG4B", "B0FD3PSJG3", "B0FD3LHYMN", "B0FD3MZ97V", "B0FCRQRHJ8", "B0FCRK9JCK", "B0FCRCZ1HC"], "weeks": {"W1": {"sales": 780.07, "spsd": 22.54, "sbsp": 214.03, "spend": 236.57, "units": 60, "organic": 58, "ppc": 3, "profits": 384.0, "tacos": 30.3}, "W2": {"sales": 664.66, "spsd": 14.65, "sbsp": 200.87, "spend": 215.52, "units": 52, "organic": 49, "ppc": 3, "profits": 325.39, "tacos": 32.4}, "W3": {"sales": 479.21, "spsd": 14.02, "sbsp": 187.86, "spend": 201.88, "units": 36, "organic": 33, "ppc": 3, "profits": 227.7, "tacos": 42.1}, "W4": {"sales": 640.14, "spsd": 12.91, "sbsp": 186.22, "spend": 199.13, "units": 49, "organic": 46, "ppc": 4, "profits": 326.59, "tacos": 31.1}, "W5": {"sales": 342.83, "spsd": 8.53, "sbsp": 200.75, "spend": 209.28, "units": 27, "organic": 25, "ppc": 2, "profits": 140.59, "tacos": 61.0}}, "total_sales": 2906.91, "total_spend": 1062.38, "total_spsd": 72.65, "tacos_4w": 36.5, "sb_attr": 2571.95}, "B0G65DV27W": {"name": "80Days Adjustable Eyeglass Strap: Wire Cable Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "short": "80Days Adjustable Eyeglass Strap: W", "color": "#06b6d4", "children": ["B0G64L8VGX", "B0G653WYKH", "B0G64Q4YRJ", "B0G64TMSXH"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 431.7, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 30, "organic": 30, "ppc": 0, "profits": -126.6, "tacos": 0.0}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 431.7, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": 0.0, "sb_attr": 0}, "B01LXPTTPP": {"name": "Flux AVENTO Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight", "short": "Flux AVENTO Polarized Sunglasses fo", "color": "#3b82f6", "children": ["B01N3OVRWE", "B01KHB8DKA", "B01KHB8E4A"], "weeks": {"W1": {"sales": 60.0, "spsd": 13.94, "sbsp": 0.0, "spend": 13.94, "units": 1, "organic": 1, "ppc": 1, "profits": 24.81, "tacos": 23.2}, "W2": {"sales": 0.0, "spsd": 8.12, "sbsp": 0.0, "spend": 8.12, "units": 0, "organic": 0, "ppc": 0, "profits": -8.12, "tacos": null}, "W3": {"sales": 0.0, "spsd": 7.06, "sbsp": 0.0, "spend": 7.06, "units": 0, "organic": 0, "ppc": 0, "profits": -7.06, "tacos": null}, "W4": {"sales": 60.0, "spsd": 6.47, "sbsp": 0.0, "spend": 6.47, "units": 1, "organic": 0, "ppc": 1, "profits": 37.26, "tacos": 10.8}, "W5": {"sales": 0.0, "spsd": 3.59, "sbsp": 0.0, "spend": 3.59, "units": 0, "organic": 0, "ppc": 0, "profits": -3.59, "tacos": null}}, "total_sales": 120.0, "total_spend": 39.18, "total_spsd": 39.18, "tacos_4w": 32.6, "sb_attr": 0}, "B01N4P4BCC": {"name": "Flux Dynamic Polarized Sunglasses for Men & Women UV400,Anti-Slip,Lightweight", "short": "Flux Dynamic Polarized Sunglasses f", "color": "#f59e0b", "children": ["B01NAH9HQX", "B0749C661Z", "B01M5GA9EW"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W2": {"sales": 59.5, "spsd": 0.89, "sbsp": 0.0, "spend": 0.89, "units": 1, "organic": 1, "ppc": 0, "profits": 42.37, "tacos": 1.5}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 59.5, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 1, "organic": 1, "ppc": 0, "profits": 43.26, "tacos": 0.0}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 119.0, "total_spend": 0.89, "total_spsd": 0.89, "tacos_4w": 0.7, "sb_attr": 0}, "B0FQBWVB9L": {"name": "Flux Verano Polarized Sunglasses for Men and Women UV400,Anti-Slip,Adjustable Nose Pad", "short": "Flux Verano Polarized Sunglasses fo", "color": "#ef4444", "children": ["B0FQBWKCCK", "B0FQBYRTQG"], "weeks": {"W1": {"sales": 0.0, "spsd": 7.38, "sbsp": 0.0, "spend": 7.38, "units": 0, "organic": 0, "ppc": 0, "profits": -7.38, "tacos": null}, "W2": {"sales": 54.5, "spsd": 24.98, "sbsp": 0.0, "spend": 24.98, "units": 1, "organic": 1, "ppc": 1, "profits": 20.25, "tacos": 45.8}, "W3": {"sales": 0.0, "spsd": 22.58, "sbsp": 0.0, "spend": 22.58, "units": 0, "organic": 0, "ppc": 0, "profits": -22.58, "tacos": null}, "W4": {"sales": 54.5, "spsd": 25.46, "sbsp": 0.0, "spend": 25.46, "units": 1, "organic": 0, "ppc": 1, "profits": 19.77, "tacos": 46.7}, "W5": {"sales": 0.0, "spsd": 28.27, "sbsp": 0.0, "spend": 28.27, "units": 0, "organic": 0, "ppc": 0, "profits": -28.27, "tacos": null}}, "total_sales": 109.0, "total_spend": 108.67, "total_spsd": 108.67, "tacos_4w": 99.7, "sb_attr": 0}, "B07TMZQKKJ": {"name": "Flux New Verano Polarized Sunglasses for Men and Women UV400,Anti-Slip,Adjustable Nose Pad", "short": "Flux New Verano Polarized Sunglasse", "color": "#ec4899", "children": ["B07VSGYS1G"], "weeks": {"W1": {"sales": 44.5, "spsd": 20.11, "sbsp": 0.0, "spend": 20.11, "units": 1, "organic": 1, "ppc": 0, "profits": 10.7, "tacos": 45.2}, "W2": {"sales": 0.0, "spsd": 25.18, "sbsp": 0.0, "spend": 25.18, "units": 0, "organic": 0, "ppc": 0, "profits": -25.18, "tacos": null}, "W3": {"sales": 0.0, "spsd": 29.92, "sbsp": 0.0, "spend": 29.92, "units": 0, "organic": 0, "ppc": 0, "profits": -29.92, "tacos": null}, "W4": {"sales": 0.0, "spsd": 31.1, "sbsp": 0.0, "spend": 31.1, "units": 0, "organic": 0, "ppc": 0, "profits": -31.1, "tacos": null}, "W5": {"sales": 0.0, "spsd": 33.88, "sbsp": 0.0, "spend": 33.88, "units": 0, "organic": 0, "ppc": 0, "profits": -33.88, "tacos": null}}, "total_sales": 44.5, "total_spend": 140.19, "total_spsd": 140.19, "tacos_4w": 315.0, "sb_attr": 0}, "B0F8BCBB75": {"name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection", "short": "80Days Women’s Geometric Sunglasses", "color": "#d946ef", "children": ["B0F1D1CFHP", "B0F1D4F97T", "B0F1D2HHD4"], "weeks": {"W1": {"sales": 0.0, "spsd": 20.59, "sbsp": 0.0, "spend": 20.59, "units": 0, "organic": 0, "ppc": 0, "profits": -20.59, "tacos": null}, "W2": {"sales": 0.0, "spsd": 9.87, "sbsp": 0.0, "spend": 9.87, "units": 0, "organic": 0, "ppc": 0, "profits": -9.87, "tacos": null}, "W3": {"sales": 0.0, "spsd": 10.12, "sbsp": 0.0, "spend": 10.12, "units": 0, "organic": 0, "ppc": 0, "profits": -10.12, "tacos": null}, "W4": {"sales": 0.0, "spsd": 8.12, "sbsp": 0.0, "spend": 8.12, "units": 0, "organic": 0, "ppc": 0, "profits": -8.12, "tacos": null}, "W5": {"sales": 34.5, "spsd": 10.62, "sbsp": 0.0, "spend": 10.62, "units": 1, "organic": 1, "ppc": 0, "profits": 14.5, "tacos": 30.8}}, "total_sales": 34.5, "total_spend": 59.32, "total_spsd": 59.32, "tacos_4w": 171.9, "sb_attr": 0}, "B01MTAIUHO": {"name": "Flux SPORTECH Polarized Sunglasses for Men & Women UV400 Lightweight TR90 Frame, Non-Slip Nosebridge and Temples", "short": "Flux SPORTECH Polarized Sunglasses ", "color": "#a855f7", "children": ["B01LWX7WBR", "B06XS9FDG6", "B06XS3D5RG", "B06XSB9W9D"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 0.0, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": null, "sb_attr": 0}, "B0F8JHFRQS": {"name": "80Days Square Sunglasses – Slim Frame, Classic Keyhole Design, UV400 Protection", "short": "80Days Square Sunglasses", "color": "#a855f7", "children": ["B0F1D2B3FG", "B0F1D3VGX6"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 0.0, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": null, "sb_attr": 0}, "B08G4QPKMV": {"name": "Flux LANTAKA Polarized Sunglasses f", "short": "Flux LANTAKA Polarized Sunglasses f", "color": "#84cc16", "children": ["B08G4QBZ2S", "B08G4R17NB", "B08G4RWBWD"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W5": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}}, "total_sales": 0.0, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": null, "sb_attr": 0}, "B08G4VB58T": {"name": "Flux BOWRIDER Active LifestylesSung", "short": "Flux BOWRIDER Active LifestylesSung", "color": "#0ea5e9", "children": ["B08G4NKMM9", "B08G4VNYN1"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W5": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}}, "total_sales": 0.0, "total_spend": 0.0, "total_spsd": 0.0, "tacos_4w": null, "sb_attr": 0}};
 const CHILD_DATA = [{"asin": "B0FD3PMPVC", "parent": "B0FD3KCFP5", "parent_short": "Adjustable Eyeglass Strap – Nylon R", "color": "#22c55e", "name": "Adjustable Eyeglass Strap – Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit for Reading or Sports", "weeks": {"W1": {"sales": 405.71, "spend": 6.7, "units": 29, "organic": 28}, "W2": {"sales": 293.79, "spend": 4.8, "units": 21, "organic": 18}, "W3": {"sales": 307.78, "spend": 9.13, "units": 22, "organic": 20}, "W4": {"sales": 363.74, "spend": 5.51, "units": 26, "organic": 25}, "W5": {"sales": 55.96, "spend": 0.0, "units": 4, "organic": 4}}, "total_sales": 1426.98}, {"asin": "B0FCRLQG4B", "parent": "B0FD3KCFP5", "parent_short": "Adjustable Eyeglass Strap – Nylon R", "color": "#22c55e", "name": "Adjustable Eyeglass Strap – Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit for Reading or Sports", "weeks": {"W1": {"sales": 105.0, "spend": 10.96, "units": 10, "organic": 9}, "W2": {"sales": 105.0, "spend": 8.21, "units": 10, "organic": 10}, "W3": {"sales": 42.0, "spend": 4.34, "units": 4, "organic": 3}, "W4": {"sales": 94.5, "spend": 4.37, "units": 9, "organic": 8}, "W5": {"sales": 52.5, "spend": 4.74, "units": 5, "organic": 3}}, "total_sales": 399.0}, {"asin": "B0FD3PSJG3", "parent": "B0FD3KCFP5", "parent_short": "Adjustable Eyeglass Strap – Nylon R", "color": "#22c55e", "name": "Adjustable Eyeglass Strap – Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit for Reading or Sports", "weeks": {"W1": {"sales": 27.98, "spend": 1.48, "units": 2, "organic": 2}, "W2": {"sales": 111.92, "spend": 0.55, "units": 8, "organic": 8}, "W3": {"sales": 41.97, "spend": 0.55, "units": 3, "organic": 3}, "W4": {"sales": 69.95, "spend": 0.5, "units": 5, "organic": 4}, "W5": {"sales": 97.93, "spend": 1.1, "units": 7, "organic": 7}}, "total_sales": 349.75}, {"asin": "B0FD3LHYMN", "parent": "B0FD3KCFP5", "parent_short": "Adjustable Eyeglass Strap – Nylon R", "color": "#22c55e", "name": "Adjustable Eyeglass Strap – Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit for Reading or Sports", "weeks": {"W1": {"sales": 97.93, "spend": 0.35, "units": 7, "organic": 7}, "W2": {"sales": 55.96, "spend": 0.55, "units": 4, "organic": 4}, "W3": {"sales": 41.97, "spend": 0.0, "units": 3, "organic": 3}, "W4": {"sales": 27.98, "spend": 0.52, "units": 2, "organic": 2}, "W5": {"sales": 13.99, "spend": 1.04, "units": 1, "organic": 1}}, "total_sales": 237.83}, {"asin": "B0G64L8VGX", "parent": "B0G65DV27W", "parent_short": "80Days Adjustable Eyeglass Strap: W", "color": "#06b6d4", "name": "80Days Adjustable Eyeglass Strap: Wire Cable Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 223.84, "spend": 0.0, "units": 16, "organic": 16}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 223.84}, {"asin": "B0FD3MZ97V", "parent": "B0FD3KCFP5", "parent_short": "Adjustable Eyeglass Strap – Nylon R", "color": "#22c55e", "name": "Adjustable Eyeglass Strap – Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit for Reading or Sports", "weeks": {"W1": {"sales": 69.95, "spend": 1.63, "units": 5, "organic": 5}, "W2": {"sales": 13.99, "spend": 0.54, "units": 1, "organic": 1}, "W3": {"sales": 13.99, "spend": 0.0, "units": 1, "organic": 1}, "W4": {"sales": 41.97, "spend": 2.01, "units": 3, "organic": 3}, "W5": {"sales": 69.95, "spend": 1.1, "units": 5, "organic": 5}}, "total_sales": 209.85}, {"asin": "B0G653WYKH", "parent": "B0G65DV27W", "parent_short": "80Days Adjustable Eyeglass Strap: W", "color": "#06b6d4", "name": "80Days Adjustable Eyeglass Strap: Wire Cable Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 161.89, "spend": 0.0, "units": 11, "organic": 11}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 161.89}, {"asin": "B01N3OVRWE", "parent": "B01LXPTTPP", "parent_short": "Flux AVENTO Polarized Sunglasses fo", "color": "#3b82f6", "name": "Flux AVENTO Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (BLK/Grey)", "weeks": {"W1": {"sales": 60.0, "spend": 13.94, "units": 1, "organic": 1}, "W2": {"sales": 0.0, "spend": 8.12, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 7.06, "units": 0, "organic": 0}, "W4": {"sales": 60.0, "spend": 6.47, "units": 1, "organic": 0}, "W5": {"sales": 0.0, "spend": 3.59, "units": 0, "organic": 0}}, "total_sales": 120.0}, {"asin": "B01NAH9HQX", "parent": "B01N4P4BCC", "parent_short": "Flux Dynamic Polarized Sunglasses f", "color": "#f59e0b", "name": "Flux Dynamic Polarized Sunglasses for Men & Women UV400,Anti-Slip,Lightweight (Xtal.Grey/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 59.5, "spend": 0.89, "units": 1, "organic": 1}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 59.5, "spend": 0.0, "units": 1, "organic": 1}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 119.0}, {"asin": "B0FQBWKCCK", "parent": "B0FQBWVB9L", "parent_short": "Flux Verano Polarized Sunglasses fo", "color": "#ef4444", "name": "Flux Verano Polarized Sunglasses for Men and Women UV400,Anti-Slip,Adjustable Nose Pad (BK/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 4.62, "units": 0, "organic": 0}, "W2": {"sales": 54.5, "spend": 18.08, "units": 1, "organic": 1}, "W3": {"sales": 0.0, "spend": 13.32, "units": 0, "organic": 0}, "W4": {"sales": 54.5, "spend": 14.9, "units": 1, "organic": 0}, "W5": {"sales": 0.0, "spend": 17.37, "units": 0, "organic": 0}}, "total_sales": 109.0}, {"asin": "B0FCRQRHJ8", "parent": "B0FD3KCFP5", "parent_short": "Adjustable Eyeglass Strap – Nylon R", "color": "#22c55e", "name": "Adjustable Eyeglass Strap – Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit for Reading or Sports", "weeks": {"W1": {"sales": 42.0, "spend": 0.89, "units": 4, "organic": 4}, "W2": {"sales": 21.0, "spend": 0.0, "units": 2, "organic": 2}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 21.0, "spend": 0.0, "units": 2, "organic": 2}, "W5": {"sales": 21.0, "spend": 0.55, "units": 2, "organic": 2}}, "total_sales": 105.0}, {"asin": "B0FCRK9JCK", "parent": "B0FD3KCFP5", "parent_short": "Adjustable Eyeglass Strap – Nylon R", "color": "#22c55e", "name": "Adjustable Eyeglass Strap – Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit for Reading or Sports", "weeks": {"W1": {"sales": 31.5, "spend": 0.0, "units": 3, "organic": 3}, "W2": {"sales": 10.5, "spend": 0.0, "units": 1, "organic": 1}, "W3": {"sales": 21.0, "spend": 0.0, "units": 2, "organic": 2}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 31.5, "spend": 0.0, "units": 3, "organic": 3}}, "total_sales": 94.5}, {"asin": "B0FCRCZ1HC", "parent": "B0FD3KCFP5", "parent_short": "Adjustable Eyeglass Strap – Nylon R", "color": "#22c55e", "name": "Adjustable Eyeglass Strap – Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit for Reading or Sports", "weeks": {"W1": {"sales": 0.0, "spend": 0.53, "units": 0, "organic": 0}, "W2": {"sales": 52.5, "spend": 0.0, "units": 5, "organic": 5}, "W3": {"sales": 10.5, "spend": 0.0, "units": 1, "organic": 1}, "W4": {"sales": 21.0, "spend": 0.0, "units": 2, "organic": 2}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 84.0}, {"asin": "B07VSGYS1G", "parent": "B07TMZQKKJ", "parent_short": "Flux New Verano Polarized Sunglasse", "color": "#ec4899", "name": "Flux New Verano Polarized Sunglasses for Men and Women UV400,Anti-Slip,Adjustable Nose Pad (Crystal Grey/Red)", "weeks": {"W1": {"sales": 44.5, "spend": 20.11, "units": 1, "organic": 1}, "W2": {"sales": 0.0, "spend": 25.18, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 29.92, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 31.1, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 33.88, "units": 0, "organic": 0}}, "total_sales": 44.5}, {"asin": "B0F1D1CFHP", "parent": "B0F8BCBB75", "parent_short": "80Days Women’s Geometric Sunglasses", "color": "#d946ef", "name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection (Taupe)", "weeks": {"W1": {"sales": 0.0, "spend": 10.58, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 4.39, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 7.26, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 4.64, "units": 0, "organic": 0}, "W5": {"sales": 34.5, "spend": 4.22, "units": 1, "organic": 1}}, "total_sales": 34.5}, {"asin": "B0G64Q4YRJ", "parent": "B0G65DV27W", "parent_short": "80Days Adjustable Eyeglass Strap: W", "color": "#06b6d4", "name": "80Days Adjustable Eyeglass Strap: Wire Cable Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 31.98, "spend": 0.0, "units": 2, "organic": 2}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 31.98}, {"asin": "B0G64TMSXH", "parent": "B0G65DV27W", "parent_short": "80Days Adjustable Eyeglass Strap: W", "color": "#06b6d4", "name": "80Days Adjustable Eyeglass Strap: Wire Cable Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 13.99, "spend": 0.0, "units": 1, "organic": 1}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 13.99}, {"asin": "B0F1D4F97T", "parent": "B0F8BCBB75", "parent_short": "80Days Women’s Geometric Sunglasses", "color": "#d946ef", "name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection (BLK)", "weeks": {"W1": {"sales": 0.0, "spend": 7.08, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 3.2, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.73, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 3.48, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 3.73, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D2HHD4", "parent": "B0F8BCBB75", "parent_short": "80Days Women’s Geometric Sunglasses", "color": "#d946ef", "name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection (Demi)", "weeks": {"W1": {"sales": 0.0, "spend": 2.93, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 2.28, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 2.13, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 2.67, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0FQBYRTQG", "parent": "B0FQBWVB9L", "parent_short": "Flux Verano Polarized Sunglasses fo", "color": "#ef4444", "name": "Flux Verano Polarized Sunglasses for Men and Women UV400,Anti-Slip,Adjustable Nose Pad (Xt/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 2.76, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 6.9, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 9.26, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 10.56, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 10.9, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B01LWX7WBR", "parent": "B01MTAIUHO", "parent_short": "Flux SPORTECH Polarized Sunglasses ", "color": "#a855f7", "name": "Flux SPORTECH Polarized Sunglasses for Men & Women UV400 Protection,Anti-Slip, Lightweight (S.Blk/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B06XS9FDG6", "parent": "B01MTAIUHO", "parent_short": "Flux SPORTECH Polarized Sunglasses ", "color": "#a855f7", "name": "Flux SPORTECH Polarized Sunglasses for Men & Women UV400 Protection,Anti-Slip, Lightweight (M.Blk/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0749C661Z", "parent": "B01N4P4BCC", "parent_short": "Flux Dynamic Polarized Sunglasses f", "color": "#f59e0b", "name": "Flux Dynamic Polarized Sunglasses for Men and Women UV400 Protection,Anti-Slip,Lightweight (Xtal.Grey/Blue)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D2B3FG", "parent": "B0F8JHFRQS", "parent_short": "80Days Square Sunglasses", "color": "#a855f7", "name": "80Days Square Sunglasses – Slim Frame, Classic Keyhole Design, UV400 Protection (BLK)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D3VGX6", "parent": "B0F8JHFRQS", "parent_short": "80Days Square Sunglasses", "color": "#a855f7", "name": "80Days Square Sunglasses – Slim Frame, Classic Keyhole Design, UV400 Protection (Tortoise)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B01KHB8DKA", "parent": "B01LXPTTPP", "parent_short": "Flux AVENTO Polarized Sunglasses fo", "color": "#3b82f6", "name": "Flux AVENTO Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Red/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B01M5GA9EW", "parent": "B01N4P4BCC", "parent_short": "Flux Dynamic Polarized Sunglasses f", "color": "#f59e0b", "name": "Flux Dynamic Polarized Sunglasses for Men & Women UV400,Anti-Slip,Lightweight (Xtal.Grey/Red)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B01KHB8E4A", "parent": "B01LXPTTPP", "parent_short": "Flux AVENTO Polarized Sunglasses fo", "color": "#3b82f6", "name": "Flux AVENTO Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Blue/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B06XS3D5RG", "parent": "B01MTAIUHO", "parent_short": "Flux SPORTECH Polarized Sunglasses ", "color": "#a855f7", "name": "Flux SPORTECH Polarized Sunglasses for Men & Women UV400 Protection,Anti-Slip, Lightweight (S.Blk/Blue)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B08G4QBZ2S", "parent": "B08G4QPKMV", "parent_short": "Flux LANTAKA Polarized Sunglasses f", "color": "#84cc16", "name": "Flux LANTAKA Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Titanium Green, Red Mirror)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B08G4R17NB", "parent": "B08G4QPKMV", "parent_short": "Flux LANTAKA Polarized Sunglasses f", "color": "#84cc16", "name": "Flux LANTAKA Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Titanium Blue, Blue Mirror)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B06XSB9W9D", "parent": "B01MTAIUHO", "parent_short": "Flux SPORTECH Polarized Sunglasses ", "color": "#a855f7", "name": "Flux SPORTECH Polarized Sunglasses for Men & Women UV400 Protection,Anti-Slip, Lightweight (S.Blk/Red)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B08G4RWBWD", "parent": "B08G4QPKMV", "parent_short": "Flux LANTAKA Polarized Sunglasses f", "color": "#84cc16", "name": "Flux LANTAKA Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Black, Silver)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B08G4NKMM9", "parent": "B08G4VB58T", "parent_short": "Flux BOWRIDER Active LifestylesSung", "color": "#0ea5e9", "name": "Flux BOWRIDER Active LifestylesSunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Titanium Brown, Brown Mirror)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B08G4VNYN1", "parent": "B08G4VB58T", "parent_short": "Flux BOWRIDER Active LifestylesSung", "color": "#0ea5e9", "name": "Flux BOWRIDER Active LifestylesSunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Titanium Blue, Blue Mirror)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}];
 
-const ZH = {
-  "B0FD3KCFP5": "80Days 尼龍眼鏡繩",
-  "B0G65DV27W": "80Days 鋼絲眼鏡繩",
-  "B01LXPTTPP": "AVENTO 運動偏光鏡",
-  "B01N4P4BCC": "DYNAMIC 運動偏光鏡",
-  "B0FQBWVB9L": "VERANO 偏光鏡",
-  "B07TMZQKKJ": "VERANO (New) 偏光鏡",
-  "B0F8BCBB75": "80Days 幾何女款墨鏡",
-  "B01MTAIUHO": "SPORTECH 運動偏光鏡",
-  "B0F8JHFRQS": "80Days 方框墨鏡",
-  "B08G4QPKMV": "LANTAKA 偏光鏡",
-  "B08G4VB58T": "BOWRIDER 休閒偏光鏡"
-};
+const ZH = {};
 const CHILD_ZH = {};
 
 const TACOS_TARGET = 30;
@@ -477,8 +494,6 @@ const pct = v => v==null?'—':v.toFixed(1)+'%';
 const tacosClass = v => v==null?'muted':v<=TACOS_TARGET?'tacos-ok':v<=TACOS_TARGET*1.2?'tacos-warn':'tacos-bad';
 const zhName = pid => (ZH[pid]||'') + ' ' + (PARENTS[pid]?PARENTS[pid].short:'');
 const zhShort = pid => ZH[pid] || (PARENTS[pid]?PARENTS[pid].short:'');
-const AMZN = 'https://www.amazon.ca';
-const zhLink = (pid) => `<a href="${AMZN}/dp/${pid}" target="_blank" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor" title="${pid}">${zhShort(pid)}</a>`;
 
 function showTab(id, btn) {
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
@@ -617,7 +632,7 @@ function renderChildTable(mode) {
     bodyHtml+=`<tr class="parent-row" onclick="toggleGroup('${gid}')" style="background:${p.color}0d;border-top:2px solid ${p.color}33">
       <td>
         <span class="toggle-icon" id="ti_${gid}">▼</span>
-        <span style="color:${p.color};font-weight:700;font-family:var(--display);font-size:13px;margin-left:4px">${zhLink(pid)}</span>
+        <span style="color:${p.color};font-weight:700;font-family:var(--display);font-size:13px;margin-left:4px">${zhShort(pid)}</span>
         <span style="color:var(--text3);font-size:10px;margin-left:8px;font-family:var(--mono)">${children.length} 個變體</span>
       </td>
       <td style="font-family:var(--mono);font-size:12px;color:var(--green);font-weight:700">${pPct}%</td>
@@ -640,7 +655,7 @@ function renderChildTable(mode) {
       }).join('');
       bodyHtml+=`<tr style="background:var(--bg)">
         <td style="padding-left:32px">
-          <a class="asin-link" href="https://www.amazon.ca/dp/${r.asin}" target="_blank">${r.asin}</a>
+          <a class="asin-link" href="https://www.amazon.com/dp/${r.asin}" target="_blank">${r.asin}</a>
           <span style="color:var(--text2);font-size:11.5px;margin-left:8px">${cName}</span>
         </td>
         <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">${cPct}%</td>
@@ -711,8 +726,8 @@ function buildWowTab() {
     <tr class="week-group">${WEEKS.map(()=>'<th>Sales</th><th>Spend</th><th>TACOS</th><th>Units</th><th>Organic</th>').join('')}</tr>
   </thead><tbody>${sp.map(([pid,p])=>`<tr>
     <td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>
-    <strong style="color:${p.color}">${zhLink(pid)}</strong><br>
-    <span class="muted" style="font-size:10px">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.ca/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span></td>
+    <strong style="color:${p.color}">${zhShort(pid)}</strong><br>
+    <span class="muted" style="font-size:10px">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span></td>
     ${WEEKS.map(w=>{const wd=p.weeks[w],tc=wd.tacos;
       return `<td>${fmt(wd.sales,0)}</td><td>${fmt(wd.spend,0)}</td><td class="${tacosClass(tc)}">${pct(tc)}</td><td>${wd.units||'—'}</td><td>${wd.organic||'—'}</td>`;
     }).join('')}
@@ -733,7 +748,7 @@ function buildHeatTab() {
   const fmtC=(v,up)=>{if(v==null)return'<span class="muted">—</span>';const g=(up?v>0:v<0);return`<span style="color:${g?'var(--green)':'var(--red)'}">${v>0?'+':''}${v.toFixed(1)}%</span>`;};
   const wH=periods.map(([a,b])=>metrics.map(m=>`<th>${a}→${b}<br><span style="color:var(--text2);font-weight:400">${m.label}</span></th>`).join('')).join('');
   $('heatTable').innerHTML=`<thead><tr><th>產品</th>${wH}</tr></thead><tbody>${
-    sp.map(([pid,p])=>`<tr><td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>${zhLink(pid)}</td>
+    sp.map(([pid,p])=>`<tr><td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>${zhShort(pid)}</td>
       ${periods.map(([a,b])=>metrics.map(m=>`<td>${fmtC(chg(p.weeks[a][m.key],p.weeks[b][m.key]),m.up)}</td>`).join('')).join('')}
     </tr>`).join('')
   }</tbody>`;
@@ -769,21 +784,14 @@ function buildQuadTab() {
     <div class="kpi-card"><div class="kpi-label">🔴 Cut</div><div class="kpi-value kpi-red">${qCut.length}</div></div>`;
 
 const qDefs=[
-    {title:'🔴 需止血 Cut',color:'#dc2626',bg:'rgba(220,38,38,.06)',items:qCut,action:'調降售價 · Coupon · Prime 特賣'},
-    {title:'⚠️ 待觀察 Question',color:'#d97706',bg:'rgba(217,119,6,.06)',items:qQuestion,action:'降低 CPC · 暫停高 TACOS 關鍵字'},
-    {title:'💤 潛力產品 Potential',color:'#2563eb',bg:'rgba(37,99,235,.06)',items:qPotential,action:'增加 SP/SB/SD · 低 CPC · Lookalike · 競品 ASIN'},
-    {title:'⭐ 明星產品 Star',color:'#16a34a',bg:'rgba(22,163,74,.06)',items:qStar,action:'複製 SP 活動 · 預算 +30%'},
+    {title:'cut',color:'#dc2626',items:qCut,action:'調降售價 $0.50\n建立 Coupon 折扣\n設定 Prime 限時特賣'},
+    {title:'Question',color:'#d97706',items:qQuestion,action:'降低 CPC 出價\n暫停 TACOS ≥85% 關鍵字'},
+    {title:'potential',color:'#2563eb',items:qPotential,action:'增加 SP / SB / SD 廣告\n使用低 CPC 出價\n建立 Lookalike 受眾活動\n相似 KW 根詞 · 競品 ASIN · AMC 受眾'},
+    {title:'star',color:'#16a34a',items:qStar,action:'複製現有 SP 活動\n提高預算 30%'},
   ];
-  $('qCards').innerHTML=qDefs.map(q=>`<div style="background:${q.bg};border:1px solid ${q.color}22;border-radius:10px;padding:16px;margin-bottom:10px">
-    <div style="font-family:var(--display);font-size:15px;font-weight:800;color:${q.color};margin-bottom:8px">${q.title}</div>
-    <div style="font-size:12px;color:#475569;margin-bottom:12px">${q.action}</div>
-    <div style="display:flex;flex-wrap:wrap;gap:6px">${q.items.map(([pid,p])=>{
-      return `<div style="background:#fff;border:1px solid ${q.color}33;border-radius:6px;padding:5px 10px">
-        <span style="font-size:12px;font-weight:700;color:${q.color};font-family:var(--display)">${zhLink(pid)}</span>
-        <span style="font-size:10px;color:#94a3b8;margin-left:4px;font-family:var(--mono)">${fmt(p.total_sales,0)}</span>
-        <span style="font-size:10px;color:#94a3b8;font-family:var(--mono)">· ${pct(p.tacos_4w)}</span>
-      </div>`;
-    }).join('')}${q.items.length===0?'<span style="color:#94a3b8;font-size:12px">暫無產品</span>':''}</div>
+  $('qCards').innerHTML=qDefs.map(q=>`<div class="q-card" style="border-color:${q.color}33"><div class="q-card-title" style="color:${q.color}">${q.title}</div><div class="q-card-body">${q.action.split('\\n').join('<br>')}
+    <br><br>${q.items.map(([pid,p])=>`<span style="display:inline-block;margin:2px 3px;padding:2px 8px;background:${p.color}22;border:1px solid ${p.color}44;border-radius:3px;font-size:10px;color:${p.color};font-family:var(--mono)">${zhShort(pid)}</span>`).join('')}
+    ${q.items.length===0?'<span class="muted">None</span>':''}</div>
   </div>`).join('');
 
   // Canvas
@@ -792,39 +800,43 @@ const qDefs=[
   const CW=canvas.width,CH=canvas.height;
   ctx.clearRect(0,0,CW,CH);
   const MX=CW/2,MY=CH/2;
-  const quadColors={cut:'#dc2626',question:'#d97706',potential:'#2563eb',star:'#16a34a'};
-  const quadBgs={cut:'rgba(220,38,38,.05)',question:'rgba(217,119,6,.05)',potential:'rgba(37,99,235,.05)',star:'rgba(22,163,74,.05)'};
-  function drawBox(x,y,w,h,qKey,title,subtitle,items){
-    const tc=quadColors[qKey],bg=quadBgs[qKey];
+  function drawBox(x,y,w,h,bg,title,subtitle,items,tc){
     ctx.fillStyle=bg;ctx.fillRect(x+1,y+1,w-2,h-2);
-    ctx.fillStyle=tc;ctx.font='bold 18px Inter,sans-serif';ctx.textAlign='left';
-    ctx.fillText(title,x+18,y+32);
-    ctx.fillStyle='#64748b';ctx.font='11px Outfit,sans-serif';
-    const lines=subtitle.split('\n');
-    lines.forEach((l,i)=>ctx.fillText(l,x+18,y+50+i*15));
-    let cx2=x+18,cy2=y+50+lines.length*15+16;
-    ctx.font='bold 11px Inter,sans-serif';
-    items.forEach(([pid])=>{
+    ctx.fillStyle=tc;ctx.font='bold 20px Inter,sans-serif';ctx.textAlign='left';
+    ctx.fillText(title,x+18,y+34);
+    ctx.fillStyle='#64748b';ctx.font='10px Outfit,sans-serif';
+    const lines=subtitle.split('\\n');
+    lines.forEach((l,i)=>ctx.fillText(l,x+18,y+54+i*15));
+    let cx2=x+18,cy2=y+54+lines.length*15+18;
+    ctx.font='bold 10px JetBrains Mono,monospace';
+    items.forEach(([pid,p])=>{
       const lbl=zhShort(pid);
-      const tw=ctx.measureText(lbl).width+16;
-      if(cx2+tw>x+w-10){cx2=x+18;cy2+=22;}
-      ctx.fillStyle='#ffffff';
-      ctx.beginPath();ctx.roundRect(cx2,cy2-14,tw,20,4);ctx.fill();
-      ctx.strokeStyle=tc+'55';ctx.lineWidth=1;ctx.stroke();
-      ctx.fillStyle=tc;ctx.fillText(lbl,cx2+8,cy2+1);
-      cx2+=tw+6;
+      const tw=ctx.measureText(lbl).width+14;
+      if(cx2+tw>x+w-10){cx2=x+18;cy2+=20;}
+      ctx.fillStyle=p.color+'2a';
+      ctx.beginPath();ctx.roundRect(cx2,cy2-13,tw,18,3);ctx.fill();
+      ctx.fillStyle=p.color;ctx.fillText(lbl,cx2+7,cy2);
+      cx2+=tw+5;
     });
   }
-  drawBox(0,0,MX,MY,'cut','🔴 需止血 Cut','調降售價 · Coupon\nPrime 特賣',qCut);
-  drawBox(MX,0,MX,MY,'question','⚠️ 待觀察 Question','降低 CPC\n暫停高 TACOS KW',qQuestion);
-  drawBox(0,MY,MX,MY,'potential','💤 潛力 Potential','增加 SP/SB/SD · 低 CPC\nLookalike · 競品 ASIN',qPotential);
-  drawBox(MX,MY,MX,MY,'star','⭐ 明星 Star','複製 SP 活動\n預算 +30%',qStar);
-  ctx.strokeStyle='#cbd5e1';ctx.lineWidth=1;
+  drawBox(0,0,MX,MY,'rgba(220,38,38,.05)','cut','調降售價 $0.50\n建立 Coupon\n設定 Prime 特賣',qCut,'#dc2626');
+  drawBox(MX,0,MX,MY,'rgba(217,119,6,.05)','Question','降低 CPC\n暫停 ≥85% TACOS KW',qQuestion,'#d97706');
+  drawBox(0,MY,MX,MY,'rgba(37,99,235,.05)','potential','增加 SP/SB/SD · 低 CPC\nLookalike 受眾 · 競品 ASIN\nAMC 相似受眾',qPotential,'#2563eb');
+  drawBox(MX,MY,MX,MY,'rgba(22,163,74,.05)','star','複製 SP 活動\n預算 +30%',qStar,'#16a34a');
+  ctx.strokeStyle='#2563eb';ctx.lineWidth=1.5;
   ctx.beginPath();ctx.moveTo(MX,0);ctx.lineTo(MX,CH);ctx.stroke();
   ctx.beginPath();ctx.moveTo(0,MY);ctx.lineTo(CW,MY);ctx.stroke();
+  ctx.fillStyle='#2563eb';ctx.font='bold 13px Inter,sans-serif';ctx.textAlign='center';
+  ctx.fillText('Flux CA · Feb–Mar 2026',CW/2,18);
   ctx.fillStyle='#94a3b8';ctx.font='11px JetBrains Mono,monospace';ctx.textAlign='left';
   ctx.fillText('TACOS ↑',6,MY-8);
+  ctx.fillStyle='#2563eb';ctx.font='bold 20px JetBrains Mono,monospace';ctx.textAlign='right';
+  ctx.fillText('70',MX-8,MY-6);
+  ctx.fillStyle='#64748b';ctx.font='12px JetBrains Mono,monospace';
+  ctx.fillText('0',MX-8,CH-8);
   ctx.textAlign='right';ctx.fillText('Sales →',CW-6,CH-8);
+  ctx.textAlign='left';ctx.fillStyle='#64748b';ctx.font='10px Outfit,sans-serif';
+  ctx.fillText('Bid $2–$2.5',8,CH-8);
 
   window._quad_med = med;
 }
@@ -879,11 +891,11 @@ function buildActionTab() {
     return `<div class="action-card">
       <div class="action-card-header">
         <span style="width:12px;height:12px;border-radius:3px;background:${p.color};display:inline-block;flex-shrink:0"></span>
-        <div class="action-card-title" style="color:${p.color}">${zhLink(pid)}</div>
+        <div class="action-card-title" style="color:${p.color}">${zhShort(pid)}</div>
         <span class="action-card-badge ${cfg.badgeCls}">${cfg.label}</span>
         <span class="action-card-badge ${cfg.pri}">${cfg.priLabel}</span>
         <span style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:auto">5W Sales ${fmt(p.total_sales,0)} · TACOS <span class="${tacosClass(p.tacos_4w)}">${pct(p.tacos_4w)}</span></span>
-        <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.ca/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span>
       </div>
       <div class="action-tasks">${taskHtml}</div>
     </div>`;
@@ -897,201 +909,44 @@ function toggleTask(pid, idx, cb) {
   if(el) el.classList.toggle('done', cb.checked);
 }
 
-function buildExecSummary(){
-  const sp=sortedParents();
-  const totS=sp.reduce((s,[,p])=>s+p.total_sales,0);
-  const totE=sp.reduce((s,[,p])=>s+p.total_spend,0);
-  const totU=sp.reduce((s,[,p])=>s+WEEKS.reduce((a,w)=>a+p.weeks[w].units,0),0);
-  const totProfit=sp.reduce((s,[,p])=>s+WEEKS.reduce((a,w)=>a+p.weeks[w].profits,0),0);
-  const acctTacos=totS>0?totE/totS*100:0;
-  const totOrganic=sp.reduce((s,[,p])=>s+WEEKS.reduce((a,w)=>a+p.weeks[w].organic,0),0);
-  const orgPct=totU>0?(totOrganic/totU*100).toFixed(0):0;
-  const prodCount=sp.filter(([,p])=>p.total_sales>0).length;
-
-  $('kpi-exec').innerHTML=`
-    <div class="kpi-card"><div class="kpi-label">5W 總營業額</div><div class="kpi-value">${fmt(totS,0)}</div><div class="kpi-sub">${totU} units · ${prodCount} 產品</div></div>
-    <div class="kpi-card"><div class="kpi-label">5W 總廣告費</div><div class="kpi-value kpi-amber">${fmt(totE,0)}</div><div class="kpi-sub">SP+SD+SB</div></div>
-    <div class="kpi-card"><div class="kpi-label">帳戶 TACOS</div><div class="kpi-value ${acctTacos<=TACOS_TARGET?'kpi-green':acctTacos<=TACOS_TARGET*1.2?'kpi-amber':'kpi-red'}">${pct(acctTacos)}</div><div class="kpi-sub">${acctTacos<=TACOS_TARGET?'✓ 達標':'⚠ 超過 '+TACOS_TARGET+'% 目標'}</div></div>
-    <div class="kpi-card"><div class="kpi-label">5W 損益</div><div class="kpi-value ${totProfit>=0?'kpi-green':'kpi-red'}">${fmt(totProfit,0)}</div><div class="kpi-sub">${totProfit>=0?'盈利':'虧損'}</div></div>
-    <div class="kpi-card"><div class="kpi-label">有機佔比</div><div class="kpi-value ${orgPct>=50?'kpi-green':'kpi-amber'}">${orgPct}%</div><div class="kpi-sub">${totOrganic} / ${totU} units</div></div>`;
-
-  // Product table
-  const salesArr=sp.filter(([,p])=>p.total_sales>0).map(([,p])=>p.total_sales).sort((a,b)=>a-b);
-  const med=salesArr.length%2===0?(salesArr[salesArr.length/2-1]+salesArr[salesArr.length/2])/2:salesArr[Math.floor(salesArr.length/2)];
-  const quadLabel=p=>{
-    if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return '<span style="color:var(--green);font-weight:700">⭐ Star</span>';
-    if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return '<span style="color:var(--amber);font-weight:700">⚠️ Question</span>';
-    if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return '<span style="color:var(--accent);font-weight:700">💤 Potential</span>';
-    return '<span style="color:var(--red);font-weight:700">🔴 Cut</span>';
-  };
-  const trend=(p)=>{
-    const w4=p.weeks['W4'],w5=p.weeks['W5'];
-    if(!w4||!w5||w4.sales===0) return '<span class="muted">—</span>';
-    const chg=(w5.sales-w4.sales)/w4.sales*100;
-    return `<span style="color:${chg>=0?'var(--green)':'var(--red)'};">${chg>=0?'+':''}${chg.toFixed(0)}%</span>`;
-  };
-
-  const pt=$('execProductTable');
-  if(pt){
-    pt.innerHTML=`<thead><tr>
-      <th style="text-align:left;font-size:11px">產品 Product</th>
-      <th style="font-size:11px">象限 Quadrant</th>
-      <th style="font-size:11px">5W Sales</th>
-      <th style="font-size:11px">5W Spend</th>
-      <th style="font-size:11px">TACOS</th>
-      <th style="font-size:11px">Units</th>
-      <th style="font-size:11px">Organic %</th>
-      <th style="font-size:11px">5W Profit</th>
-      <th style="font-size:11px">W4→W5</th>
-      <th style="text-align:left;font-size:11px">本週行動 Action</th>
-    </tr></thead><tbody>${sp.filter(([,p])=>p.total_sales>0).map(([pid,p])=>{
-      const units=WEEKS.reduce((a,w)=>a+p.weeks[w].units,0);
-      const organic=WEEKS.reduce((a,w)=>a+p.weeks[w].organic,0);
-      const profit=WEEKS.reduce((a,w)=>a+p.weeks[w].profits,0);
-      const op=units>0?(organic/units*100).toFixed(0):'0';
-      const q=(function(){
-        if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return 'star';
-        if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return 'question';
-        if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return 'potential';
-        return 'cut';
-      })();
-      const actionMap={star:'加碼投放 +30%',question:'CPC 降 20%',cut:'降價 + Coupon',potential:'新建 SP Auto $10/天'};
-      return `<tr>
-        <td style="text-align:left;font-size:13px"><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span><strong style="color:${p.color}">${zhLink(pid)}</strong></td>
-        <td style="font-size:12px">${quadLabel(p)}</td>
-        <td style="font-size:13px;font-weight:600">${fmt(p.total_sales,0)}</td>
-        <td style="font-size:13px;color:var(--amber)">${fmt(p.total_spend,0)}</td>
-        <td style="font-size:13px;font-weight:700" class="${tacosClass(p.tacos_4w)}">${pct(p.tacos_4w)}</td>
-        <td style="font-size:13px">${units}</td>
-        <td style="font-size:13px;color:${op>=50?'var(--green)':'var(--red)'}">${op}%</td>
-        <td style="font-size:13px;font-weight:700;color:${profit>=0?'var(--green)':'var(--red)'}">${fmt(profit,0)}</td>
-        <td style="font-size:13px">${trend(p)}</td>
-        <td style="text-align:left;font-size:12px;color:var(--text2)">${actionMap[q]||'—'}</td>
-      </tr>`;}).join('')}
-    <tr style="background:var(--bg3);font-weight:700;border-top:2px solid var(--border2)">
-      <td style="text-align:left;font-size:13px">TOTAL 合計</td><td></td>
-      <td style="font-size:13px">${fmt(totS,0)}</td>
-      <td style="font-size:13px;color:var(--amber)">${fmt(totE,0)}</td>
-      <td style="font-size:13px" class="${tacosClass(acctTacos)}">${pct(acctTacos)}</td>
-      <td style="font-size:13px">${totU}</td>
-      <td style="font-size:13px">${orgPct}%</td>
-      <td style="font-size:13px;color:${totProfit>=0?'var(--green)':'var(--red)'}">${fmt(totProfit,0)}</td>
-      <td></td><td></td>
-    </tr></tbody>`;
-  }
-
-  // Dynamic action items based on quadrant data
-  const thisWeekEl=$('actionThisWeek');
-  const nextMonEl=$('actionNextMon');
-  if(!thisWeekEl||!nextMonEl) return;
-
-  let thisWeekHtml='';
-  let nextMonHtml='';
-  const activeProducts=sp.filter(([,p])=>p.total_sales>0);
-
-  activeProducts.forEach(([pid,p])=>{
-    const q=(function(){
-      if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return 'star';
-      if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return 'question';
-      if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return 'potential';
-      return 'cut';
-    })();
-    const name=zhShort(pid);
-    const tacos=p.tacos_4w!=null?p.tacos_4w.toFixed(1)+'%':'N/A';
-
-    if(q==='star'){
-      thisWeekHtml+=makeAction('廣告','var(--green)',`<strong>${name} SP 預算 +30%</strong> — ⭐ Star 象限，TACOS ${tacos}，加碼投放`,`截止：3/12 (三)`);
-      nextMonHtml+=makeAction('策略','#7c3aed',`<strong>${name} 建立 SB + SD Retargeting</strong> — 擴大廣告覆蓋面，提高品牌曝光`,`截止：3/16 (一)`);
-    } else if(q==='question'){
-      thisWeekHtml+=makeAction('廣告','var(--amber)',`<strong>${name} CPC 出價降 20%</strong> — ⚠️ Question 象限，TACOS ${tacos}，降低出價觀察`,`截止：3/12 (三)`);
-      thisWeekHtml+=makeAction('廣告','var(--amber)',`<strong>${name} 暫停 ACOS ≥85% 關鍵字</strong> — 下載 SP Bulk File，Pause 14 天無轉換 KW`,`截止：3/13 (四)`);
-    } else if(q==='cut'){
-      thisWeekHtml+=makeAction('定價','var(--red)',`<strong>${name} 降價或加 Coupon 5-10%</strong> — 🔴 Cut 象限，TACOS ${tacos}，需提升轉換率`,`截止：3/11 (二)`);
-      thisWeekHtml+=makeAction('廣告','var(--red)',`<strong>${name} SP Bid 全部降至上限</strong> — 減少無效花費`,`截止：3/12 (三)`);
-    } else {
-      nextMonHtml+=makeAction('策略','var(--accent)',`<strong>${name} 新建 SP Auto $10/天</strong> — 💤 Potential 象限，30 天跑數據`,`截止：3/16 (一)`);
-    }
-  });
-
-  // Add general action items
-  nextMonHtml+=makeAction('報告','#7c3aed',`<strong>Spring Sale 促銷申請</strong> — 評估哪些產品申請 3/25 Spring Sale Deal（需提前 2 週）`,`截止：3/16 (一)`);
-  nextMonHtml+=makeAction('報告','#7c3aed',`<strong>W6 週報更新</strong> — 更新 3/8–3/14 數據至看板`,`截止：3/16 (一)`);
-
-  thisWeekEl.innerHTML=thisWeekHtml;
-  nextMonEl.innerHTML=nextMonHtml;
-
-  // Key Takeaways
-  const stars=activeProducts.filter(([,p])=>p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET);
-  const questions=activeProducts.filter(([,p])=>p.total_sales>=med&&p.tacos_4w>TACOS_TARGET);
-  const cuts=activeProducts.filter(([,p])=>{
-    const q=(function(){
-      if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return 'star';
-      if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return 'question';
-      if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return 'potential';
-      return 'cut';
-    })();
-    return q==='cut';
-  });
-
-  const tkEl=$('takeawayCards');
-  if(tkEl){
-    tkEl.innerHTML=`
-    <div class="chart-card" style="border-left:3px solid var(--green)">
-      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--green)">✅ 正向訊號</div>
-      <div style="font-size:13px;color:var(--text2);line-height:2">
-        ${stars.length>0?stars.map(([pid,p])=>`• ${zhShort(pid)} TACOS ${p.tacos_4w!=null?p.tacos_4w.toFixed(1):'N/A'}% — Star 表現穩定`).join('<br>'):'• 暫無 Star 象限產品'}
-        <br>• 有機佔比 ${orgPct}%${orgPct>=50?' — 健康':' — 需提升'}
-        <br>• ${prodCount} 產品線運作中
-      </div>
-    </div>
-    <div class="chart-card" style="border-left:3px solid var(--red)">
-      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--red)">⚠️ 警示訊號</div>
-      <div style="font-size:13px;color:var(--text2);line-height:2">
-        ${cuts.length>0?cuts.map(([pid,p])=>`• ${zhShort(pid)} TACOS ${p.tacos_4w!=null?p.tacos_4w.toFixed(1):'N/A'}% — 需止血`).join('<br>'):'• 暫無需止血產品'}
-        ${questions.length>0?'<br>'+questions.map(([pid,p])=>`• ${zhShort(pid)} TACOS ${p.tacos_4w!=null?p.tacos_4w.toFixed(1):'N/A'}% — 需觀察`).join('<br>'):''}
-        <br>• 帳戶 TACOS ${acctTacos.toFixed(1)}%${acctTacos>TACOS_TARGET?' — 超過目標':' — 達標'}
-      </div>
-    </div>
-    <div class="chart-card" style="border-left:3px solid var(--accent)">
-      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--accent)">📋 本週優先級</div>
-      <div style="font-size:13px;color:var(--text2);line-height:2">
-        ${cuts.length>0?'1. Cut 產品止血（降預算 + Coupon）<br>':''}
-        ${questions.length>0?(cuts.length>0?'2':'1')+'. Question 產品降 CPC 觀察<br>':''}
-        ${stars.length>0?((cuts.length>0?2:0)+(questions.length>0?1:0)+1)+'. Star 產品加碼投放<br>':''}
-        ${(cuts.length>0?2:0)+(questions.length>0?1:0)+(stars.length>0?1:0)+1}. Spring Sale 促銷評估
-      </div>
-    </div>`;
-  }
-
-  // Inject feedback fields into all action items
-  document.querySelectorAll('.action-task').forEach((task,i)=>{
-    const btn=document.createElement('button');
-    btn.className='feedback-toggle';
-    btn.textContent='💬 客戶回饋';
-    btn.onclick=function(){
-      const fb=this.parentElement.querySelector('.feedback-area');
-      fb.classList.toggle('open');
-      this.textContent=fb.classList.contains('open')?'收起 ▲':'💬 客戶回饋';
-    };
-    task.appendChild(btn);
-    const fb=document.createElement('div');
-    fb.className='feedback-area';
-    fb.innerHTML='<textarea placeholder="若不同意此行動方案，請在此填寫您的意見或替代方案 …&#10;If you disagree, please write your feedback or alternative here …"></textarea>';
-    task.appendChild(fb);
-  });
+// ═══ Language toggle ═══
+function toggleLang() {
+  const t0 = document.getElementById('t0');
+  const isEn = t0.classList.toggle('show-zh');
+  t0.querySelectorAll('.lang-en').forEach(el => el.style.display = isEn ? 'none' : '');
+  t0.querySelectorAll('.lang-zh').forEach(el => el.style.display = isEn ? '' : 'none');
+  document.getElementById('langBtn').textContent = isEn ? 'EN' : '中文';
 }
 
-function makeAction(type, color, text, deadline){
-  return `<div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done',this.checked)"><span class="task-type" style="background:${color};color:#fff;border:none">${type}</span><span class="task-text" style="font-size:13px">${text}<br><span style="color:var(--text3);font-size:11px">${deadline}</span></span></div>`;
+// ═══ Collapsible sections ═══
+function toggleCollapse(header) {
+  const body = header.nextElementSibling;
+  const icon = header.querySelector('.collapse-icon');
+  const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+  if (isOpen) {
+    body.style.maxHeight = '0px';
+    body.style.opacity = '0';
+    icon.textContent = '+';
+  } else {
+    body.style.maxHeight = body.scrollHeight + 'px';
+    body.style.opacity = '1';
+    icon.textContent = '−';
+  }
 }
 
 // ═══ INIT ═══
-buildExecSummary();
 buildT1();
 buildWowTab();
 buildHeatTab();
 buildQuadTab();
 buildActionTab();
+
+// Init t0: set all collapse bodies open, hide ZH by default
+document.querySelectorAll('.collapse-body').forEach(b => {
+  b.style.maxHeight = b.scrollHeight + 'px';
+  b.style.opacity = '1';
+});
+document.querySelectorAll('#t0 .lang-zh').forEach(el => el.style.display = 'none');
 </script>
 </body>
 </html>

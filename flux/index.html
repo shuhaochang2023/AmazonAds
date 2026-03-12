@@ -38,13 +38,15 @@
 <body>
 <div class="mkt-bar">
   <div class="brand">⚡ Flux</div>
-    <button class="mkt-btn active" onclick="switchMkt('au',this)">🇦🇺 AU</button>
+    <button class="mkt-btn active" onclick="switchMkt('summary',this)">📋 Global Summary</button>
+    <button class="mkt-btn" onclick="switchMkt('au',this)">🇦🇺 AU</button>
     <button class="mkt-btn" onclick="switchMkt('uk',this)">🇬🇧 UK</button>
     <button class="mkt-btn" onclick="switchMkt('de',this)">🇩🇪 DE</button>
     <button class="mkt-btn" onclick="switchMkt('us',this)">🇺🇸 US</button>
     <button class="mkt-btn" onclick="switchMkt('ca',this)">🇨🇦 CA</button>
 </div>
-  <iframe id="fr-au" src="./au.html" style="display:block" frameborder="0"></iframe>
+  <iframe id="fr-summary" src="./summary.html" style="display:block" frameborder="0"></iframe>
+  <iframe id="fr-au" src="./au.html" style="display:none" frameborder="0"></iframe>
   <iframe id="fr-uk" src="./uk.html" style="display:none" frameborder="0"></iframe>
   <iframe id="fr-de" src="./de.html" style="display:none" frameborder="0"></iframe>
   <iframe id="fr-us" src="./us.html" style="display:none" frameborder="0"></iframe>
