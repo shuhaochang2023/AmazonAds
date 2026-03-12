@@ -459,13 +459,13 @@ const TACOS_TARGET = 30;
 const WEEKS = ["W1", "W2", "W3", "W4", "W5"];
 const W_LABELS = {"W1": "Feb 1\u20137", "W2": "Feb 8\u201314", "W3": "Feb 15\u201321", "W4": "Feb 22\u201328", "W5": "Mar 1\u20137"};
 
+const AMZN = 'https://www.amazon.com';
 const $ = id => document.getElementById(id);
 const fmt = (v,d=0) => v==null?'—':'$'+v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
 const pct = v => v==null?'—':v.toFixed(1)+'%';
 const tacosClass = v => v==null?'muted':v<=TACOS_TARGET?'tacos-ok':v<=TACOS_TARGET*1.2?'tacos-warn':'tacos-bad';
 const zhName = pid => (ZH[pid]||'') + ' ' + (PARENTS[pid]?PARENTS[pid].short:'');
 const zhShort = pid => ZH[pid] || (PARENTS[pid]?PARENTS[pid].short:'');
-const AMZN = 'https://www.amazon.com';
 const zhLink = (pid) => `<a href="${AMZN}/dp/${pid}" target="_blank" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor" title="${pid}">${zhShort(pid)}</a>`;
 
 function showTab(id, btn) {
@@ -605,7 +605,7 @@ function renderChildTable(mode) {
     bodyHtml+=`<tr class="parent-row" onclick="toggleGroup('${gid}')" style="background:${p.color}0d;border-top:2px solid ${p.color}33">
       <td>
         <span class="toggle-icon" id="ti_${gid}">▼</span>
-        <span style="color:${p.color};font-weight:700;font-family:var(--display);font-size:13px;margin-left:4px">${zhLink(pid)}</span>
+        <span style="color:${p.color};font-weight:700;font-family:var(--display);font-size:13px;margin-left:4px">${zhShort(pid)}</span>
         <span style="color:var(--text3);font-size:10px;margin-left:8px;font-family:var(--mono)">${children.length} 個變體</span>
       </td>
       <td style="font-family:var(--mono);font-size:12px;color:var(--green);font-weight:700">${pPct}%</td>
@@ -699,7 +699,7 @@ function buildWowTab() {
     <tr class="week-group">${WEEKS.map(()=>'<th>Sales</th><th>Spend</th><th>TACOS</th><th>Units</th><th>Organic</th>').join('')}</tr>
   </thead><tbody>${sp.map(([pid,p])=>`<tr>
     <td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>
-    <strong style="color:${p.color}">${zhLink(pid)}</strong><br>
+    <strong style="color:${p.color}">${zhShort(pid)}</strong><br>
     <span class="muted" style="font-size:10px">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span></td>
     ${WEEKS.map(w=>{const wd=p.weeks[w],tc=wd.tacos;
       return `<td>${fmt(wd.sales,0)}</td><td>${fmt(wd.spend,0)}</td><td class="${tacosClass(tc)}">${pct(tc)}</td><td>${wd.units||'—'}</td><td>${wd.organic||'—'}</td>`;
@@ -721,7 +721,7 @@ function buildHeatTab() {
   const fmtC=(v,up)=>{if(v==null)return'<span class="muted">—</span>';const g=(up?v>0:v<0);return`<span style="color:${g?'var(--green)':'var(--red)'}">${v>0?'+':''}${v.toFixed(1)}%</span>`;};
   const wH=periods.map(([a,b])=>metrics.map(m=>`<th>${a}→${b}<br><span style="color:var(--text2);font-weight:400">${m.label}</span></th>`).join('')).join('');
   $('heatTable').innerHTML=`<thead><tr><th>產品</th>${wH}</tr></thead><tbody>${
-    sp.map(([pid,p])=>`<tr><td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>${zhLink(pid)}</td>
+    sp.map(([pid,p])=>`<tr><td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>${zhShort(pid)}</td>
       ${periods.map(([a,b])=>metrics.map(m=>`<td>${fmtC(chg(p.weeks[a][m.key],p.weeks[b][m.key]),m.up)}</td>`).join('')).join('')}
     </tr>`).join('')
   }</tbody>`;
@@ -767,7 +767,7 @@ const qDefs=[
     <div style="font-size:12px;color:#475569;margin-bottom:12px">${q.action}</div>
     <div style="display:flex;flex-wrap:wrap;gap:6px">${q.items.map(([pid,p])=>{
       return `<div style="background:#fff;border:1px solid ${q.color}33;border-radius:6px;padding:5px 10px">
-        <span style="font-size:12px;font-weight:700;color:${q.color};font-family:var(--display)">${zhLink(pid)}</span>
+        <span style="font-size:12px;font-weight:700;color:${q.color};font-family:var(--display)">${zhShort(pid)}</span>
         <span style="font-size:10px;color:#94a3b8;margin-left:4px;font-family:var(--mono)">${fmt(p.total_sales,0)}</span>
         <span style="font-size:10px;color:#94a3b8;font-family:var(--mono)">· ${pct(p.tacos_4w)}</span>
       </div>`;
@@ -867,7 +867,7 @@ function buildActionTab() {
     return `<div class="action-card">
       <div class="action-card-header">
         <span style="width:12px;height:12px;border-radius:3px;background:${p.color};display:inline-block;flex-shrink:0"></span>
-        <div class="action-card-title" style="color:${p.color}">${zhLink(pid)}</div>
+        <div class="action-card-title" style="color:${p.color}">${zhShort(pid)}</div>
         <span class="action-card-badge ${cfg.badgeCls}">${cfg.label}</span>
         <span class="action-card-badge ${cfg.pri}">${cfg.priLabel}</span>
         <span style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:auto">5W Sales ${fmt(p.total_sales,0)} · TACOS <span class="${tacosClass(p.tacos_4w)}">${pct(p.tacos_4w)}</span></span>
@@ -945,7 +945,7 @@ function buildExecSummary(){
       })();
       const actionMap={star:'加碼投放 +30%',question:'CPC 降 20%',cut:'降價 + Coupon',potential:'新建 SP Auto $10/天'};
       return `<tr>
-        <td style="text-align:left;font-size:13px"><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span><strong style="color:${p.color}">${zhLink(pid)}</strong></td>
+        <td style="text-align:left;font-size:13px"><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span><strong style="color:${p.color}">${zhShort(pid)}</strong></td>
         <td style="font-size:12px">${quadLabel(p)}</td>
         <td style="font-size:13px;font-weight:600">${fmt(p.total_sales,0)}</td>
         <td style="font-size:13px;color:var(--amber)">${fmt(p.total_spend,0)}</td>
