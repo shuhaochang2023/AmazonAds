@@ -144,15 +144,45 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
       <span style="font-size:14px;transition:transform .2s;display:inline-block">&#9654;</span>
       <span>Campaign Action Log 廣告操作紀錄</span>
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">7 entries</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/12 — 苦瓜廣告重整 $100/day + 全帳戶出價安全檢查</span>
+      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">9 entries</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/12 — 全帳戶預算重整 Option D $750/day + Bids Check CLEAR</span>
     </summary>
     <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
 
       <details open style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:14px">
         <summary style="cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-12 — 苦瓜廣告結構重整 BITTER MELON $100/DAY RESTRUCTURE（API 執行）</span>
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-12 — 全帳戶預算重整 OPTION D RESTRUCTURE $752/DAY（API 執行）</span>
           <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
+        </summary>
+        <div style="color:var(--text2)">
+          <strong style="color:var(--accent)">全帳戶從 385 → 40 campaigns，$2,065 → $752/day</strong> — 依據 30 天 API 報告績效數據，保留有訂單的 T1 campaigns，暫停所有零訂單或高 ACOS (>200%) campaigns，重新分配預算到 Option D 目標。<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
+            三層篩選：(1) T1 Performers — 有訂單且 ACOS < 200%，保留並按績效比例分配 Option D 預算；(2) T2 High ACOS — 有訂單但 ACOS > 200%，暫停；(3) T3 No Orders — 花費但無訂單，暫停。結果：357 campaigns paused，27 campaigns kept + 8 re-enabled for Premium Fish Oil & Vitamins。
+          </div>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">Option D 預算分配 Budget Allocation</div>
+            <table style="width:100%;font-size:11px;font-family:var(--mono)">
+              <tr><td>🐟 兒童魚油 Kids Fish Oil</td><td style="text-align:right"><strong>$400</strong>/day</td><td style="text-align:right;color:var(--green)">10 campaigns ✓</td></tr>
+              <tr><td>💪 瑪卡 Maca</td><td style="text-align:right"><strong>$160</strong>/day</td><td style="text-align:right;color:var(--green)">11 campaigns ✓</td></tr>
+              <tr><td>🌿 苦瓜素 Bitter Melon</td><td style="text-align:right"><strong>$100</strong>/day</td><td style="text-align:right;color:var(--green)">5 campaigns ✓</td></tr>
+              <tr><td>🐠 高端魚油 Premium Fish Oil</td><td style="text-align:right"><strong>$30</strong>/day</td><td style="text-align:right;color:var(--green)">5 campaigns ✓</td></tr>
+              <tr><td>🫘 納豆激酶 Nattokinase</td><td style="text-align:right"><strong>$30</strong>/day</td><td style="text-align:right;color:var(--green)">4 campaigns ✓</td></tr>
+              <tr><td>👁 葉黃素 Lutein</td><td style="text-align:right"><strong>$20</strong>/day</td><td style="text-align:right;color:var(--green)">2 campaigns ✓</td></tr>
+              <tr><td>💊 維他命 Vitamins</td><td style="text-align:right"><strong>$10</strong>/day</td><td style="text-align:right;color:var(--green)">3 campaigns ✓</td></tr>
+              <tr style="border-top:1px solid var(--border);font-weight:700"><td>TOTAL</td><td style="text-align:right"><strong>$752</strong>/day</td><td style="text-align:right;color:var(--green)">40 campaigns</td></tr>
+            </table>
+          </div>
+          &nbsp;&nbsp;• <strong>暫停：</strong>357 campaigns paused（saves $1,682/day）<br>
+          &nbsp;&nbsp;• <strong>重新啟用：</strong>5 Premium Fish Oil + 3 Multivitamin campaigns<br>
+          &nbsp;&nbsp;• <strong>預算調整：</strong>27 campaigns 預算依績效比例重新分配<br>
+          &nbsp;&nbsp;• <strong>Bids Check：</strong>✅ 40 campaigns, 128 keywords, 72 targets, 46 ad groups — 0 violations, all under $5 cap
+        </div>
+      </details>
+
+      <details style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:14px">
+        <summary style="cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-12 — 苦瓜廣告結構重整 BITTER MELON $100/DAY RESTRUCTURE（API 執行）</span>
         </summary>
         <div style="color:var(--text2)">
           <strong style="color:var(--accent)">客戶反映苦瓜轉換率偏低</strong> — 7/260 clicks = 2.69% CVR（品類平均 8-12%），搜尋詞報告分析後發現 $1,558 可辨識浪費（佔花費 49%）。透過 Amazon Ads API 直接執行重整。<br>

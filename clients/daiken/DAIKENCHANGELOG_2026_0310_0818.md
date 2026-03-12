@@ -1,5 +1,74 @@
 # DAIKEN — Campaign Action Log 廣告操作紀錄
 
+## 2026-03-12
+
+### Full Account Restructure — Option D $752/day 全帳戶預算重整（API 執行）
+- **Before:** 385 enabled campaigns, $2,065/day total budget
+- **After:** 40 enabled campaigns, $752/day total budget (target $750)
+- **Method:** 30-day API campaign report (Feb 9–Mar 11) aggregated by campaign → T1/T2/T3 classification
+  - T1 (performers): orders > 0 AND ACOS < 200% → KEEP, reallocate budget proportionally
+  - T2 (high ACOS): orders > 0 AND ACOS >= 200% → PAUSE
+  - T3 (no orders): $0 orders regardless of spend → PAUSE
+
+#### Actions Executed
+- **PAUSED 357 campaigns** (saves $1,682/day)
+- **KEPT 27 campaigns** — budget reallocated to match Option D targets
+- **RE-ENABLED 8 campaigns** — 5 Premium Fish Oil + 3 Multivitamin (were caught in mass pause)
+- **RE-ENABLED 3 Bitter Melon campaigns** (new 3/12 campaigns accidentally paused in mass action)
+
+#### Final Budget Allocation
+| Product | Campaigns | Budget/day | Target |
+|---------|-----------|-----------|--------|
+| Kids Fish Oil | 10 | $400 | $400 ✓ |
+| Maca | 11 | $160 | $160 ✓ |
+| Bitter Melon | 5 | $100 | $100 ✓ |
+| Premium Fish Oil | 5 | $30 | $30 ✓ |
+| Nattokinase | 4 | $32 | $30 ✓ |
+| Lutein | 2 | $20 | $20 ✓ |
+| Vitamins | 3 | $10 | $10 ✓ |
+| **Total** | **40** | **$752** | **$750** |
+
+### Post-Restructure Bids Check 重整後出價安全檢查（API 執行）
+- **Scope:** 40 campaigns, 128 keywords, 72 targets, 46 ad groups
+- **Placement boosts:** 0 violations (all ≤ 50%)
+- **Keyword bids:** 0 over $5 cap
+- **Target bids:** 0 over $5 cap
+- **Ad group default bids:** 0 over $5 cap
+- **Result:** ✅ ALL CLEAR
+
+### Bitter Melon $100/day Restructure 苦瓜廣告結構重整（API 執行）
+- **Trigger:** Client flagged low CVR — 7/260 clicks = 2.69% (category avg 8-12%)
+- **Root cause:** 20+ Bulk Auto campaigns cannibalizing each other, $1,558 identifiable waste (49% of spend)
+
+#### Part 1+2: 檢漏 — Pause & Adjust
+- **PAUSED 21 campaigns** — all Bulk Auto bid tests (1.89–2.25) + 2 high-budget Autos (2.21, 2.24)
+- **Kept 2 campaigns:**
+  - `Bulk Auto 2.27` (174999454565139) — discovery engine, budget $17.19 → **$10.00**
+  - `SPM B0CPSQYJK4 BX` (370544645159011) — manual campaign, budget $34.35 → **$30.00**
+- Subtotal: **$40/day**
+
+#### Part 3: 衝刺 — 3 New Campaigns
+- **`BM - SP - Core Exact - 3/12`** (277145911147971) — $25/day
+  - 5 exact match KWs: bitter melon capsules ($3.50), supplement ($3.50), pills ($3.00), extract ($3.00), tablets ($2.50)
+- **`BM - SP - Combo Exact - 3/12`** (161457857187426) — $20/day
+  - 8 exact match KWs: chromium bitter melon, ceylon cinnamon with bitter melon, karela capsules, bitter gourd capsules, diabetic supplements to lower a1c, etc. ($2.00–2.50)
+- **`BM - SP - Product Targeting - 3/12`** (17864289337591) — $15/day
+  - 3 proven-converting ASINs: B09KCMDGDR ($2.00), B0FCFTV7JT ($2.00), B001F0R04I ($1.50)
+- Subtotal: **$60/day**
+
+#### Budget Summary
+| Campaign | Daily Budget |
+|---|---|
+| Bulk Auto 2.27 (discovery) | $10 |
+| SPM B0CPSQYJK4 (existing manual) | $30 |
+| Core Exact (new) | $25 |
+| Combo Exact (new) | $20 |
+| Product Targeting (new) | $15 |
+| **Total** | **$100/day** |
+
+- **Expected improvement:** CVR 2.69% → 6-8%, waste -74%, ACOS 158% → 70-90%
+- **Review date:** 2026-03-19 (7 days)
+
 ## 2026-03-10
 
 ### Budget Reallocation Option C 全產品線預算重新分配
