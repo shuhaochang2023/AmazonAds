@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEO HQ — Geometric Future Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0c0e13;--surface:#14161d;--surface2:#1a1d27;--surface3:#222633;
+  --border:#2a2e3d;--border2:#363b4f;
+  --text:#e8eaf0;--dim:#7a8194;--dim2:#4e5568;
+  --cyan:#06d6a0;--blue:#4dabf7;--purple:#b197fc;--red:#ff6b6b;--amber:#ffd43b;--orange:#ff922b;
+  --mono:'IBM Plex Mono',monospace;--sans:'DM Sans',sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.6;min-height:100vh;}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* Header */
+.hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:0 32px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;}
+.hdr-logo{font-family:var(--mono);font-size:11px;font-weight:700;background:var(--cyan);color:var(--bg);padding:3px 8px;border-radius:3px;letter-spacing:.08em;}
+.hdr-title{font-family:var(--sans);font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.02em;}
+.hdr-sep{width:1px;height:20px;background:var(--border2);}
+.hdr-market{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.06em;}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:16px;}
+.hdr-link{font-family:var(--mono);font-size:11px;color:var(--blue);text-decoration:none;opacity:.7;transition:opacity .15s;}.hdr-link:hover{opacity:1;}
+.pulse{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;color:var(--cyan);font-weight:600;letter-spacing:.04em;}
+.pulse::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hdr-date{font-family:var(--mono);font-size:11px;color:var(--dim);}
+
+/* Layout */
+.shell{max-width:1320px;margin:0 auto;padding:24px 32px 48px;}
+
+/* Hard Rule Banner */
+.rule-bar{display:flex;align-items:center;gap:12px;padding:10px 16px;background:rgba(255,107,107,.06);border:1px solid rgba(255,107,107,.18);border-radius:6px;margin-bottom:20px;}
+.rule-bar .icon{font-size:14px;flex-shrink:0;}
+.rule-bar .txt{font-family:var(--mono);font-size:11px;color:var(--red);line-height:1.5;}
+.rule-bar .txt strong{color:var(--text);}
+
+/* Score Row */
+.scores{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:20px;}
+.sc{background:var(--surface);padding:16px 14px;text-align:center;}
+.sc-label{font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.sc-val{font-family:var(--mono);font-size:24px;font-weight:700;}
+.sc-sub{font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:4px;}
+
+/* Two-col */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+@media(max-width:900px){.cols{grid-template-columns:1fr;}.scores{grid-template-columns:repeat(3,1fr);}}
+
+/* Panel */
+.pnl{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:16px;}
+.pnl-hd{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.pnl-title{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;}
+.pnl-meta{font-family:var(--mono);font-size:10px;color:var(--dim2);}
+.pnl-body{padding:14px 16px;}
+
+/* Table */
+.tbl{width:100%;border-collapse:collapse;}
+.tbl th{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--dim2);text-align:left;padding:8px 10px;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.tbl td{font-family:var(--mono);font-size:12px;padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text);}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl a{color:var(--blue);text-decoration:none;}.tbl a:hover{text-decoration:underline;}
+
+/* Pills */
+.pill{font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;white-space:nowrap;display:inline-block;}
+.pill-g{background:rgba(6,214,160,.1);color:var(--cyan);border:1px solid rgba(6,214,160,.2);}
+.pill-a{background:rgba(255,212,59,.08);color:var(--amber);border:1px solid rgba(255,212,59,.15);}
+.pill-r{background:rgba(255,107,107,.08);color:var(--red);border:1px solid rgba(255,107,107,.15);}
+.pill-b{background:rgba(77,171,247,.08);color:var(--blue);border:1px solid rgba(77,171,247,.15);}
+.pill-p{background:rgba(177,151,252,.08);color:var(--purple);border:1px solid rgba(177,151,252,.15);}
+
+/* Progress ring */
+.ring-wrap{display:flex;align-items:center;gap:14px;}
+.ring{position:relative;width:56px;height:56px;}
+.ring svg{transform:rotate(-90deg);}
+.ring-bg{fill:none;stroke:var(--border);stroke-width:4;}
+.ring-fg{fill:none;stroke:var(--cyan);stroke-width:4;stroke-linecap:round;transition:stroke-dashoffset .6s ease;}
+.ring-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--cyan);}
+
+/* Product Grid */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
+.prod-card{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:12px;transition:border-color .15s;}
+.prod-card:hover{border-color:var(--cyan);}
+.prod-name{font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text);}
+.prod-asin{font-family:var(--mono);font-size:9px;color:var(--dim2);}
+.prod-row{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;margin-top:6px;padding-top:6px;border-top:1px solid var(--border);}
+.prod-row .k{color:var(--dim);}
+.prod-row .v{font-weight:600;}
+
+/* Timeline */
+.timeline{position:relative;padding-left:20px;}
+.timeline::before{content:'';position:absolute;left:5px;top:4px;bottom:4px;width:1px;background:var(--border2);}
+.tl-item{position:relative;padding:10px 0 10px 16px;border-bottom:1px solid var(--border);}
+.tl-item:last-child{border-bottom:none;}
+.tl-item::before{content:'';position:absolute;left:-19px;top:14px;width:9px;height:9px;border-radius:50%;border:2px solid var(--border2);background:var(--surface);}
+.tl-item.latest::before{border-color:var(--cyan);background:var(--cyan);box-shadow:0 0 8px rgba(6,214,160,.3);}
+.tl-date{font-family:var(--mono);font-size:10px;color:var(--dim);margin-bottom:3px;}
+.tl-text{font-size:13px;color:var(--text);line-height:1.5;}
+.tl-text small{font-family:var(--mono);font-size:11px;color:var(--dim);}
+
+/* Guard grid */
+.guard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.guard{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px;position:relative;overflow:hidden;}
+.guard::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.guard.armed::after{background:var(--cyan);}
+.guard.alert::after{background:var(--red);}
+.guard-name{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.guard-desc{font-size:11px;color:var(--dim);line-height:1.5;margin-bottom:8px;}
+.guard-status{font-family:var(--mono);font-size:10px;font-weight:700;display:flex;align-items:center;gap:5px;}
+.guard-status .dot{width:6px;height:6px;border-radius:50%;display:inline-block;}
+
+/* Footer */
+.footer{margin-top:32px;padding-top:14px;border-top:1px solid var(--border);text-align:center;font-family:var(--mono);font-size:10px;color:var(--dim2);}
+
+/* Animate-in */
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.anim{animation:fadeUp .4s ease both;}
+.anim:nth-child(1){animation-delay:.05s}
+.anim:nth-child(2){animation-delay:.1s}
+.anim:nth-child(3){animation-delay:.15s}
+.anim:nth-child(4){animation-delay:.2s}
+.anim:nth-child(5){animation-delay:.25s}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- Header -->
+<div class="hdr">
+  <span class="hdr-logo">HQ</span>
+  <span class="hdr-title">Geometric Future</span>
+  <span class="hdr-sep"></span>
+  <span class="hdr-market">US MARKET &middot; PROFILE 3947387233604911</span>
+  <div class="hdr-right">
+    <a class="hdr-link" href="index.html">&larr; Dashboard</a>
+    <a class="hdr-link" href="../hq/">Global HQ</a>
+    <span class="hdr-sep"></span>
+    <span class="pulse">LIVE</span>
+    <span class="hdr-date">2026-03-12</span>
+  </div>
+</div>
+
+<div class="shell">
+
+  <!-- Hard Rule Banner -->
+  <div class="rule-bar anim">
+    <div class="icon">&#9888;</div>
+    <div class="txt">
+      <strong>HARD RULE ACTIVE</strong> &mdash; Never increase bids or budgets. Only decreases and pauses allowed.<br>
+      &#30828;&#24615;&#35215;&#21063;&#65306;&#27704;&#36960;&#19981;&#25552;&#39640; bid &#25110; budget&#12290;&#21482;&#33021;&#38477;&#20302;&#25110;&#26283;&#20572;&#12290; Enforced across risk_checker &middot; risk_rules.yaml &middot; all action scripts.
+    </div>
+  </div>
+
+  <!-- Scorecard -->
+  <div class="scores anim">
+    <div class="sc">
+      <div class="sc-label">TACOS</div>
+      <div class="sc-val" style="color:var(--cyan)">&lt;10%</div>
+      <div class="sc-sub">Target 15%</div>
+    </div>
+    <div class="sc">
+      <div class="sc-label">Status</div>
+      <div class="sc-val" style="color:var(--cyan);font-size:14px">EXCELLENT</div>
+      <div class="sc-sub">Below target</div>
+    </div>
+    <div class="sc">
+      <div class="sc-label">Campaigns</div>
+      <div class="sc-val" style="color:var(--blue)">2,505</div>
+      <div class="sc-sub">+45 this week</div>
+    </div>
+    <div class="sc">
+      <div class="sc-label">Daily Ad Spend</div>
+      <div class="sc-val" style="color:var(--text)">$66</div>
+      <div class="sc-sub">SP $43 + SD $15 + SBV $8</div>
+    </div>
+    <div class="sc">
+      <div class="sc-label">Bid Ceiling</div>
+      <div class="sc-val" style="color:var(--text)">$0.21</div>
+      <div class="sc-sub">DOWN_ONLY</div>
+    </div>
+    <div class="sc">
+      <div class="sc-label">Tasks</div>
+      <div class="sc-val" style="color:var(--cyan)">9/10</div>
+      <div class="sc-sub">90% complete</div>
+    </div>
+  </div>
+
+  <!-- Two column: Task Progress + Campaign Mix -->
+  <div class="cols anim">
+    <!-- Task Progress -->
+    <div class="pnl">
+      <div class="pnl-hd">
+        <div class="pnl-title">Task Progress &#20219;&#21209;&#36914;&#24230;</div>
+        <div class="pnl-meta">9 of 10</div>
+      </div>
+      <div class="pnl-body">
+        <div class="ring-wrap" style="margin-bottom:16px">
+          <div class="ring">
+            <svg width="56" height="56" viewBox="0 0 56 56">
+              <circle class="ring-bg" cx="28" cy="28" r="24"/>
+              <circle class="ring-fg" cx="28" cy="28" r="24" stroke-dasharray="150.8" stroke-dashoffset="15.08"/>
+            </svg>
+            <div class="ring-text">90%</div>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700">9 completed &middot; 1 in progress</div>
+            <div style="font-size:11px;color:var(--dim);margin-top:2px">Remaining: #10 Growth Hack (Spring Sale 3/25)</div>
+          </div>
+        </div>
+        <table class="tbl" style="font-size:11px">
+          <thead><tr><th>#</th><th>Task</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Creator Connections</td><td><span class="pill pill-g">DONE</span></td></tr>
+            <tr><td>2</td><td>Cut Quadrant Optimization</td><td><span class="pill pill-g">DONE</span></td></tr>
+            <tr><td>3</td><td>Star Campaign Maintenance</td><td><span class="pill pill-g">DONE</span></td></tr>
+            <tr><td>4</td><td>SD Audience Conquest</td><td><span class="pill pill-g">DONE</span></td></tr>
+            <tr><td>5</td><td>ASIN Targeting Defense + Attack</td><td><span class="pill pill-g">DONE</span></td></tr>
+            <tr><td>6</td><td>Market Basket Analysis</td><td><span class="pill pill-g">DONE</span></td></tr>
+            <tr><td>7</td><td>SBV Video Ads (M5 Case)</td><td><span class="pill pill-g">DONE</span></td></tr>
+            <tr><td>8</td><td>Brand Tailored Promotions</td><td><span class="pill pill-g">DONE</span></td></tr>
+            <tr><td>9</td><td>B2B Amazon Business</td><td><span class="pill pill-g">DONE</span></td></tr>
+            <tr><td>10</td><td>Growth Hack &mdash; Spring Sale</td><td><span class="pill pill-a">3/25</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Campaign Mix -->
+    <div class="pnl">
+      <div class="pnl-hd">
+        <div class="pnl-title">Campaign Architecture &#24291;&#21578;&#26550;&#27083;</div>
+        <div class="pnl-meta">7 ad types</div>
+      </div>
+      <div class="pnl-body">
+        <table class="tbl">
+          <thead><tr><th>Type</th><th>Count</th><th>Daily $</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>SP Auto</td>
+              <td>~2,400</td>
+              <td>&mdash;</td>
+              <td><span class="pill pill-g">LIVE</span></td>
+            </tr>
+            <tr>
+              <td>SP Manual KW</td>
+              <td>varied</td>
+              <td>&mdash;</td>
+              <td><span class="pill pill-g">LIVE</span></td>
+            </tr>
+            <tr>
+              <td>SP ASIN Targeting</td>
+              <td>28</td>
+              <td>$28</td>
+              <td><span class="pill pill-g">LIVE</span></td>
+            </tr>
+            <tr>
+              <td>SP B2B</td>
+              <td>3</td>
+              <td>$15</td>
+              <td><span class="pill pill-g">LIVE</span></td>
+            </tr>
+            <tr>
+              <td>SD Audience</td>
+              <td>3</td>
+              <td>$15</td>
+              <td><span class="pill pill-g">LIVE</span></td>
+            </tr>
+            <tr>
+              <td>SB + BTP</td>
+              <td>&mdash;</td>
+              <td>&mdash;</td>
+              <td><span class="pill pill-g">LIVE</span></td>
+            </tr>
+            <tr>
+              <td>SBV Video</td>
+              <td>8</td>
+              <td>$8</td>
+              <td><span class="pill pill-a">REVIEW</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:14px;padding:10px 12px;background:rgba(177,151,252,.06);border:1px solid rgba(177,151,252,.15);border-radius:6px;">
+          <div style="font-family:var(--mono);font-size:10px;font-weight:700;color:var(--purple);margin-bottom:4px;letter-spacing:.06em">AMC AUDIENCES</div>
+          <div style="font-size:12px;color:var(--text);line-height:1.6">
+            <strong>10</strong> live audiences &middot; <strong>25+</strong> templates &middot; <strong>4</strong> P1 in queue<br>
+            <span style="font-size:11px;color:var(--dim)">Cross-sell + Cart Abandoners + Lookalike + Clicker retargeting</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Quadrant Summary -->
+  <div class="pnl anim">
+    <div class="pnl-hd">
+      <div class="pnl-title">Product Quadrant &#29986;&#21697;&#35937;&#38480;</div>
+      <div class="pnl-meta">W5 data &middot; 10 product lines</div>
+    </div>
+    <div class="pnl-body">
+      <div class="prod-grid">
+        <div class="prod-card" style="border-left:3px solid var(--cyan)">
+          <div class="prod-name">M5 Case</div>
+          <div class="prod-asin">B0DGFX3T34 &middot; B0DGFS7QTL</div>
+          <div class="prod-row"><span class="k">Sales</span><span class="v" style="color:var(--cyan)">$41,032</span></div>
+          <div class="prod-row"><span class="k">TACOS</span><span class="v" style="color:var(--cyan)">10.0%</span></div>
+          <div class="prod-row"><span class="k">Quadrant</span><span class="pill pill-g" style="font-size:9px">STAR</span></div>
+        </div>
+        <div class="prod-card" style="border-left:3px solid var(--cyan)">
+          <div class="prod-name">Eskimo Pro 420</div>
+          <div class="prod-asin">AIO 420mm Cooler</div>
+          <div class="prod-row"><span class="k">Sales</span><span class="v" style="color:var(--cyan)">$6,045</span></div>
+          <div class="prod-row"><span class="k">TACOS</span><span class="v" style="color:var(--cyan)">2.5%</span></div>
+          <div class="prod-row"><span class="k">Quadrant</span><span class="pill pill-g" style="font-size:9px">STAR</span></div>
+        </div>
+        <div class="prod-card" style="border-left:3px solid var(--cyan)">
+          <div class="prod-name">S2503 Fan 3pk</div>
+          <div class="prod-asin">140mm Fan Pack</div>
+          <div class="prod-row"><span class="k">Sales</span><span class="v" style="color:var(--cyan)">$3,000+</span></div>
+          <div class="prod-row"><span class="k">TACOS</span><span class="v" style="color:var(--cyan)">Low</span></div>
+          <div class="prod-row"><span class="k">Quadrant</span><span class="pill pill-g" style="font-size:9px">STAR</span></div>
+        </div>
+        <div class="prod-card" style="border-left:3px solid var(--amber)">
+          <div class="prod-name">Eskimo Pro 360</div>
+          <div class="prod-asin">AIO 360mm Cooler</div>
+          <div class="prod-row"><span class="k">Sales</span><span class="v">$400</span></div>
+          <div class="prod-row"><span class="k">TACOS</span><span class="v" style="color:var(--amber)">5.8%</span></div>
+          <div class="prod-row"><span class="k">Quadrant</span><span class="pill pill-a" style="font-size:9px">QUESTION</span></div>
+        </div>
+        <div class="prod-card" style="border-left:3px solid var(--red)">
+          <div class="prod-name">M4 Case</div>
+          <div class="prod-asin">Mid Tower</div>
+          <div class="prod-row"><span class="k">Action</span><span class="v" style="color:var(--red)">Bid $0.16</span></div>
+          <div class="prod-row"><span class="k">Quadrant</span><span class="pill pill-r" style="font-size:9px">CUT</span></div>
+        </div>
+        <div class="prod-card" style="border-left:3px solid var(--red)">
+          <div class="prod-name">M8 Case</div>
+          <div class="prod-asin">Full Tower</div>
+          <div class="prod-row"><span class="k">Action</span><span class="v" style="color:var(--red)">Bid $0.16</span></div>
+          <div class="prod-row"><span class="k">Quadrant</span><span class="pill pill-r" style="font-size:9px">CUT</span></div>
+        </div>
+      </div>
+      <div style="margin-top:12px;font-family:var(--mono);font-size:10px;color:var(--dim)">
+        Star = maintain (no increases) &middot; Question = reduce bid &times;0.8 &middot; Cut = bid floor $0.16 &middot; Potential = new campaigns at low CPC
+      </div>
+    </div>
+  </div>
+
+  <!-- Two column: Timeline + Guards -->
+  <div class="cols anim">
+    <!-- Operations Timeline -->
+    <div class="pnl">
+      <div class="pnl-hd">
+        <div class="pnl-title">Operations Log &#25805;&#20316;&#32000;&#37636;</div>
+        <div class="pnl-meta">Latest first</div>
+      </div>
+      <div class="pnl-body">
+        <div class="timeline">
+          <div class="tl-item latest">
+            <div class="tl-date">3/12 21:00</div>
+            <div class="tl-text">
+              <strong style="color:var(--red)">Hard Rule Enforced</strong> &mdash; all bid/budget increase logic removed project-wide<br>
+              <small>risk_checker + risk_rules.yaml + action scripts updated</small>
+            </div>
+          </div>
+          <div class="tl-item latest">
+            <div class="tl-date">3/12 21:00</div>
+            <div class="tl-text">
+              <strong style="color:var(--cyan)">SBV M5 Case</strong> &mdash; 8 video campaigns created via API<br>
+              <small>B0DGFX3T34 &times;5 + B0DGFS7QTL &times;3 &middot; $8/day &middot; SUBMITTED_FOR_MODERATION</small>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">3/11 14:30</div>
+            <div class="tl-text">
+              <strong style="color:var(--purple)">AMC Research</strong> &mdash; 25+ audience templates catalogued, 10 existing, P1 queued<br>
+              <small>Lookalike + Clicker retargeting &middot; competitive moat</small>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">3/11 13:17</div>
+            <div class="tl-text">
+              <strong>Quadrant Optimization</strong> &mdash; 913 Star campaigns audited<br>
+              <small>M5 Case $41K &middot; Eskimo Pro $6.4K &middot; S2503 $3K</small>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">3/11 11:00</div>
+            <div class="tl-text">
+              <strong>B2B &times;3 + SD Conquest &times;3</strong> &mdash; 6 new campaigns, $30/day<br>
+              <small>Amazon Business + competitor ASIN targeting</small>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">3/10</div>
+            <div class="tl-text">
+              <strong>ASIN Targeting</strong> &mdash; 28 campaigns (16 defense + 12 attack)<br>
+              <small>Market basket data-driven &middot; $28/day</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Risk & Safety -->
+    <div class="pnl">
+      <div class="pnl-hd">
+        <div class="pnl-title">Risk Guards &#39080;&#25511;&#38450;&#35703;</div>
+        <div class="pnl-meta">5 active</div>
+      </div>
+      <div class="pnl-body">
+        <div class="guard-grid">
+          <div class="guard armed">
+            <div class="guard-name">Bid Ceiling Guard</div>
+            <div class="guard-desc">Max $0.21 CPC &middot; DOWN_ONLY strategy &middot; scans every 4h</div>
+            <div class="guard-status" style="color:var(--cyan)"><span class="dot" style="background:var(--cyan)"></span>ARMED</div>
+          </div>
+          <div class="guard alert">
+            <div class="guard-name">No Increase Rule</div>
+            <div class="guard-desc">Blocks all bid &amp; budget increases at validation layer</div>
+            <div class="guard-status" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>ENFORCED</div>
+          </div>
+          <div class="guard armed">
+            <div class="guard-name">Budget Floor</div>
+            <div class="guard-desc">Minimum $1.00 daily budget &middot; bid &le; budget always</div>
+            <div class="guard-status" style="color:var(--cyan)"><span class="dot" style="background:var(--cyan)"></span>ARMED</div>
+          </div>
+          <div class="guard armed">
+            <div class="guard-name">Pause Threshold</div>
+            <div class="guard-desc">ACOS &gt;25% + Spend &gt;$10 &#8594; auto-pause</div>
+            <div class="guard-status" style="color:var(--cyan)"><span class="dot" style="background:var(--cyan)"></span>ARMED</div>
+          </div>
+          <div class="guard armed">
+            <div class="guard-name">Batch Limits</div>
+            <div class="guard-desc">Max 200 bid changes &middot; 50 pauses &middot; 20 creates per run</div>
+            <div class="guard-status" style="color:var(--cyan)"><span class="dot" style="background:var(--cyan)"></span>ARMED</div>
+          </div>
+          <div class="guard armed">
+            <div class="guard-name">Never Do List</div>
+            <div class="guard-desc">No negative KW &middot; no deletes &middot; no increase bid &middot; no increase budget</div>
+            <div class="guard-status" style="color:var(--cyan)"><span class="dot" style="background:var(--cyan)"></span>ARMED</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upcoming & Config -->
+  <div class="cols anim">
+    <div class="pnl">
+      <div class="pnl-hd">
+        <div class="pnl-title">Upcoming &#24453;&#36774;&#20107;&#38917;</div>
+        <div class="pnl-meta">2 items</div>
+      </div>
+      <div class="pnl-body">
+        <table class="tbl">
+          <thead><tr><th>Date</th><th>Task</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr>
+              <td style="white-space:nowrap">3/16</td>
+              <td>W6 data import (3/8&ndash;3/14) &mdash; CSV refresh, quadrant recalc, verify B2B + SD results</td>
+              <td><span class="pill pill-a">P2</span></td>
+            </tr>
+            <tr>
+              <td style="white-space:nowrap">3/25</td>
+              <td>#10 Growth Hack &mdash; Spring Sale campaigns, Amazon Manager collaboration</td>
+              <td><span class="pill pill-b">P3</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="pnl">
+      <div class="pnl-hd">
+        <div class="pnl-title">Brand Config &#21697;&#29260;&#35373;&#23450;</div>
+        <div class="pnl-meta">GEO US</div>
+      </div>
+      <div class="pnl-body">
+        <table class="tbl">
+          <tbody>
+            <tr><td style="color:var(--dim)">Profile ID</td><td style="font-family:var(--mono)">3947387233604911</td></tr>
+            <tr><td style="color:var(--dim)">Brand Entity ID</td><td style="font-family:var(--mono)">ENTITY6K5TG6VHVS15</td></tr>
+            <tr><td style="color:var(--dim)">TACOS Target</td><td>15%</td></tr>
+            <tr><td style="color:var(--dim)">Bid Range</td><td>$0.16 &ndash; $0.21</td></tr>
+            <tr><td style="color:var(--dim)">Pause Threshold</td><td>ACOS &gt;25% + Spend &gt;$10</td></tr>
+            <tr><td style="color:var(--dim)">Bidding Strategy</td><td>Dynamic bids &mdash; down only</td></tr>
+            <tr><td style="color:var(--dim)">Market</td><td>US (amazon.com)</td></tr>
+            <tr><td style="color:var(--dim)">Phase</td><td><span class="pill pill-g">SCALING</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- SBV Campaign Detail -->
+  <div class="pnl anim">
+    <div class="pnl-hd">
+      <div class="pnl-title">SBV Video Campaigns &#24433;&#38899;&#24291;&#21578;</div>
+      <div class="pnl-meta">8 campaigns &middot; submitted for moderation</div>
+    </div>
+    <div class="pnl-body" style="padding:0;">
+      <table class="tbl">
+        <thead><tr><th>Campaign ID</th><th>Product</th><th>Video Type</th><th>Budget</th><th>Bid</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>204212578223314</td><td>M5 Black/Grey</td><td>Summary Video</td><td>$1/day</td><td>$0.21</td><td><span class="pill pill-a">REVIEW</span></td></tr>
+          <tr><td>153626026832805</td><td>M5 Black/Grey</td><td>Multi-Scene</td><td>$1/day</td><td>$0.21</td><td><span class="pill pill-a">REVIEW</span></td></tr>
+          <tr><td>260751003142414</td><td>M5 Black/Grey</td><td>Multi-Scene</td><td>$1/day</td><td>$0.21</td><td><span class="pill pill-a">REVIEW</span></td></tr>
+          <tr><td>112436331520044</td><td>M5 Black/Grey</td><td>Multi-Scene</td><td>$1/day</td><td>$0.21</td><td><span class="pill pill-a">REVIEW</span></td></tr>
+          <tr><td>97158548993031</td><td>M5 Black/Grey</td><td>Animated Image</td><td>$1/day</td><td>$0.21</td><td><span class="pill pill-a">REVIEW</span></td></tr>
+          <tr><td>137002154220703</td><td>M5 Black/Green</td><td>Summary Video</td><td>$1/day</td><td>$0.21</td><td><span class="pill pill-a">REVIEW</span></td></tr>
+          <tr><td>145981027735558</td><td>M5 Black/Green</td><td>Multi-Scene</td><td>$1/day</td><td>$0.21</td><td><span class="pill pill-a">REVIEW</span></td></tr>
+          <tr><td>80457084739671</td><td>M5 Black/Green</td><td>Multi-Scene</td><td>$1/day</td><td>$0.21</td><td><span class="pill pill-a">REVIEW</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    GEO HQ &middot; Geometric Future &middot; Amazon Autopilot &middot; Last update: 2026-03-12 21:00
+  </div>
+
+</div>
+</body>
+</html>

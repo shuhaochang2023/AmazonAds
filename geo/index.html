@@ -115,6 +115,7 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <button class="tab-btn" onclick="showTab('t6',this)">🤖 AI Prompts</button>
     <button class="tab-btn" onclick="showTab('t7',this)">🚀 3M Growth Hacks</button>
   </div>
+  <a href="hq.html" style="font-family:var(--mono);font-size:10px;font-weight:700;background:var(--accent);color:#fff;padding:4px 10px;border-radius:4px;text-decoration:none;white-space:nowrap;letter-spacing:.05em">HQ</a>
   <div class="meta">Feb 2026 · SP+SD+SB · TACOS ≤10%</div>
   </div>
 </nav>
@@ -295,8 +296,8 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
         <div style="color:var(--text2);font-size:11.5px">M4 / M8 / S2503R / S3805 出價壓至 $0.16 · 預計每週省 $150–200</div>
       </div>
       <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:10px">
-        <div style="font-weight:700;color:var(--green);font-size:11.5px;font-family:var(--mono)">#3 旗艦產品加碼 Star Budget +30%</div>
-        <div style="color:var(--text2);font-size:11.5px">M5 Case · Eskimo Pro 420 · S2503 140mm — 913 campaigns 預算 +30% · 佔帳戶 91% 銷售</div>
+        <div style="font-weight:700;color:var(--green);font-size:11.5px;font-family:var(--mono)">#3 旗艦產品維護 Star Campaign Maintenance</div>
+        <div style="color:var(--text2);font-size:11.5px">M5 Case · Eskimo Pro 420 · S2503 140mm — 913 campaigns 維持現狀 · 佔帳戶 91% 銷售<br><span style="font-size:10px;color:var(--text3)">3/12 硬性規則：永遠不提高 bid 或 budget，只能降低或暫停</span></div>
       </div>
       <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:10px">
         <div style="font-weight:700;color:var(--green);font-size:11.5px;font-family:var(--mono)">#5 ASIN Targeting 品牌防禦 + 競品進攻</div>
@@ -344,17 +345,45 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent)">
       <span class="log-arrow" style="font-size:14px;display:inline-block">&#9654;</span>
       <span>操作紀錄 Campaign Action Log</span>
-      <span style="font-size:10px;background:#7c3aed;color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">10 筆</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">最新：3/12 M5 Case SBV 影音廣告上線</span>
+      <span style="font-size:10px;background:#7c3aed;color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">11 筆</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">最新：3/12 硬性規則 — 永不提高 bid/budget</span>
     </summary>
     <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
 
-      <!-- ── 3/12 SBV Campaigns Created ── -->
+      <!-- ── 3/12 Hard Rule: No Bid/Budget Increases ── -->
       <details open style="margin-bottom:14px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <summary style="padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(220,38,38,.06),rgba(217,119,6,.04));font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--red)">
+          <span class="log-arrow" style="font-size:12px;display:inline-block">&#9654;</span>
+          3/12 — 硬性規則執行 Hard Rule Enforcement: No Bid/Budget Increases
+          <span style="font-size:9px;background:var(--red);color:#fff;padding:1px 6px;border-radius:3px;font-weight:700;margin-left:auto">最新</span>
+        </summary>
+        <div style="padding:12px 14px;color:var(--text2)">
+          <div style="border-left:3px solid var(--red);padding-left:12px;margin-bottom:12px">
+            <strong style="color:var(--red)">硬性規則 Hard Rule</strong><br>
+            全專案永遠不提高 bid 或 budget。只能降低或暫停。<br>
+            <span style="font-size:11px;color:var(--text3)">Project-wide hard rule: never increase bids or budgets. Only decreases and pauses allowed.</span>
+          </div>
+          <div style="font-weight:700;color:var(--text);margin-bottom:8px">已更新的系統 Systems Updated</div>
+          <div style="background:rgba(220,38,38,.04);border:1px solid rgba(220,38,38,.12);border-radius:6px;padding:10px;font-size:11px;line-height:1.8;margin-bottom:10px">
+            <strong>risk_rules.yaml</strong> — max_bid_increase_pct: 0 · max_budget_increase_pct: 0 · added to never_do<br>
+            <strong>risk_checker.py</strong> — blocks all bid/budget increases at validation layer<br>
+            <strong>geo_action_items.py</strong> — Star quadrant: no action (was +30% budget)<br>
+            <strong>flux_action_items.py</strong> — Star quadrant: no action (was +30% budget)<br>
+            <strong>boost_kids_fishoil.py</strong> — disabled (was +50% budget)<br>
+            <strong>Bulk Checklist + CLAUDE.md</strong> — docs updated
+          </div>
+          <div style="font-size:11px;color:var(--text3);line-height:1.7">
+            <strong>影響 Impact:</strong> Star 象限產品維持現有預算，不再自動加碼。Question/Cut 象限仍可降 bid 或暫停。<br>
+            <strong>原因 Reason:</strong> 防止 budget +30% 複利效應（已於 3/11 執行一次），避免預算失控。
+          </div>
+        </div>
+      </details>
+
+      <!-- ── 3/12 SBV Campaigns Created ── -->
+      <details style="margin-bottom:14px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
         <summary style="padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(22,163,74,.06),rgba(37,99,235,.04));font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--green)">
           <span class="log-arrow" style="font-size:12px;display:inline-block">&#9654;</span>
           3/12 — M5 Case SBV 影音廣告 Sponsored Brand Video 上線
-          <span style="font-size:9px;background:var(--green);color:#fff;padding:1px 6px;border-radius:3px;font-weight:700;margin-left:auto">最新</span>
         </summary>
         <div style="padding:12px 14px;color:var(--text2)">
           <div style="border-left:3px solid var(--accent);padding-left:12px;margin-bottom:12px">
@@ -407,7 +436,7 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
             </div>
           </div>
           <strong style="color:var(--amber)">行動：</strong>Eskimo Pro 360 廣告預算縮減 · CPC 降 20% · 暫停低效關鍵字<br>
-          <strong style="color:var(--green)">行動：</strong>Eskimo Pro 420 維持 Star 加碼策略 · 持續 budget +30%
+          <strong style="color:var(--green)">行動：</strong>Eskimo Pro 420 維持 Star 策略 · 保持現有預算不動（硬性規則：不提高 bid/budget）
         </div>
       </details>
 
