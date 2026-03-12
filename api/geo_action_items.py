@@ -7,7 +7,7 @@ Market: US
 TACOS Target: 10%  |  Bid Range: $0.16–$0.21  |  Pause Threshold: 25%
 
 Actions:
-  Star     → budget +30%
+  Star     → no action (never increase bids/budgets)
   Question → bids -20%, pause keywords with ACOS ≥ 85%
   Cut      → bids reduce to minimum ($0.16)
   Potential → (manual) create new SP Auto $10/day
@@ -219,57 +219,14 @@ def run_geo_actions(dry_run=False):
     print()
 
     # ══════════════════════════════════════════
-    # STAR — budget +30%
+    # STAR — no action (never increase bids/budgets)
     # ══════════════════════════════════════════
     star_camps = classified['star']
     if star_camps:
         print(f"{'='*70}")
-        print(f"  ⭐ STAR — Increasing budgets by 30% ({len(star_camps)} campaigns)")
+        print(f"  ⭐ STAR — No action ({len(star_camps)} campaigns)")
+        print(f"  Hard rule: never increase bids or budgets")
         print(f"{'='*70}")
-
-        budget_updates = []
-        for c in star_camps:
-            cid = str(c.get('campaignId'))
-            name = c.get('name', 'N/A')
-            old_budget = float(c.get('budget', {}).get('budget', 0))
-            new_budget = round(old_budget * 1.3, 2)
-            if new_budget < 1.0:
-                new_budget = 1.0
-            budget_updates.append({
-                "campaignId": cid,
-                "budget": {"budget": new_budget, "budgetType": "DAILY"}
-            })
-            results['star_budget_increases'].append({
-                'id': cid, 'name': name[:60],
-                'old_budget': old_budget, 'new_budget': new_budget
-            })
-
-        for item in results['star_budget_increases'][:10]:
-            print(f"    {item['name'][:55]:55s} ${item['old_budget']:.2f} → ${item['new_budget']:.2f}")
-        if len(star_camps) > 10:
-            print(f"    ... and {len(star_camps)-10} more")
-
-        if not dry_run:
-            ok_total, err_total = 0, 0
-            for i in range(0, len(budget_updates), 10):
-                batch = budget_updates[i:i+10]
-                try:
-                    resp = campaigns_api.edit_campaigns(body=json.dumps({"campaigns": batch}))
-                    p = resp.payload
-                    if isinstance(p, dict):
-                        ok_total += len(p.get('campaigns', {}).get('success', []))
-                        errs = p.get('campaigns', {}).get('error', [])
-                        err_total += len(errs)
-                        for e in errs[:2]:
-                            results['errors'].append(str(e))
-                    else:
-                        ok_total += len(batch)
-                except AdvertisingApiException as e:
-                    print(f"    ❌ API Error: {e}")
-                    results['errors'].append(str(e))
-                    err_total += len(batch)
-                time.sleep(0.3)
-            print(f"    ✅ Budget updates: {ok_total} success, {err_total} errors")
         print()
 
     # ══════════════════════════════════════════

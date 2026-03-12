@@ -190,7 +190,8 @@ ENTITY1GCEFK17HNV9Y
 |------|------|---------|
 | ACOS > 暫停線 + Spend > $10 | `state = paused` | — |
 | TACOS > 目標 × 1.2 + Spend > $5 | 降 bid | × 0.8 |
-| ACOS < 目標 × 0.5 + Orders > 0 + Spend > $3 | 提 bid | × 1.2 |
+
+**硬性規則：永遠不提高 bid 或 budget。只能降低或暫停。**
 
 ### 5.3 安全限制
 
@@ -203,7 +204,7 @@ ENTITY1GCEFK17HNV9Y
 
 | 象限 | 條件 | Bulk 行動 |
 |------|------|----------|
-| ⭐ Star | 低 TACOS + 高 Sales | 複製現有 SP campaigns + budget × 1.3 |
+| ⭐ Star | 低 TACOS + 高 Sales | 維持現狀，不動 bid/budget |
 | ❓ Question | 高 TACOS + 高 Sales | 降 CPC bid；暫停 ACOS > 暫停線的 keywords |
 | ✂️ Cut | 高 TACOS + 低 Sales | 無 bid 操作（需降價/coupon/sale 策略）|
 | 💡 Potential | 低 TACOS + 低 Sales | 新增 SP + SB + SD；低 CPC；lookalike AMC audience |

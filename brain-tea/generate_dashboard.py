@@ -883,7 +883,7 @@ function buildActionTab() {{
     star:     {{label:'\\u2B50 Star',badgeCls:'badge-star',   pri:'badge-now', priLabel:'本週執行',
       tasks:[
         {{type:'SP Bulk',text:'下載現有 SP 活動 Bulk File \\u2192 複製所有 Enabled campaigns \\u2192 新命名加 _COPY 後綴'}},
-        {{type:'Budget',text:'全部 SP 活動預算 \\u00D7 1.3（+30%）\\u2192 上傳 Bulk File'}},
+        {{type:'Budget',text:'維持現有預算，不動 budget（硬性規則：永遠不提高）'}},
         {{type:'SB',text:'檢查是否有 SB Banner 廣告，若無則新建 SB Campaign 指向此產品'}},
         {{type:'Review',text:'維持現有策略，監控 TACOS 保持在 15% 以下'}},
       ]}},

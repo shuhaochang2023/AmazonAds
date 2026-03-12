@@ -1,0 +1,94 @@
+# Pinch 風險控制規則
+# 所有 API 操作執行前必須通過這些檢查
+# 任何一條 HARD 規則違反 → 直接擋住不執行
+# SOFT 規則違反 → 警告但可手動覆寫
+
+version: "1.0"
+updated: "2026-03-10"
+
+# ============================================================
+# 品牌 Bid 上限（HARD — 絕對不能超過）
+# ============================================================
+bid_caps:
+  DAIKEN:
+    max_bid: 2.50
+    min_bid: 0.02
+    max_bid_increase_pct: 0     # 硬性規則：永遠不提高 bid
+    max_bid_decrease_pct: 30    # 單次降 bid 不能超過 30%
+  DBJ:
+    max_bid: 0.66
+    min_bid: 0.02
+    max_bid_increase_pct: 20
+    max_bid_decrease_pct: 30
+  GEO:
+    max_bid: 0.21
+    min_bid: 0.02
+    max_bid_increase_pct: 20
+    max_bid_decrease_pct: 30
+  FLUX:
+    sunglasses:
+      max_bid: 0.55
+      min_bid: 0.02
+    straps:
+      max_bid: 0.33
+      min_bid: 0.02
+    max_bid_increase_pct: 20
+    max_bid_decrease_pct: 30
+  KIJO:
+    max_bid: 1.00          # 暫定，上線後調整
+    min_bid: 0.02
+    max_bid_increase_pct: 20
+    max_bid_decrease_pct: 30
+
+# ============================================================
+# Budget 規則（HARD）
+# ============================================================
+budget_rules:
+  min_daily_budget: 1.00
+  max_budget_increase_pct: 0    # 硬性規則：永遠不提高 budget
+  bid_cannot_exceed_budget: true # Bid 永遠不能超過 Daily Budget
+
+# ============================================================
+# 暫停規則（HARD）
+# ============================================================
+pause_rules:
+  # 超過暫停線 + Spend 門檻才能暫停
+  DAIKEN:
+    pause_acos_threshold: 85     # ACOS > 85% 才暫停
+    pause_spend_threshold: 10.00 # Spend > $10 才暫停
+  DBJ:
+    pause_acos_threshold: 25
+    pause_spend_threshold: 10.00
+  GEO:
+    pause_acos_threshold: 25
+    pause_spend_threshold: 10.00
+  FLUX:
+    pause_acos_threshold: 45
+    pause_spend_threshold: 10.00
+
+# ============================================================
+# 絕對禁止（HARD）
+# ============================================================
+never_do:
+  - add_negative_keywords       # 永遠不加 Negative Keywords
+  - delete_campaign             # 只能暫停，不能刪除
+  - delete_ad_group             # 只能暫停，不能刪除
+  - modify_frozen_weeks         # 不能動 FROZEN_WEEKS 的資料
+  - increase_bid                # 硬性規則：永遠不提高 bid
+  - increase_budget             # 硬性規則：永遠不提高 budget
+
+# ============================================================
+# 批量操作限制（HARD）
+# ============================================================
+batch_limits:
+  max_bid_changes_per_run: 200      # 單次最多改 200 個 bid
+  max_pauses_per_run: 50            # 單次最多暫停 50 個
+  max_campaigns_created_per_run: 20 # 單次最多建 20 個 campaign
+
+# ============================================================
+# 異常偵測（SOFT — 警告）
+# ============================================================
+anomaly_alerts:
+  daily_spend_spike_pct: 50     # 日花費比前 7 天平均高 50% → 警告
+  acos_spike_pct: 100           # ACOS 比前 7 天平均高 100% → 警告
+  zero_sales_high_spend: 20.00  # 花了 $20 但 0 銷售 → 警告
