@@ -1,0 +1,74 @@
+{
+  "timestamp": "2026-03-12T21:19:28.493414",
+  "profile_id": "3947387233604911",
+  "product": "M5 Case (B0DF7QSTG3)",
+  "budget": 1.0,
+  "bid": 0.21,
+  "state": "ENABLED",
+  "campaigns": [
+    {
+      "name": "GEO SBV M5-BG Summary 031226",
+      "asin": "B0DGFX3T34",
+      "campaign_id": "204212578223314",
+      "adgroup_id": "352243626097565",
+      "ad_id": "284438504773774",
+      "asset_id": "amzn1.assetlibrary.asset1.10b2302fee422e76c40323f9be2c4969"
+    },
+    {
+      "name": "GEO SBV M5-BG MultiScene1 031226",
+      "asin": "B0DGFX3T34",
+      "campaign_id": "153626026832805",
+      "adgroup_id": "311491699809677",
+      "ad_id": "395493671366339",
+      "asset_id": "amzn1.assetlibrary.asset1.ccd315c34e19e85473d928c14b9f9ff5"
+    },
+    {
+      "name": "GEO SBV M5-BG MultiScene2 031226",
+      "asin": "B0DGFX3T34",
+      "campaign_id": "260751003142414",
+      "adgroup_id": "395062029802848",
+      "ad_id": "516395843299462",
+      "asset_id": "amzn1.assetlibrary.asset1.5eb5e4e85bb6d127ee1ccce288d48ef5"
+    },
+    {
+      "name": "GEO SBV M5-BG MultiScene3 031226",
+      "asin": "B0DGFX3T34",
+      "campaign_id": "112436331520044",
+      "adgroup_id": "374090770810268",
+      "ad_id": "466627469622430",
+      "asset_id": "amzn1.assetlibrary.asset1.d901db0e0bab69ecc2e776fb5f0e097c"
+    },
+    {
+      "name": "GEO SBV M5-BG Animated 031226",
+      "asin": "B0DGFX3T34",
+      "campaign_id": "97158548993031",
+      "adgroup_id": "358248495027511",
+      "ad_id": "365591538201888",
+      "asset_id": "amzn1.assetlibrary.asset1.3054e8630a2a20d22c7c8a79d3c4eb68"
+    },
+    {
+      "name": "GEO SBV M5-BN Summary 031226",
+      "asin": "B0DGFS7QTL",
+      "campaign_id": "137002154220703",
+      "adgroup_id": "349714153639795",
+      "ad_id": "432423549988083",
+      "asset_id": "amzn1.assetlibrary.asset1.2c1689d2429705b04812fc069724de19"
+    },
+    {
+      "name": "GEO SBV M5-BN MultiScene1 031226",
+      "asin": "B0DGFS7QTL",
+      "campaign_id": "145981027735558",
+      "adgroup_id": "302079202364163",
+      "ad_id": "328483984547973",
+      "asset_id": "amzn1.assetlibrary.asset1.c88dafaa98c25c3f1f5ee35e03054d21"
+    },
+    {
+      "name": "GEO SBV M5-BN MultiScene2 031226",
+      "asin": "B0DGFS7QTL",
+      "campaign_id": "80457084739671",
+      "adgroup_id": "485346614603274",
+      "ad_id": "470179465212923",
+      "asset_id": "amzn1.assetlibrary.asset1.a8aed75b78fd1cb1eb203f50aa7bf9ed"
+    }
+  ]
+}
