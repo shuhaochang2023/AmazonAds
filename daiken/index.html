@@ -144,15 +144,42 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
       <span style="font-size:14px;transition:transform .2s;display:inline-block">&#9654;</span>
       <span>Campaign Action Log 廣告操作紀錄</span>
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">9 entries</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/12 — 全帳戶預算重整 Option D $750/day + Bids Check CLEAR</span>
+      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">10 entries</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/13 — 預算節奏 + Page 2 加碼 + Bid Ceiling Guard CLEAN</span>
     </summary>
     <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
 
       <details open style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:14px">
         <summary style="cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-12 — 全帳戶預算重整 OPTION D RESTRUCTURE $752/DAY（API 執行）</span>
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-13 — 預算節奏 + P2 加碼 + BID CEILING GUARD CLEAN</span>
           <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
+        </summary>
+        <div style="color:var(--text2)">
+          <strong style="color:var(--accent)">三項日常維運完成</strong> — 預算節奏雙輪追蹤 $780/day、Page 2 關鍵字 Star ASIN 加碼策略上線、全帳戶出價天花板驗證 CLEAN。<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
+            (1) Budget Pacing 雙輪巡檢（08:00 + 14:30），確保日花費追蹤 $780/day 目標；(2) Page 2 Keyword Double-Down — 針對 Star ASIN 的第二頁關鍵字（rank 41-80），以 broad match + 30% bid cap ($0.75) + $1/day 低預算策略建立曝光覆蓋，推動有機排名爬升至第一頁；(3) Bid Ceiling Guard — 修正 response validation 邏輯後重新掃描全帳戶，所有 campaigns 出價確認不超過 $5 cap。
+          </div>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">執行明細 Actions</div>
+            <strong>1. Budget Pacing 預算節奏追蹤</strong><br>
+            &nbsp;&nbsp;• 08:00 第一輪 + 14:30 第二輪，追蹤 $780/day 目標<br>
+            &nbsp;&nbsp;• 依據上午花費速率微調下午分配<br><br>
+            <strong style="color:var(--accent)">2. Page 2 Keyword Double-Down Star ASIN 加碼</strong><br>
+            &nbsp;&nbsp;• 策略：Star ASIN × Page 2 關鍵字（rank 41-80），1 ASIN × 1 keyword per campaign<br>
+            &nbsp;&nbsp;• Match type：Broad（最大曝光覆蓋 → 排名信號累積）<br>
+            &nbsp;&nbsp;• Bid：$0.75（30% of $2.50 cap）| Budget：$1/day per campaign<br>
+            &nbsp;&nbsp;• Dynamic bids - down only | Review：2 週無排名提升則暫停<br><br>
+            <strong style="color:var(--green)">3. Bid Ceiling Guard 出價天花板驗證</strong><br>
+            &nbsp;&nbsp;• Response validation 邏輯修正完成<br>
+            &nbsp;&nbsp;• 全帳戶掃描結果：✅ ALL CAMPAIGNS CLEAN — 0 violations, all bids under $5 cap
+          </div>
+        </div>
+      </details>
+
+      <details style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:14px">
+        <summary style="cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-12 — 全帳戶預算重整 OPTION D RESTRUCTURE $752/DAY（API 執行）</span>
         </summary>
         <div style="color:var(--text2)">
           <strong style="color:var(--accent)">全帳戶從 385 → 40 campaigns，$2,065 → $752/day</strong> — 依據 30 天 API 報告績效數據，保留有訂單的 T1 campaigns，暫停所有零訂單或高 ACOS (>200%) campaigns，重新分配預算到 Option D 目標。<br>
