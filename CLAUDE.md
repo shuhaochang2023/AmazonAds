@@ -66,7 +66,7 @@ amazon-autopilot/
 | DAIKEN | US | 70% | $2.00–$2.50 | 85% | LIVE |
 | DBJ | US | 15% | $0.55–$0.66 | 25% | LIVE |
 | Geometric Future (GEO) | US | 15% | $0.16–$0.21 | 25% | LIVE |
-| Brain Tea | US | 15% | $0.50–$0.60 | 28% | LIVE |
+| Brain Tea | US | 15% | $0.50–$0.66 | 28% | LIVE |
 | Flux | AU/UK/DE/US/CA | 30% | $0.55 (Sunglasses) / $0.33 (Straps) | 45% | LIVE |
 | APAL | — | — | — | — | Social Listening |
 | KIJO | US | — | — | — | 即將上線 |
@@ -119,3 +119,31 @@ amazon-autopilot/
 **硬性規則：永遠不提高 bid。只能降低出價或暫停。Budget 可因 pacing 需求調升。**
 
 安全限制：Bid ≤ Daily Budget、Bid ≥ $0.02、Budget ≥ $1.00、永遠不加 Negative Keywords、永遠不提高 bid
+
+## Page 2 Keyword Double-Down 第二頁關鍵字加碼策略
+
+**Goal:** Push Star product ASINs from page 2 → page 1 by increasing campaign budget on their near-ranking keywords.
+
+### How it works
+1. **Identify Star ASINs** — from quadrant analysis (high sales + good ACOS)
+2. **Pull Search Term Report** — via API, filter for Star ASINs only
+3. **Find Page 2 keywords** — keywords where the ASIN has impressions + clicks but low top-of-search impression share (< 10%), or known page 2 rank from Brand Analytics / Search Query Performance
+4. **Double down** — increase the **campaign daily budget** (NOT bids) for campaigns containing these keywords, giving Amazon's algorithm more room to serve impressions and climb rank
+5. **Monitor** — track impression share and organic rank weekly; if keyword reaches page 1 top-of-search > 20%, hold budget steady
+
+### Rules
+- **Only apply to Star ASINs** — never waste budget pushing underperformers
+- **Budget increase only** — bids stay the same (HARD RULE)
+- **Cap:** max 2× current daily budget per campaign per round
+- **Review cadence:** weekly — if no rank improvement after 2 weeks, revert budget
+- **Data sources:** SP Search Term Report, SP Placement Report (top-of-search %), Brand Analytics Search Query Performance (if available via SP-API)
+
+### Execution
+```
+Say "page 2 double-down {BRAND}" to run:
+1. Pull Star ASINs from latest quadrant data
+2. Pull search term + placement reports via API
+3. Identify page 2 keyword opportunities
+4. Propose budget increases (with before/after table)
+5. Execute after approval
+```
