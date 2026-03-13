@@ -116,6 +116,6 @@ amazon-autopilot/
 | ACOS > 暫停線 + Spend > $10 | state = paused |
 | TACOS > 目標 × 1.2 + Spend > $5 | 降 bid × 0.8 |
 
-**硬性規則：永遠不提高 bid 或 budget。只能降低或暫停。**
+**硬性規則：永遠不提高 bid。只能降低出價或暫停。Budget 可因 pacing 需求調升。**
 
-安全限制：Bid ≤ Daily Budget、Bid ≥ $0.02、Budget ≥ $1.00、永遠不加 Negative Keywords、永遠不提高 bid/budget
+安全限制：Bid ≤ Daily Budget、Bid ≥ $0.02、Budget ≥ $1.00、永遠不加 Negative Keywords、永遠不提高 bid
