@@ -127,16 +127,29 @@ amazon-autopilot/
 ### How it works
 1. **Identify Star ASINs** — from quadrant analysis (high sales + good ACOS)
 2. **Pull Search Term Report** — via API, filter for Star ASINs only
-3. **Find Page 2 keywords** — keywords where the ASIN has impressions + clicks but low top-of-search impression share (< 10%), or known page 2 rank from Brand Analytics / Search Query Performance
-4. **Double down** — increase the **campaign daily budget** (NOT bids) for campaigns containing these keywords, giving Amazon's algorithm more room to serve impressions and climb rank
-5. **Monitor** — track impression share and organic rank weekly; if keyword reaches page 1 top-of-search > 20%, hold budget steady
+3. **Find Page 2 keywords** — keywords with search rank **41–80** (each page = 40 listings, so page 2 = rank 41–80). Data comes from Search Query Performance / Brand Analytics spreadsheets provided by user
+4. **Double down** — increase the **campaign daily budget** (NOT bids) for campaigns containing these keywords, giving Amazon's algorithm more room to serve impressions and climb to page 1 (rank 1–40)
+5. **Monitor** — track search rank weekly; if keyword reaches page 1 (rank ≤ 40), hold budget steady
 
 ### Rules
 - **Only apply to Star ASINs** — never waste budget pushing underperformers
-- **Budget increase only** — bids stay the same (HARD RULE)
-- **Cap:** max 2× current daily budget per campaign per round
-- **Review cadence:** weekly — if no rank improvement after 2 weeks, revert budget
-- **Data sources:** SP Search Term Report, SP Placement Report (top-of-search %), Brand Analytics Search Query Performance (if available via SP-API)
+- **Bid = 30% of brand bid cap** — low bid broad match for maximum impression coverage
+- **Budget:** $1/day per campaign
+- **Match type:** Broad (1 ASIN × 1 keyword per campaign) — wider net → more impressions → ranking signals
+- **Strategy:** Dynamic bids - down only
+- **Review cadence:** weekly — if no rank improvement after 2 weeks, pause campaign
+- **Data sources:** SellerSprite Reverse ASIN (rank 41-80 = page 2), SP-API Search Query Performance (once approved)
+- **Why broad match:** Page 2 keywords need impression volume + click velocity to climb. Broad match captures related searches, builds relevance signals, and pushes organic rank up faster than exact.
+
+### Bid Table (30% of brand cap)
+| Brand | Bid Cap | Page 2 Bid | Budget |
+|-------|---------|-----------|--------|
+| DAIKEN | $2.50 | $0.75 | $1/day |
+| DBJ | $0.66 | $0.20 | $1/day |
+| GEO | $0.21 | $0.06 | $1/day |
+| Brain Tea | $0.66 | $0.20 | $1/day |
+| Flux Sunglasses | $0.55 | $0.17 | $1/day |
+| Flux Straps | $0.33 | $0.10 | $1/day |
 
 ### Execution
 ```
