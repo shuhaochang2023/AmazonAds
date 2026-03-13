@@ -152,7 +152,7 @@ details.panel[open]>summary .dd-arrow{transform:rotate(90deg);}
   <div class="enforce-bar" style="background:rgba(220,38,38,.06);border:1px solid rgba(220,38,38,.2);">
     <div class="icon">&#9940;</div>
     <div class="text" style="color:var(--red);">
-      <strong>HARD RULE 硬性規則 — NEVER INCREASE BIDS OR BUDGETS 永遠不提高出價或預算</strong> — Only decreases and pauses allowed. All API scripts enforce this rule.<br>僅允許降低或暫停。所有 API 腳本均執行此規則。
+      <strong>HARD RULE 硬性規則 — NEVER INCREASE BIDS 永遠不提高出價</strong> — Only bid decreases and pauses allowed. Budget increases OK for pacing.<br>僅允許降低出價或暫停。預算可因 pacing 需求調升。
     </div>
   </div>
 
@@ -760,10 +760,10 @@ details.panel[open]>summary .dd-arrow{transform:rotate(90deg);}
           <tr>
             <td>
               <div class="cron-name" style="color:var(--red)">HARD RULE 硬性規則</div>
-              <div class="cron-desc">NEVER increase bids or budgets — only decreases and pauses<br>永遠不提高出價或預算 — 僅允許降低或暫停</div>
+              <div class="cron-desc">NEVER increase bids — only decreases and pauses. Budget increases OK for pacing.<br>永遠不提高出價 — 僅允許降低或暫停。預算可因 pacing 調升。</div>
             </td>
             <td><span class="freq-pill freq-high">Always</span></td>
-            <td class="cron-scope">Bid +0% BLOCKED<br>Budget +0% BLOCKED<br>All brands 全品牌</td>
+            <td class="cron-scope">Bid +0% BLOCKED<br>Budget ↑ OK (pacing)<br>All brands 全品牌</td>
             <td><span class="cron-status cron-active" style="color:var(--red)">&#9679; ENFORCED</span></td>
           </tr>
           <tr>
