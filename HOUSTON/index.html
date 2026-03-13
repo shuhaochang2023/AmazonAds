@@ -429,12 +429,12 @@ details.panel[open]>summary .dd-arrow{transform:rotate(90deg);}
             <div class="action-why">Auth flow working · blocked on scope approval and AMC instance ID from client<br>認證流程可用 · 等待權限批准和客戶提供 AMC 實例 ID</div>
           </div>
         </li>
-        <!-- 3/13 ASIN Strategy Pack -->
+        <!-- 3/13 HALO -->
         <li class="action-item done">
           <span class="action-priority p2">P2</span>
           <div class="action-content">
             <div class="action-brand">HQ<span class="done-badge">DONE 3/13</span></div>
-            <div class="action-text">ASIN 進攻防守工具包 strategy pack added to HQ dashboard<br>ASIN 進攻防守工具包策略包已加入 HQ 儀表板</div>
+            <div class="action-text">HALO strategy pack added to HQ dashboard<br>HALO 策略工具已加入 HQ 儀表板</div>
             <div class="action-why">4 data sources: SP Purchased Product · SB Attributed · Market Basket · DSP Halo<br>4 個數據來源記錄完成</div>
           </div>
         </li>
@@ -715,7 +715,7 @@ details.panel[open]>summary .dd-arrow{transform:rotate(90deg);}
       <div class="log-entry">
         <div class="log-time">PM</div>
         <div class="log-brand" style="color:var(--orange)">HQ</div>
-        <div class="log-text">ASIN 進攻防守工具包 strategy pack added to HQ — 4 data sources: SP Purchased Product · SB Attributed · Market Basket · DSP Halo<br><small>ASIN 進攻防守工具包策略包已加入 HQ — 4 個數據來源</small></div>
+        <div class="log-text">HALO strategy pack added to HQ — 4 data sources: SP Purchased Product · SB Attributed · Market Basket · DSP Halo<br><small>HALO 策略工具已加入 HQ — 4 個數據來源</small></div>
       </div>
       <!-- 3/12 entries -->
       <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--dim);padding:12px 0 4px;border-bottom:1px solid var(--border);letter-spacing:.08em">2026-03-12 WED</div>
@@ -972,10 +972,10 @@ details.panel[open]>summary .dd-arrow{transform:rotate(90deg);}
     </div>
   </details>
 
-  <!-- ASIN 進攻防守工具包 Strategy Pack -->
+  <!-- HALO -->
   <details class="panel" open style="margin-bottom:12px;">
     <summary class="panel-header" style="cursor:pointer;list-style:none;">
-      <div class="panel-title"><span class="dd-arrow">&#9654;</span> ASIN 進攻防守工具包 Strategy Pack</div>
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> HALO</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">4 data sources</div>
     </summary>
     <div class="panel-body" style="padding:0;">
@@ -988,7 +988,7 @@ details.panel[open]>summary .dd-arrow{transform:rotate(90deg);}
             <td><div class="cron-name" style="font-weight:700;">SP Purchased Product</div><span style="font-size:11px;color:var(--dim);">spPurchasedProduct</span></td>
             <td class="cron-scope">客人點了你的 SP 廣告，最後買了什麼<br>光環銷售 · 流失偵測 · 真實 ROAS</td>
             <td><span class="status-pill pill-red" style="margin-right:4px;">防守</span><span class="status-pill pill-blue">進攻</span></td>
-            <td class="cron-scope">Ads API<br><code>reportTypeId: spPurchasedProduct</code></td>
+            <td class="cron-scope"><span class="status-pill pill-green" style="margin-right:4px;">LIVE</span>Ads API<br><code>api/halo.py</code></td>
           </tr>
           <tr>
             <td><div class="cron-name" style="font-weight:700;">SB Attributed Purchase</div><span style="font-size:11px;color:var(--dim);">品牌廣告歸因購買</span></td>
@@ -1012,7 +1012,8 @@ details.panel[open]>summary .dd-arrow{transform:rotate(90deg);}
       </table>
       <div style="padding:12px 18px;border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);line-height:1.6;">
         <strong style="color:var(--red);">防守</strong> = 保護自家 ASIN 流量不被搶走 &nbsp;|&nbsp; <strong style="color:var(--accent);">進攻</strong> = 主動搶競品客人<br>
-        完整策略文件：<code>docs/四座金礦_Amazon廣告隱藏數據.md</code>
+        <code style="color:var(--accent);">python3 api/halo.py</code> — pull + analyze all brands &nbsp;|&nbsp; <code>python3 api/halo.py daiken geo</code> — specific brands<br>
+        Output: <code>clients/{brand}/halo/</code> → halo_analysis.json + halo_panel.html
       </div>
     </div>
   </details>
