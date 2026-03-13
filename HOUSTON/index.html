@@ -860,6 +860,51 @@ details.panel[open]>summary .dd-arrow{transform:rotate(90deg);}
     </div>
   </details>
 
+  <!-- ASIN 進攻防守工具包 Strategy Pack -->
+  <details class="panel" open style="margin-bottom:12px;">
+    <summary class="panel-header" style="cursor:pointer;list-style:none;">
+      <div class="panel-title"><span class="dd-arrow">&#9654;</span> ASIN 進攻防守工具包 Strategy Pack</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);">4 data sources</div>
+    </summary>
+    <div class="panel-body" style="padding:0;">
+      <table class="cron-table">
+        <thead>
+          <tr><th>數據來源</th><th>用途</th><th>攻 / 守</th><th>位置</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="cron-name" style="font-weight:700;">SP Purchased Product</div><span style="font-size:11px;color:var(--dim);">spPurchasedProduct</span></td>
+            <td class="cron-scope">客人點了你的 SP 廣告，最後買了什麼<br>光環銷售 · 流失偵測 · 真實 ROAS</td>
+            <td><span class="status-pill pill-red" style="margin-right:4px;">防守</span><span class="status-pill pill-blue">進攻</span></td>
+            <td class="cron-scope">Ads API<br><code>reportTypeId: spPurchasedProduct</code></td>
+          </tr>
+          <tr>
+            <td><div class="cron-name" style="font-weight:700;">SB Attributed Purchase</div><span style="font-size:11px;color:var(--dim);">品牌廣告歸因購買</span></td>
+            <td class="cron-scope">SB 廣告 14 天內帶動的所有 ASIN 購買<br>入口商品辨識 · SB 真實價值</td>
+            <td><span class="status-pill pill-blue">進攻</span></td>
+            <td class="cron-scope">Ads Console<br>SB Campaign Report</td>
+          </tr>
+          <tr>
+            <td><div class="cron-name" style="font-weight:700;">Market Basket Analysis</div><span style="font-size:11px;color:var(--dim);">購物籃分析</span></td>
+            <td class="cron-scope">同一訂單裡客人還買了什麼（自然行為）<br>交叉銷售 · ASIN Targeting 目標</td>
+            <td><span class="status-pill pill-red" style="margin-right:4px;">防守</span><span class="status-pill pill-blue">進攻</span></td>
+            <td class="cron-scope">Seller Central<br>Brand Analytics</td>
+          </tr>
+          <tr>
+            <td><div class="cron-name" style="font-weight:700;">DSP Halo Effect</div><span style="font-size:11px;color:var(--dim);">展示廣告光環效應</span></td>
+            <td class="cron-scope">DSP 曝光後品牌整體銷售提升<br>NTB 新客比例 · 全漏斗歸因</td>
+            <td><span class="status-pill pill-blue">進攻</span></td>
+            <td class="cron-scope">Amazon DSP<br>Halo Metrics</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="padding:12px 18px;border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);line-height:1.6;">
+        <strong style="color:var(--red);">防守</strong> = 保護自家 ASIN 流量不被搶走 &nbsp;|&nbsp; <strong style="color:var(--accent);">進攻</strong> = 主動搶競品客人<br>
+        完整策略文件：<code>docs/四座金礦_Amazon廣告隱藏數據.md</code>
+      </div>
+    </div>
+  </details>
+
   <div class="footer">
     HOUSTON · Amazon Autopilot · SNIPER Mastermind · Last scan: 2026-03-13
   </div>
