@@ -118,8 +118,8 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
 <!-- TAB 0 — Executive Summary -->
 <div id="t0" class="panel active">
   <div style="margin-bottom:20px">
-    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">EXECUTIVE SUMMARY · 2026 年 3 月 9 日更新</div>
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:4px"><span style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display)">Flux 🇺🇸 US · 執行摘要</span><a href="20260313_Flux_US_Portfolio_Structure.xlsx" download class="dl-btn" title="Download Portfolio Structure Excel">⬇ Portfolio Excel</a></div>
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">EXECUTIVE SUMMARY · 2026 年 3 月 14 日更新</div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:4px"><span style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display)">Flux 🇺🇸 US · 執行摘要</span><a href="20260314_Flux_US_Portfolio_Structure.xlsx" download class="dl-btn" title="Download Portfolio Structure Excel">⬇ Portfolio Excel</a></div>
     <div style="font-size:12px;color:var(--text3)">US Market Feb–Mar 2026 週報 · SP+SD+SB · TACOS ≤30%</div>
   </div>
 
@@ -127,15 +127,33 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
       <span style="font-size:14px;transition:transform .2s;display:inline-block" class="log-arrow">&#9654;</span>
       <span>Campaign Action Log 廣告操作紀錄</span>
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">4 entries</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/13 — PORTFOLIO CLEANUP 產品級投資組合整理</span>
+      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">5 entries</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/14 — PORTFOLIO MATCH FIX 投資組合匹配修復</span>
     </summary>
     <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
 
       <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-13 — PORTFOLIO CLEANUP 產品級投資組合整理</span>
+          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-14 — PORTFOLIO MATCH FIX 投資組合匹配修復</span>
           <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
+        </div>
+        <div style="color:var(--text2)">
+          <strong style="color:var(--green)">修復 SP 廣告活動 Portfolio 匹配邏輯</strong> — 新增 Portfolio ID 回查機制，補齊名稱中無 ASIN 的廣告活動歸類。<br>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
+            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
+            原匹配腳本僅依賴廣告活動名稱中的 ASIN 進行歸類，導致 212 個以關鍵字命名的 SP 廣告活動（如 "US Strap glasses strap broad 0.85"）無法匹配。修復方式：為 SP 廣告活動新增 Portfolio ID 回查（原僅 SB 有此機制），所有帶有效 portfolioId 的活動均可正確歸類。
+          </div>
+          &nbsp;&nbsp;• <strong style="color:var(--green)">✅ 匹配率 100%：</strong>1063 個廣告活動全部歸類完成，0 個未匹配<br>
+          &nbsp;&nbsp;• <strong>修復前：</strong>851 matched / 212 unmatched（42 個為 ENABLED 狀態）<br>
+          &nbsp;&nbsp;• <strong>修復後：</strong>1063 matched / 0 unmatched<br>
+          &nbsp;&nbsp;• <strong>主要補齊：</strong>41 個 Strap 關鍵字廣告 + 1 個多產品 Auto 廣告，均已正確歸入對應 Portfolio<br>
+          <a href="./20260314_Flux_US_Portfolio_Structure.xlsx" download style="display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;color:var(--accent);text-decoration:none;background:rgba(37,99,235,.08);padding:4px 10px;border-radius:4px;border:1px solid rgba(37,99,235,.2);margin-top:6px">⬇ 20260314_Flux_US_Portfolio_Structure.xlsx</a>
+        </div>
+      </div>
+
+      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono)">2026-03-13 — PORTFOLIO CLEANUP 產品級投資組合整理</span>
         </div>
         <div style="color:var(--text2)">
           <strong style="color:var(--green)">透過 Amazon Ads API 建立產品級投資組合</strong> — 將所有 SP + SB 廣告活動歸類至 9 個產品專屬 Portfolio。<br>
