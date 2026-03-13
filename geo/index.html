@@ -346,17 +346,51 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent)">
       <span class="log-arrow" style="font-size:14px;display:inline-block">&#9654;</span>
       <span>操作紀錄 Campaign Action Log</span>
-      <span style="font-size:10px;background:#7c3aed;color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">12 筆</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">最新：3/12 AMC 受眾已提交 · 等待 Amazon 建立</span>
+      <span style="font-size:10px;background:#7c3aed;color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">13 筆</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">最新：3/13 Pacing + Page 2 Keywords + Bid Guard + AMC API</span>
     </summary>
     <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
 
-      <!-- ── 3/12 AMC Audiences Submitted ── -->
+      <!-- ── 3/13 Pacing + Page 2 + Bid Guard + AMC API ── -->
       <details open style="margin-bottom:14px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <summary style="padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(37,99,235,.06),rgba(22,163,74,.04));font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--accent)">
+          <span class="log-arrow" style="font-size:12px;display:inline-block">&#9654;</span>
+          3/13 — PACING + PAGE 2 KEYWORDS + BID GUARD + AMC API 預算追蹤 + 第二頁加碼 + 出價驗證 + AMC 進度
+          <span style="font-size:9px;background:var(--accent);color:#fff;padding:1px 6px;border-radius:3px;font-weight:700;margin-left:auto">最新 NEW</span>
+        </summary>
+        <div style="padding:12px 14px;color:var(--text2)">
+          <div style="border-left:3px solid var(--accent);padding-left:12px;margin-bottom:12px">
+            <strong style="color:var(--accent)">策略說明 Strategy · 預算節奏 + M5F 第二頁關鍵字推進 + AMC API 連線進度</strong><br>
+            每日預算追蹤確保花費節奏正常。M5F 第二頁關鍵字（排名 41-80）透過低出價寬匹配上線，目標推進至首頁。出價天花板全帳戶掃描通過。AMC API OAuth Bearer 認證成功，但仍需連接 Instance ID。<br>
+            <span style="font-size:11px;color:var(--text3)">Budget pacing morning round. M5F Page 2 keywords launched with broad match to push rankings to page 1. Bid ceiling verified clean. AMC API OAuth Bearer auth working, needs instance connection.</span>
+          </div>
+          <div style="border-left:3px solid var(--green);padding-left:12px;margin-bottom:10px">
+            <strong style="color:var(--green)">預算追蹤 Budget Pacing（08:00 早班）</strong><br>
+            每日預算追蹤已執行，花費節奏正常
+          </div>
+          <div style="border-left:3px solid var(--green);padding-left:12px;margin-bottom:10px">
+            <strong style="color:var(--green)">第二頁關鍵字加碼 Page 2 Keywords — M5F</strong><br>
+            <strong>36 campaigns 已上線</strong> · Broad Match · Bid $0.06（30% of $0.21 cap）· Budget $1/day<br>
+            目標：將排名 41-80 的關鍵字推進至首頁（rank ≤ 40）
+          </div>
+          <div style="border-left:3px solid var(--green);padding-left:12px;margin-bottom:10px">
+            <strong style="color:var(--green)">出價天花板驗證 Bid Ceiling Guard</strong><br>
+            全帳戶掃描完成 — <strong style="color:var(--green)">CLEAN</strong> 無超標出價
+          </div>
+          <div style="border-left:3px solid var(--amber);padding-left:12px">
+            <strong style="color:var(--amber)">AMC API 進度 — OAuth Bearer 認證成功</strong><br>
+            OAuth Bearer auth 已連通，但需要 AMC Instance ID 才能完成完整連線<br>
+            <span style="font-size:11px;color:var(--text3)">OAuth Bearer authentication working. Needs AMC instance connection for full API automation.</span>
+          </div>
+        </div>
+      </details>
+
+      <!-- ── 3/12 AMC Audiences Submitted ── -->
+      <details style="margin-bottom:14px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
         <summary style="padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(217,119,6,.04));font-family:var(--mono);font-size:11.5px;font-weight:700;color:#7c3aed">
           <span class="log-arrow" style="font-size:12px;display:inline-block">&#9654;</span>
           3/12 — AMC 受眾已提交 Amazon 建立中 AMC Audiences Submitted &amp; Pending
-          <span style="font-size:9px;background:var(--amber);color:#000;padding:1px 6px;border-radius:3px;font-weight:700;margin-left:auto">最新 PENDING</span>
+          <span style="font-size:9px;background:var(--amber);color:#000;padding:1px 6px;border-radius:3px;font-weight:700;margin-left:auto">PENDING</span>
         </summary>
         <div style="padding:12px 14px;color:var(--text2)">
           <div style="border-left:3px solid #7c3aed;padding-left:12px;margin-bottom:12px">
