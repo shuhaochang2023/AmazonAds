@@ -1,82 +1,80 @@
 {
-  "timestamp": "2026-03-12 16:50",
-  "today": "2026-03-12",
-  "yesterday": "2026-03-11",
-  "yesterday_source": "API snapshot 2026-03-11 14:46",
-  "plan": "Option D",
-  "total_today_target": 1182,
-  "total_today_spend": 367.86,
-  "total_fill_pct": 31.1,
+  "timestamp": "2026-03-14 17:46",
+  "today": "2026-03-14",
+  "yesterday": "2026-03-13",
+  "total_today_target": 1030.77,
+  "total_today_spend": 0,
+  "total_fill_pct": 0.0,
   "products": [
     {
       "product": "Kids Fish Oil",
       "product_zh": "兒童魚油軟糖",
       "daily_target": 400,
-      "yesterday_spend": 224,
-      "unspent": 176,
-      "today_target": 576,
-      "today_spend": 195.30,
-      "fill_pct": 33.9
+      "yesterday_spend": 404.47,
+      "unspent": 0,
+      "today_target": 400,
+      "today_spend": 0,
+      "fill_pct": 0.0
     },
     {
       "product": "Nattokinase",
       "product_zh": "納豆激酶",
       "daily_target": 30,
-      "yesterday_spend": 8,
-      "unspent": 22,
-      "today_target": 52,
+      "yesterday_spend": 21.6,
+      "unspent": 8.4,
+      "today_target": 38.4,
       "today_spend": 0,
-      "fill_pct": 0
+      "fill_pct": 0.0
     },
     {
       "product": "Maca",
       "product_zh": "瑪卡",
       "daily_target": 160,
-      "yesterday_spend": 41,
-      "unspent": 119,
-      "today_target": 279,
+      "yesterday_spend": 73.54,
+      "unspent": 86.46,
+      "today_target": 246.46,
       "today_spend": 0,
-      "fill_pct": 0
+      "fill_pct": 0.0
     },
     {
       "product": "Bitter Melon",
       "product_zh": "苦瓜酵素",
       "daily_target": 130,
-      "yesterday_spend": 70,
-      "unspent": 60,
-      "today_target": 190,
+      "yesterday_spend": 14.09,
+      "unspent": 115.91,
+      "today_target": 245.91,
       "today_spend": 0,
-      "fill_pct": 0
+      "fill_pct": 0.0
     },
     {
       "product": "Premium Fish Oil",
       "product_zh": "頂級魚油",
       "daily_target": 30,
-      "yesterday_spend": 5,
-      "unspent": 25,
-      "today_target": 55,
+      "yesterday_spend": 0.0,
+      "unspent": 30.0,
+      "today_target": 60.0,
       "today_spend": 0,
-      "fill_pct": 0
+      "fill_pct": 0.0
     },
     {
       "product": "Lutein",
       "product_zh": "葉黃素",
       "daily_target": 20,
-      "yesterday_spend": 25,
+      "yesterday_spend": 21.81,
       "unspent": 0,
       "today_target": 20,
       "today_spend": 0,
-      "fill_pct": 0
+      "fill_pct": 0.0
     },
     {
       "product": "Vitamins",
       "product_zh": "維生素",
       "daily_target": 10,
-      "yesterday_spend": 11,
-      "unspent": 0,
-      "today_target": 10,
+      "yesterday_spend": 0,
+      "unspent": 10,
+      "today_target": 20,
       "today_spend": 0,
-      "fill_pct": 0
+      "fill_pct": 0.0
     }
   ]
 }
