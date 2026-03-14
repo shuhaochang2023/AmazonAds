@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEO · US Market — Feb–Mar 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f1f5f9;--bg2:#ffffff;--bg3:#f8fafc;
+  --border:#e2e8f0;--border2:#cbd5e1;
+  --text:#0f172a;--text2:#475569;--text3:#94a3b8;
+  --accent:#2563eb;--green:#16a34a;--amber:#d97706;--red:#dc2626;
+  --mono:'JetBrains Mono',monospace;--display:'Inter',sans-serif;--body:'Outfit',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.6;min-height:100vh;}
+nav{background:var(--bg2);border-bottom:1px solid var(--border);height:54px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.nav-inner{max-width:1600px;margin:0 auto;display:flex;align-items:center;height:54px;padding:0 32px;gap:0;}
+.nav-brand{font-family:var(--display);font-size:15px;font-weight:800;color:var(--accent);letter-spacing:.04em;margin-right:24px;white-space:nowrap;display:flex;align-items:center;gap:8px;}
+.market-tag{font-size:9px;font-family:var(--mono);background:var(--accent);color:#fff;padding:2px 6px;border-radius:3px;font-weight:600;}
+.tabs{display:flex;gap:2px;flex:1;overflow-x:auto;}.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{padding:0 15px;height:54px;background:none;border:none;color:var(--text2);font-family:var(--body);font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;}
+.tab-btn:hover{color:var(--text);}.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.meta{font-family:var(--mono);font-size:10px;color:var(--text3);border:1px solid var(--border2);padding:3px 8px;border-radius:3px;margin-left:auto;white-space:nowrap;}
+.panel{display:none;padding:32px;min-height:calc(100vh - 54px);max-width:1600px;margin:0 auto;}.panel.active{display:block;}
+.kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 5px rgba(0,0,0,.06);}
+.kpi-card{background:var(--bg2);padding:18px 22px;}
+.kpi-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;font-family:var(--mono);}
+.kpi-value{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--text);}
+.kpi-sub{font-size:11px;color:var(--text2);margin-top:3px;}
+.kpi-green{color:var(--green);}.kpi-amber{color:var(--amber);}.kpi-red{color:var(--red);}
+.week-btn{padding:6px 16px;border-radius:4px;font-size:11.5px;cursor:pointer;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);font-family:var(--mono);font-weight:600;transition:all .12s;}
+.week-btn:hover{color:var(--text);border-color:var(--accent);}.week-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.chart-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px;box-shadow:0 1px 5px rgba(0,0,0,.06);}
+.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border);box-shadow:0 1px 5px rgba(0,0,0,.05);}
+table{width:100%;border-collapse:collapse;min-width:600px;}
+thead th{background:var(--bg3);color:var(--text3);font-size:9px;text-transform:uppercase;letter-spacing:.1em;padding:7px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--border);font-family:var(--mono);font-weight:600;}
+thead th:first-child{text-align:left;}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:rgba(15,23,42,.025);}
+tbody td{padding:6px 10px;text-align:right;font-family:var(--mono);font-size:11.5px;vertical-align:middle;}
+tbody td:first-child{text-align:left;font-family:var(--body);font-size:13px;}
+.asin-link{color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:10px;}
+.asin-link:hover{text-decoration:underline;}
+.week-group th{background:var(--bg2);color:var(--text2);font-size:9px;}
+.muted{color:var(--text3);}
+.sec-header{font-family:var(--display);font-size:13px;font-weight:700;color:var(--text2);letter-spacing:.04em;text-transform:uppercase;padding:16px 0 10px;border-bottom:1px solid var(--border);margin-bottom:12px;}
+.tacos-ok{color:var(--green);}.tacos-warn{color:var(--amber);}.tacos-bad{color:var(--red);}
+/* Parent row toggle */
+.parent-row{cursor:pointer;user-select:none;}
+.parent-row:hover td{background:rgba(15,23,42,.03);}
+.toggle-icon{display:inline-block;width:14px;transition:transform .15s;}
+.child-rows{}.child-rows.collapsed tr{display:none;}
+/* Action cards */
+.action-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.action-card-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.action-card-title{font-family:var(--display);font-size:16px;font-weight:700;}
+.action-card-badge{font-size:9px;font-family:var(--mono);padding:3px 8px;border-radius:3px;font-weight:600;}
+.badge-star{background:rgba(22,163,74,.12);color:var(--green);border:1px solid rgba(31,219,138,.3);}
+.badge-question{background:rgba(217,119,6,.1);color:var(--amber);border:1px solid rgba(245,166,35,.3);}
+.badge-cut{background:rgba(220,38,38,.1);color:var(--red);border:1px solid rgba(240,75,75,.3);}
+.badge-potential{background:rgba(37,99,235,.1);color:var(--accent);border:1px solid rgba(91,138,240,.3);}
+.badge-now{background:rgba(220,38,38,.1);color:var(--red);border:1px solid rgba(240,75,75,.3);}
+.badge-next{background:rgba(37,99,235,.1);color:var(--accent);border:1px solid rgba(91,138,240,.3);}
+.action-tasks{display:flex;flex-direction:column;gap:8px;}
+.action-task{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--bg3);border-radius:6px;border:1px solid var(--border);}
+.action-task input[type=checkbox]{margin-top:2px;accent-color:var(--accent);width:14px;height:14px;flex-shrink:0;}
+.action-task.done{opacity:.35;}
+.action-task.done .task-text{text-decoration:line-through;}
+.task-text{font-size:12.5px;color:var(--text2);line-height:1.5;}
+.task-type{font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:2px;background:var(--bg);color:var(--text3);border:1px solid var(--border2);flex-shrink:0;margin-top:2px;}
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;}
+.q-card-title{font-family:var(--display);font-size:13px;font-weight:700;margin-bottom:8px;}
+.q-card-body{font-size:11px;color:var(--text2);line-height:1.7;}
+.done-cb{cursor:pointer;accent-color:var(--accent);width:14px;height:14px;}
+tr.done-row td{opacity:.35;text-decoration:line-through;}
+
+/* ── childTable freeze pane ── */
+#childTable-wrap{max-height:calc(100vh - 160px);overflow:auto;border-radius:10px;border:1px solid var(--border);box-shadow:0 1px 5px rgba(0,0,0,.05);}
+#childTable thead tr:nth-child(1) th{position:sticky;top:0;z-index:4;background:var(--bg3);}
+#childTable thead tr:nth-child(2) th{position:sticky;z-index:3;background:var(--bg2);}
+#childTable thead tr:nth-child(1) th.col-freeze{z-index:6;}
+#childTable thead tr:nth-child(2) th.col-freeze{z-index:5;}
+#childTable th.col-freeze,#childTable td.col-freeze{position:sticky;left:0;z-index:2;box-shadow:2px 0 4px -1px rgba(0,0,0,.08);}
+#childTable tbody td.col-freeze{background:var(--bg2);}
+#childTable .parent-row td.col-freeze{background:inherit;}
+#childTable tfoot td.col-freeze{background:var(--bg3);}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+  <div class="nav-brand">GEO <span class="market-tag">US</span></div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('t1',this)">📊 銷售 &amp; 廣告佔比</button>
+    <button class="tab-btn" onclick="showTab('t2',this)">📅 週對週數據</button>
+    <button class="tab-btn" onclick="showTab('t3',this)">📈 WoW 變化</button>
+    <button class="tab-btn" onclick="showTab('t4',this)">🎯 產品象限</button>
+    <button class="tab-btn" onclick="showTab('t5',this)">✅ 行動方案</button>
+  </div>
+  <div class="meta">Feb 2026 · SP+SD+SB · TACOS ≤10%</div>
+  </div>
+</nav>
+
+<!-- TAB 1 -->
+<div id="t1" class="panel active">
+  <div style="margin-bottom:16px">
+    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">全產品線佔比分析 · US Market</div>
+    <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">Sales &amp; Ad Spend — Feb–Mar 2026</div>
+    <div style="font-size:11px;color:var(--text3)">數據來源：ScaleInsight · 目標 TACOS ≤ 70% · SP+SD+SB 合計</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    <button class="week-btn active" onclick="switchWeek('all',this)">6W 合計</button>
+    <button class="week-btn" onclick="switchWeek('W1',this)">W1 Feb 1/7</button>
+    <button class="week-btn" onclick="switchWeek('W2',this)">W2 Feb 8/14</button>
+    <button class="week-btn" onclick="switchWeek('W3',this)">W3 Feb 15/21</button>
+    <button class="week-btn" onclick="switchWeek('W4',this)">W4 Feb 22/28</button>
+    <button class="week-btn" onclick="switchWeek('W5',this)">W5 Mar 1/7</button>
+    <button class="week-btn" onclick="switchWeek('W6',this)">W6 Mar 8/14</button>
+  </div>
+  <div class="kpi-strip" id="kpi-t1"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+    <div class="chart-card">
+      <div style="font-size:13px;font-weight:600;margin-bottom:4px">產品營業額佔比</div>
+      <div style="font-size:10px;color:var(--text3);margin-bottom:14px;font-family:var(--mono)">SALES DISTRIBUTION</div>
+      <div style="display:flex;gap:20px;align-items:flex-start">
+        <div style="flex-shrink:0;position:relative">
+          <canvas id="salesPie" width="160" height="160"></canvas>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none">
+            <div style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text)" id="salesTotalLbl"></div>
+            <div style="font-size:8px;color:var(--text3)">TOTAL</div>
+          </div>
+        </div>
+        <div id="salesList" style="flex:1;display:flex;flex-direction:column;gap:0;overflow-y:auto;max-height:220px"></div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div style="font-size:13px;font-weight:600;margin-bottom:4px">廣告花費佔比</div>
+      <div style="font-size:10px;color:var(--text3);margin-bottom:14px;font-family:var(--mono)">AD SPEND DISTRIBUTION</div>
+      <div style="display:flex;gap:20px;align-items:flex-start">
+        <div style="flex-shrink:0;position:relative">
+          <canvas id="adsPie" width="160" height="160"></canvas>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none">
+            <div style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text)" id="adsTotalLbl"></div>
+            <div style="font-size:8px;color:var(--text3)">AD SPEND</div>
+          </div>
+        </div>
+        <div id="adsList" style="flex:1;display:flex;flex-direction:column;gap:0;overflow-y:auto;max-height:220px"></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec-header">產品銷售明細 — 點擊產品名稱可展開 / 收合子變體</div>
+  <div id="childTable-wrap"><table id="childTable"></table></div>
+</div>
+
+<!-- TAB 2 -->
+<div id="t2" class="panel">
+  <div class="kpi-strip" id="kpi-t2"></div>
+  <div class="table-wrap"><table id="wowTable"></table></div>
+</div>
+
+<!-- TAB 3 -->
+<div id="t3" class="panel">
+  <div class="sec-header">Week-over-Week % 變化 — Sales · Spend · TACOS · Units</div>
+  <div class="table-wrap"><table id="heatTable"></table></div>
+</div>
+
+<!-- TAB 4 -->
+<div id="t4" class="panel">
+  <div class="kpi-strip" id="kpi-t4"></div>
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:16px;margin-bottom:20px;align-items:start">
+    <div class="chart-card" style="padding:16px">
+      <canvas id="quadCanvas" width="640" height="480"></canvas>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="qCards"></div>
+  </div>
+</div>
+
+<!-- TAB 5 — 行動方案 -->
+<div id="t5" class="panel">
+  <div style="margin-bottom:20px">
+    <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">行動方案 Action Plan</div>
+    <div style="font-size:11px;color:var(--text3)">依象限分類 · 勾選完成項目 · 對應 Bulk File 操作</div>
+  </div>
+  <div id="actionCards"></div>
+</div>
+
+<script>
+const PARENTS = {"B0DF7QSTG3": {"name": "M5 Case", "short": "M5 Case", "color": "#3b82f6", "children": ["B0DGFS7QTL", "B0DGFX3T34", "B0DGFW4N61", "B0G1MF7Q2S", "B0DGFW5G2G", "B0DF7RVRW2", "B0DF7S4HT1", "B0DF7SBFMV", "B0DF7RPQLC"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 7445.1, "spsd": 741.3, "sbsp": 138.16, "spend": 879.46, "units": 50, "organic": 36, "ppc": 17, "profits": 4131.3, "tacos": 11.8}, "W6": {"sales": 8304.5, "spsd": 479.19, "sbsp": 122.78, "spend": 601.97, "units": 56, "organic": 43, "ppc": 20, "profits": 5373.43, "tacos": 7.2}}, "total_sales": 15749.6, "total_spend": 1481.43, "total_spsd": 1220.49, "tacos_4w": 9.4, "sb_attr": 7025.4}, "B0DHX988D9": {"name": "Eskimo Pro 360", "short": "Eskimo Pro 360", "color": "#a855f7", "children": ["B0DHXCYKR6", "B0DHXG3QPM", "B0DHX99JLW", "B0DHXBW5GW"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 1368.7, "spsd": 10.54, "sbsp": 11.88, "spend": 22.42, "units": 13, "organic": 11, "ppc": 2, "profits": 957.99, "tacos": 1.6}, "W6": {"sales": 1069.0, "spsd": 6.9, "sbsp": 10.55, "spend": 17.45, "units": 10, "organic": 9, "ppc": 3, "profits": 822.05, "tacos": 1.6}}, "total_sales": 2437.7, "total_spend": 39.87, "total_spsd": 17.44, "tacos_4w": 1.6, "sb_attr": 1148.9}, "B0DGGX648W": {"name": "S2503 140mm Fan", "short": "S2503 140mm Fan", "color": "#22c55e", "children": ["B0DGNSZNRH", "B0DGGVRBX2", "B0DGP17VXV", "B0DGGW9Z3T", "B0DGGXJBKN", "B0DGP1TPR5", "B0DGGW7RXF", "B0DGP3TP6G"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 763.1, "spsd": 22.31, "sbsp": 0.0, "spend": 22.31, "units": 21, "organic": 18, "ppc": 12, "profits": 545.44, "tacos": 2.9}, "W6": {"sales": 538.6, "spsd": 17.25, "sbsp": 0.0, "spend": 17.25, "units": 15, "organic": 12, "ppc": 7, "profits": 221.8, "tacos": 3.2}}, "total_sales": 1301.7, "total_spend": 39.56, "total_spsd": 39.56, "tacos_4w": 3.0, "sb_attr": 14.9}, "B09X1KD6NH": {"name": "M8 Case", "short": "M8 Case", "color": "#ef4444", "children": ["B09SG8GKCF", "B09SG8P2RN", "B0FMSRV5K5"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 519.7, "spsd": 64.58, "sbsp": 0.0, "spend": 64.58, "units": 3, "organic": 3, "ppc": 2, "profits": 343.02, "tacos": 12.4}, "W6": {"sales": 179.9, "spsd": 26.02, "sbsp": 0.0, "spend": 26.02, "units": 1, "organic": 1, "ppc": 0, "profits": 115.98, "tacos": 14.5}}, "total_sales": 699.6, "total_spend": 90.6, "total_spsd": 90.6, "tacos_4w": 13.0, "sb_attr": 0}, "B0DGM9VDFZ": {"name": "M5 Vent Case", "short": "M5 Vent Case", "color": "#f59e0b", "children": ["B0DGLYNG22", "B0DF7TJDRW", "B0DGLXHM2Q", "B0DGLYKDPX", "B0DGLWZW1M", "B0DF7R9WJN"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 669.5, "spsd": 80.79, "sbsp": 0.0, "spend": 80.79, "units": 5, "organic": 4, "ppc": 5, "profits": 268.79, "tacos": 12.1}, "W6": {"sales": 379.7, "spsd": 60.98, "sbsp": 0.0, "spend": 60.98, "units": 3, "organic": 3, "ppc": 1, "profits": 59.89, "tacos": 16.1}}, "total_sales": 1049.2, "total_spend": 141.77, "total_spsd": 141.77, "tacos_4w": 13.5, "sb_attr": 599.6}, "B0CKWQX52V": {"name": "M4 King Arthur", "short": "M4 King Arthur", "color": "#f97316", "children": ["B0CFFDHPKN", "B0CFFCXLCF", "B0G1M9NVSV"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 99.9, "spsd": 90.0, "sbsp": 0.0, "spend": 90.0, "units": 1, "organic": 1, "ppc": 1, "profits": -110.55, "tacos": 90.1}, "W6": {"sales": 199.8, "spsd": 58.3, "sbsp": 0.0, "spend": 58.3, "units": 2, "organic": 2, "ppc": 0, "profits": 87.62, "tacos": 29.2}}, "total_sales": 299.7, "total_spend": 148.3, "total_spsd": 148.3, "tacos_4w": 49.5, "sb_attr": 0}, "B0CRTD8V77": {"name": "S2503R 120mm Fan", "short": "S2503R 120mm Fan", "color": "#ec4899", "children": ["B0CHR85N54"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 19.9, "spsd": 6.69, "sbsp": 0.0, "spend": 6.69, "units": 1, "organic": 0, "ppc": 1, "profits": 5.84, "tacos": 33.6}, "W6": {"sales": 159.2, "spsd": 2.7, "sbsp": 0.0, "spend": 2.7, "units": 8, "organic": 6, "ppc": 5, "profits": 108.52, "tacos": 1.7}}, "total_sales": 179.1, "total_spend": 9.39, "total_spsd": 9.39, "tacos_4w": 5.2, "sb_attr": 19.9}, "B0DJ2X2SK8": {"name": "S2503 120mm Fan", "short": "S2503 120mm Fan", "color": "#06b6d4", "children": ["B0B3XDL218", "B0B3XFZN7C", "B0CHR7XPVX"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 149.7, "spsd": 1.03, "sbsp": 0.0, "spend": 1.03, "units": 4, "organic": 4, "ppc": 0, "profits": 22.21, "tacos": 0.7}, "W6": {"sales": 99.8, "spsd": 3.19, "sbsp": 0.0, "spend": 3.19, "units": 2, "organic": 2, "ppc": 1, "profits": 77.79, "tacos": 3.2}}, "total_sales": 249.5, "total_spend": 4.22, "total_spsd": 4.22, "tacos_4w": 1.7, "sb_attr": 0.0}, "B09X697T7N": {"name": "M6 Case", "short": "M6 Case", "color": "#14b8a6", "children": ["B09SG823XL"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.63, "sbsp": 0.0, "spend": 0.63, "units": 0, "organic": 0, "ppc": 0, "profits": -0.63, "tacos": null}, "W6": {"sales": 0.0, "spsd": 0.84, "sbsp": 0.0, "spend": 0.84, "units": 0, "organic": 0, "ppc": 0, "profits": -85.0, "tacos": null}}, "total_sales": 0.0, "total_spend": 1.47, "total_spsd": 1.47, "tacos_4w": null, "sb_attr": 0}};
+const CHILD_DATA = [{"asin": "B0DGFS7QTL", "parent": "B0DF7QSTG3", "parent_short": "M5 Case", "color": "#3b82f6", "name": "Geometric Future M5 Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, 1.2mm Steel, Type C, Toolless Panels, Support 420/360 Radiator, ARGB PWM 140m Fan x 5 Pre-Installed, Black/Green, GEO-M5F-BNY", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 2558.4, "spend": 607.24, "units": 17, "organic": 7}, "W6": {"sales": 2878.2, "spend": 382.17, "units": 19, "organic": 11}}, "total_sales": 5436.6}, {"asin": "B0DGFX3T34", "parent": "B0DF7QSTG3", "parent_short": "M5 Case", "color": "#3b82f6", "name": "Geometric Future M5 Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, 1.2mm Steel, Type C, Toolless Panels, Support 420/360 Radiator, ARGB PWM 140m Fan x 5 Pre-Installed, Black/Grey, GEO-M5F-BG", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 1798.8, "spend": 10.62, "units": 12, "organic": 10}, "W6": {"sales": 1648.9, "spend": 11.13, "units": 11, "organic": 11}}, "total_sales": 3447.7}, {"asin": "B0DGFW4N61", "parent": "B0DF7QSTG3", "parent_short": "M5 Case", "color": "#3b82f6", "name": "Geometric Future M5 Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, 1.2mm Steel, Type C, Toolless Panels, Support 420/360 Radiator, ARGB PWM 140m Fan x 5 Pre-Installed, Black/Yellow, GEO-M5F-BY", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 1499.0, "spend": 37.96, "units": 10, "organic": 9}, "W6": {"sales": 1648.9, "spend": 26.33, "units": 11, "organic": 7}}, "total_sales": 3147.9}, {"asin": "B0DHXCYKR6", "parent": "B0DHX988D9", "parent_short": "Eskimo Pro 360", "color": "#a855f7", "name": "Geometric Future Eskimo Pro - 420mm AIO CPU Liquid Water Cooler- RGB PWM Squama 2503B 140mm Fan x 3- Fit Intel® LGA 1700, AMD®AM5 - Black- (GEO-EP-42B)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 879.2, "spend": 4.28, "units": 8, "organic": 6}, "W6": {"sales": 879.2, "spend": 3.01, "units": 8, "organic": 8}}, "total_sales": 1758.4}, {"asin": "B0G1MF7Q2S", "parent": "B0DF7QSTG3", "parent_short": "M5 Case", "color": "#3b82f6", "name": "Geometric Future M5 Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, 1.2mm Steel, Type C, Toolless Panels, Support 420/360 Radiator, ARGB PWM 140m Fan x 5 Pre-Installed, Black/Blue, GEO-M5F-BTB", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 799.5, "spend": 32.62, "units": 5, "organic": 5}, "W6": {"sales": 639.6, "spend": 20.13, "units": 4, "organic": 4}}, "total_sales": 1439.1}, {"asin": "B0DGFW5G2G", "parent": "B0DF7QSTG3", "parent_short": "M5 Case", "color": "#3b82f6", "name": "Geometric Future M5 Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, 1.2mm Steel, Type C, Toolless Panels, Support 420/360 Radiator, ARGB PWM 140m Fan x 5 Pre-Installed, White, GEO-M5F-W", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 319.8, "spend": 20.63, "units": 2, "organic": 1}, "W6": {"sales": 799.5, "spend": 18.89, "units": 5, "organic": 5}}, "total_sales": 1119.3}, {"asin": "B0DF7RVRW2", "parent": "B0DF7QSTG3", "parent_short": "M5 Case", "color": "#3b82f6", "name": "Geometric Future M5 Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, 1.2mm Steel, Type C, Toolless Panels, Support 420/360 Radiator, Dual-Chamber, Black/Green, GEO-M5-BNY", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 239.8, "spend": 7.19, "units": 2, "organic": 2}, "W6": {"sales": 239.8, "spend": 4.08, "units": 2, "organic": 2}}, "total_sales": 479.6}, {"asin": "B0DHXG3QPM", "parent": "B0DHX988D9", "parent_short": "Eskimo Pro 360", "color": "#a855f7", "name": "Geometric Future Eskimo Pro - 420mm AIO CPU Liquid Water Cooler- RGB PWM Squama 2503W 140mm Fan x 3- Fit Intel® LGA 1700, AMD®AM5 - White- (GEO-EP-42W)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 329.7, "spend": 2.6, "units": 3, "organic": 3}, "W6": {"sales": 109.9, "spend": 1.94, "units": 1, "organic": 1}}, "total_sales": 439.6}, {"asin": "B0DGNSZNRH", "parent": "B0DGGX648W", "parent_short": "S2503 140mm Fan", "color": "#22c55e", "name": "Geometric Future Squama 2503R Reverse Blade RGB PWM Fan - 140mm - 3 Pack – Performance & Silent Balance - Dual Lighting Loop - 5V 3pin addressable RGB - 4pin PWM - White(GEO-S2503RW-14T)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 249.5, "spend": 1.28, "units": 5, "organic": 4}, "W6": {"sales": 149.7, "spend": 0.66, "units": 3, "organic": 2}}, "total_sales": 399.2}, {"asin": "B09SG8GKCF", "parent": "B09X1KD6NH", "parent_short": "M8 Case", "color": "#ef4444", "name": "Geometric Future M8 Cowboy Mid Tower E-ATX/ATX Gaming Case, Aluminum/Cowhide/Glass/1.0mm Steel, Vertical Air Tunnel Design, Support Type C, 420/360 Radiator, Vertical GPU Mount, GEO-M8-COW(Case ONLY)…", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 179.9, "spend": 22.73, "units": 1, "organic": 1}, "W6": {"sales": 179.9, "spend": 24.74, "units": 1, "organic": 1}}, "total_sales": 359.8}, {"asin": "B0DGGVRBX2", "parent": "B0DGGX648W", "parent_short": "S2503 140mm Fan", "color": "#22c55e", "name": "Geometric Future Squama 2503 RGB PWM Fan - 140mm - 3 Pack – Performance & Silent Balance - Dual Lighting Loop - 5V 3pin addressable RGB - 4pin PWM - Black (GEO-S2503B-14T)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 199.6, "spend": 4.45, "units": 4, "organic": 2}, "W6": {"sales": 149.7, "spend": 3.7, "units": 3, "organic": 2}}, "total_sales": 349.3}, {"asin": "B09SG8P2RN", "parent": "B09X1KD6NH", "parent_short": "M8 Case", "color": "#ef4444", "name": "Geometric Future M8 Dharma Mid Tower E-ATX/ATX Gaming Case, Aluminum/Glass/1.0 mm Steel, Vertical Air Tunnel Design, Support Type C, 420/360 Radiator, Vertical GPU Mount, GEO-M8-DHA (PC Case ONLY)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 339.8, "spend": 41.64, "units": 2, "organic": 2}, "W6": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 339.8}, {"asin": "B0DGLYNG22", "parent": "B0DGM9VDFZ", "parent_short": "M5 Vent Case", "color": "#f59e0b", "name": "Geometric Future M5 Vent Mesh Panel Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, High Airflow, 1.2mm Steel, Type C, Support 420/360 Radiator, ARGB PWM 140m fan x 5 Pre-Installed, Black, GEO-M5VF-B", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 299.8, "spend": 16.42, "units": 2, "organic": 2}, "W6": {"sales": 0.0, "spend": 11.0, "units": 0, "organic": 0}}, "total_sales": 299.8}, {"asin": "B0CFFDHPKN", "parent": "B0CKWQX52V", "parent_short": "M4 King Arthur", "color": "#f97316", "name": "Geometric Future M4 King Arthur Black mid/Mini Tower, E-ATX/ATX Gaming Case, Glass/ 1.2mm Steel, Vertical Air Tunnel Design, Type C, 360/240 Radiator, Vertical GPU Mount, GEO-M4-KAB(PC Case ONLY)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 99.9, "spend": 51.89, "units": 1, "organic": 1}, "W6": {"sales": 199.8, "spend": 42.95, "units": 2, "organic": 2}}, "total_sales": 299.7}, {"asin": "B0DF7S4HT1", "parent": "B0DF7QSTG3", "parent_short": "M5 Case", "color": "#3b82f6", "name": "Geometric Future M5 Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, 1.2mm Steel, Type C, Toolless Panels, Support 420/360 Radiator, Dual-Chamber, White, GEO-M5-W", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 119.9, "spend": 5.49, "units": 1, "organic": 1}, "W6": {"sales": 119.9, "spend": 5.19, "units": 1, "organic": 1}}, "total_sales": 239.8}, {"asin": "B0DHX99JLW", "parent": "B0DHX988D9", "parent_short": "Eskimo Pro 360", "color": "#a855f7", "name": "Geometric Future Eskimo Pro - 360mm AIO CPU Liquid Water Cooler- RGB PWM Squama 2501B Fan x 3- Fit Intel® LGA 1700, AMD®AM5 - Black- (GEO-EP-36B)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 159.8, "spend": 2.1, "units": 2, "organic": 2}, "W6": {"sales": 79.9, "spend": 0.74, "units": 1, "organic": 0}}, "total_sales": 239.7}, {"asin": "B0DF7TJDRW", "parent": "B0DGM9VDFZ", "parent_short": "M5 Vent Case", "color": "#f59e0b", "name": "Geometric Future M5 Vent Mesh Front Panel Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, High Airflow, 1.2mm Steel, Type C, Support 420/360 Radiator, Dual-Chamber, Black/Yellow, GEO-M5V-BY", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 109.9, "spend": 27.32, "units": 1, "organic": 1}, "W6": {"sales": 109.9, "spend": 23.55, "units": 1, "organic": 1}}, "total_sales": 219.8}, {"asin": "B0DF7SBFMV", "parent": "B0DF7QSTG3", "parent_short": "M5 Case", "color": "#3b82f6", "name": "Geometric Future M5 Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, 1.2mm Steel, Type C, Toolless Panels, Support 420/360 Radiator, Dual-Chamber, Black/Yellow, GEO-M5-BY", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 109.9, "spend": 9.53, "units": 1, "organic": 1}, "W6": {"sales": 109.9, "spend": 6.62, "units": 1, "organic": 0}}, "total_sales": 219.8}, {"asin": "B0DF7RPQLC", "parent": "B0DF7QSTG3", "parent_short": "M5 Case", "color": "#3b82f6", "name": "Geometric Future M5 Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, 1.2mm Steel, Type C, Toolless Panels, Support 420/360 Radiator, Dual-Chamber, Black/Grey, GEO-M5-BG", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 10.02, "units": 0, "organic": 0}, "W6": {"sales": 219.8, "spend": 4.65, "units": 2, "organic": 2}}, "total_sales": 219.8}, {"asin": "B0DGLXHM2Q", "parent": "B0DGM9VDFZ", "parent_short": "M5 Vent Case", "color": "#f59e0b", "name": "Geometric Future M5 Vent Mesh Front Panel Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, High Airflow, 1.2mm Steel, Type C, Support 420/360 Radiator, Dual-Chamber, Black, GEO-M5V-B", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 109.9, "spend": 20.58, "units": 1, "organic": 1}, "W6": {"sales": 109.9, "spend": 14.9, "units": 1, "organic": 1}}, "total_sales": 219.8}, {"asin": "B0DGP17VXV", "parent": "B0DGGX648W", "parent_short": "S2503 140mm Fan", "color": "#22c55e", "name": "Geometric Future Squama 2503R Reverse Blade RGB PWM Fan - 140mm - 3 Pack – Performance & Silent Balance - Dual Lighting Loop - 5V 3pin addressable RGB - 4pin PWM - Black(GEO-S2503RB-14T)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 49.9, "spend": 3.64, "units": 3, "organic": 3}, "W6": {"sales": 149.7, "spend": 3.63, "units": 3, "organic": 3}}, "total_sales": 199.6}, {"asin": "B0CHR85N54", "parent": "B0CRTD8V77", "parent_short": "S2503R 120mm Fan", "color": "#ec4899", "name": "Geometric Future Squama 2503R Reverse Blade RGB PWM Fan-120mm-1 Pack-Performance & Silent Balance-Dual Lighting Loop-Motherboard SYNC with 5V 3pin - 4pin PWM-Black (GEO-S2503RB-1)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 19.9, "spend": 6.69, "units": 1, "organic": 0}, "W6": {"sales": 159.2, "spend": 2.7, "units": 8, "organic": 6}}, "total_sales": 179.1}, {"asin": "B0DGLYKDPX", "parent": "B0DGM9VDFZ", "parent_short": "M5 Vent Case", "color": "#f59e0b", "name": "Geometric Future M5 Vent Mesh Panel Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, High Airflow, 1.2mm Steel, Type C, Support 420/360 Radiator, ARGB PWM 140m fan x 5 Pre-Installed, White, GEO-M5VF-W", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W6": {"sales": 159.9, "spend": 0.0, "units": 1, "organic": 1}}, "total_sales": 159.9}, {"asin": "B0DGLWZW1M", "parent": "B0DGM9VDFZ", "parent_short": "M5 Vent Case", "color": "#f59e0b", "name": "Geometric Future M5 Vent, Mesh Panel Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, High Airflow, Type C, Support 420/360 Rad, ARGB PWM 140mm Fan x 5 Pre-Installed, Black/Yellow, GEO-M5VF-BY", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 149.9, "spend": 14.4, "units": 1, "organic": 0}, "W6": {"sales": 0.0, "spend": 9.91, "units": 0, "organic": 0}}, "total_sales": 149.9}, {"asin": "B0B3XDL218", "parent": "B0DJ2X2SK8", "parent_short": "S2503 120mm Fan", "color": "#06b6d4", "name": "Squama 2503 RGB PWM Fan - 120mm - 3 Pack – Performance & Silent Balance - Dual Lighting Loop - Motherboard SYNC with 5V 3pin - 4pin PWM - White (GEO-S2503W-3)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 49.9, "spend": 0.0, "units": 1, "organic": 1}, "W6": {"sales": 99.8, "spend": 0.63, "units": 2, "organic": 2}}, "total_sales": 149.7}, {"asin": "B0DGGW9Z3T", "parent": "B0DGGX648W", "parent_short": "S2503 140mm Fan", "color": "#22c55e", "name": "Geometric Future Squama 2503 RGB PWM Fan - 140mm - 3 Pack – Performance & Silent Balance - Dual Lighting Loop - 5V 3pin addressable RGB - 4pin PWM - White(GEO-S2503W-14T)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 149.7, "spend": 0.88, "units": 3, "organic": 3}, "W6": {"sales": 0.0, "spend": 0.22, "units": 1, "organic": 1}}, "total_sales": 149.7}, {"asin": "B0B3XFZN7C", "parent": "B0DJ2X2SK8", "parent_short": "S2503 120mm Fan", "color": "#06b6d4", "name": "Squama 2503 RGB PWM Fan - 120mm - 3 Pack – Performance & Silent Balance - Dual Lighting Loop - Motherboard SYNC with 5V 3pin - 4pin PWM - Black (GEO-S2503B-3)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 99.8, "spend": 0.21, "units": 3, "organic": 3}, "W6": {"sales": 0.0, "spend": 1.77, "units": 0, "organic": 0}}, "total_sales": 99.8}, {"asin": "B0DGGXJBKN", "parent": "B0DGGX648W", "parent_short": "S2503 140mm Fan", "color": "#22c55e", "name": "Geometric Future Squama 2503 RGB PWM Fan - 140mm - 1 Pack – Performance & Silent Balance - Dual Lighting Loop - 5V 3pin addressable RGB - 4pin PWM - Black (GEO-S2503B-14S)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 39.8, "spend": 2.39, "units": 2, "organic": 2}, "W6": {"sales": 59.7, "spend": 2.01, "units": 3, "organic": 3}}, "total_sales": 99.5}, {"asin": "B0DGP1TPR5", "parent": "B0DGGX648W", "parent_short": "S2503 140mm Fan", "color": "#22c55e", "name": "Geometric Future Squama 2503R Reverse Blade RGB PWM Fan - 140mm - 1 Pack – Performance & Silent Balance - Dual Lighting Loop - 5V 3pin addressable RGB - 4pin PWM - Black(GEO-S2503RB-14S)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 14.9, "spend": 7.03, "units": 1, "organic": 1}, "W6": {"sales": 29.8, "spend": 5.97, "units": 2, "organic": 1}}, "total_sales": 44.7}, {"asin": "B0DGGW7RXF", "parent": "B0DGGX648W", "parent_short": "S2503 140mm Fan", "color": "#22c55e", "name": "Geometric Future Squama 2503 RGB PWM Fan - 140mm - 1 Pack – Performance & Silent Balance - Dual Lighting Loop - 5V 3pin addressable RGB - 4pin PWM - White (GEO-S2503W-14S)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 39.8, "spend": 1.76, "units": 2, "organic": 2}, "W6": {"sales": 0.0, "spend": 0.64, "units": 0, "organic": 0}}, "total_sales": 39.8}, {"asin": "B0DGP3TP6G", "parent": "B0DGGX648W", "parent_short": "S2503 140mm Fan", "color": "#22c55e", "name": "Geometric Future Squama 2503R Reverse Blade RGB PWM Fan - 140mm - 1 Pack – Performance & Silent Balance - Dual Lighting Loop - 5V 3pin addressable RGB - 4pin PWM - White(GEO-S2503RW-14S)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 19.9, "spend": 0.88, "units": 1, "organic": 1}, "W6": {"sales": 0.0, "spend": 0.42, "units": 0, "organic": 0}}, "total_sales": 19.9}, {"asin": "B0CFFCXLCF", "parent": "B0CKWQX52V", "parent_short": "M4 King Arthur", "color": "#f97316", "name": "Geometric Future M4 King Arthur White, mid/Mini Tower, E-ATX/ATX Gaming Case, Glass/ 1.2mm Steel, Vertical Air Tunnel Design, Type C, 360/240 Radiator, Vertical GPU Mount,GEO-M4-KAW(PC Case ONLY)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 38.11, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 15.35, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DHXBW5GW", "parent": "B0DHX988D9", "parent_short": "Eskimo Pro 360", "color": "#a855f7", "name": "Geometric Future Eskimo Pro - 360mm AIO CPU Liquid Water Cooler- RGB PWM Squama 2501W Fan x 3- Fit Intel® LGA 1700, AMD®AM5 -White- (GEO-EP-36W)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 1.56, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 1.21, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0FMSRV5K5", "parent": "B09X1KD6NH", "parent_short": "M8 Case", "color": "#ef4444", "name": "Geometric Future M8 Bohemia Mid Tower E-ATX/ATX Gaming Case, Aluminum/Glass/1.0 mm Steel, Vertical Air Tunnel Design, Support Type C, 420/360 Radiator, Vertical GPU Mount, GEO-M8-BOH (PC Case ONLY)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.21, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 1.28, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B09SG823XL", "parent": "B09X697T7N", "parent_short": "M6 Case", "color": "#14b8a6", "name": "Geometric Future M6 Cezanne White Mid Tower 12\" x11”MB/ATX Gaming Case, 4mm Glass/0.8 mm Steel with Vertical Air Duct Design, Support 360 Radiator, Vertical GPU Mount, GEO-M6-CEW (PC Case ONLY)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.63, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 0.84, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CHR7XPVX", "parent": "B0DJ2X2SK8", "parent_short": "S2503 120mm Fan", "color": "#06b6d4", "name": "Geometric Future Squama 2503R Reverse Blade RGB PWM Fan-120mm-1 Pack-Performance & Silent Balance-Dual Lighting Loop-Motherboard SYNC with 5V 3pin - 4pin PWM-White(GEO-S2503RW-1)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.82, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 0.79, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DF7R9WJN", "parent": "B0DGM9VDFZ", "parent_short": "M5 Vent Case", "color": "#f59e0b", "name": "Geometric Future M5 Vent Mesh Front Panel Tempered Glass Mid Tower, E-ATX/ATX Gaming Case, High Airflow, 1.2mm Steel, Type C, Toolless Panels, Support 420/360 Radiator, Dual-Chamber, White, GEO-M5V-W", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 2.07, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 1.62, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0G1M9NVSV", "parent": "B0CKWQX52V", "parent_short": "M4 King Arthur", "color": "#f97316", "name": "Geometric Future M4 Lancelot mid/Mini Tower, E-ATX/ATX Gaming Case, Glass/ 1.2mm Steel, Vertical Air Tunnel Design, Type C, 360/240 Radiator, Vertical GPU Mount, GEO-M4-LAN (PC Case ONLY)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}];
+
+const ZH = {};
+const CHILD_ZH = {};
+
+const TACOS_TARGET = 10;
+const WEEKS = ["W1", "W2", "W3", "W4", "W5", "W6"];
+const W_LABELS = {"W1": "Feb 1\u20137", "W2": "Feb 8\u201314", "W3": "Feb 15\u201321", "W4": "Feb 22\u201328", "W5": "Mar 1\u20137", "W6": "Mar 8\u201314"};
+
+const $ = id => document.getElementById(id);
+const fmt = (v,d=0) => v==null?'—':'$'+v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const pct = v => v==null?'—':v.toFixed(1)+'%';
+const tacosClass = v => v==null?'muted':v<=TACOS_TARGET?'tacos-ok':v<=TACOS_TARGET*1.2?'tacos-warn':'tacos-bad';
+const zhName = pid => (ZH[pid]||'') + ' ' + (PARENTS[pid]?PARENTS[pid].short:'');
+const zhShort = pid => ZH[pid] || (PARENTS[pid]?PARENTS[pid].short:'');
+
+function showTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  $(id).classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+
+function sortedParents() {
+  return Object.entries(PARENTS).sort((a,b)=>b[1].total_sales-a[1].total_sales);
+}
+
+function drawDonut(canvasId, data) {
+  const canvas=$(canvasId); if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2,r=W/2-8,ir=r*0.58;
+  const sum=data.reduce((s,d)=>s+d.value,0); if(sum===0) return;
+  let angle=-Math.PI/2;
+  data.forEach(d=>{
+    const sweep=(d.value/sum)*Math.PI*2;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,angle,angle+sweep);ctx.closePath();
+    ctx.fillStyle=d.color;ctx.fill();angle+=sweep;
+  });
+  ctx.beginPath();ctx.arc(cx,cy,ir,0,Math.PI*2);ctx.fillStyle='#ffffff';ctx.fill();
+}
+
+// ═══ TAB 1 ═══
+function buildT1() {
+  window._t1={};
+  ['all',...WEEKS].forEach(mode=>{
+    const sp=sortedParents();
+    const weeks=mode==='all'?WEEKS:[mode];
+    const byAsin=sp.map(([pid,p])=>{
+      const sales=weeks.reduce((a,w)=>a+p.weeks[w].sales,0);
+      const spend=weeks.reduce((a,w)=>a+p.weeks[w].spend,0);
+      const spsd =weeks.reduce((a,w)=>a+p.weeks[w].spsd,0);
+      const units=weeks.reduce((a,w)=>a+p.weeks[w].units,0);
+      const tacos=sales>0?spend/sales*100:null;
+      return {pid,name:p.name,short:zhShort(pid),color:p.color,sales,spend,spsd,units,tacos,children:p.children};
+    }).sort((a,b)=>b.sales-a.sales);
+    window._t1[mode]={
+      byAsin,
+      totSales: byAsin.reduce((s,p)=>s+p.sales,0),
+      totSpend: byAsin.reduce((s,p)=>s+p.spend,0),
+      totUnits: byAsin.reduce((s,p)=>s+p.units,0),
+      totProfit:sp.reduce((s,[,p])=>s+weeks.reduce((a,w)=>a+p.weeks[w].profits,0),0),
+    };
+  });
+  switchWeek('all', document.querySelector('.week-btn'));
+}
+
+function switchWeek(mode, btn) {
+  document.querySelectorAll('.week-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const d=window._t1[mode]; if(!d) return;
+
+  const tClass=v=>v==null?'':v<=TACOS_TARGET?'kpi-green':v<=TACOS_TARGET*1.2?'kpi-amber':'kpi-red';
+  const acctTacos=d.totSales>0?d.totSpend/d.totSales*100:0;
+  const top=d.byAsin[0];
+  const topSpend=[...d.byAsin].filter(p=>p.spend>0).sort((a,b)=>b.spend-a.spend)[0];
+  $('kpi-t1').innerHTML=`
+    <div class="kpi-card"><div class="kpi-label">Total Sales</div><div class="kpi-value">${fmt(d.totSales,0)}</div><div class="kpi-sub">${d.totUnits} units</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total Ad Spend</div><div class="kpi-value kpi-amber">${fmt(d.totSpend,0)}</div><div class="kpi-sub">SP+SD+SB</div></div>
+    <div class="kpi-card"><div class="kpi-label">Account TACOS</div><div class="kpi-value ${tClass(acctTacos)}">${pct(acctTacos)}</div><div class="kpi-sub">${acctTacos<=TACOS_TARGET?'✓ On Target':'⚠ Above 10%'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total Profit</div><div class="kpi-value ${d.totProfit>=0?'kpi-green':'kpi-red'}">${fmt(d.totProfit,0)}</div><div class="kpi-sub">${d.totProfit>=0?'▲ 盈利':'▼ 虧損'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">銷售最大</div><div class="kpi-value" style="font-size:14px">${top?top.short:'—'}</div><div class="kpi-sub" style="color:var(--green)">${top?fmt(top.sales,0):''}</div></div>
+    <div class="kpi-card"><div class="kpi-label">廣告最燒</div><div class="kpi-value" style="font-size:14px">${topSpend?topSpend.short:'—'}</div><div class="kpi-sub" style="color:var(--amber)">${topSpend?fmt(topSpend.spend,0)+' · '+pct(topSpend.tacos):''}</div></div>`;
+
+  const salesData=d.byAsin.filter(p=>p.sales>0).map(p=>({value:p.sales,color:p.color}));
+  drawDonut('salesPie',salesData);
+  $('salesTotalLbl').textContent=fmt(d.totSales,0);
+  $('salesList').innerHTML=d.byAsin.filter(p=>p.sales>0).map(p=>{
+    const p2=d.totSales>0?(p.sales/d.totSales*100).toFixed(1):'0.0';
+    return `<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid var(--border)">
+      <span style="width:8px;height:8px;border-radius:50%;background:${p.color};flex-shrink:0"></span>
+      <span style="flex:1;font-size:12px;color:var(--text2)">${p.short}</span>
+      <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text)">${p2}%</span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--text3);min-width:54px;text-align:right">${fmt(p.sales,0)}</span>
+    </div>`;
+  }).join('');
+
+  const spendData=d.byAsin.filter(p=>p.spend>0).sort((a,b)=>b.spend-a.spend).map(p=>({value:p.spend,color:p.color}));
+  drawDonut('adsPie',spendData);
+  $('adsTotalLbl').textContent=fmt(d.totSpend,0);
+  $('adsList').innerHTML=d.byAsin.filter(p=>p.spend>0).sort((a,b)=>b.spend-a.spend).map(p=>{
+    const p2=d.totSpend>0?(p.spend/d.totSpend*100).toFixed(1):'0.0';
+    const over=p.sales>0&&parseFloat(p2)>(d.totSales>0?p.sales/d.totSales*100:0)*1.5&&parseFloat(p2)>3;
+    return `<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid var(--border)${over?';background:rgba(220,38,38,.04)':''}">
+      <span style="width:8px;height:8px;border-radius:50%;background:${p.color};flex-shrink:0"></span>
+      <span style="flex:1;font-size:12px;color:var(--text2)">${p.short}${over?' <span style="color:var(--red);font-size:9px">⚠廣告過重</span>':''}</span>
+      <span style="font-family:var(--mono);font-size:11px;font-weight:700;color:${over?'var(--red)':'var(--text)'}">${p2}%</span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--text3);min-width:54px;text-align:right">${fmt(p.spend,0)}</span>
+    </div>`;
+  }).join('');
+
+  renderChildTable(mode);
+}
+
+function renderChildTable(mode) {
+  const tbl=$('childTable'); if(!tbl) return;
+  const weeks=mode==='all'?WEEKS:[mode];
+  const modeAdj=CHILD_DATA.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
+
+  const wH=weeks.map(w=>`<th colspan="3" style="text-align:center;border-left:1px solid var(--border2)">${w} <span style="color:var(--text3);font-size:8px">${W_LABELS[w]}</span></th>`).join('');
+  const sH=weeks.map(()=>`<th style="border-left:1px solid var(--border2)">Sales</th><th>Spend</th><th>TACOS</th>`).join('');
+
+  // Group by parent
+  const parentIds=[...new Set(CHILD_DATA.map(r=>r.parent))];
+  // Sort parents by total sales desc
+  const parentOrder=sortedParents().map(([pid])=>pid).filter(pid=>parentIds.includes(pid));
+
+  let bodyHtml='';
+  let pIdx=0;
+  parentOrder.forEach(pid=>{
+    const children=CHILD_DATA.filter(r=>r.parent===pid&&(weeks.reduce((a,w)=>a+r.weeks[w].sales,0)>0||weeks.reduce((a,w)=>a+r.weeks[w].spend,0)>0));
+    if(!children.length) return;
+    const p=PARENTS[pid];
+    const pSales=children.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].sales,0),0);
+    const pSpend=children.reduce((s,r)=>s+weeks.reduce((a,w)=>a+r.weeks[w].spend,0),0);
+    const pTacos=pSales>0?pSpend/pSales*100:null;
+    const pPct=modeAdj>0?(pSales/modeAdj*100).toFixed(1):'0.0';
+    const gid=`pg${pIdx++}`;
+
+    const pWcells=weeks.map(w=>{
+      const wS=children.reduce((s,r)=>s+r.weeks[w].sales,0);
+      const wE=children.reduce((s,r)=>s+r.weeks[w].spend,0);
+      const tc=wS>0?wE/wS*100:null;
+      return `<td style="border-left:1px solid var(--border2);font-weight:600">${wS>0?fmt(wS,0):'—'}</td>
+              <td style="font-weight:600">${wE>0?fmt(wE,0):'—'}</td>
+              <td class="${tacosClass(tc)}" style="font-weight:600">${tc!=null?pct(tc):'—'}</td>`;
+    }).join('');
+
+    // Parent row
+    bodyHtml+=`<tr class="parent-row" onclick="toggleGroup('${gid}')" style="background:${p.color}0d;border-top:2px solid ${p.color}33">
+      <td>
+        <span class="toggle-icon" id="ti_${gid}">▼</span>
+        <span style="color:${p.color};font-weight:700;font-family:var(--display);font-size:13px;margin-left:4px">${zhShort(pid)}</span>
+        <span style="color:var(--text3);font-size:10px;margin-left:8px;font-family:var(--mono)">${children.length} 個變體</span>
+      </td>
+      <td style="font-family:var(--mono);font-size:12px;color:var(--green);font-weight:700">${pPct}%</td>
+      ${pWcells}
+    </tr>`;
+
+    // Child rows
+    bodyHtml+=`<tbody id="${gid}" class="child-rows">`;
+    children.sort((a,b)=>b.total_sales-a.total_sales).forEach(r=>{
+      const cSales=weeks.reduce((a,w)=>a+r.weeks[w].sales,0);
+      const cSpend=weeks.reduce((a,w)=>a+r.weeks[w].spend,0);
+      const cPct=modeAdj>0?(cSales/modeAdj*100).toFixed(1):'0.0';
+      const cName=CHILD_ZH[r.asin]||r.name.replace(/^DAIKEN\s*/,'').substring(0,50);
+      const wCells=weeks.map(w=>{
+        const wd=r.weeks[w];
+        const tc=wd.sales>0?wd.spend/wd.sales*100:null;
+        return `<td style="border-left:1px solid var(--border2)">${wd.sales>0?fmt(wd.sales,0):'—'}</td>
+                <td>${wd.spend>0?fmt(wd.spend,0):'—'}</td>
+                <td class="${tacosClass(tc)}">${tc!=null?pct(tc):'—'}</td>`;
+      }).join('');
+      bodyHtml+=`<tr style="background:var(--bg)">
+        <td style="padding-left:32px">
+          <a class="asin-link" href="https://www.amazon.com/dp/${r.asin}" target="_blank">${r.asin}</a>
+          <span style="color:var(--text2);font-size:11.5px;margin-left:8px">${cName}</span>
+        </td>
+        <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">${cPct}%</td>
+        ${wCells}
+      </tr>`;
+    });
+    bodyHtml+='</tbody>';
+  });
+
+  const totalCells=weeks.map(w=>{
+    const wS=CHILD_DATA.reduce((s,r)=>s+r.weeks[w].sales,0);
+    const wE=CHILD_DATA.reduce((s,r)=>s+r.weeks[w].spend,0);
+    const wT=wS>0?wE/wS*100:null;
+    return `<td style="border-left:1px solid var(--border2);font-weight:700">${fmt(wS,0)}</td>
+            <td style="font-weight:700">${fmt(wE,0)}</td>
+            <td class="${tacosClass(wT)}">${wT!=null?pct(wT):'—'}</td>`;
+  }).join('');
+
+  // Fixed column widths via colgroup — eliminates blank space
+  const nWeeks=weeks.length;
+  const colDefs=[220,58,...Array(nWeeks*3).fill(0).flatMap((_,i)=>i%3===0?[82]:i%3===1?[72]:[60])];
+  const cg='<colgroup>'+colDefs.map(w=>`<col style="width:${w}px">`).join('')+'</colgroup>';
+  tbl.innerHTML=`${cg}<thead>
+    <tr><th style="min-width:300px">產品 / 變體</th><th>Sales %</th>${wH}</tr>
+    <tr class="week-group"><th></th><th></th>${sH}</tr>
+  </thead>
+  <tbody>${bodyHtml}</tbody>
+  <tfoot><tr style="background:var(--bg3);font-weight:700;border-top:2px solid var(--border2)">
+    <td>TOTAL</td><td>100%</td>${totalCells}
+  </tr></tfoot>`;
+  tbl.style.tableLayout='fixed';
+  tbl.style.width='auto';
+  requestAnimationFrame(()=>{
+    const rows=tbl.querySelectorAll('thead tr');
+    if(rows[0]&&rows[1]){
+      const h=rows[0].getBoundingClientRect().height;
+      rows[1].querySelectorAll('th').forEach(th=>th.style.top=h+'px');
+    }
+  });
+}
+
+function toggleGroup(gid) {
+  const el=document.getElementById(gid);
+  const icon=document.getElementById('ti_'+gid);
+  if(!el) return;
+  el.classList.toggle('collapsed');
+  if(icon) icon.textContent=el.classList.contains('collapsed')?'▶':'▼';
+}
+
+// ═══ TAB 2 ═══
+function buildWowTab() {
+  const sp=sortedParents();
+  const totals={};
+  WEEKS.forEach(w=>totals[w]={sales:0,spend:0,units:0,organic:0,ppc:0});
+  sp.forEach(([,p])=>WEEKS.forEach(w=>{
+    totals[w].sales+=p.weeks[w].sales;totals[w].spend+=p.weeks[w].spend;
+    totals[w].units+=p.weeks[w].units;totals[w].organic+=p.weeks[w].organic;
+  }));
+  $('kpi-t2').innerHTML=WEEKS.map(w=>{
+    const tc=totals[w].sales>0?totals[w].spend/totals[w].sales*100:0;
+    return `<div class="kpi-card"><div class="kpi-label">${w} · ${W_LABELS[w]}</div>
+      <div class="kpi-value" style="font-size:18px">${fmt(totals[w].sales,0)}</div>
+      <div class="kpi-sub">Spend ${fmt(totals[w].spend,0)} · TACOS <span class="${tacosClass(tc)}">${pct(tc)}</span></div>
+    </div>`;
+  }).join('');
+  $('wowTable').innerHTML=`<thead><tr><th rowspan="2">產品</th>
+    ${WEEKS.map(w=>`<th colspan="5" style="text-align:center;background:var(--bg3)">${w} ${W_LABELS[w]}</th>`).join('')}</tr>
+    <tr class="week-group">${WEEKS.map(()=>'<th>Sales</th><th>Spend</th><th>TACOS</th><th>Units</th><th>Organic</th>').join('')}</tr>
+  </thead><tbody>${sp.map(([pid,p])=>`<tr>
+    <td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>
+    <strong style="color:${p.color}">${zhShort(pid)}</strong><br>
+    <span class="muted" style="font-size:10px">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span></td>
+    ${WEEKS.map(w=>{const wd=p.weeks[w],tc=wd.tacos;
+      return `<td>${fmt(wd.sales,0)}</td><td>${fmt(wd.spend,0)}</td><td class="${tacosClass(tc)}">${pct(tc)}</td><td>${wd.units||'—'}</td><td>${wd.organic||'—'}</td>`;
+    }).join('')}
+  </tr>`).join('')}
+  <tr style="background:var(--bg3);font-weight:700"><td>TOTAL</td>
+    ${WEEKS.map(w=>{const tc=totals[w].sales>0?totals[w].spend/totals[w].sales*100:0;
+      return `<td>${fmt(totals[w].sales,0)}</td><td>${fmt(totals[w].spend,0)}</td><td class="${tacosClass(tc)}">${pct(tc)}</td><td>${totals[w].units}</td><td>${totals[w].organic}</td>`;
+    }).join('')}
+  </tr></tbody>`;
+}
+
+// ═══ TAB 3 ═══
+function buildHeatTab() {
+  const sp=sortedParents();
+  const periods=[['W1','W2'],['W2','W3'],['W3','W4']];
+  const metrics=[{key:'sales',label:'Sales',up:true},{key:'spend',label:'Spend',up:false},{key:'tacos',label:'TACOS',up:false},{key:'units',label:'Units',up:true}];
+  const chg=(a,b)=>(!a||a===0)?null:(b-a)/a*100;
+  const fmtC=(v,up)=>{if(v==null)return'<span class="muted">—</span>';const g=(up?v>0:v<0);return`<span style="color:${g?'var(--green)':'var(--red)'}">${v>0?'+':''}${v.toFixed(1)}%</span>`;};
+  const wH=periods.map(([a,b])=>metrics.map(m=>`<th>${a}→${b}<br><span style="color:var(--text2);font-weight:400">${m.label}</span></th>`).join('')).join('');
+  $('heatTable').innerHTML=`<thead><tr><th>產品</th>${wH}</tr></thead><tbody>${
+    sp.map(([pid,p])=>`<tr><td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>${zhShort(pid)}</td>
+      ${periods.map(([a,b])=>metrics.map(m=>`<td>${fmtC(chg(p.weeks[a][m.key],p.weeks[b][m.key]),m.up)}</td>`).join('')).join('')}
+    </tr>`).join('')
+  }</tbody>`;
+}
+
+// ═══ TAB 4 — QUADRANT ═══
+function getQuadrant(p, med) {
+  if(p.total_sales>=med && p.tacos_4w<=TACOS_TARGET) return 'star';
+  if(p.total_sales>=med && p.tacos_4w>TACOS_TARGET)  return 'question';
+  if(p.total_sales<med  && p.tacos_4w<=TACOS_TARGET)  return 'potential';
+  return 'cut';
+}
+
+function buildQuadTab() {
+  const sp=sortedParents().filter(([,p])=>p.total_sales>0);
+  const salesArr=sp.map(([,p])=>p.total_sales).sort((a,b)=>a-b);
+  const med=salesArr.length%2===0?(salesArr[salesArr.length/2-1]+salesArr[salesArr.length/2])/2:salesArr[Math.floor(salesArr.length/2)];
+  const totS=sp.reduce((s,[,p])=>s+p.total_sales,0);
+  const totE=sp.reduce((s,[,p])=>s+p.total_spend,0);
+  const acct=totS>0?totE/totS*100:0;
+  const qStar=sp.filter(([,p])=>getQuadrant(p,med)==='star');
+  const qQuestion=sp.filter(([,p])=>getQuadrant(p,med)==='question');
+  const qPotential=sp.filter(([,p])=>getQuadrant(p,med)==='potential');
+  const qCut=sp.filter(([,p])=>getQuadrant(p,med)==='cut');
+
+  $('kpi-t4').innerHTML=`
+    <div class="kpi-card"><div class="kpi-label">TACOS Target</div><div class="kpi-value kpi-green">10%</div><div class="kpi-sub">Y-axis threshold</div></div>
+    <div class="kpi-card"><div class="kpi-label">Account TACOS</div><div class="kpi-value ${acct<=10?'kpi-green':acct<=12?'kpi-amber':'kpi-red'}">${pct(acct)}</div><div class="kpi-sub">SP+SD+SB total</div></div>
+    <div class="kpi-card"><div class="kpi-label">Sales Median</div><div class="kpi-value">${fmt(med,0)}</div><div class="kpi-sub">X-axis threshold</div></div>
+    <div class="kpi-card"><div class="kpi-label">⭐ Star</div><div class="kpi-value kpi-green">${qStar.length}</div></div>
+    <div class="kpi-card"><div class="kpi-label">⚠️ Question</div><div class="kpi-value kpi-amber">${qQuestion.length}</div></div>
+    <div class="kpi-card"><div class="kpi-label">💤 Potential</div><div class="kpi-value" style="color:var(--accent)">${qPotential.length}</div></div>
+    <div class="kpi-card"><div class="kpi-label">🔴 Cut</div><div class="kpi-value kpi-red">${qCut.length}</div></div>`;
+
+const qDefs=[
+    {title:'cut',color:'#dc2626',items:qCut,action:'調降售價 $0.50\n建立 Coupon 折扣\n設定 Prime 限時特賣'},
+    {title:'Question',color:'#d97706',items:qQuestion,action:'降低 CPC 出價\n暫停 TACOS ≥85% 關鍵字'},
+    {title:'potential',color:'#2563eb',items:qPotential,action:'增加 SP / SB / SD 廣告\n使用低 CPC 出價\n建立 Lookalike 受眾活動\n相似 KW 根詞 · 競品 ASIN · AMC 受眾'},
+    {title:'star',color:'#16a34a',items:qStar,action:'複製現有 SP 活動\n提高預算 30%'},
+  ];
+  $('qCards').innerHTML=qDefs.map(q=>`<div class="q-card" style="border-color:${q.color}33"><div class="q-card-title" style="color:${q.color}">${q.title}</div><div class="q-card-body">${q.action.split('\\n').join('<br>')}
+    <br><br>${q.items.map(([pid,p])=>`<span style="display:inline-block;margin:2px 3px;padding:2px 8px;background:${p.color}22;border:1px solid ${p.color}44;border-radius:3px;font-size:10px;color:${p.color};font-family:var(--mono)">${zhShort(pid)}</span>`).join('')}
+    ${q.items.length===0?'<span class="muted">None</span>':''}</div>
+  </div>`).join('');
+
+  // Canvas
+  const canvas=$('quadCanvas');
+  const ctx=canvas.getContext('2d');
+  const CW=canvas.width,CH=canvas.height;
+  ctx.clearRect(0,0,CW,CH);
+  const MX=CW/2,MY=CH/2;
+  function drawBox(x,y,w,h,bg,title,subtitle,items,tc){
+    ctx.fillStyle=bg;ctx.fillRect(x+1,y+1,w-2,h-2);
+    ctx.fillStyle=tc;ctx.font='bold 20px Inter,sans-serif';ctx.textAlign='left';
+    ctx.fillText(title,x+18,y+34);
+    ctx.fillStyle='#64748b';ctx.font='10px Outfit,sans-serif';
+    const lines=subtitle.split('\\n');
+    lines.forEach((l,i)=>ctx.fillText(l,x+18,y+54+i*15));
+    let cx2=x+18,cy2=y+54+lines.length*15+18;
+    ctx.font='bold 10px JetBrains Mono,monospace';
+    items.forEach(([pid,p])=>{
+      const lbl=zhShort(pid);
+      const tw=ctx.measureText(lbl).width+14;
+      if(cx2+tw>x+w-10){cx2=x+18;cy2+=20;}
+      ctx.fillStyle=p.color+'2a';
+      ctx.beginPath();ctx.roundRect(cx2,cy2-13,tw,18,3);ctx.fill();
+      ctx.fillStyle=p.color;ctx.fillText(lbl,cx2+7,cy2);
+      cx2+=tw+5;
+    });
+  }
+  drawBox(0,0,MX,MY,'rgba(220,38,38,.05)','cut','調降售價 $0.50\n建立 Coupon\n設定 Prime 特賣',qCut,'#dc2626');
+  drawBox(MX,0,MX,MY,'rgba(217,119,6,.05)','Question','降低 CPC\n暫停 ≥85% TACOS KW',qQuestion,'#d97706');
+  drawBox(0,MY,MX,MY,'rgba(37,99,235,.05)','potential','增加 SP/SB/SD · 低 CPC\nLookalike 受眾 · 競品 ASIN\nAMC 相似受眾',qPotential,'#2563eb');
+  drawBox(MX,MY,MX,MY,'rgba(22,163,74,.05)','star','複製 SP 活動\n預算 +30%',qStar,'#16a34a');
+  ctx.strokeStyle='#2563eb';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(MX,0);ctx.lineTo(MX,CH);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(0,MY);ctx.lineTo(CW,MY);ctx.stroke();
+  ctx.fillStyle='#2563eb';ctx.font='bold 13px Inter,sans-serif';ctx.textAlign='center';
+  ctx.fillText('GEO US · Feb–Mar 2026',CW/2,18);
+  ctx.fillStyle='#94a3b8';ctx.font='11px JetBrains Mono,monospace';ctx.textAlign='left';
+  ctx.fillText('TACOS ↑',6,MY-8);
+  ctx.fillStyle='#2563eb';ctx.font='bold 20px JetBrains Mono,monospace';ctx.textAlign='right';
+  ctx.fillText('70',MX-8,MY-6);
+  ctx.fillStyle='#64748b';ctx.font='12px JetBrains Mono,monospace';
+  ctx.fillText('0',MX-8,CH-8);
+  ctx.textAlign='right';ctx.fillText('Sales →',CW-6,CH-8);
+  ctx.textAlign='left';ctx.fillStyle='#64748b';ctx.font='10px Outfit,sans-serif';
+  ctx.fillText('Bid $2–$2.5',8,CH-8);
+
+  window._quad_med = med;
+}
+
+// ═══ TAB 5 — 行動方案 ═══
+function buildActionTab() {
+  const sp=sortedParents().filter(([,p])=>p.total_sales>0);
+  const salesArr=sp.map(([,p])=>p.total_sales).sort((a,b)=>a-b);
+  const med=salesArr.length%2===0?(salesArr[salesArr.length/2-1]+salesArr[salesArr.length/2])/2:salesArr[Math.floor(salesArr.length/2)];
+
+  const QUAD_CONFIG = {
+    star:     {label:'⭐ Star',badgeCls:'badge-star',   pri:'badge-now', priLabel:'本週執行',
+      tasks:[
+        {type:'SP Bulk',text:'下載現有 SP 活動 Bulk File → 複製所有 Enabled campaigns → 新命名加 _COPY 後綴'},
+        {type:'Budget',text:'全部 SP 活動預算 × 1.3（+30%）→ 上傳 Bulk File'},
+        {type:'SB',text:'檢查是否有 SB Banner 廣告，若無則新建 SB Campaign 指向此產品'},
+        {type:'SD',text:'建立 SD Retargeting 活動 targeting 已瀏覽 ASIN 的受眾'},
+      ]},
+    question: {label:'⚠️ Question',badgeCls:'badge-question',pri:'badge-now', priLabel:'本週執行',
+      tasks:[
+        {type:'CPC',text:'下載 SP 活動 Bulk File → 找出 ACOS ≥85% 的關鍵字 → Bid × 0.8（降20%）'},
+        {type:'Pause KW',text:'TACOS ≥85% 且過去 14 天無轉換的關鍵字 → 狀態改為 Paused'},
+        {type:'Budget',text:'SP 活動預算維持不變，待 TACOS 下降再考慮增加'},
+        {type:'Review',text:'檢查競品 listing 定價，評估是否需要調整售價提高轉換率'},
+      ]},
+    cut:      {label:'🔴 Cut',badgeCls:'badge-cut',    pri:'badge-now', priLabel:'本週執行',
+      tasks:[
+        {type:'Price',text:'在 Seller Central 將售價下調 $0.50，觀察轉換率變化'},
+        {type:'Coupon',text:'建立 Coupon 折扣（建議 5–10%）→ 提升搜尋結果曝光'},
+        {type:'Deal',text:'申請 Prime Exclusive Discount 或 Lightning Deal（需提前 2 週申請）'},
+        {type:'SP Bid',text:'下載 SP Bulk File → 全部 Keyword Bid 降至 $2.00 上限'},
+      ]},
+    potential:{label:'💤 Potential',badgeCls:'badge-potential',pri:'badge-next',priLabel:'下週執行',
+      tasks:[
+        {type:'SP',text:'新建 SP Auto campaign，日預算 $10，CPC 出價 $2.00，30天跑數據'},
+        {type:'SB',text:'新建 SB Banner campaign，指向此產品 store page，CPC $2.00'},
+        {type:'SD',text:'新建 SD Audience campaign，目標 Competitor ASIN 的瀏覽受眾'},
+        {type:'AMC',text:'建立 AMC Lookalike 受眾 → 相似購買行為受眾 → 套用至 SD campaign'},
+        {type:'KW',text:'用現有暢銷產品的高轉換 KW 根詞，建立 SP Exact Match campaign'},
+      ]},
+  };
+
+  const html=sp.map(([pid,p])=>{
+    const q=getQuadrant(p, med);
+    const cfg=QUAD_CONFIG[q];
+    const taskHtml=cfg.tasks.map((t,i)=>`
+      <div class="action-task" id="task_${pid}_${i}">
+        <input type="checkbox" onchange="toggleTask('${pid}',${i},this)">
+        <span class="task-type">${t.type}</span>
+        <span class="task-text">${t.text}</span>
+      </div>`).join('');
+    return `<div class="action-card">
+      <div class="action-card-header">
+        <span style="width:12px;height:12px;border-radius:3px;background:${p.color};display:inline-block;flex-shrink:0"></span>
+        <div class="action-card-title" style="color:${p.color}">${zhShort(pid)}</div>
+        <span class="action-card-badge ${cfg.badgeCls}">${cfg.label}</span>
+        <span class="action-card-badge ${cfg.pri}">${cfg.priLabel}</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:auto">6W Sales ${fmt(p.total_sales,0)} · TACOS <span class="${tacosClass(p.tacos_4w)}">${pct(p.tacos_4w)}</span></span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span>
+      </div>
+      <div class="action-tasks">${taskHtml}</div>
+    </div>`;
+  }).join('');
+
+  $('actionCards').innerHTML=html;
+}
+
+function toggleTask(pid, idx, cb) {
+  const el=document.getElementById(`task_${pid}_${idx}`);
+  if(el) el.classList.toggle('done', cb.checked);
+}
+
+// ═══ INIT ═══
+buildT1();
+buildWowTab();
+buildHeatTab();
+buildQuadTab();
+buildActionTab();
+</script>
+</body>
+</html>
