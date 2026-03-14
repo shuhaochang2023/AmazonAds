@@ -146,15 +146,37 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
     <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
       <span style="font-size:14px;transition:transform .2s;display:inline-block">&#9654;</span>
       <span>Campaign Action Log 廣告操作紀錄</span>
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">2 entries</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/14 — Daily Pacing + Portfolio Health Check</span>
+      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">3 entries</span>
+      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/14 — HALO Cross-Sell Campaigns</span>
     </summary>
     <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
+
+      <!-- ── 3/14 HALO Cross-Sell Campaigns ── -->
+      <details open style="margin-bottom:14px;border:1px solid var(--border);border-radius:8px;overflow:hidden">
+        <summary style="padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(37,99,235,.06),rgba(22,163,74,.04));font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--accent)">
+          <span class="log-arrow" style="font-size:12px;display:inline-block">&#9654;</span>
+          3/14 — HALO CROSS-SELL CAMPAIGNS 光環交叉銷售 campaigns 上線
+          <span style="font-size:9px;background:var(--accent);color:#fff;padding:1px 6px;border-radius:3px;font-weight:700;margin-left:auto">最新 NEW</span>
+        </summary>
+        <div style="padding:12px 14px;color:var(--text2)">
+          <div style="border-left:3px solid var(--accent);padding-left:12px;margin-bottom:12px">
+            <strong style="color:var(--accent)">策略說明 Strategy · HALO 進攻防守</strong><br>
+            透過 spPurchasedProduct API 數據分析客人點擊廣告後的交叉購買行為，識別光環產品（自家交叉銷售）與流失產品（競品搶單）。根據數據建立 Product Targeting campaigns，讓表現最好的入口 ASIN 互相導流。<br>Analyzed cross-purchase behavior via spPurchasedProduct API. Identified halo products (own-brand cross-sell) vs leakage (competitor steal). Created Product Targeting campaigns between top entry-point ASINs.
+          </div>
+          <div style="border-left:3px solid var(--green);padding-left:12px;margin-bottom:10px">
+            <strong style="color:var(--green)">HALO 分析結果 Analysis Results</strong><br>
+            30 天數據：2 rows · $47 光環銷售 · 100% 自家品牌 · 0% 流失<br>Cross-sell pair: Mate Tea bags ↔ Focus（互相帶動）<br>30-day data: 2 rows · $47 halo sales · 100% own-brand · 0% leakage
+          </div>
+          <div style="border-left:3px solid var(--green);padding-left:12px">
+            <strong style="color:var(--green)">Campaigns 已上線 Live via API</strong><br>
+            <strong>2 SP Product Targeting campaigns</strong> 已透過 API 上線<br>Bid: $0.50 · Budget: $5/day · Strategy: Dynamic bids - down only<br>2 SP Product Targeting campaigns uploaded via API
+          </div>
+        </div>
+      </details>
 
       <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
           <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-14 — DAILY PACING + PORTFOLIO HEALTH 日常追蹤 + 帳戶健康檢查</span>
-          <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
         </div>
         <div style="color:var(--text2)">
           每日花費追蹤正常運行，帳戶 portfolio 分配健康。<br>
