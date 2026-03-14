@@ -22,10 +22,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--border);height:54px;posi
 .tabs{display:flex;gap:2px;flex:1;overflow-x:auto;}.tabs::-webkit-scrollbar{display:none;}
 .tab-btn{padding:0 15px;height:54px;background:none;border:none;color:var(--text2);font-family:var(--body);font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;}
 .tab-btn:hover{color:var(--text);}.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
-.dl-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 16px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-family:var(--mono);font-size:11px;font-weight:700;border-radius:6px;text-decoration:none;white-space:nowrap;letter-spacing:.03em;box-shadow:0 2px 8px rgba(22,163,74,.35);transition:all .2s;border:1px solid rgba(255,255,255,.15);}
-.dl-btn:hover{background:linear-gradient(135deg,#15803d,#166534);box-shadow:0 4px 14px rgba(22,163,74,.45);transform:translateY(-1px);}
-.dl-btn:active{transform:translateY(0);box-shadow:0 1px 4px rgba(22,163,74,.3);}
-.meta{font-family:var(--mono);font-size:10px;color:var(--text3);border:1px solid var(--border2);padding:3px 8px;border-radius:3px;margin-left:12px;white-space:nowrap;}
+.meta{font-family:var(--mono);font-size:10px;color:var(--text3);border:1px solid var(--border2);padding:3px 8px;border-radius:3px;margin-left:auto;white-space:nowrap;}
 .panel{display:none;padding:32px;min-height:calc(100vh - 54px);max-width:1600px;margin:0 auto;}.panel.active{display:block;}
 .kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 5px rgba(0,0,0,.06);}
 .kpi-card{background:var(--bg2);padding:18px 22px;}
@@ -72,13 +69,6 @@ tbody td:first-child{text-align:left;font-family:var(--body);font-size:13px;}
 .action-task input[type=checkbox]{margin-top:2px;accent-color:var(--accent);width:14px;height:14px;flex-shrink:0;}
 .action-task.done{opacity:.35;}
 .action-task.done .task-text{text-decoration:line-through;}
-.action-task{flex-wrap:wrap;}
-.feedback-toggle{font-size:10px;color:var(--accent);cursor:pointer;background:none;border:1px solid var(--accent);border-radius:3px;padding:1px 6px;margin-left:auto;flex-shrink:0;font-family:var(--mono);opacity:.7;transition:opacity .15s;}.feedback-toggle:hover{opacity:1;}
-.feedback-area{width:100%;margin-top:6px;display:none;}
-.feedback-area.open{display:block;}
-.feedback-area textarea{width:100%;min-height:48px;padding:8px 10px;border:1px solid var(--border2);border-radius:5px;font-family:var(--body);font-size:12px;color:var(--text);background:#fff;resize:vertical;line-height:1.5;}
-.feedback-area textarea::placeholder{color:var(--text3);font-size:11px;}
-.feedback-area textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(37,99,235,.12);}
 .task-text{font-size:12.5px;color:var(--text2);line-height:1.5;}
 .task-type{font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:2px;background:var(--bg);color:var(--text3);border:1px solid var(--border2);flex-shrink:0;margin-top:2px;}
 .q-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;}
@@ -104,8 +94,7 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   <div class="nav-inner">
   <div class="nav-brand">Flux <span class="market-tag">AU</span></div>
   <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('t0',this)">📋 總覽</button>
-    <button class="tab-btn" onclick="showTab('t1',this)">📊 銷售 &amp; 廣告佔比</button>
+    <button class="tab-btn active" onclick="showTab('t1',this)">📊 銷售 &amp; 廣告佔比</button>
     <button class="tab-btn" onclick="showTab('t2',this)">📅 週對週數據</button>
     <button class="tab-btn" onclick="showTab('t3',this)">📈 WoW 變化</button>
     <button class="tab-btn" onclick="showTab('t4',this)">🎯 產品象限</button>
@@ -115,331 +104,21 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
   </div>
 </nav>
 
-<!-- TAB 0 — Executive Summary -->
-<div id="t0" class="panel active">
-  <div style="margin-bottom:20px">
-    <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">EXECUTIVE SUMMARY · 2026 年 3 月 9 日更新</div>
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:4px"><span style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display)">Flux 🇦🇺 AU · 執行摘要</span><a href="20260313_Flux_AU_Portfolio_Structure.xlsx" download class="dl-btn" title="Download Portfolio Structure Excel">⬇ Portfolio Excel</a></div>
-    <div style="font-size:12px;color:var(--text3)">AU Market Feb–Mar 2026 週報 · SP+SD+SB · TACOS ≤30%</div>
-  </div>
-
-  <details style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
-    <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
-      <span style="font-size:14px;transition:transform .2s;display:inline-block" class="log-arrow">&#9654;</span>
-      <span>Campaign Action Log 廣告操作紀錄</span>
-      <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;margin-left:4px">3 entries</span>
-      <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">Latest: 3/12 — CAMPAIGN RENAME 活動重命名完成</span>
-    </summary>
-    <div style="padding:4px 18px 18px;font-size:12px;line-height:1.8">
-
-      <div style="border-left:3px solid var(--accent);padding-left:14px;margin-bottom:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--accent);font-size:13px;font-family:var(--mono)">2026-03-12 — CAMPAIGN RENAME 活動重命名完成</span>
-          <span style="font-size:10px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-weight:700">LATEST</span>
-        </div>
-        <div style="color:var(--text2)">
-          <strong style="color:var(--green)">透過 Amazon Ads API 完成 AU 市場全部活動重命名</strong> — 7,751 個廣告活動統一命名規範，192 個錯誤 ASIN 廣告已暫停，3 個作品集已分配。<br>
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
-            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
-            統一命名規範提升廣告管理效率，便於快速識別品牌、產品、ASIN 和匹配類型。格式：<code style="font-size:11px;background:rgba(37,99,235,.08);padding:2px 6px;border-radius:3px">{MKT}_{Brand}_{Product}_{ASIN}_SP_{MatchType}_{Seq}</code>
-          </div>
-          &nbsp;&nbsp;• <strong style="color:var(--green)">Phase 1 — 已匹配活動：</strong>7,451 個含 ASIN 的活動，按 13 個 parent 逐一重命名，<strong>0 errors</strong><br>
-          &nbsp;&nbsp;• <strong style="color:var(--amber)">Phase 2 — 未匹配活動：</strong>300 個無 ASIN 名稱的活動，透過 API 拉取 Product Ads 確認所屬 parent，<strong>192 個錯誤 ASIN 廣告已暫停</strong><br>
-          &nbsp;&nbsp;• <strong style="color:var(--accent)">作品集分配 Portfolio：</strong>Sunglasses (Flux 品牌) · Strap (80Days 錶帶) · Accessories (80Days 配件) — 全部活動已分配至正確作品集<br>
-          &nbsp;&nbsp;• <strong>下一步 Next Steps：</strong>UK、DE、US、CA 市場依同樣流程執行重命名<br>
-          <a href="./20260313_Flux_AU_Portfolio_Structure.xlsx" download style="display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;color:var(--accent);text-decoration:none;background:rgba(37,99,235,.08);padding:4px 10px;border-radius:4px;border:1px solid rgba(37,99,235,.2);margin-top:6px">⬇ 20260313_Flux_AU_Portfolio_Structure.xlsx <span style="color:var(--text3);font-size:10px">14 parents · 4 sheets</span></a>
-        </div>
-      </div>
-
-      <div style="border-left:3px solid var(--green);padding-left:14px;margin-bottom:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--green);font-size:13px;font-family:var(--mono)">2026-03-10 — QUADRANT OPTIMIZATION 象限策略優化執行</span>
-        </div>
-        <div style="color:var(--text2)">
-          <strong style="color:var(--green)">透過 Amazon Ads API 自動執行象限策略優化</strong> — 針對 AU 市場 6,727 個啟用中廣告活動進行精準調整。<br>
-          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;margin:10px 0">
-            <div style="font-weight:700;margin-bottom:8px;color:var(--text)">策略說明 Strategy</div>
-            根據象限分析結果，透過 API 批次執行三層策略：(1) 加碼投資表現最佳的 Star 產品，擴大贏面；(2) 精細調降 Question 產品出價，提升效率至目標 TACOS；(3) 大幅優化 Cut 產品的花費效率，釋放預算空間給高效產品。
-          </div>
-          &nbsp;&nbsp;• <strong style="color:var(--green)">⭐ Star — 加碼贏家：</strong>80Days Strap 表現優異，<strong>508 個廣告活動預算提升 +30%</strong>，擴大市場佔有率<br>
-          &nbsp;&nbsp;• <strong style="color:var(--amber)">⚠️ Question — 效率優化：</strong>Avento、Bowrider、Ventura 出價精細調降，<strong>186 個關鍵字/投放目標 bid -20%</strong>，逐步收斂至目標 TACOS<br>
-          &nbsp;&nbsp;• <strong style="color:var(--red)">🔴 Cut — 花費重新平衡：</strong>Square、Sportech、Unisex、Women's Geometric 大幅降低出價，<strong>50 個關鍵字/投放目標 bid -50%</strong>，釋放預算給高效產品<br>
-          &nbsp;&nbsp;• <strong>下一步 Next Steps：</strong>48 小時後檢查 Star 產品曝光量變化、Question 產品 ACOS 是否下降、Cut 產品花費是否有效收斂<br>
-        </div>
-      </div>
-
-      <div style="border-left:3px solid var(--text3);padding-left:14px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:800;color:var(--text3);font-size:13px;font-family:var(--mono)">2026-03-09 — 週報分析完成 WEEKLY REPORT UPDATED</span>
-        </div>
-        <div style="color:var(--text3)">
-          澳洲市場 W1–W5 週報更新完成。目前 AU 市場規模較小，尚無需要大幅調整的廣告活動。持續監控產品表現，待銷售量達到調整門檻時再進行 bulk 操作。<br>
-          &nbsp;&nbsp;• <strong>狀態：</strong>監控中 — AU 市場穩定運行，無緊急操作需求<br>
-          &nbsp;&nbsp;• <strong>下一步：</strong>W6 數據進入後評估是否需要出價調整或新增廣告活動<br>
-        </div>
-      </div>
-    </div>
-  </details>
-
-  
-  
-<!-- BUDGET PACING WIDGET — auto-generated by flux_budget_pacing.py -->
-<style>
-@keyframes pacingShimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
-@keyframes pacingPulse { 0%,100%{opacity:1} 50%{opacity:.35} }
-</style>
-<details id="budget-pacing-widget" style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)">
-  <summary style="padding:12px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);list-style:none">
-    <span style="font-size:14px;transition:transform .2s;display:inline-block">&#9654;</span>
-    <span>Budget Pacing 預算執行追蹤</span>
-    <span style="display:inline-flex;align-items:center;gap:4px;font-size:8px;font-weight:700;color:#16a34a;background:rgba(22,163,74,.1);border:1px solid rgba(34,197,94,.25);padding:2px 6px;border-radius:3px">
-      <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#16a34a;animation:pacingPulse 1.5s ease-in-out infinite"></span>LIVE
-    </span>
-    <span style="font-size:11px;color:var(--text3);font-weight:500;margin-left:auto">A$0 / A$3,716 (0%) · MTD Mar</span>
-  </summary>
-  <div style="padding:4px 18px 18px">
-
-    <!-- Info line -->
-    <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-bottom:8px;max-width:520px">
-      Budget = 5-week daily avg × 31 · Actual = API MTD (Mar 1–10) · Expected pace: 32%
-    </div>
-
-    <!-- Total bar -->
-    <div style="position:relative;height:22px;background:var(--bg);border-radius:6px;overflow:hidden;border:1px solid var(--border);margin-bottom:4px;max-width:520px">
-      <div style="height:100%;border-radius:5px;background:linear-gradient(90deg,#d97706,#fbbf24);width:0%;position:relative;overflow:hidden">
-        <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:pacingShimmer 2.5s infinite"></div>
-      </div>
-      <!-- Expected pace marker -->
-      <div style="position:absolute;top:0;left:32%;width:2px;height:100%;background:var(--text3);opacity:.5"></div>
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center">
-        <span style="font-family:var(--mono);font-size:11px;font-weight:800;color:var(--text);text-shadow:0 0 3px rgba(255,255,255,.9)">A$0 / A$3,716 (0%)</span>
-      </div>
-    </div>
-    <div style="font-family:var(--mono);font-size:9px;color:var(--text3);text-align:right;margin-bottom:10px;max-width:520px">gap: A$-3,716 · updated 2026-03-11 13:18</div>
-
-    <!-- Product bars -->
-    <div style="max-width:520px">
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Avento</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:0%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">0%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">A$0/A$1,186</div>
-</div>
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Verano/Unisex</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:0%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">0%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">A$0/A$674</div>
-</div>
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">80Days Strap</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:0%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">0%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">A$0/A$466</div>
-</div>
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">80Days Square</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:0%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">0%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">A$0/A$371</div>
-</div>
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Sportech</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:0%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">0%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">A$0/A$367</div>
-</div>
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Bowrider</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:0%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">0%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">A$0/A$314</div>
-</div>
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Ventura</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:0%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">0%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">A$0/A$302</div>
-</div>
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">80Days Geometric</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:0%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">0%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">A$0/A$32</div>
-</div>
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Lantaka</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:0%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">0%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">A$0/A$2</div>
-</div>
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
-  <div style="width:110px;font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Soleado</div>
-  <div style="flex:1;position:relative;height:16px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)">
-    <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,#d97706,#fbbf24);width:0%;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:pacingShimmer 2s infinite"></div>
-    </div>
-    <div style="position:absolute;top:0;left:32%;width:1px;height:100%;background:var(--text3);opacity:.4"></div>
-  </div>
-  <div style="width:36px;font-family:var(--mono);font-size:10px;font-weight:700;color:#d97706;text-align:right">0%</div>
-  <div style="width:90px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:right">A$0/A$2</div>
-</div>
-    </div>
-
-  </div>
-</details>
-<!-- /BUDGET PACING WIDGET -->
-
-  <!-- Overall Account KPIs -->
-  <div class="kpi-strip" style="margin-bottom:20px" id="kpi-exec"></div>
-
-  <!-- Product Performance Overview -->
-  <div class="sec-header">全產品線績效總覽 Product Performance Overview</div>
-  <div class="table-wrap" style="margin-bottom:24px">
-    <table id="execProductTable"></table>
-  </div>
-
-  <!-- Tab Guide -->
-  <div class="sec-header">看板功能導覽 Dashboard Guide</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px">
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t1',document.querySelectorAll('.tab-btn')[1])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">📊</span>
-        <div style="font-weight:700;font-size:14px">銷售 & 廣告佔比</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        各產品營業額、廣告花費佔比圓餅圖，可切換單週 / 5 週合計。<br>
-        含子變體展開明細表（Sales / Spend / TACOS per week）。<br>
-        <strong>搭配 Excel：</strong>下載按鈕在頁面頂部
-      </div>
-    </div>
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t2',document.querySelectorAll('.tab-btn')[2])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">📅</span>
-        <div style="font-weight:700;font-size:14px">週對週數據</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        全產品 × 5 週完整交叉表：Sales / Spend / TACOS / Units / Organic。<br>
-        快速掃描哪週哪產品表現異常。<br>
-        <strong>用途：</strong>週會報告、趨勢追蹤
-      </div>
-    </div>
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t3',document.querySelectorAll('.tab-btn')[3])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">📈</span>
-        <div style="font-weight:700;font-size:14px">WoW 變化</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        週對週百分比變化熱力圖：Sales / Spend / TACOS / Units。<br>
-        綠色 = 正向變化，紅色 = 需關注。<br>
-        <strong>用途：</strong>快速定位異常波動
-      </div>
-    </div>
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t4',document.querySelectorAll('.tab-btn')[4])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">🎯</span>
-        <div style="font-weight:700;font-size:14px">產品象限</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        依 Sales × TACOS 四象限分類：⭐ Star / ⚠️ Question / 💤 Potential / 🔴 Cut。<br>
-        含視覺化象限圖與每象限建議行動。<br>
-        <strong>用途：</strong>策略決策、資源分配
-      </div>
-    </div>
-    <div class="action-card" style="cursor:pointer" onclick="showTab('t5',document.querySelectorAll('.tab-btn')[5])">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:18px">✅</span>
-        <div style="font-weight:700;font-size:14px">行動方案</div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.7">
-        依象限自動產生的待辦清單，含 SP/SB/SD Bulk File 操作指引。<br>
-        可勾選完成項目追蹤進度。<br>
-        <strong>用途：</strong>每週執行 checklist
-      </div>
-    </div>
-  </div>
-
-  <!-- Action Items -->
-  <div class="sec-header">待辦事項 Action Items</div>
-
-  <!-- Urgent - This Week -->
-  <div style="margin-bottom:16px">
-    <div style="font-size:12px;font-weight:700;color:var(--red);font-family:var(--mono);margin-bottom:8px;letter-spacing:.05em">🔴 本週完成 DUE THIS WEEK (3/10–3/14)</div>
-    <div style="display:flex;flex-direction:column;gap:6px" id="actionThisWeek"></div>
-  </div>
-
-  <!-- Due Next Monday -->
-  <div style="margin-bottom:16px">
-    <div style="font-size:12px;font-weight:700;color:var(--amber);font-family:var(--mono);margin-bottom:8px;letter-spacing:.05em">🟡 下週一前完成 DUE BY 3/16 (一)</div>
-    <div style="display:flex;flex-direction:column;gap:6px" id="actionNextMon"></div>
-  </div>
-
-  <!-- Key Takeaways -->
-  <div class="sec-header">本週重點結論 Key Takeaways</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px" id="takeawayCards"></div>
-
-</div>
-
-
 <!-- TAB 1 -->
-<div id="t1" class="panel">
+<div id="t1" class="panel active">
   <div style="margin-bottom:16px">
     <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-family:var(--mono)">全產品線佔比分析 · AU Market</div>
     <div style="font-size:28px;font-weight:800;color:var(--accent);font-family:var(--display);margin-bottom:4px">Sales &amp; Ad Spend — Feb–Mar 2026</div>
     <div style="font-size:11px;color:var(--text3)">數據來源：ScaleInsight · 目標 TACOS ≤ 70% · SP+SD+SB 合計</div>
   </div>
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-    <button class="week-btn active" onclick="switchWeek('all',this)">5W 合計</button>
+    <button class="week-btn active" onclick="switchWeek('all',this)">6W 合計</button>
     <button class="week-btn" onclick="switchWeek('W1',this)">W1 Feb 1/7</button>
     <button class="week-btn" onclick="switchWeek('W2',this)">W2 Feb 8/14</button>
     <button class="week-btn" onclick="switchWeek('W3',this)">W3 Feb 15/21</button>
     <button class="week-btn" onclick="switchWeek('W4',this)">W4 Feb 22/28</button>
     <button class="week-btn" onclick="switchWeek('W5',this)">W5 Mar 1/7</button>
+    <button class="week-btn" onclick="switchWeek('W6',this)">W6 Mar 8/14</button>
   </div>
   <div class="kpi-strip" id="kpi-t1"></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
@@ -509,35 +188,22 @@ tr.done-row td{opacity:.35;text-decoration:line-through;}
 </div>
 
 <script>
-const PARENTS = {"B086WS945N": {"name": "Flux AVENTO Polarized Sports Sungla", "short": "Flux AVENTO Polarized Sports Sungla", "color": "#f59e0b", "children": ["B01N3OVRWE", "B0C3GC6N5W", "B0C3GNK3VF", "B01KHB8E4A", "B07NZM7X6F", "B01KHB8DKA"], "weeks": {"W1": {"sales": 774.0, "spsd": 145.19, "sbsp": 122.53, "spend": 267.72, "units": 12, "organic": 10, "ppc": 3, "profits": 430.56, "tacos": 34.6}, "W2": {"sales": 707.5, "spsd": 156.96, "sbsp": 61.07, "spend": 218.03, "units": 11, "organic": 10, "ppc": 2, "profits": 322.78, "tacos": 30.8}, "W3": {"sales": 449.5, "spsd": 154.15, "sbsp": 56.52, "spend": 210.67, "units": 7, "organic": 6, "ppc": 5, "profits": 122.63, "tacos": 46.9}, "W4": {"sales": 1097.7, "spsd": 234.18, "sbsp": 63.27, "spend": 297.45, "units": 21, "organic": 17, "ppc": 5, "profits": 545.41, "tacos": 27.1}, "W5": {"sales": 904.2, "spsd": 263.99, "sbsp": 80.73, "spend": 344.72, "units": 17, "organic": 13, "ppc": 10, "profits": 397.85, "tacos": 38.1}}, "total_sales": 3932.9, "total_spend": 1338.59, "total_spsd": 954.47, "tacos_4w": 34.0, "sb_attr": 527.9}, "B093PN2D9C": {"name": "Flux BOWRIDER Active LifestylesSung", "short": "Flux BOWRIDER Active LifestylesSung", "color": "#ef4444", "children": ["B093P2DLLJ", "B093P9QGZL", "B093P8LWNV"], "weeks": {"W1": {"sales": 193.5, "spsd": 9.4, "sbsp": 0.0, "spend": 9.4, "units": 3, "organic": 2, "ppc": 1, "profits": 134.54, "tacos": 4.9}, "W2": {"sales": 214.5, "spsd": 22.43, "sbsp": 61.55, "spend": 83.98, "units": 4, "organic": 3, "ppc": 1, "profits": 130.34, "tacos": 39.2}, "W3": {"sales": 300.0, "spsd": 19.74, "sbsp": 44.16, "spend": 63.9, "units": 6, "organic": 5, "ppc": 1, "profits": 189.84, "tacos": 21.3}, "W4": {"sales": 179.0, "spsd": 31.85, "sbsp": 140.39, "spend": 172.24, "units": 3, "organic": 3, "ppc": 0, "profits": 99.04, "tacos": 96.2}, "W5": {"sales": 129.0, "spsd": 24.57, "sbsp": 0.0, "spend": 24.57, "units": 2, "organic": 1, "ppc": 1, "profits": 72.97, "tacos": 19.0}}, "total_sales": 1016.0, "total_spend": 354.09, "total_spsd": 107.99, "tacos_4w": 34.9, "sb_attr": 229.0}, "B0CNRLGCGV": {"name": "Flux VENTURA High-Performance Sunglasses: Anti-Fog PC Lenses, Ventilated TR90 Frame, UV Protection, Ideal for Sports and Cycling", "short": "Flux VENTURA High-Performance Sungl", "color": "#ec4899", "children": ["B0CNRJXBYP", "B0CNRJDM2J", "B0CNRJK9ZG", "B0CNRKL7SX", "B0CNRK82V4", "B0CNRLQVH7"], "weeks": {"W1": {"sales": 142.8, "spsd": 14.23, "sbsp": 0.0, "spend": 14.23, "units": 2, "organic": 1, "ppc": 2, "profits": 94.15, "tacos": 10.0}, "W2": {"sales": 84.5, "spsd": 42.2, "sbsp": 0.0, "spend": 42.2, "units": 1, "organic": 1, "ppc": 1, "profits": 23.78, "tacos": 49.9}, "W3": {"sales": 494.32, "spsd": 60.8, "sbsp": 63.43, "spend": 124.23, "units": 6, "organic": 4, "ppc": 3, "profits": 323.67, "tacos": 25.1}, "W4": {"sales": 84.5, "spsd": 59.43, "sbsp": 0.0, "spend": 59.43, "units": 1, "organic": 1, "ppc": 0, "profits": 6.55, "tacos": 70.3}, "W5": {"sales": 169.0, "spsd": 57.34, "sbsp": 44.07, "spend": 101.41, "units": 2, "organic": 1, "ppc": 2, "profits": 76.7, "tacos": 60.0}}, "total_sales": 975.12, "total_spend": 341.5, "total_spsd": 234.0, "tacos_4w": 35.0, "sb_attr": 156.32}, "B0FJWKDLT6": {"name": "80Days Adjustable Eyeglass Strap: N", "short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "children": ["B0FCRLQG4B", "B0FD3PMPVC", "B0FD3PSJG3", "B0FD3LHYMN", "B0FCRQRHJ8", "B0FD3MZ97V", "B0FCRCZ1HC", "B0FCRK9JCK"], "weeks": {"W1": {"sales": 496.45, "spsd": 7.08, "sbsp": 189.84, "spend": 196.92, "units": 33, "organic": 33, "ppc": 0, "profits": 267.62, "tacos": 39.7}, "W2": {"sales": 354.75, "spsd": 6.2, "sbsp": 89.64, "spend": 95.84, "units": 25, "organic": 23, "ppc": 1, "profits": 187.74, "tacos": 27.0}, "W3": {"sales": 375.72, "spsd": 5.72, "sbsp": 72.36, "spend": 78.08, "units": 28, "organic": 27, "ppc": 3, "profits": 197.28, "tacos": 20.8}, "W4": {"sales": 356.74, "spsd": 4.34, "sbsp": 85.77, "spend": 90.11, "units": 26, "organic": 26, "ppc": 1, "profits": 190.5, "tacos": 25.3}, "W5": {"sales": 512.66, "spsd": 2.57, "sbsp": 63.06, "spend": 65.63, "units": 34, "organic": 34, "ppc": 0, "profits": 295.31, "tacos": 12.8}}, "total_sales": 2096.32, "total_spend": 526.58, "total_spsd": 25.91, "tacos_4w": 25.1, "sb_attr": 666.54}, "B0FBSM3N8P": {"name": "80Days Square Sunglasses – Slim Frame, Classic Keyhole Design, UV400 Protection", "short": "80Days Square Sunglasses", "color": "#f43f5e", "children": ["B0F1D2B3FG", "B0F1D3VGX6"], "weeks": {"W1": {"sales": 200.0, "spsd": 2.02, "sbsp": 126.64, "spend": 128.66, "units": 5, "organic": 5, "ppc": 0, "profits": 132.69, "tacos": 64.3}, "W2": {"sales": 107.0, "spsd": 4.68, "sbsp": 177.5, "spend": 182.18, "units": 3, "organic": 3, "ppc": 0, "profits": 64.96, "tacos": 170.3}, "W3": {"sales": 179.5, "spsd": 23.83, "sbsp": 29.58, "spend": 53.41, "units": 5, "organic": 5, "ppc": 2, "profits": 93.24, "tacos": 29.8}, "W4": {"sales": 33.5, "spsd": 9.78, "sbsp": 0.0, "spend": 9.78, "units": 1, "organic": 1, "ppc": 0, "profits": 11.57, "tacos": 29.2}, "W5": {"sales": 79.0, "spsd": 3.89, "sbsp": 41.2, "spend": 45.09, "units": 2, "organic": 2, "ppc": 0, "profits": 46.54, "tacos": 57.1}}, "total_sales": 599.0, "total_spend": 419.12, "total_spsd": 44.2, "tacos_4w": 70.0, "sb_attr": 498.5}, "B07CGC3V3F": {"name": "Flux SPORTECH Sunglasses for Men and Women: Polarized UV400 Protection, Lightweight frame, Sports Sunglasses", "short": "Flux SPORTECH Sunglasses for Men an", "color": "#a855f7", "children": ["B06XS9FDG6", "B01LWX7WBR", "B06XS3D5RG", "B074496RQ5"], "weeks": {"W1": {"sales": 129.0, "spsd": 55.86, "sbsp": 0.0, "spend": 55.86, "units": 2, "organic": 2, "ppc": 1, "profits": 40.1, "tacos": 43.3}, "W2": {"sales": 0.0, "spsd": 77.13, "sbsp": 0.0, "spend": 77.13, "units": 0, "organic": 0, "ppc": 1, "profits": -77.13, "tacos": null}, "W3": {"sales": 162.0, "spsd": 99.55, "sbsp": 47.69, "spend": 147.24, "units": 3, "organic": 1, "ppc": 2, "profits": 16.04, "tacos": 90.9}, "W4": {"sales": 183.0, "spsd": 81.63, "sbsp": 0.0, "spend": 81.63, "units": 3, "organic": 3, "ppc": 4, "profits": 53.65, "tacos": 44.6}, "W5": {"sales": 0.0, "spsd": 52.07, "sbsp": 0.0, "spend": 52.07, "units": 0, "organic": 0, "ppc": 1, "profits": -52.07, "tacos": null}}, "total_sales": 474.0, "total_spend": 413.93, "total_spsd": 366.24, "tacos_4w": 87.3, "sb_attr": 54.0}, "B07CG6VHJG": {"name": "Flux Unisex Polarized No Slip Outdo", "short": "Flux Unisex Polarized No Slip Outdo", "color": "#3b82f6", "children": ["B06XCRF7RF", "B09T36PXKX", "B0734KS4HV", "B01MFI3MCW"], "weeks": {"W1": {"sales": 98.98, "spsd": 23.42, "sbsp": 99.34, "spend": 122.76, "units": 2, "organic": 2, "ppc": 0, "profits": 45.56, "tacos": 124.0}, "W2": {"sales": 148.47, "spsd": 16.11, "sbsp": 91.1, "spend": 107.21, "units": 3, "organic": 3, "ppc": 0, "profits": 87.36, "tacos": 72.2}, "W3": {"sales": 98.98, "spsd": 19.31, "sbsp": 146.08, "spend": 165.39, "units": 2, "organic": 2, "ppc": 0, "profits": 49.67, "tacos": 167.1}, "W4": {"sales": 40.0, "spsd": 36.55, "sbsp": 180.1, "spend": 216.65, "units": 1, "organic": 1, "ppc": 0, "profits": -10.22, "tacos": 541.6}, "W5": {"sales": 160.0, "spsd": 38.44, "sbsp": 111.01, "spend": 149.45, "units": 4, "organic": 2, "ppc": 3, "profits": 69.8, "tacos": 93.4}}, "total_sales": 546.43, "total_spend": 761.46, "total_spsd": 133.83, "tacos_4w": 139.4, "sb_attr": 777.5}, "B0F8P1BR7W": {"name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection", "short": "80Days Women’s Geometric Sunglasses", "color": "#14b8a6", "children": ["B0F1D4F97T", "B0F1D1CFHP", "B0F1D2HHD4"], "weeks": {"W1": {"sales": 39.5, "spsd": 2.32, "sbsp": 25.01, "spend": 27.33, "units": 1, "organic": 1, "ppc": 0, "profits": 24.19, "tacos": 69.2}, "W2": {"sales": 33.0, "spsd": 3.03, "sbsp": 0.0, "spend": 3.03, "units": 1, "organic": 1, "ppc": 0, "profits": -17.19, "tacos": 9.2}, "W3": {"sales": 0.0, "spsd": 1.49, "sbsp": 0.0, "spend": 1.49, "units": 0, "organic": 0, "ppc": 0, "profits": -1.49, "tacos": null}, "W4": {"sales": 0.0, "spsd": 3.1, "sbsp": 0.0, "spend": 3.1, "units": 0, "organic": 0, "ppc": 0, "profits": -3.1, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.98, "sbsp": 0.0, "spend": 0.98, "units": 0, "organic": 0, "ppc": 0, "profits": -0.98, "tacos": null}}, "total_sales": 72.5, "total_spend": 35.93, "total_spsd": 10.92, "tacos_4w": 49.6, "sb_attr": 39.5}, "B0DP27TM4D": {"name": "Flux LANTAKA Polarized Sunglasses f", "short": "Flux LANTAKA Polarized Sunglasses f", "color": "#8b5cf6", "children": ["B0DP29LW5K", "B0DP2BK94D", "B0DP27SKJN"], "weeks": {"W1": {"sales": 0.0, "spsd": 0.21, "sbsp": 0.0, "spend": 0.21, "units": 0, "organic": 0, "ppc": 0, "profits": -0.21, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.97, "sbsp": 0.0, "spend": 0.97, "units": 0, "organic": 0, "ppc": 0, "profits": -0.97, "tacos": null}, "W3": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W4": {"sales": 0.0, "spsd": 1.21, "sbsp": 0.0, "spend": 1.21, "units": 0, "organic": 0, "ppc": 0, "profits": -1.21, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}}, "total_sales": 0.0, "total_spend": 2.39, "total_spsd": 2.39, "tacos_4w": null, "sb_attr": 0}, "B09R4DS2X7": {"name": "FLUX SOLEADO Polarized Outdoor Spor", "short": "FLUX SOLEADO Polarized Outdoor Spor", "color": "#f97316", "children": ["B09R4DDJ78"], "weeks": {"W1": {"sales": 0.0, "spsd": 1.46, "sbsp": 0.0, "spend": 1.46, "units": 0, "organic": 0, "ppc": 0, "profits": -1.46, "tacos": null}, "W2": {"sales": 0.0, "spsd": 0.68, "sbsp": 0.0, "spend": 0.68, "units": 0, "organic": 0, "ppc": 0, "profits": -0.68, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W5": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}}, "total_sales": 0.0, "total_spend": 2.14, "total_spsd": 2.14, "tacos_4w": null, "sb_attr": 0}};
-const CHILD_DATA = [{"asin": "B01N3OVRWE", "parent": "B086WS945N", "parent_short": "Flux AVENTO Polarized Sports Sungla", "color": "#f59e0b", "name": "Flux AVENTO Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports (BLK)", "weeks": {"W1": {"sales": 387.0, "spend": 57.07, "units": 6, "organic": 4}, "W2": {"sales": 129.0, "spend": 48.36, "units": 2, "organic": 1}, "W3": {"sales": 256.0, "spend": 50.4, "units": 4, "organic": 4}, "W4": {"sales": 838.5, "spend": 66.75, "units": 16, "organic": 14}, "W5": {"sales": 258.0, "spend": 84.02, "units": 5, "organic": 3}}, "total_sales": 1868.5}, {"asin": "B093P2DLLJ", "parent": "B093PN2D9C", "parent_short": "Flux BOWRIDER Active LifestylesSung", "color": "#ef4444", "name": "Flux BOWRIDER Active LifestylesSunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Crystal Grey, Grey Mirror)", "weeks": {"W1": {"sales": 193.5, "spend": 8.41, "units": 3, "organic": 2}, "W2": {"sales": 164.5, "spend": 21.69, "units": 3, "organic": 2}, "W3": {"sales": 100.0, "spend": 16.86, "units": 2, "organic": 1}, "W4": {"sales": 114.5, "spend": 30.1, "units": 2, "organic": 2}, "W5": {"sales": 129.0, "spend": 22.57, "units": 2, "organic": 1}}, "total_sales": 701.5}, {"asin": "B0CNRJXBYP", "parent": "B0CNRLGCGV", "parent_short": "Flux VENTURA High-Performance Sungl", "color": "#ec4899", "name": "Flux VENTURA Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame (BLK-R/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 9.17, "units": 0, "organic": 0}, "W3": {"sales": 409.82, "spend": 34.41, "units": 5, "organic": 3}, "W4": {"sales": 84.5, "spend": 25.99, "units": 1, "organic": 1}, "W5": {"sales": 169.0, "spend": 21.2, "units": 2, "organic": 1}}, "total_sales": 663.32}, {"asin": "B0FCRLQG4B", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 131.89, "spend": 0.33, "units": 11, "organic": 11}, "W2": {"sales": 71.94, "spend": 1.75, "units": 6, "organic": 6}, "W3": {"sales": 155.87, "spend": 2.21, "units": 13, "organic": 13}, "W4": {"sales": 167.86, "spend": 1.55, "units": 14, "organic": 14}, "W5": {"sales": 107.91, "spend": 1.67, "units": 9, "organic": 9}}, "total_sales": 635.47}, {"asin": "B0C3GC6N5W", "parent": "B086WS945N", "parent_short": "Flux AVENTO Polarized Sports Sungla", "color": "#f59e0b", "name": "Flux AVENTO Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf (Gloss Black, Blue Mirror)", "weeks": {"W1": {"sales": 64.5, "spend": 6.29, "units": 1, "organic": 1}, "W2": {"sales": 128.0, "spend": 5.92, "units": 2, "organic": 2}, "W3": {"sales": 64.5, "spend": 11.42, "units": 1, "organic": 1}, "W4": {"sales": 156.0, "spend": 13.84, "units": 3, "organic": 2}, "W5": {"sales": 156.0, "spend": 14.71, "units": 3, "organic": 3}}, "total_sales": 569.0}, {"asin": "B0FD3PMPVC", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 255.63, "spend": 4.14, "units": 15, "organic": 15}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 16.99, "spend": 0.0, "units": 1, "organic": 1}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 288.83, "spend": 0.9, "units": 17, "organic": 17}}, "total_sales": 561.45}, {"asin": "B0C3GNK3VF", "parent": "B086WS945N", "parent_short": "Flux AVENTO Polarized Sports Sungla", "color": "#f59e0b", "name": "Flux AVENTO Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf (Gloss Black, Red Mirror)", "weeks": {"W1": {"sales": 129.0, "spend": 13.04, "units": 2, "organic": 2}, "W2": {"sales": 193.0, "spend": 18.14, "units": 3, "organic": 3}, "W3": {"sales": 0.0, "spend": 12.22, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 26.93, "units": 0, "organic": 0}, "W5": {"sales": 167.7, "spend": 23.69, "units": 3, "organic": 3}}, "total_sales": 489.7}, {"asin": "B0F1D2B3FG", "parent": "B0FBSM3N8P", "parent_short": "80Days Square Sunglasses", "color": "#f43f5e", "name": "80Days Square Sunglasses – Slim Frame, Classic Keyhole Design, UV400 Protection (BLK)", "weeks": {"W1": {"sales": 200.0, "spend": 0.0, "units": 5, "organic": 5}, "W2": {"sales": 73.5, "spend": 0.0, "units": 2, "organic": 2}, "W3": {"sales": 67.0, "spend": 0.0, "units": 2, "organic": 2}, "W4": {"sales": 33.5, "spend": 0.0, "units": 1, "organic": 1}, "W5": {"sales": 39.5, "spend": 0.0, "units": 1, "organic": 1}}, "total_sales": 413.5}, {"asin": "B01KHB8E4A", "parent": "B086WS945N", "parent_short": "Flux AVENTO Polarized Sports Sungla", "color": "#f59e0b", "name": "Flux AVENTO Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports and (Blue)", "weeks": {"W1": {"sales": 129.0, "spend": 1.9, "units": 2, "organic": 2}, "W2": {"sales": 129.0, "spend": 6.96, "units": 2, "organic": 2}, "W3": {"sales": 0.0, "spend": 18.06, "units": 0, "organic": 0}, "W4": {"sales": 51.6, "spend": 10.22, "units": 1, "organic": 1}, "W5": {"sales": 103.2, "spend": 9.5, "units": 2, "organic": 2}}, "total_sales": 412.8}, {"asin": "B07NZM7X6F", "parent": "B086WS945N", "parent_short": "Flux AVENTO Polarized Sports Sungla", "color": "#f59e0b", "name": "Flux AVENTO Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports (White)", "weeks": {"W1": {"sales": 64.5, "spend": 35.35, "units": 1, "organic": 1}, "W2": {"sales": 64.0, "spend": 41.36, "units": 1, "organic": 1}, "W3": {"sales": 64.5, "spend": 36.92, "units": 1, "organic": 1}, "W4": {"sales": 51.6, "spend": 89.49, "units": 1, "organic": 0}, "W5": {"sales": 167.7, "spend": 99.51, "units": 3, "organic": 1}}, "total_sales": 412.3}, {"asin": "B06XS9FDG6", "parent": "B07CGC3V3F", "parent_short": "Flux SPORTECH Sunglasses for Men an", "color": "#a855f7", "name": "Flux Sportech Unisex Polarized No Slip Outdoor Sports Sunglasses with 100% UV Protection - Mat.BLK/Grey", "weeks": {"W1": {"sales": 64.5, "spend": 26.62, "units": 1, "organic": 1}, "W2": {"sales": 0.0, "spend": 41.93, "units": 0, "organic": 0}, "W3": {"sales": 162.0, "spend": 57.79, "units": 3, "organic": 1}, "W4": {"sales": 118.5, "spend": 44.7, "units": 2, "organic": 2}, "W5": {"sales": 0.0, "spend": 23.86, "units": 0, "organic": 0}}, "total_sales": 345.0}, {"asin": "B0FD3PSJG3", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 16.99, "spend": 0.0, "units": 1, "organic": 1}, "W2": {"sales": 84.95, "spend": 0.58, "units": 5, "organic": 3}, "W3": {"sales": 50.97, "spend": 1.1, "units": 3, "organic": 2}, "W4": {"sales": 67.96, "spend": 1.09, "units": 4, "organic": 4}, "W5": {"sales": 50.97, "spend": 0.0, "units": 3, "organic": 3}}, "total_sales": 271.84}, {"asin": "B06XCRF7RF", "parent": "B07CG6VHJG", "parent_short": "Flux Unisex Polarized No Slip Outdo", "color": "#3b82f6", "name": "Flux Unisex Polarized No Slip Outdoor Sports Sunglasses with 100% UV Protection (BLK/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 15.65, "units": 0, "organic": 0}, "W2": {"sales": 49.49, "spend": 9.52, "units": 1, "organic": 1}, "W3": {"sales": 49.49, "spend": 13.45, "units": 1, "organic": 1}, "W4": {"sales": 40.0, "spend": 28.1, "units": 1, "organic": 1}, "W5": {"sales": 120.0, "spend": 32.34, "units": 3, "organic": 1}}, "total_sales": 258.98}, {"asin": "B09T36PXKX", "parent": "B07CG6VHJG", "parent_short": "Flux Unisex Polarized No Slip Outdo", "color": "#3b82f6", "name": "Flux Verano Polarized Sports Sunglasses with Anti-Slip Function Adjustable Nose Pad and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports (BLK/Blue)", "weeks": {"W1": {"sales": 49.49, "spend": 0.0, "units": 1, "organic": 1}, "W2": {"sales": 98.98, "spend": 0.0, "units": 2, "organic": 2}, "W3": {"sales": 49.49, "spend": 1.46, "units": 1, "organic": 1}, "W4": {"sales": 0.0, "spend": 1.16, "units": 0, "organic": 0}, "W5": {"sales": 40.0, "spend": 1.23, "units": 1, "organic": 1}}, "total_sales": 237.96}, {"asin": "B0FD3LHYMN", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 50.97, "spend": 0.0, "units": 3, "organic": 3}, "W2": {"sales": 84.95, "spend": 0.58, "units": 5, "organic": 5}, "W3": {"sales": 33.98, "spend": 0.57, "units": 2, "organic": 2}, "W4": {"sales": 67.96, "spend": 0.0, "units": 4, "organic": 4}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 237.86}, {"asin": "B093P9QGZL", "parent": "B093PN2D9C", "parent_short": "Flux BOWRIDER Active LifestylesSung", "color": "#ef4444", "name": "Flux BOWRIDER Active LifestylesSunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Titanium Brown, Brown Mirror)", "weeks": {"W1": {"sales": 0.0, "spend": 0.59, "units": 0, "organic": 0}, "W2": {"sales": 50.0, "spend": 0.0, "units": 1, "organic": 1}, "W3": {"sales": 100.0, "spend": 1.83, "units": 2, "organic": 2}, "W4": {"sales": 64.5, "spend": 1.75, "units": 1, "organic": 1}, "W5": {"sales": 0.0, "spend": 1.5, "units": 0, "organic": 0}}, "total_sales": 214.5}, {"asin": "B0F1D3VGX6", "parent": "B0FBSM3N8P", "parent_short": "80Days Square Sunglasses", "color": "#f43f5e", "name": "80Days Square Sunglasses – Slim Frame, Classic Keyhole Design, UV400 Protection (Tortoise)", "weeks": {"W1": {"sales": 0.0, "spend": 2.02, "units": 0, "organic": 0}, "W2": {"sales": 33.5, "spend": 4.68, "units": 1, "organic": 1}, "W3": {"sales": 112.5, "spend": 23.83, "units": 3, "organic": 3}, "W4": {"sales": 0.0, "spend": 9.78, "units": 0, "organic": 0}, "W5": {"sales": 39.5, "spend": 3.89, "units": 1, "organic": 1}}, "total_sales": 185.5}, {"asin": "B01KHB8DKA", "parent": "B086WS945N", "parent_short": "Flux AVENTO Polarized Sports Sungla", "color": "#f59e0b", "name": "Flux AVENTO Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sport (Red)", "weeks": {"W1": {"sales": 0.0, "spend": 31.54, "units": 0, "organic": 0}, "W2": {"sales": 64.5, "spend": 36.22, "units": 1, "organic": 1}, "W3": {"sales": 64.5, "spend": 25.13, "units": 1, "organic": 0}, "W4": {"sales": 0.0, "spend": 26.95, "units": 0, "organic": 0}, "W5": {"sales": 51.6, "spend": 32.56, "units": 1, "organic": 1}}, "total_sales": 180.6}, {"asin": "B0FCRQRHJ8", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 23.98, "spend": 1.06, "units": 2, "organic": 2}, "W2": {"sales": 35.97, "spend": 0.85, "units": 3, "organic": 3}, "W3": {"sales": 47.96, "spend": 0.0, "units": 4, "organic": 4}, "W4": {"sales": 23.98, "spend": 0.58, "units": 2, "organic": 2}, "W5": {"sales": 11.99, "spend": 0.0, "units": 1, "organic": 1}}, "total_sales": 143.88}, {"asin": "B0CNRJDM2J", "parent": "B0CNRLGCGV", "parent_short": "Flux VENTURA High-Performance Sungl", "color": "#ec4899", "name": "Flux VENTURA Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame (BLK-R/Red)", "weeks": {"W1": {"sales": 142.8, "spend": 10.19, "units": 2, "organic": 1}, "W2": {"sales": 0.0, "spend": 16.12, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 11.72, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 11.15, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 16.86, "units": 0, "organic": 0}}, "total_sales": 142.8}, {"asin": "B0FD3MZ97V", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 16.99, "spend": 0.0, "units": 1, "organic": 1}, "W2": {"sales": 16.99, "spend": 0.99, "units": 1, "organic": 1}, "W3": {"sales": 33.98, "spend": 0.0, "units": 2, "organic": 2}, "W4": {"sales": 16.99, "spend": 0.54, "units": 1, "organic": 1}, "W5": {"sales": 16.99, "spend": 0.0, "units": 1, "organic": 1}}, "total_sales": 101.94}, {"asin": "B093P8LWNV", "parent": "B093PN2D9C", "parent_short": "Flux BOWRIDER Active LifestylesSung", "color": "#ef4444", "name": "Flux BOWRIDER Active LifestylesSunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Titanium Blue, Blue Mirror)", "weeks": {"W1": {"sales": 0.0, "spend": 0.4, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.74, "units": 0, "organic": 0}, "W3": {"sales": 100.0, "spend": 1.05, "units": 2, "organic": 2}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.5, "units": 0, "organic": 0}}, "total_sales": 100.0}, {"asin": "B0CNRJK9ZG", "parent": "B0CNRLGCGV", "parent_short": "Flux VENTURA High-Performance Sungl", "color": "#ec4899", "name": "Flux VENTURA Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame (BLK-YW/Blue)", "weeks": {"W1": {"sales": 0.0, "spend": 0.99, "units": 0, "organic": 0}, "W2": {"sales": 84.5, "spend": 4.38, "units": 1, "organic": 1}, "W3": {"sales": 0.0, "spend": 2.2, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 2.18, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 4.88, "units": 0, "organic": 0}}, "total_sales": 84.5}, {"asin": "B0CNRKL7SX", "parent": "B0CNRLGCGV", "parent_short": "Flux VENTURA High-Performance Sungl", "color": "#ec4899", "name": "Flux VENTURA Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame (White/Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 2.36, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 2.62, "units": 0, "organic": 0}, "W3": {"sales": 84.5, "spend": 1.42, "units": 1, "organic": 1}, "W4": {"sales": 0.0, "spend": 1.36, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 3.66, "units": 0, "organic": 0}}, "total_sales": 84.5}, {"asin": "B0FCRCZ1HC", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 47.96, "spend": 0.49, "units": 4, "organic": 4}, "W3": {"sales": 11.99, "spend": 0.58, "units": 1, "organic": 1}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 23.98, "spend": 0.0, "units": 2, "organic": 2}}, "total_sales": 83.93}, {"asin": "B0F1D4F97T", "parent": "B0F8P1BR7W", "parent_short": "80Days Women’s Geometric Sunglasses", "color": "#14b8a6", "name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection (BLK)", "weeks": {"W1": {"sales": 39.5, "spend": 2.32, "units": 1, "organic": 1}, "W2": {"sales": 33.0, "spend": 3.03, "units": 1, "organic": 1}, "W3": {"sales": 0.0, "spend": 1.49, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 2.35, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.98, "units": 0, "organic": 0}}, "total_sales": 72.5}, {"asin": "B01LWX7WBR", "parent": "B07CGC3V3F", "parent_short": "Flux SPORTECH Sunglasses for Men an", "color": "#a855f7", "name": "Flux Sportech Unisex Polarized No Slip Outdoor Sports Sunglasses with 100% UV Protection - S.BLK/Grey", "weeks": {"W1": {"sales": 0.0, "spend": 10.86, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 21.98, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 24.3, "units": 0, "organic": 0}, "W4": {"sales": 64.5, "spend": 18.56, "units": 1, "organic": 1}, "W5": {"sales": 0.0, "spend": 9.97, "units": 0, "organic": 0}}, "total_sales": 64.5}, {"asin": "B06XS3D5RG", "parent": "B07CGC3V3F", "parent_short": "Flux SPORTECH Sunglasses for Men an", "color": "#a855f7", "name": "Flux Sportech Unisex Polarized No Slip Outdoor Sports Sunglasses with 100% UV Protection - S.BLK/Blue", "weeks": {"W1": {"sales": 64.5, "spend": 18.38, "units": 1, "organic": 1}, "W2": {"sales": 0.0, "spend": 13.22, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 17.46, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 13.02, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 13.15, "units": 0, "organic": 0}}, "total_sales": 64.5}, {"asin": "B0FCRK9JCK", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0.0, "spend": 1.55, "units": 0, "organic": 0}, "W2": {"sales": 11.99, "spend": 0.96, "units": 1, "organic": 1}, "W3": {"sales": 23.98, "spend": 1.26, "units": 2, "organic": 2}, "W4": {"sales": 11.99, "spend": 0.58, "units": 1, "organic": 1}, "W5": {"sales": 11.99, "spend": 0.0, "units": 1, "organic": 1}}, "total_sales": 59.95}, {"asin": "B0734KS4HV", "parent": "B07CG6VHJG", "parent_short": "Flux Unisex Polarized No Slip Outdo", "color": "#3b82f6", "name": "Flux Verano Unisex Polarized No Slip Outdoor Sports Sunglasses with 100% UV Protection (BLK/Red)", "weeks": {"W1": {"sales": 49.49, "spend": 0.0, "units": 1, "organic": 1}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 49.49}, {"asin": "B074496RQ5", "parent": "B07CGC3V3F", "parent_short": "Flux SPORTECH Sunglasses for Men an", "color": "#a855f7", "name": "Flux Sportech Unisex Polarized No Slip Outdoor Sports Sunglasses with 100% UV Protection - Mat.BLK/Red", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 5.35, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 5.09, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B01MFI3MCW", "parent": "B07CG6VHJG", "parent_short": "Flux Unisex Polarized No Slip Outdo", "color": "#3b82f6", "name": "Flux Unisex Polarized No Slip Outdoor Sports Sunglasses with 100% UV Protection (Crystal Grey/Red)", "weeks": {"W1": {"sales": 0.0, "spend": 7.77, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 6.59, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 4.4, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 7.29, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 4.87, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DP29LW5K", "parent": "B0DP27TM4D", "parent_short": "Flux LANTAKA Polarized Sunglasses f", "color": "#8b5cf6", "name": "Flux LANTAKA Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Titanium Blue, Blue Mirror)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.56, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DP2BK94D", "parent": "B0DP27TM4D", "parent_short": "Flux LANTAKA Polarized Sunglasses f", "color": "#8b5cf6", "name": "Flux LANTAKA Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Titanium Green, Red Mirror)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.75, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D1CFHP", "parent": "B0F8P1BR7W", "parent_short": "80Days Women’s Geometric Sunglasses", "color": "#14b8a6", "name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection (Taupe)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.75, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D2HHD4", "parent": "B0F8P1BR7W", "parent_short": "80Days Women’s Geometric Sunglasses", "color": "#14b8a6", "name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection (Demi)", "weeks": {"W1": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CNRK82V4", "parent": "B0CNRLGCGV", "parent_short": "Flux VENTURA High-Performance Sungl", "color": "#ec4899", "name": "Flux VENTURA Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame (White/Blue)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 3.05, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 2.48, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 13.21, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 5.15, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CNRLQVH7", "parent": "B0CNRLGCGV", "parent_short": "Flux VENTURA High-Performance Sungl", "color": "#ec4899", "name": "Flux VENTURA Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame (BLK-YW/Red)", "weeks": {"W1": {"sales": 0.0, "spend": 0.69, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 6.86, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 8.57, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 5.54, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 5.59, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DP27SKJN", "parent": "B0DP27TM4D", "parent_short": "Flux LANTAKA Polarized Sunglasses f", "color": "#8b5cf6", "name": "Flux LANTAKA Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Black, Silver)", "weeks": {"W1": {"sales": 0.0, "spend": 0.21, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.41, "units": 0, "organic": 0}, "W3": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.46, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B09R4DDJ78", "parent": "B09R4DS2X7", "parent_short": "FLUX SOLEADO Polarized Outdoor Spor", "color": "#f97316", "name": "FLUX SOLEADO Polarized Outdoor Sports Sunglasses with Non-Slip Grip and TR90 Nylon Frames for Outdoor Active Lifestyles (Grey)", "weeks": {"W1": {"sales": 0.0, "spend": 1.46, "units": 0, "organic": 0}, "W2": {"sales": 0.0, "spend": 0.68, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W5": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}];
+const PARENTS = {"B086WS945N": {"name": "Flux AVENTO Polarized Sports Sungla", "short": "Flux AVENTO Polarized Sports Sungla", "color": "#f59e0b", "children": ["B01N3OVRWE", "B0C3GC6N5W", "B01KHB8E4A", "B07NZM7X6F", "B0C3GNK3VF", "B01KHB8DKA"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 904.2, "spsd": 263.99, "sbsp": 80.15, "spend": 344.14, "units": 17, "organic": 12, "ppc": 11, "profits": 383.71, "tacos": 38.1}, "W6": {"sales": 709.5, "spsd": 117.63, "sbsp": 60.96, "spend": 178.59, "units": 12, "organic": 9, "ppc": 6, "profits": 405.64, "tacos": 25.2}}, "total_sales": 1613.7, "total_spend": 522.73, "total_spsd": 381.62, "tacos_4w": 32.4, "sb_attr": 682.7}, "B0FJWKDLT6": {"name": "80Days Adjustable Eyeglass Strap: N", "short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "children": ["B0FD3PMPVC", "B0FCRLQG4B", "B0FD3PSJG3", "B0FCRCZ1HC", "B0FD3LHYMN", "B0FD3MZ97V", "B0FCRQRHJ8", "B0FCRK9JCK"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 512.66, "spsd": 2.57, "sbsp": 62.61, "spend": 65.18, "units": 34, "organic": 34, "ppc": 0, "profits": 284.65, "tacos": 12.7}, "W6": {"sales": 542.66, "spsd": 8.74, "sbsp": 47.61, "spend": 56.35, "units": 34, "organic": 33, "ppc": 1, "profits": 294.42, "tacos": 10.4}}, "total_sales": 1055.32, "total_spend": 121.53, "total_spsd": 11.31, "tacos_4w": 11.5, "sb_attr": 787.46}, "B093PN2D9C": {"name": "Flux BOWRIDER Active LifestylesSung", "short": "Flux BOWRIDER Active LifestylesSung", "color": "#ef4444", "children": ["B093P2DLLJ", "B093P8LWNV", "B093P9QGZL"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 129.0, "spsd": 24.57, "sbsp": 0.0, "spend": 24.57, "units": 2, "organic": 1, "ppc": 1, "profits": 72.18, "tacos": 19.0}, "W6": {"sales": 258.0, "spsd": 13.99, "sbsp": 0.0, "spend": 13.99, "units": 4, "organic": 4, "ppc": 0, "profits": 166.59, "tacos": 5.4}}, "total_sales": 387.0, "total_spend": 38.56, "total_spsd": 38.56, "tacos_4w": 10.0, "sb_attr": 229.0}, "B0CNRLGCGV": {"name": "Flux VENTURA High-Performance Sunglasses: Anti-Fog PC Lenses, Ventilated TR90 Frame, UV Protection, Ideal for Sports and Cycling", "short": "Flux VENTURA High-Performance Sungl", "color": "#ec4899", "children": ["B0CNRJXBYP", "B0CNRK82V4", "B0CNRJDM2J", "B0CNRLQVH7", "B0CNRJK9ZG", "B0CNRKL7SX"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 169.0, "spsd": 57.34, "sbsp": 43.75, "spend": 101.09, "units": 2, "organic": 1, "ppc": 2, "profits": 76.7, "tacos": 59.8}, "W6": {"sales": 155.9, "spsd": 40.91, "sbsp": 33.27, "spend": 74.18, "units": 2, "organic": 2, "ppc": 1, "profits": 81.6, "tacos": 47.6}}, "total_sales": 324.9, "total_spend": 175.27, "total_spsd": 98.25, "tacos_4w": 53.9, "sb_attr": 240.82}, "B07CG6VHJG": {"name": "Flux Unisex Polarized No Slip Outdo", "short": "Flux Unisex Polarized No Slip Outdo", "color": "#3b82f6", "children": ["B06XCRF7RF", "B09T36PXKX", "B01MFI3MCW"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 160.0, "spsd": 38.44, "sbsp": 110.21, "spend": 148.65, "units": 4, "organic": 2, "ppc": 3, "profits": 67.61, "tacos": 92.9}, "W6": {"sales": 49.49, "spsd": 10.77, "sbsp": 83.82, "spend": 94.59, "units": 1, "organic": 1, "ppc": 0, "profits": 24.45, "tacos": 191.1}}, "total_sales": 209.49, "total_spend": 243.24, "total_spsd": 49.21, "tacos_4w": 116.1, "sb_attr": 990.36}, "B0FBSM3N8P": {"name": "80Days Square Sunglasses – Slim Frame, Classic Keyhole Design, UV400 Protection", "short": "80Days Square Sunglasses", "color": "#f43f5e", "children": ["B0F1D2B3FG", "B0F1D3VGX6"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 79.0, "spsd": 3.89, "sbsp": 40.9, "spend": 44.79, "units": 2, "organic": 2, "ppc": 0, "profits": 46.41, "tacos": 56.7}, "W6": {"sales": 39.5, "spsd": 7.42, "sbsp": 31.11, "spend": 38.53, "units": 1, "organic": 1, "ppc": 0, "profits": 19.77, "tacos": 97.5}}, "total_sales": 118.5, "total_spend": 83.32, "total_spsd": 11.31, "tacos_4w": 70.3, "sb_attr": 577.5}, "B07CGC3V3F": {"name": "Flux SPORTECH Sunglasses for Men and Women: Polarized UV400 Protection, Lightweight frame, Sports Sunglasses", "short": "Flux SPORTECH Sunglasses for Men an", "color": "#a855f7", "children": ["B074496RQ5", "B01LWX7WBR", "B06XS3D5RG", "B06XS9FDG6"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 52.07, "sbsp": 0.0, "spend": 52.07, "units": 0, "organic": 0, "ppc": 1, "profits": -52.07, "tacos": null}, "W6": {"sales": 64.5, "spsd": 60.21, "sbsp": 0.0, "spend": 60.21, "units": 1, "organic": 1, "ppc": 0, "profits": -22.24, "tacos": 93.3}}, "total_sales": 64.5, "total_spend": 112.28, "total_spsd": 112.28, "tacos_4w": 174.1, "sb_attr": 54.0}, "B0DP27TM4D": {"name": "Flux LANTAKA Polarized Sunglasses f", "short": "Flux LANTAKA Polarized Sunglasses f", "color": "#8b5cf6", "children": ["B0DP27SKJN", "B0DP29LW5K", "B0DP2BK94D"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0.0, "tacos": null}, "W6": {"sales": 0.0, "spsd": 1.23, "sbsp": 0.0, "spend": 1.23, "units": 0, "organic": 0, "ppc": 0, "profits": -1.23, "tacos": null}}, "total_sales": 0.0, "total_spend": 1.23, "total_spsd": 1.23, "tacos_4w": null, "sb_attr": 0}, "B0F8P1BR7W": {"name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection", "short": "80Days Women’s Geometric Sunglasses", "color": "#14b8a6", "children": ["B0F1D4F97T", "B0F1D1CFHP", "B0F1D2HHD4"], "weeks": {"W1": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W2": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W3": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W4": {"sales": 0, "spsd": 0, "sbsp": 0.0, "spend": 0.0, "units": 0, "organic": 0, "ppc": 0, "profits": 0, "tacos": null}, "W5": {"sales": 0.0, "spsd": 0.98, "sbsp": 0.0, "spend": 0.98, "units": 0, "organic": 0, "ppc": 0, "profits": -0.98, "tacos": null}, "W6": {"sales": 0.0, "spsd": 1.33, "sbsp": 0.0, "spend": 1.33, "units": 0, "organic": 0, "ppc": 0, "profits": -1.33, "tacos": null}}, "total_sales": 0.0, "total_spend": 2.31, "total_spsd": 2.31, "tacos_4w": null, "sb_attr": 39.5}};
+const CHILD_DATA = [{"asin": "B01N3OVRWE", "parent": "B086WS945N", "parent_short": "Flux AVENTO Polarized Sports Sungla", "color": "#f59e0b", "name": "Flux AVENTO Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports (BLK)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 258.0, "spend": 84.02, "units": 5, "organic": 3}, "W6": {"sales": 387.0, "spend": 30.68, "units": 7, "organic": 4}}, "total_sales": 645.0}, {"asin": "B0FD3PMPVC", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 288.83, "spend": 0.9, "units": 17, "organic": 17}, "W6": {"sales": 288.83, "spend": 5.95, "units": 17, "organic": 16}}, "total_sales": 577.66}, {"asin": "B0C3GC6N5W", "parent": "B086WS945N", "parent_short": "Flux AVENTO Polarized Sports Sungla", "color": "#f59e0b", "name": "Flux AVENTO Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf (Gloss Black, Blue Mirror)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 156.0, "spend": 14.71, "units": 3, "organic": 3}, "W6": {"sales": 193.5, "spend": 13.05, "units": 3, "organic": 3}}, "total_sales": 349.5}, {"asin": "B093P2DLLJ", "parent": "B093PN2D9C", "parent_short": "Flux BOWRIDER Active LifestylesSung", "color": "#ef4444", "name": "Flux BOWRIDER Active LifestylesSunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Crystal Grey, Grey Mirror)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 129.0, "spend": 22.57, "units": 2, "organic": 1}, "W6": {"sales": 129.0, "spend": 12.42, "units": 2, "organic": 2}}, "total_sales": 258.0}, {"asin": "B0FCRLQG4B", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 107.91, "spend": 1.67, "units": 9, "organic": 9}, "W6": {"sales": 71.94, "spend": 0.96, "units": 6, "organic": 6}}, "total_sales": 179.85}, {"asin": "B0FD3PSJG3", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 50.97, "spend": 0.0, "units": 3, "organic": 3}, "W6": {"sales": 118.93, "spend": 0.56, "units": 7, "organic": 7}}, "total_sales": 169.9}, {"asin": "B0CNRJXBYP", "parent": "B0CNRLGCGV", "parent_short": "Flux VENTURA High-Performance Sungl", "color": "#ec4899", "name": "Flux VENTURA Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame (BLK-R/Grey)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 169.0, "spend": 21.2, "units": 2, "organic": 1}, "W6": {"sales": 0.0, "spend": 18.21, "units": 0, "organic": 0}}, "total_sales": 169.0}, {"asin": "B01KHB8E4A", "parent": "B086WS945N", "parent_short": "Flux AVENTO Polarized Sports Sungla", "color": "#f59e0b", "name": "Flux AVENTO Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports and (Blue)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 103.2, "spend": 9.5, "units": 2, "organic": 2}, "W6": {"sales": 64.5, "spend": 8.07, "units": 1, "organic": 1}}, "total_sales": 167.7}, {"asin": "B07NZM7X6F", "parent": "B086WS945N", "parent_short": "Flux AVENTO Polarized Sports Sungla", "color": "#f59e0b", "name": "Flux AVENTO Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports (White)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 167.7, "spend": 99.51, "units": 3, "organic": 0}, "W6": {"sales": 0.0, "spend": 47.21, "units": 0, "organic": 0}}, "total_sales": 167.7}, {"asin": "B0C3GNK3VF", "parent": "B086WS945N", "parent_short": "Flux AVENTO Polarized Sports Sungla", "color": "#f59e0b", "name": "Flux AVENTO Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf (Gloss Black, Red Mirror)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 167.7, "spend": 23.69, "units": 3, "organic": 3}, "W6": {"sales": 0.0, "spend": 9.27, "units": 0, "organic": 0}}, "total_sales": 167.7}, {"asin": "B093P8LWNV", "parent": "B093PN2D9C", "parent_short": "Flux BOWRIDER Active LifestylesSung", "color": "#ef4444", "name": "Flux BOWRIDER Active LifestylesSunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Titanium Blue, Blue Mirror)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.5, "units": 0, "organic": 0}, "W6": {"sales": 129.0, "spend": 0.0, "units": 2, "organic": 2}}, "total_sales": 129.0}, {"asin": "B06XCRF7RF", "parent": "B07CG6VHJG", "parent_short": "Flux Unisex Polarized No Slip Outdo", "color": "#3b82f6", "name": "Flux Unisex Polarized No Slip Outdoor Sports Sunglasses with 100% UV Protection (BLK/Grey)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 120.0, "spend": 32.34, "units": 3, "organic": 1}, "W6": {"sales": 0.0, "spend": 8.03, "units": 0, "organic": 0}}, "total_sales": 120.0}, {"asin": "B01KHB8DKA", "parent": "B086WS945N", "parent_short": "Flux AVENTO Polarized Sports Sungla", "color": "#f59e0b", "name": "Flux AVENTO Polarized Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sport (Red)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 51.6, "spend": 32.56, "units": 1, "organic": 1}, "W6": {"sales": 64.5, "spend": 9.35, "units": 1, "organic": 1}}, "total_sales": 116.1}, {"asin": "B09T36PXKX", "parent": "B07CG6VHJG", "parent_short": "Flux Unisex Polarized No Slip Outdo", "color": "#3b82f6", "name": "Flux Verano Polarized Sports Sunglasses with Anti-Slip Function Adjustable Nose Pad and Lightweight Frame - for Men and Women when Driving, Running, Baseball, Golf, Casual Sports (BLK/Blue)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 40.0, "spend": 1.23, "units": 1, "organic": 1}, "W6": {"sales": 49.49, "spend": 1.79, "units": 1, "organic": 1}}, "total_sales": 89.49}, {"asin": "B0CNRK82V4", "parent": "B0CNRLGCGV", "parent_short": "Flux VENTURA High-Performance Sungl", "color": "#ec4899", "name": "Flux VENTURA Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame (White/Blue)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 5.15, "units": 0, "organic": 0}, "W6": {"sales": 84.5, "spend": 6.58, "units": 1, "organic": 1}}, "total_sales": 84.5}, {"asin": "B0F1D2B3FG", "parent": "B0FBSM3N8P", "parent_short": "80Days Square Sunglasses", "color": "#f43f5e", "name": "80Days Square Sunglasses – Slim Frame, Classic Keyhole Design, UV400 Protection (BLK)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 39.5, "spend": 0.0, "units": 1, "organic": 1}, "W6": {"sales": 39.5, "spend": 0.0, "units": 1, "organic": 1}}, "total_sales": 79.0}, {"asin": "B0CNRJDM2J", "parent": "B0CNRLGCGV", "parent_short": "Flux VENTURA High-Performance Sungl", "color": "#ec4899", "name": "Flux VENTURA Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame (BLK-R/Red)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 16.86, "units": 0, "organic": 0}, "W6": {"sales": 71.4, "spend": 3.91, "units": 1, "organic": 1}}, "total_sales": 71.4}, {"asin": "B074496RQ5", "parent": "B07CGC3V3F", "parent_short": "Flux SPORTECH Sunglasses for Men an", "color": "#a855f7", "name": "Flux Sportech Unisex Polarized No Slip Outdoor Sports Sunglasses with 100% UV Protection - Mat.BLK/Red", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 5.09, "units": 0, "organic": 0}, "W6": {"sales": 64.5, "spend": 2.33, "units": 1, "organic": 1}}, "total_sales": 64.5}, {"asin": "B0F1D3VGX6", "parent": "B0FBSM3N8P", "parent_short": "80Days Square Sunglasses", "color": "#f43f5e", "name": "80Days Square Sunglasses – Slim Frame, Classic Keyhole Design, UV400 Protection (Tortoise)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 39.5, "spend": 3.89, "units": 1, "organic": 1}, "W6": {"sales": 0.0, "spend": 7.42, "units": 0, "organic": 0}}, "total_sales": 39.5}, {"asin": "B0FCRCZ1HC", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 23.98, "spend": 0.0, "units": 2, "organic": 2}, "W6": {"sales": 11.99, "spend": 0.0, "units": 1, "organic": 1}}, "total_sales": 35.97}, {"asin": "B0FD3LHYMN", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W6": {"sales": 33.98, "spend": 0.32, "units": 2, "organic": 2}}, "total_sales": 33.98}, {"asin": "B0FD3MZ97V", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 16.99, "spend": 0.0, "units": 1, "organic": 1}, "W6": {"sales": 16.99, "spend": 0.62, "units": 1, "organic": 1}}, "total_sales": 33.98}, {"asin": "B0FCRQRHJ8", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 11.99, "spend": 0.0, "units": 1, "organic": 1}, "W6": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 11.99}, {"asin": "B0FCRK9JCK", "parent": "B0FJWKDLT6", "parent_short": "80Days Adjustable Eyeglass Strap: N", "color": "#84cc16", "name": "80Days Adjustable Eyeglass Strap: Nylon Retainer for Glasses and Sunglasses with Silicone Grips, Secure Fit", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 11.99, "spend": 0.0, "units": 1, "organic": 1}, "W6": {"sales": 0.0, "spend": 0.33, "units": 0, "organic": 0}}, "total_sales": 11.99}, {"asin": "B01LWX7WBR", "parent": "B07CGC3V3F", "parent_short": "Flux SPORTECH Sunglasses for Men an", "color": "#a855f7", "name": "Flux Sportech Unisex Polarized No Slip Outdoor Sports Sunglasses with 100% UV Protection - S.BLK/Grey", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 9.97, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 13.23, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B06XS3D5RG", "parent": "B07CGC3V3F", "parent_short": "Flux SPORTECH Sunglasses for Men an", "color": "#a855f7", "name": "Flux Sportech Unisex Polarized No Slip Outdoor Sports Sunglasses with 100% UV Protection - S.BLK/Blue", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 13.15, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 12.45, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B06XS9FDG6", "parent": "B07CGC3V3F", "parent_short": "Flux SPORTECH Sunglasses for Men an", "color": "#a855f7", "name": "Flux Sportech Unisex Polarized No Slip Outdoor Sports Sunglasses with 100% UV Protection - Mat.BLK/Grey", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 23.86, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 32.2, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DP27SKJN", "parent": "B0DP27TM4D", "parent_short": "Flux LANTAKA Polarized Sunglasses f", "color": "#8b5cf6", "name": "Flux LANTAKA Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Black, Silver)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 1.23, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D4F97T", "parent": "B0F8P1BR7W", "parent_short": "80Days Women’s Geometric Sunglasses", "color": "#14b8a6", "name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection (BLK)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.98, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 1.33, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B093P9QGZL", "parent": "B093PN2D9C", "parent_short": "Flux BOWRIDER Active LifestylesSung", "color": "#ef4444", "name": "Flux BOWRIDER Active LifestylesSunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Titanium Brown, Brown Mirror)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 1.5, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 1.57, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CNRLQVH7", "parent": "B0CNRLGCGV", "parent_short": "Flux VENTURA High-Performance Sungl", "color": "#ec4899", "name": "Flux VENTURA Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame (BLK-YW/Red)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 5.59, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 5.08, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B01MFI3MCW", "parent": "B07CG6VHJG", "parent_short": "Flux Unisex Polarized No Slip Outdo", "color": "#3b82f6", "name": "Flux Unisex Polarized No Slip Outdoor Sports Sunglasses with 100% UV Protection (Crystal Grey/Red)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 4.87, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 0.95, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CNRJK9ZG", "parent": "B0CNRLGCGV", "parent_short": "Flux VENTURA High-Performance Sungl", "color": "#ec4899", "name": "Flux VENTURA Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame (BLK-YW/Blue)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 4.88, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 2.04, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0CNRKL7SX", "parent": "B0CNRLGCGV", "parent_short": "Flux VENTURA High-Performance Sungl", "color": "#ec4899", "name": "Flux VENTURA Sports Sunglasses UV400 Protection with Anti-Slip Function and Lightweight Frame (White/Grey)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 3.66, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 5.09, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DP29LW5K", "parent": "B0DP27TM4D", "parent_short": "Flux LANTAKA Polarized Sunglasses f", "color": "#8b5cf6", "name": "Flux LANTAKA Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Titanium Blue, Blue Mirror)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D1CFHP", "parent": "B0F8P1BR7W", "parent_short": "80Days Women’s Geometric Sunglasses", "color": "#14b8a6", "name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection (Taupe)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0F1D2HHD4", "parent": "B0F8P1BR7W", "parent_short": "80Days Women’s Geometric Sunglasses", "color": "#14b8a6", "name": "80Days Women’s Geometric Sunglasses – Sculpted Silhouette, Timeless Glamour, UV400 Protection (Demi)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W6": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}}, "total_sales": 0.0}, {"asin": "B0DP2BK94D", "parent": "B0DP27TM4D", "parent_short": "Flux LANTAKA Polarized Sunglasses f", "color": "#8b5cf6", "name": "Flux LANTAKA Polarized Sunglasses for Men and Women UV400 Protection, Anti-Slip, Lightweight (Matte Titanium Green, Red Mirror)", "weeks": {"W1": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W2": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W3": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W4": {"sales": 0, "spend": 0, "units": 0, "organic": 0}, "W5": {"sales": 0.0, "spend": 0.0, "units": 0, "organic": 0}, "W6": {"sales": 0, "spend": 0, "units": 0, "organic": 0}}, "total_sales": 0.0}];
 
-const ZH = {
-  "B086WS945N": "AVENTO 運動偏光鏡",
-  "B093PN2D9C": "BOWRIDER 休閒偏光鏡",
-  "B0CNRLGCGV": "VENTURA 防霧運動鏡",
-  "B0FJWKDLT6": "80Days 尼龍眼鏡繩",
-  "B0FBSM3N8P": "80Days 方框墨鏡",
-  "B07CGC3V3F": "SPORTECH 運動偏光鏡",
-  "B07CG6VHJG": "Flux 戶外偏光鏡",
-  "B0F8P1BR7W": "80Days 幾何女款墨鏡",
-  "B0DP27TM4D": "LANTAKA 偏光鏡",
-  "B09R4DS2X7": "SOLEADO 偏光鏡"
-};
+const ZH = {};
 const CHILD_ZH = {};
 
 const TACOS_TARGET = 30;
-const WEEKS = ["W1", "W2", "W3", "W4", "W5"];
-const W_LABELS = {"W1": "Feb 1\u20137", "W2": "Feb 8\u201314", "W3": "Feb 15\u201321", "W4": "Feb 22\u201328", "W5": "Mar 1\u20137"};
+const WEEKS = ["W1", "W2", "W3", "W4", "W5", "W6"];
+const W_LABELS = {"W1": "Feb 1\u20137", "W2": "Feb 8\u201314", "W3": "Feb 15\u201321", "W4": "Feb 22\u201328", "W5": "Mar 1\u20137", "W6": "Mar 8\u201314"};
 
-const AMZN = 'https://www.amazon.com.au';
 const $ = id => document.getElementById(id);
 const fmt = (v,d=0) => v==null?'—':'A$'+v.toLocaleString('en-AU',{minimumFractionDigits:d,maximumFractionDigits:d});
 const pct = v => v==null?'—':v.toFixed(1)+'%';
 const tacosClass = v => v==null?'muted':v<=TACOS_TARGET?'tacos-ok':v<=TACOS_TARGET*1.2?'tacos-warn':'tacos-bad';
 const zhName = pid => (ZH[pid]||'') + ' ' + (PARENTS[pid]?PARENTS[pid].short:'');
 const zhShort = pid => ZH[pid] || (PARENTS[pid]?PARENTS[pid].short:'');
-const zhLink = (pid) => `<a href="${AMZN}/dp/${pid}" target="_blank" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none;border-bottom:1px dashed currentColor" title="${pid}">${zhShort(pid)}</a>`;
 
 function showTab(id, btn) {
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
@@ -699,7 +365,7 @@ function renderChildTable(mode) {
       }).join('');
       bodyHtml+=`<tr style="background:var(--bg)">
         <td style="padding-left:32px">
-          <a class="asin-link" href="https://www.amazon.com.au/dp/${r.asin}" target="_blank">${r.asin}</a>
+          <a class="asin-link" href="https://www.amazon.com/dp/${r.asin}" target="_blank">${r.asin}</a>
           <span style="color:var(--text2);font-size:11.5px;margin-left:8px">${cName}</span>
         </td>
         <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">${cPct}%</td>
@@ -771,7 +437,7 @@ function buildWowTab() {
   </thead><tbody>${sp.map(([pid,p])=>`<tr>
     <td><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span>
     <strong style="color:${p.color}">${zhShort(pid)}</strong><br>
-    <span class="muted" style="font-size:10px">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com.au/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span></td>
+    <span class="muted" style="font-size:10px">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span></td>
     ${WEEKS.map(w=>{const wd=p.weeks[w],tc=wd.tacos;
       return `<td>${fmt(wd.sales,0)}</td><td>${fmt(wd.spend,0)}</td><td class="${tacosClass(tc)}">${pct(tc)}</td><td>${wd.units||'—'}</td><td>${wd.organic||'—'}</td>`;
     }).join('')}
@@ -828,21 +494,14 @@ function buildQuadTab() {
     <div class="kpi-card"><div class="kpi-label">🔴 Cut</div><div class="kpi-value kpi-red">${qCut.length}</div></div>`;
 
 const qDefs=[
-    {title:'🔴 需止血 Cut',color:'#dc2626',bg:'rgba(220,38,38,.06)',items:qCut,action:'調降售價 · Coupon · Prime 特賣'},
-    {title:'⚠️ 待觀察 Question',color:'#d97706',bg:'rgba(217,119,6,.06)',items:qQuestion,action:'降低 CPC · 暫停高 TACOS 關鍵字'},
-    {title:'💤 潛力產品 Potential',color:'#2563eb',bg:'rgba(37,99,235,.06)',items:qPotential,action:'增加 SP/SB/SD · 低 CPC · Lookalike · 競品 ASIN'},
-    {title:'⭐ 明星產品 Star',color:'#16a34a',bg:'rgba(22,163,74,.06)',items:qStar,action:'複製 SP 活動 · 預算 +30%'},
+    {title:'cut',color:'#dc2626',items:qCut,action:'調降售價 $0.50\n建立 Coupon 折扣\n設定 Prime 限時特賣'},
+    {title:'Question',color:'#d97706',items:qQuestion,action:'降低 CPC 出價\n暫停 TACOS ≥85% 關鍵字'},
+    {title:'potential',color:'#2563eb',items:qPotential,action:'增加 SP / SB / SD 廣告\n使用低 CPC 出價\n建立 Lookalike 受眾活動\n相似 KW 根詞 · 競品 ASIN · AMC 受眾'},
+    {title:'star',color:'#16a34a',items:qStar,action:'複製現有 SP 活動\n提高預算 30%'},
   ];
-  $('qCards').innerHTML=qDefs.map(q=>`<div style="background:${q.bg};border:1px solid ${q.color}22;border-radius:10px;padding:16px;margin-bottom:10px">
-    <div style="font-family:var(--display);font-size:15px;font-weight:800;color:${q.color};margin-bottom:8px">${q.title}</div>
-    <div style="font-size:12px;color:#475569;margin-bottom:12px">${q.action}</div>
-    <div style="display:flex;flex-wrap:wrap;gap:6px">${q.items.map(([pid,p])=>{
-      return `<div style="background:#fff;border:1px solid ${q.color}33;border-radius:6px;padding:5px 10px">
-        <span style="font-size:12px;font-weight:700;color:${q.color};font-family:var(--display)">${zhShort(pid)}</span>
-        <span style="font-size:10px;color:#94a3b8;margin-left:4px;font-family:var(--mono)">${fmt(p.total_sales,0)}</span>
-        <span style="font-size:10px;color:#94a3b8;font-family:var(--mono)">· ${pct(p.tacos_4w)}</span>
-      </div>`;
-    }).join('')}${q.items.length===0?'<span style="color:#94a3b8;font-size:12px">暫無產品</span>':''}</div>
+  $('qCards').innerHTML=qDefs.map(q=>`<div class="q-card" style="border-color:${q.color}33"><div class="q-card-title" style="color:${q.color}">${q.title}</div><div class="q-card-body">${q.action.split('\\n').join('<br>')}
+    <br><br>${q.items.map(([pid,p])=>`<span style="display:inline-block;margin:2px 3px;padding:2px 8px;background:${p.color}22;border:1px solid ${p.color}44;border-radius:3px;font-size:10px;color:${p.color};font-family:var(--mono)">${zhShort(pid)}</span>`).join('')}
+    ${q.items.length===0?'<span class="muted">None</span>':''}</div>
   </div>`).join('');
 
   // Canvas
@@ -851,39 +510,43 @@ const qDefs=[
   const CW=canvas.width,CH=canvas.height;
   ctx.clearRect(0,0,CW,CH);
   const MX=CW/2,MY=CH/2;
-  const quadColors={cut:'#dc2626',question:'#d97706',potential:'#2563eb',star:'#16a34a'};
-  const quadBgs={cut:'rgba(220,38,38,.05)',question:'rgba(217,119,6,.05)',potential:'rgba(37,99,235,.05)',star:'rgba(22,163,74,.05)'};
-  function drawBox(x,y,w,h,qKey,title,subtitle,items){
-    const tc=quadColors[qKey],bg=quadBgs[qKey];
+  function drawBox(x,y,w,h,bg,title,subtitle,items,tc){
     ctx.fillStyle=bg;ctx.fillRect(x+1,y+1,w-2,h-2);
-    ctx.fillStyle=tc;ctx.font='bold 18px Inter,sans-serif';ctx.textAlign='left';
-    ctx.fillText(title,x+18,y+32);
-    ctx.fillStyle='#64748b';ctx.font='11px Outfit,sans-serif';
-    const lines=subtitle.split('\n');
-    lines.forEach((l,i)=>ctx.fillText(l,x+18,y+50+i*15));
-    let cx2=x+18,cy2=y+50+lines.length*15+16;
-    ctx.font='bold 11px Inter,sans-serif';
-    items.forEach(([pid])=>{
+    ctx.fillStyle=tc;ctx.font='bold 20px Inter,sans-serif';ctx.textAlign='left';
+    ctx.fillText(title,x+18,y+34);
+    ctx.fillStyle='#64748b';ctx.font='10px Outfit,sans-serif';
+    const lines=subtitle.split('\\n');
+    lines.forEach((l,i)=>ctx.fillText(l,x+18,y+54+i*15));
+    let cx2=x+18,cy2=y+54+lines.length*15+18;
+    ctx.font='bold 10px JetBrains Mono,monospace';
+    items.forEach(([pid,p])=>{
       const lbl=zhShort(pid);
-      const tw=ctx.measureText(lbl).width+16;
-      if(cx2+tw>x+w-10){cx2=x+18;cy2+=22;}
-      ctx.fillStyle='#ffffff';
-      ctx.beginPath();ctx.roundRect(cx2,cy2-14,tw,20,4);ctx.fill();
-      ctx.strokeStyle=tc+'55';ctx.lineWidth=1;ctx.stroke();
-      ctx.fillStyle=tc;ctx.fillText(lbl,cx2+8,cy2+1);
-      cx2+=tw+6;
+      const tw=ctx.measureText(lbl).width+14;
+      if(cx2+tw>x+w-10){cx2=x+18;cy2+=20;}
+      ctx.fillStyle=p.color+'2a';
+      ctx.beginPath();ctx.roundRect(cx2,cy2-13,tw,18,3);ctx.fill();
+      ctx.fillStyle=p.color;ctx.fillText(lbl,cx2+7,cy2);
+      cx2+=tw+5;
     });
   }
-  drawBox(0,0,MX,MY,'cut','🔴 需止血 Cut','調降售價 · Coupon\nPrime 特賣',qCut);
-  drawBox(MX,0,MX,MY,'question','⚠️ 待觀察 Question','降低 CPC\n暫停高 TACOS KW',qQuestion);
-  drawBox(0,MY,MX,MY,'potential','💤 潛力 Potential','增加 SP/SB/SD · 低 CPC\nLookalike · 競品 ASIN',qPotential);
-  drawBox(MX,MY,MX,MY,'star','⭐ 明星 Star','複製 SP 活動\n預算 +30%',qStar);
-  ctx.strokeStyle='#cbd5e1';ctx.lineWidth=1;
+  drawBox(0,0,MX,MY,'rgba(220,38,38,.05)','cut','調降售價 $0.50\n建立 Coupon\n設定 Prime 特賣',qCut,'#dc2626');
+  drawBox(MX,0,MX,MY,'rgba(217,119,6,.05)','Question','降低 CPC\n暫停 ≥85% TACOS KW',qQuestion,'#d97706');
+  drawBox(0,MY,MX,MY,'rgba(37,99,235,.05)','potential','增加 SP/SB/SD · 低 CPC\nLookalike 受眾 · 競品 ASIN\nAMC 相似受眾',qPotential,'#2563eb');
+  drawBox(MX,MY,MX,MY,'rgba(22,163,74,.05)','star','複製 SP 活動\n預算 +30%',qStar,'#16a34a');
+  ctx.strokeStyle='#2563eb';ctx.lineWidth=1.5;
   ctx.beginPath();ctx.moveTo(MX,0);ctx.lineTo(MX,CH);ctx.stroke();
   ctx.beginPath();ctx.moveTo(0,MY);ctx.lineTo(CW,MY);ctx.stroke();
+  ctx.fillStyle='#2563eb';ctx.font='bold 13px Inter,sans-serif';ctx.textAlign='center';
+  ctx.fillText('Flux AU · Feb–Mar 2026',CW/2,18);
   ctx.fillStyle='#94a3b8';ctx.font='11px JetBrains Mono,monospace';ctx.textAlign='left';
   ctx.fillText('TACOS ↑',6,MY-8);
+  ctx.fillStyle='#2563eb';ctx.font='bold 20px JetBrains Mono,monospace';ctx.textAlign='right';
+  ctx.fillText('70',MX-8,MY-6);
+  ctx.fillStyle='#64748b';ctx.font='12px JetBrains Mono,monospace';
+  ctx.fillText('0',MX-8,CH-8);
   ctx.textAlign='right';ctx.fillText('Sales →',CW-6,CH-8);
+  ctx.textAlign='left';ctx.fillStyle='#64748b';ctx.font='10px Outfit,sans-serif';
+  ctx.fillText('Bid $2–$2.5',8,CH-8);
 
   window._quad_med = med;
 }
@@ -941,8 +604,8 @@ function buildActionTab() {
         <div class="action-card-title" style="color:${p.color}">${zhShort(pid)}</div>
         <span class="action-card-badge ${cfg.badgeCls}">${cfg.label}</span>
         <span class="action-card-badge ${cfg.pri}">${cfg.priLabel}</span>
-        <span style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:auto">5W Sales ${fmt(p.total_sales,0)} · TACOS <span class="${tacosClass(p.tacos_4w)}">${pct(p.tacos_4w)}</span></span>
-        <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com.au/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:auto">6W Sales ${fmt(p.total_sales,0)} · TACOS <span class="${tacosClass(p.tacos_4w)}">${pct(p.tacos_4w)}</span></span>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">${p.children.map(c=>`<a class="asin-link" href="https://www.amazon.com/dp/${c}" target="_blank">${c}</a>`).join(' ')}</span>
       </div>
       <div class="action-tasks">${taskHtml}</div>
     </div>`;
@@ -956,196 +619,7 @@ function toggleTask(pid, idx, cb) {
   if(el) el.classList.toggle('done', cb.checked);
 }
 
-function buildExecSummary(){
-  const sp=sortedParents();
-  const totS=sp.reduce((s,[,p])=>s+p.total_sales,0);
-  const totE=sp.reduce((s,[,p])=>s+p.total_spend,0);
-  const totU=sp.reduce((s,[,p])=>s+WEEKS.reduce((a,w)=>a+p.weeks[w].units,0),0);
-  const totProfit=sp.reduce((s,[,p])=>s+WEEKS.reduce((a,w)=>a+p.weeks[w].profits,0),0);
-  const acctTacos=totS>0?totE/totS*100:0;
-  const totOrganic=sp.reduce((s,[,p])=>s+WEEKS.reduce((a,w)=>a+p.weeks[w].organic,0),0);
-  const orgPct=totU>0?(totOrganic/totU*100).toFixed(0):0;
-  const prodCount=sp.filter(([,p])=>p.total_sales>0).length;
-
-  $('kpi-exec').innerHTML=`
-    <div class="kpi-card"><div class="kpi-label">5W 總營業額</div><div class="kpi-value">${fmt(totS,0)}</div><div class="kpi-sub">${totU} units · ${prodCount} 產品</div></div>
-    <div class="kpi-card"><div class="kpi-label">5W 總廣告費</div><div class="kpi-value kpi-amber">${fmt(totE,0)}</div><div class="kpi-sub">SP+SD+SB</div></div>
-    <div class="kpi-card"><div class="kpi-label">帳戶 TACOS</div><div class="kpi-value ${acctTacos<=TACOS_TARGET?'kpi-green':acctTacos<=TACOS_TARGET*1.2?'kpi-amber':'kpi-red'}">${pct(acctTacos)}</div><div class="kpi-sub">${acctTacos<=TACOS_TARGET?'✓ 達標':'⚠ 超過 '+TACOS_TARGET+'% 目標'}</div></div>
-    <div class="kpi-card"><div class="kpi-label">5W 損益</div><div class="kpi-value ${totProfit>=0?'kpi-green':'kpi-red'}">${fmt(totProfit,0)}</div><div class="kpi-sub">${totProfit>=0?'盈利':'虧損'}</div></div>
-    <div class="kpi-card"><div class="kpi-label">有機佔比</div><div class="kpi-value ${orgPct>=50?'kpi-green':'kpi-amber'}">${orgPct}%</div><div class="kpi-sub">${totOrganic} / ${totU} units</div></div>`;
-
-  // Product table
-  const salesArr=sp.filter(([,p])=>p.total_sales>0).map(([,p])=>p.total_sales).sort((a,b)=>a-b);
-  const med=salesArr.length%2===0?(salesArr[salesArr.length/2-1]+salesArr[salesArr.length/2])/2:salesArr[Math.floor(salesArr.length/2)];
-  const quadLabel=p=>{
-    if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return '<span style="color:var(--green);font-weight:700">⭐ Star</span>';
-    if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return '<span style="color:var(--amber);font-weight:700">⚠️ Question</span>';
-    if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return '<span style="color:var(--accent);font-weight:700">💤 Potential</span>';
-    return '<span style="color:var(--red);font-weight:700">🔴 Cut</span>';
-  };
-  const trend=(p)=>{
-    const w4=p.weeks['W4'],w5=p.weeks['W5'];
-    if(!w4||!w5||w4.sales===0) return '<span class="muted">—</span>';
-    const chg=(w5.sales-w4.sales)/w4.sales*100;
-    return `<span style="color:${chg>=0?'var(--green)':'var(--red)'};">${chg>=0?'+':''}${chg.toFixed(0)}%</span>`;
-  };
-
-  const pt=$('execProductTable');
-  if(pt){
-    pt.innerHTML=`<thead><tr>
-      <th style="text-align:left;font-size:11px">產品 Product</th>
-      <th style="font-size:11px">象限 Quadrant</th>
-      <th style="font-size:11px">5W Sales</th>
-      <th style="font-size:11px">5W Spend</th>
-      <th style="font-size:11px">TACOS</th>
-      <th style="font-size:11px">Units</th>
-      <th style="font-size:11px">Organic %</th>
-      <th style="font-size:11px">5W Profit</th>
-      <th style="font-size:11px">W4→W5</th>
-      <th style="text-align:left;font-size:11px">本週行動 Action</th>
-    </tr></thead><tbody>${sp.filter(([,p])=>p.total_sales>0).map(([pid,p])=>{
-      const units=WEEKS.reduce((a,w)=>a+p.weeks[w].units,0);
-      const organic=WEEKS.reduce((a,w)=>a+p.weeks[w].organic,0);
-      const profit=WEEKS.reduce((a,w)=>a+p.weeks[w].profits,0);
-      const op=units>0?(organic/units*100).toFixed(0):'0';
-      const q=(function(){
-        if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return 'star';
-        if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return 'question';
-        if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return 'potential';
-        return 'cut';
-      })();
-      const actionMap={star:'加碼投放 +30%',question:'CPC 降 20%',cut:'降價 + Coupon',potential:'新建 SP Auto $10/天'};
-      return `<tr>
-        <td style="text-align:left;font-size:13px"><span style="display:inline-block;width:8px;height:8px;background:${p.color};border-radius:2px;margin-right:6px"></span><strong style="color:${p.color}">${zhShort(pid)}</strong></td>
-        <td style="font-size:12px">${quadLabel(p)}</td>
-        <td style="font-size:13px;font-weight:600">${fmt(p.total_sales,0)}</td>
-        <td style="font-size:13px;color:var(--amber)">${fmt(p.total_spend,0)}</td>
-        <td style="font-size:13px;font-weight:700" class="${tacosClass(p.tacos_4w)}">${pct(p.tacos_4w)}</td>
-        <td style="font-size:13px">${units}</td>
-        <td style="font-size:13px;color:${op>=50?'var(--green)':'var(--red)'}">${op}%</td>
-        <td style="font-size:13px;font-weight:700;color:${profit>=0?'var(--green)':'var(--red)'}">${fmt(profit,0)}</td>
-        <td style="font-size:13px">${trend(p)}</td>
-        <td style="text-align:left;font-size:12px;color:var(--text2)">${actionMap[q]||'—'}</td>
-      </tr>`;}).join('')}
-    <tr style="background:var(--bg3);font-weight:700;border-top:2px solid var(--border2)">
-      <td style="text-align:left;font-size:13px">TOTAL 合計</td><td></td>
-      <td style="font-size:13px">${fmt(totS,0)}</td>
-      <td style="font-size:13px;color:var(--amber)">${fmt(totE,0)}</td>
-      <td style="font-size:13px" class="${tacosClass(acctTacos)}">${pct(acctTacos)}</td>
-      <td style="font-size:13px">${totU}</td>
-      <td style="font-size:13px">${orgPct}%</td>
-      <td style="font-size:13px;color:${totProfit>=0?'var(--green)':'var(--red)'}">${fmt(totProfit,0)}</td>
-      <td></td><td></td>
-    </tr></tbody>`;
-  }
-
-  // Dynamic action items based on quadrant data
-  const thisWeekEl=$('actionThisWeek');
-  const nextMonEl=$('actionNextMon');
-  if(!thisWeekEl||!nextMonEl) return;
-
-  let thisWeekHtml='';
-  let nextMonHtml='';
-  const activeProducts=sp.filter(([,p])=>p.total_sales>0);
-
-  activeProducts.forEach(([pid,p])=>{
-    const q=(function(){
-      if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return 'star';
-      if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return 'question';
-      if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return 'potential';
-      return 'cut';
-    })();
-    const name=zhShort(pid);
-    const tacos=p.tacos_4w!=null?p.tacos_4w.toFixed(1)+'%':'N/A';
-
-    if(q==='star'){
-      thisWeekHtml+=makeAction('廣告','var(--green)',`<strong>${name} SP 預算 +30%</strong> — ⭐ Star 象限，TACOS ${tacos}，加碼投放`,`截止：3/12 (三)`);
-      nextMonHtml+=makeAction('策略','#7c3aed',`<strong>${name} 建立 SB + SD Retargeting</strong> — 擴大廣告覆蓋面，提高品牌曝光`,`截止：3/16 (一)`);
-    } else if(q==='question'){
-      thisWeekHtml+=makeAction('廣告','var(--amber)',`<strong>${name} CPC 出價降 20%</strong> — ⚠️ Question 象限，TACOS ${tacos}，降低出價觀察`,`截止：3/12 (三)`);
-      thisWeekHtml+=makeAction('廣告','var(--amber)',`<strong>${name} 暫停 ACOS ≥85% 關鍵字</strong> — 下載 SP Bulk File，Pause 14 天無轉換 KW`,`截止：3/13 (四)`);
-    } else if(q==='cut'){
-      thisWeekHtml+=makeAction('定價','var(--red)',`<strong>${name} 降價或加 Coupon 5-10%</strong> — 🔴 Cut 象限，TACOS ${tacos}，需提升轉換率`,`截止：3/11 (二)`);
-      thisWeekHtml+=makeAction('廣告','var(--red)',`<strong>${name} SP Bid 全部降至上限</strong> — 減少無效花費`,`截止：3/12 (三)`);
-    } else {
-      nextMonHtml+=makeAction('策略','var(--accent)',`<strong>${name} 新建 SP Auto $10/天</strong> — 💤 Potential 象限，30 天跑數據`,`截止：3/16 (一)`);
-    }
-  });
-
-  // Add general action items
-  nextMonHtml+=makeAction('報告','#7c3aed',`<strong>Spring Sale 促銷申請</strong> — 評估哪些產品申請 3/25 Spring Sale Deal（需提前 2 週）`,`截止：3/16 (一)`);
-  nextMonHtml+=makeAction('報告','#7c3aed',`<strong>W6 週報更新</strong> — 更新 3/8–3/14 數據至看板`,`截止：3/16 (一)`);
-
-  thisWeekEl.innerHTML=thisWeekHtml;
-  nextMonEl.innerHTML=nextMonHtml;
-
-  // Key Takeaways
-  const stars=activeProducts.filter(([,p])=>p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET);
-  const questions=activeProducts.filter(([,p])=>p.total_sales>=med&&p.tacos_4w>TACOS_TARGET);
-  const cuts=activeProducts.filter(([,p])=>{
-    const q=(function(){
-      if(p.total_sales>=med&&p.tacos_4w<=TACOS_TARGET) return 'star';
-      if(p.total_sales>=med&&p.tacos_4w>TACOS_TARGET)  return 'question';
-      if(p.total_sales<med&&p.tacos_4w<=TACOS_TARGET)   return 'potential';
-      return 'cut';
-    })();
-    return q==='cut';
-  });
-
-  const tkEl=$('takeawayCards');
-  if(tkEl){
-    tkEl.innerHTML=`
-    <div class="chart-card" style="border-left:3px solid var(--green)">
-      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--green)">✅ 正向訊號</div>
-      <div style="font-size:13px;color:var(--text2);line-height:2">
-        ${stars.length>0?stars.map(([pid,p])=>`• ${zhShort(pid)} TACOS ${p.tacos_4w!=null?p.tacos_4w.toFixed(1):'N/A'}% — Star 表現穩定`).join('<br>'):'• 暫無 Star 象限產品'}
-        <br>• 有機佔比 ${orgPct}%${orgPct>=50?' — 健康':' — 需提升'}
-        <br>• ${prodCount} 產品線運作中
-      </div>
-    </div>
-    <div class="chart-card" style="border-left:3px solid var(--red)">
-      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--red)">⚠️ 警示訊號</div>
-      <div style="font-size:13px;color:var(--text2);line-height:2">
-        ${cuts.length>0?cuts.map(([pid,p])=>`• ${zhShort(pid)} TACOS ${p.tacos_4w!=null?p.tacos_4w.toFixed(1):'N/A'}% — 需止血`).join('<br>'):'• 暫無需止血產品'}
-        ${questions.length>0?'<br>'+questions.map(([pid,p])=>`• ${zhShort(pid)} TACOS ${p.tacos_4w!=null?p.tacos_4w.toFixed(1):'N/A'}% — 需觀察`).join('<br>'):''}
-        <br>• 帳戶 TACOS ${acctTacos.toFixed(1)}%${acctTacos>TACOS_TARGET?' — 超過目標':' — 達標'}
-      </div>
-    </div>
-    <div class="chart-card" style="border-left:3px solid var(--accent)">
-      <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--accent)">📋 本週優先級</div>
-      <div style="font-size:13px;color:var(--text2);line-height:2">
-        ${cuts.length>0?'1. Cut 產品止血（降預算 + Coupon）<br>':''}
-        ${questions.length>0?(cuts.length>0?'2':'1')+'. Question 產品降 CPC 觀察<br>':''}
-        ${stars.length>0?((cuts.length>0?2:0)+(questions.length>0?1:0)+1)+'. Star 產品加碼投放<br>':''}
-        ${(cuts.length>0?2:0)+(questions.length>0?1:0)+(stars.length>0?1:0)+1}. Spring Sale 促銷評估
-      </div>
-    </div>`;
-  }
-
-  // Inject feedback fields into all action items
-  document.querySelectorAll('.action-task').forEach((task,i)=>{
-    const btn=document.createElement('button');
-    btn.className='feedback-toggle';
-    btn.textContent='💬 客戶回饋';
-    btn.onclick=function(){
-      const fb=this.parentElement.querySelector('.feedback-area');
-      fb.classList.toggle('open');
-      this.textContent=fb.classList.contains('open')?'收起 ▲':'💬 客戶回饋';
-    };
-    task.appendChild(btn);
-    const fb=document.createElement('div');
-    fb.className='feedback-area';
-    fb.innerHTML='<textarea placeholder="若不同意此行動方案，請在此填寫您的意見或替代方案 …&#10;If you disagree, please write your feedback or alternative here …"></textarea>';
-    task.appendChild(fb);
-  });
-}
-
-function makeAction(type, color, text, deadline){
-  return `<div class="action-task"><input type="checkbox" onchange="this.parentElement.classList.toggle('done',this.checked)"><span class="task-type" style="background:${color};color:#fff;border:none">${type}</span><span class="task-text" style="font-size:13px">${text}<br><span style="color:var(--text3);font-size:11px">${deadline}</span></span></div>`;
-}
-
 // ═══ INIT ═══
-buildExecSummary();
 buildT1();
 buildWowTab();
 buildHeatTab();
