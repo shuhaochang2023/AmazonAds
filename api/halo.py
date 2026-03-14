@@ -282,9 +282,10 @@ def analyze(brand_key, data=None):
         if not adv or not pur:
             continue
 
-        purchases = int(row.get("purchasesOtherSku7d", 0) or 0)
-        sales = float(row.get("salesOtherSku7d", 0) or 0)
-        units = int(row.get("unitsSoldOtherSku7d", 0) or 0)
+        # Handle both column name formats (OtherSku vs generic)
+        purchases = int(row.get("purchasesOtherSku7d") or row.get("purchases7d") or 0)
+        sales = float(row.get("salesOtherSku7d") or row.get("sales7d") or 0)
+        units = int(row.get("unitsSoldOtherSku7d") or row.get("unitsSoldClicks7d") or 0)
 
         if purchases == 0 and sales == 0:
             continue
