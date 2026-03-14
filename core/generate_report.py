@@ -39,31 +39,26 @@ WEEK_RANGES: dict[str, tuple[date, date]] = {
     "W3": (date(2026, 2, 15), date(2026, 2, 21)),
     "W4": (date(2026, 2, 22), date(2026, 2, 28)),
     "W5": (date(2026, 3,  1), date(2026, 3,  7)),
+    "W6": (date(2026, 3,  8), date(2026, 3, 14)),
 }
 W_LABELS: dict[str, str] = {
     "W1": "Feb 1–7", "W2": "Feb 8–14", "W3": "Feb 15–21",
-    "W4": "Feb 22–28", "W5": "Mar 1–7",
+    "W4": "Feb 22–28", "W5": "Mar 1–7", "W6": "Mar 8–14",
 }
 
 # ── File paths ────────────────────────────────────────────────────────────
 INPUT_DIR    = Path("/Users/koda/amazon-autopilot/clients/daiken/input")
-SOURCE_HTML  = INPUT_DIR / "DAIKEN_Dashboard_Feb2026.html"  # dark-theme base
+SOURCE_HTML  = Path("/Users/koda/amazon-autopilot/output/daiken/DAIKEN_US_Feb-Mar_2026.html")  # has W1-W5
 PRODUCTS_CSV = INPUT_DIR / "Products.csv"
 SALES_CSV    = INPUT_DIR / "HistoricalAsinDateSales.csv"
 SB_CSV       = INPUT_DIR / "SB_report.csv"
 OUTPUT_DIR   = Path("/Users/koda/amazon-autopilot/output/daiken")
 OUTPUT_HTML  = OUTPUT_DIR / f"{CLIENT_NAME}_{MARKET}_{REPORT_PERIOD.replace(' ','_').replace('–','-')}.html"
 
-# ── Frozen weeks (W1-W4 = preserved from SOURCE_HTML, NOT recomputed from CSV) ──
+# ── Frozen weeks (preserved from SOURCE_HTML, NOT recomputed from CSV) ──
 # Preserves the original SP/SD/SB breakdown that's verified in the base HTML.
-# Weekly workflow: add new week to WEEK_RANGES + W_LABELS above; leave FROZEN_WEEKS unchanged.
-FROZEN_WEEKS = ["W1", "W2", "W3", "W4"]
-
-# ── Frozen weeks (W1-W4 = preserved from SOURCE_HTML, not recomputed) ────────
-# These weeks keep their original SP/SD/SB breakdown from the base HTML.
-# To add a new week: append to WEEK_RANGES + W_LABELS above. Do NOT add it here.
-# Next week workflow: add W6 to WEEK_RANGES, download new CSVs, run script.
-FROZEN_WEEKS = ["W1", "W2", "W3", "W4"]
+# Weekly workflow: add new week to WEEK_RANGES + W_LABELS above, add previous week here.
+FROZEN_WEEKS = ["W1", "W2", "W3", "W4", "W5"]
 
 # ── Parent visual config (DAIKEN US — update for other clients) ───────────
 PARENT_COLORS: dict[str, str] = {
